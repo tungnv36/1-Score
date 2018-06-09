@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="a1_score.tima.vn.a1_score_viper">
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Modules.Introduction.View.IntroductionView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.Main.View.MainView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Modules.Login.View.LoginView"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.LOGIN_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Modules.Register.View.RegisterView"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.REGISTER_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.HomePage.View.HomePageView">
+            <intent-filter>
+                <action android:name="android.intent.action.HOME_PAGE_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.Profile.View.ProfileView">
+            <intent-filter>
+                <action android:name="android.intent.action.PROFILE_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.LoanRequest.View.LoanRequestView">
+            <intent-filter>
+                <action android:name="android.intent.action.LOAN_REQUEST_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.UpdateProfile.View.UpdateProfileView">
+            <intent-filter>
+                <action android:name="android.intent.action.UPDATE_PROFILE_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.IntroduceFriends.View.IntroduceFriendsView">
+            <intent-filter>
+                <action android:name="android.intent.action.INTRODUCE_FRIEND_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.LoanRegistration.View.LoanRegistrationView">
+            <intent-filter>
+                <action android:name="android.intent.action.LOAN_REGISTRATION_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.UpdateJob.View.UpdateJobView">
+            <intent-filter>
+                <action android:name="android.intent.action.UPDATE_JOB_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.UpdateFamily.View.UpdateFamilyView">
+            <intent-filter>
+                <action android:name="android.intent.action.UPDATE_FAMILY_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.UpdateSocialNetwork.View.UpdateSocialNetworkView">
+            <intent-filter>
+                <action android:name="android.intent.action.SOCIAL_NETWORK_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.UpdatePapers.View.UpdatePapersView">
+            <intent-filter>
+                <action android:name="android.intent.action.UPDATE_PAPER_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.Camera.View.CameraView">
+            <intent-filter>
+                <action android:name="android.intent.action.CAMERA_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.Camera.View.CameraActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.CAMERA_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

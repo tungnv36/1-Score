@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.loopeer.shadow.ShadowView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="10dp"
+    app:cornerRadius="10dp"
+    app:shadowMargin="5dp"
+    app:shadowRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rlTop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/ic_big_loan" />
+
+            <LinearLayout
+                android:id="@+id/llViewText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/ivIcon"
+                android:layout_alignTop="@+id/ivIcon"
+                android:layout_marginLeft="5dp"
+                android:layout_toLeftOf="@+id/btLoan"
+                android:layout_toRightOf="@+id/ivIcon"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvLoanName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loan_request"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvLoanMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10.000 VNĐ"
+                    android:textColor="@color/red_text"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btLoan"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/style_button_green"
+                android:elevation="2dp"
+                android:text="Vay"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/light_gray" />
+
+        <RelativeLayout
+            android:id="@+id/rlInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tvLabelCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvCost"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="5dp"
+                android:text="@string/cost_of_load"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/tvLabelCost"
+                android:text="300.000 VNĐ"
+                android:textColor="@color/text_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/pbLevel"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="80dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:progress="100"
+                android:progressDrawable="@drawable/custom_progress_bar_3"/>
+
+            <TextView
+                android:id="@+id/tvState"
+                android:layout_width="80dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:text="10/10"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvLabelState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvCost"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/tvState"
+                android:text="@string/state"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvLabelInterest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvInterest"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="5dp"
+                android:text="@string/interest"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvInterest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/tvCost"
+                android:layout_below="@+id/tvCost"
+                android:layout_marginTop="5dp"
+                android:text="80.000 VNĐ"
+                android:textColor="@color/text_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvLabelCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvCondition"
+                android:layout_alignLeft="@+id/tvLabelState"
+                android:layout_marginRight="5dp"
+                android:text="@string/condition"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tvState"
+                android:layout_marginTop="5dp"
+                android:text="Level 5"
+                android:textColor="@color/text_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/tvInterest"
+                android:layout_marginTop="10dp"
+                android:background="@color/light_gray" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="@string/info_button_close"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</com.loopeer.shadow.ShadowView>

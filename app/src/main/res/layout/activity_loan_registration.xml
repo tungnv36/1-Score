@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/llInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shadow"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/llFormOfLoans"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_form_of_loans"
+                    android:textColor="@color/hind_text" />
+
+                <Spinner
+                    android:id="@+id/spFormOfLoans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llPaymentMethods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llFormOfLoans"
+                android:background="@drawable/edittext_bottom"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_payment_methods"
+                    android:textColor="@color/hind_text" />
+
+                <Spinner
+                    android:id="@+id/spPaymentMethods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llLoanPurpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llPaymentMethods"
+                android:background="@drawable/edittext_bottom"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_loan_purpose"
+                    android:textColor="@color/hind_text" />
+
+                <Spinner
+                    android:id="@+id/spLoanPurpose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llLoanMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llLoanPurpose"
+                android:background="@drawable/edittext_bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/title_loan_money"
+                    android:textColor="@color/hind_text" />
+
+                <SeekBar
+                    android:id="@+id/sbLoanMoney"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/custom_progress_bar_4"
+                    android:splitTrack="false"
+                    android:thumb="@mipmap/ic_thumb" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp">
+
+                    <TextView
+                        android:id="@+id/tvStartLoanMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="1 triệu" />
+
+                    <TextView
+                        android:id="@+id/tvEndLoanMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="3 triệu" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llLoanTurm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llLoanMoney"
+                android:layout_marginBottom="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/title_loan_turm"
+                    android:textColor="@color/hind_text" />
+
+                <SeekBar
+                    android:id="@+id/sbLoanTurm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/custom_progress_bar_4"
+                    android:splitTrack="false"
+                    android:thumb="@mipmap/ic_thumb" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp">
+
+                    <TextView
+                        android:id="@+id/tvStartLoanTurm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="10 ngày" />
+
+                    <TextView
+                        android:id="@+id/tvEndLoanTurm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="30 ngày" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/llInfo"
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="-35dp"
+            android:background="@drawable/rec_corder_gray"
+            android:orientation="vertical" />
+
+        <RelativeLayout
+            android:id="@+id/rlLoanInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="-10dp"
+            android:background="@drawable/ticket">
+
+            <TextView
+                android:id="@+id/tvLabelMoneyLoan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/title_loan_money_dot"
+                android:textColor="@color/text_dark" />
+
+            <TextView
+                android:id="@+id/tvMoneyLoan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:text="2.000.000 VNĐ"
+                android:textColor="@color/main_green" />
+
+            <TextView
+                android:id="@+id/tvLabelCostOfLoan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLabelMoneyLoan"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/cost_of_load"
+                android:textColor="@color/text_dark" />
+
+            <TextView
+                android:id="@+id/tvCostOfLoan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tvMoneyLoan"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:text="300.000 VNĐ"
+                android:textColor="@color/text_dark" />
+
+            <TextView
+                android:id="@+id/tvLabelInterest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLabelCostOfLoan"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/interest"
+                android:textColor="@color/text_dark" />
+
+            <TextView
+                android:id="@+id/tvInterest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tvCostOfLoan"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:text="80.000 VNĐ"
+                android:textColor="@color/text_dark" />
+
+            <TextView
+                android:id="@+id/tvLabelTotalMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLabelInterest"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/title_sum_money_dot"
+                android:textColor="@color/text_dark" />
+
+            <TextView
+                android:id="@+id/tvTotalMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tvInterest"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:text="2.380.000 VNĐ"
+                android:textColor="@color/red_text" />
+
+            <CheckBox
+                android:id="@+id/cbContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLabelTotalMoney"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/contract_title" />
+
+            <Button
+                android:id="@+id/btContract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cbContact"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="-20dp"
+                android:textColor="@color/main_dark_blue"
+                android:background="@color/transparent"
+                android:text="@string/contract"
+                android:textAllCaps="false"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlLoanInfo"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp">
+
+            <Button
+                android:id="@+id/btCancel"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/style_button_white"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/red_text"
+                android:textSize="@dimen/button_text_style" />
+
+            <Button
+                android:id="@+id/btRegister"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/style_button_main"
+                android:text="@string/register_now"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_style" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

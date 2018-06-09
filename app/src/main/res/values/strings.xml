@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">1-Score-Viper</string>
+    <string name="next">NEXT</string>
+    <string name="back">BACK</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register">Đăng ký</string>
+    <string name="update">Cập nhật</string>
+    <string name="cancel">Huỷ</string>
+    <string name="register_now">Đăng ký ngay</string>
+
+    <string name="label_user">Nhập số điện thoại</string>
+    <string name="label_pass">Mật khẩu</string>
+    <string name="label_re_pass">Nhập lại mật khẩu</string>
+    <string name="lost_pass">Quên mật khẩu?</string>
+    <string name="home_page_title">Trang chủ</string>
+    <string name="profile_title">Hồ sơ cá nhân</string>
+    <string name="loan_request">Yêu cầu vay</string>
+    <string name="info_button_close">Thông tin ▾</string>
+    <string name="info_button_open">Thông tin ▴</string>
+    <string name="permission_fail">Bạn không có quyền truy cập permission</string>
+    <string name="upload_image_fail">Không tải được ảnh</string>
+    <string name="select_file">Chọn ảnh</string>
+    <string name="select_file_from_library">Chọn ảnh từ thư viện</string>
+    <string name="take_photo">Chụp ảnh</string>
+    <string name="add_photo">Thêm ảnh</string>
+    <string name="phone_number">tel:1900633688</string>
+    <string name="person_info">Thông tin cá nhân</string>
+    <string name="family_info">Thông tin gia đình</string>
+    <string name="bank_info">Thông tin ngân hàng</string>
+    <string name="job_info">Thông tin nghề nghiệp</string>
+    <string name="social_network_info">Thông tin mạng xã hội</string>
+    <string name="social_network">Mạng xã hội</string>
+    <string name="paper">Giấy tờ</string>
+    <string name="paper_photo">Ảnh chụp giấy tờ</string>
+
+    <string name="take_photo_failed">Chụp ảnh lỗi</string>
+    <string name="take_photo_progress">Đang xử lý ảnh ...</string>
+
+    <string name="type">TYPE</string>
+    <string name="image_type">IMAGE_TYPE</string>
+    <string name="result">result</string>
+    <string name="image_name">/IMG.jpg</string>
+
+    <string name="title_name">Họ và tên</string>
+    <string name="title_name_vc">Họ tên vợ/chồng</string>
+    <string name="title_birthday">Ngày sinh</string>
+    <string name="title_sex">Giới tính</string>
+    <string name="title_cmnd">Số CMND</string>
+    <string name="title_phone">Số điện thoại</string>
+    <string name="title_phone_vc">Số điện thoại vợ/chồng</string>
+    <string name="title_address">Địa chỉ liên hệ</string>
+    <string name="title_number_account">Số tài khoản</string>
+    <string name="title_card_turm">Thời hạn thẻ</string>
+    <string name="title_front_cmnd">Mặt trước CMND</string>
+    <string name="title_son_birth_certificate">Giấy khai sinh con cái</string>
+    <string name="title_behind_cmnd">Mặt sau CMND</string>
+    <string name="title_student_card">Thẻ học sinh</string>
+    <string name="title_marriage_registration">Đăng ký kết hôn</string>
+    <string name="title_card">Ảnh chụp thẻ</string>
+    <string name="title_form_of_loans">Hình thức vay</string>
+    <string name="title_payment_methods">Phương thức thanh toán</string>
+    <string name="title_loan_turm">Thời hạn vay</string>
+    <string name="title_sum_money">Tổng tiền phải trả</string>
+    <string name="title_loan_purpose">Mục đích vay</string>
+    <string name="title_loan_money">Số tiền vay</string>
+    <string name="title_job">Nghề nghiệp</string>
+    <string name="title_company_name">Tên công ty</string>
+    <string name="title_company_address">Địa chỉ công ty</string>
+    <string name="title_position">Vị trí</string>
+    <string name="title_son">Mức lương</string>
+    <string name="title_linkedin">Linkedin</string>
+    <string name="title_colleague_name">Họ tên đồng nghiệp</string>
+    <string name="title_colleague_phone">Số điện thoại đồng nghiệp</string>
+    <string name="are_you_married">Bạn có gia đình chưa?</string>
+    <string name="title_salary">Mức lương</string>
+    <string name="title_relationship">Quan hệ</string>
+
+    <string name="cv">CV</string>
+    <string name="contract_normal">Hợp đồng</string>
+    <string name="salary_board">Bảng lương</string>
+
+    <string name="title_loan_money_dot">Số tiền vay: </string>
+    <string name="title_sum_money_dot">Tổng tiền phải trả: </string>
+    <string name="cost_of_load">Phí: </string>
+    <string name="interest">Lãi: </string>
+    <string name="state">Tình trạng: </string>
+    <string name="condition">Điện kiện vay: </string>
+    <string name="contract_title">Tôi đã đọc và đồng ý với các điều khoản của</string>
+    <string name="contract"><u>Hợp đồng</u></string>
+
+    <string name="menu_profile">Hồ sơ cá nhân</string>
+    <string name="menu_loan_request">Yêu cầu vay</string>
+    <string name="menu_mini_game">Mini game</string>
+    <string name="menu_introduction">Giới thiệu</string>
+    <string name="err_user_empty">Bạn chưa nhập tài khoản</string>
+    <string name="err_pass_empty">Bạn chưa nhập mật khẩu</string>
+    <string name="login_success">ok</string>
+    <string name="login_failed">Đăng nhập thất bại</string>
+    <string name="dialog_title">Thông báo</string>
+
+    <string name="menu_info">Thông tin cơ bản</string>
+    <string name="menu_job">Nghề nghiệp</string>
+    <string name="menu_family">Gia đình</string>
+    <string name="menu_social_network">Mạng xã hội</string>
+    <string name="menu_paper">Giấy tờ khác</string>
+    <string name="info_expired">Có thông tin đã hết hạn</string>
+
+    <string name="font_segoe">fonts/Segoe UI.ttf</string>
+</resources>

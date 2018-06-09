@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.loopeer.shadow.ShadowView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:elevation="10dp"
+    app:cornerRadius="10dp"
+    app:shadowMargin="5dp"
+    app:shadowRadius="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"/>
+
+        <LinearLayout
+            android:id="@+id/llViewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivIcon"
+            android:layout_alignBottom="@+id/ivIcon"
+            android:layout_toRightOf="@+id/ivIcon"
+            android:layout_toLeftOf="@+id/ibArrow"
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/home_page_title"
+                android:textColor="@color/dark_text"
+                android:textSize="18sp"
+                android:gravity="top"/>
+
+            <TextView
+                android:id="@+id/tvSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/home_page_title"
+                android:textColor="@color/orange"
+                android:textSize="14sp"
+                android:gravity="bottom"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/ibArrow"
+            android:layout_width="25dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@null"/>
+
+        <ProgressBar
+            android:id="@+id/pbLevel"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/ivIcon"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:progress="70"
+            android:progressDrawable="@drawable/custom_progress_bar_green"/>
+
+    </RelativeLayout>
+</com.loopeer.shadow.ShadowView>

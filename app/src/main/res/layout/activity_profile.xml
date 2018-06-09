@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/background_gradient_blue"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rlBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/ibMenu"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@null"
+                android:src="@mipmap/ic_black_white"
+                android:layout_margin="5dp"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tvTitle"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="10.000"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <me.tankery.lib.circularseekbar.CircularSeekBar
+        android:id="@+id/sbLevel"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/rlTop"
+        android:layout_marginBottom="-60dp"
+        app:cs_maintain_equal_circle="true"
+        app:cs_start_angle="-200"
+        app:cs_end_angle="20"
+        app:cs_progress="30"
+        app:cs_circle_style="round"
+        app:cs_circle_stroke_width="8dp"
+        app:cs_disable_pointer="true"
+        app:cs_circle_progress_color="#FDCB48"/>
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/rlTop"
+        android:layout_marginBottom="-40dp"
+        android:background="@drawable/avatar"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tvCurrentLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Level 1"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/text_dark"
+        android:layout_marginRight="-10dp"
+        android:layout_below="@+id/rlTop"
+        android:layout_toLeftOf="@+id/ivLogo"/>
+
+    <TextView
+        android:id="@+id/tvNextLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Level 2"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/text_dark"
+        android:layout_marginLeft="-10dp"
+        android:layout_below="@+id/rlTop"
+        android:layout_toRightOf="@+id/ivLogo"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nguyễn Vũ Tùng"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:textSize="20sp"
+        android:textColor="@color/text_dark"
+        android:textStyle="bold"
+        android:layout_marginRight="-10dp"
+        android:layout_below="@+id/ivLogo"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/tvName"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

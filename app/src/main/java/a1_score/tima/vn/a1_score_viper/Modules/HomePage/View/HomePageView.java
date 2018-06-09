@@ -32,8 +32,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
-//import com.appolica.flubber.Flubber;
-
 public class HomePageView extends AppCompatActivity implements HomePageInterface.View, View.OnClickListener, AdapterView.OnItemClickListener {
 
     @BindView(R.id.ibMenu)

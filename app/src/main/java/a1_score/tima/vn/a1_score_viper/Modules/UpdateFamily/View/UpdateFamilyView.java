@@ -32,6 +32,7 @@ import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.UpdateFamilyEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface.UpdateFamilyInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Presenter.UpdateFamilyPresenter;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.View.UpdatePapersView;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -156,19 +157,29 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        boolean result = false;
         switch (v.getId()) {
             case R.id.ibAdd:
                 lstUpdateFamily.add(new UpdateFamilyEntity(lstUpdateFamily.size() + 1, 1, "", ""));
                 familyControlAdapter.notifyDataSetChanged();
                 break;
             case R.id.rlMarriageRegistration:
-                presenter.takePhoto(2, 1);
+                result = Commons.checkPermission2(UpdateFamilyView.this);
+                if(result) {
+                    presenter.takePhoto(2, 1);
+                }
                 break;
             case R.id.rlSonBirthCertificate:
-                presenter.takePhoto(2, 2);
+                result = Commons.checkPermission2(UpdateFamilyView.this);
+                if(result) {
+                    presenter.takePhoto(2, 2);
+                }
                 break;
             case R.id.rlStudentCard:
-                presenter.takePhoto(1, 3);
+                result = Commons.checkPermission2(UpdateFamilyView.this);
+                if(result) {
+                    presenter.takePhoto(1, 3);
+                }
                 break;
         }
     }
@@ -178,9 +189,9 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
             if (data != null) {
-                String filePath = data.getStringExtra("result");
-                int type = data.getIntExtra("type", 0);
-                int imageType = data.getIntExtra("image_type", 0);
+                String filePath = data.getStringExtra(getString(R.string.result));
+                int type = data.getIntExtra(getString(R.string.type), 0);
+                int imageType = data.getIntExtra(getString(R.string.image_type), 0);
                 presenter.updateImage(type, imageType, filePath);
             }
         }

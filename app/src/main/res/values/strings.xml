@@ -38,10 +38,12 @@
     <string name="take_photo_failed">Chụp ảnh lỗi</string>
     <string name="take_photo_progress">Đang xử lý ảnh ...</string>
 
-    <string name="type">TYPE</string>
-    <string name="image_type">IMAGE_TYPE</string>
+    <string name="type">type</string>
+    <string name="image_type">image_type</string>
     <string name="result">result</string>
     <string name="image_name">/IMG.jpg</string>
+
+    <string name="no_permission">Không được cấp quyền</string>
 
     <string name="title_name">Họ và tên</string>
     <string name="title_name_vc">Họ tên vợ/chồng</string>

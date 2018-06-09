@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.suke.widget.SwitchButton;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.View.UpdateFamilyView;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Presenter.UpdateJobPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -144,9 +145,9 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
             if (data != null) {
-                String filePath = data.getStringExtra("result");
-                int type = data.getIntExtra("type", 0);
-                int imageType = data.getIntExtra("image_type", 0);
+                String filePath = data.getStringExtra(getString(R.string.result));
+                int type = data.getIntExtra(getString(R.string.type), 0);
+                int imageType = data.getIntExtra(getString(R.string.image_type), 0);
                 presenter.updateImage(type, imageType, filePath);
             }
         }
@@ -177,15 +178,25 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
 
     @Override
     public void onClick(View v) {
+        boolean result = false;
         switch (v.getId()) {
             case R.id.rlCV:
-                presenter.takePhoto(2, 1);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 1 => rlCV
+                result = Commons.checkPermission2(UpdateJobView.this);
+                if(result) {
+                    presenter.takePhoto(2, 1);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 1 => rlCV
+                }
                 break;
             case R.id.rlContract:
-                presenter.takePhoto(2, 2);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 2 => rlContract
+                result = Commons.checkPermission2(UpdateJobView.this);
+                if(result) {
+                    presenter.takePhoto(2, 2);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 2 => rlContract
+                }
                 break;
             case R.id.rlSalaryBoard:
-                presenter.takePhoto(2, 3);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 3 => rlSalaryBoard
+                result = Commons.checkPermission2(UpdateJobView.this);
+                if(result) {
+                    presenter.takePhoto(2, 3);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 3 => rlSalaryBoard
+                }
                 break;
         }
     }

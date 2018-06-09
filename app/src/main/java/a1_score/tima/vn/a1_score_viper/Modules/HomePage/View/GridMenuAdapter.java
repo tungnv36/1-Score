@@ -1,18 +1,14 @@
 package a1_score.tima.vn.a1_score_viper.Modules.HomePage.View;
 
-import android.content.Context;
 import android.graphics.Typeface;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.time.format.TextStyle;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;

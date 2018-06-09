@@ -160,6 +160,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        boolean result = false;
         switch (v.getId()) {
             case R.id.llBirthDay:
                 showDateDialog();
@@ -168,13 +169,22 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
                 showDateMYDialog();
                 break;
             case R.id.rlFrontCMND:
-                presenter.takePhoto(1, 1);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
+                result = Commons.checkPermission2(UpdateProfileView.this);
+                if(result) {
+                    presenter.takePhoto(1, 1);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
+                }
                 break;
             case R.id.rlBehindCMND:
-                presenter.takePhoto(1, 2);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 2 => llBehindCMND
+                result = Commons.checkPermission2(UpdateProfileView.this);
+                if(result) {
+                    presenter.takePhoto(1, 2);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 2 => llBehindCMND
+                }
                 break;
             case R.id.rlCard:
-                presenter.takePhoto(1, 3);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 3 => llCard
+                result = Commons.checkPermission2(UpdateProfileView.this);
+                if(result) {
+                    presenter.takePhoto(1, 3);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 3 => llCard
+                }
                 break;
 
         }
@@ -185,9 +195,9 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
             if (data != null) {
-                String filePath = data.getStringExtra("result");
-                int type = data.getIntExtra("type", 0);
-                int imageType = data.getIntExtra("image_type", 0);
+                String filePath = data.getStringExtra(getString(R.string.result));
+                int type = data.getIntExtra(getString(R.string.type), 0);
+                int imageType = data.getIntExtra(getString(R.string.image_type), 0);
                 presenter.updateImage(type, imageType, filePath);
             }
         }

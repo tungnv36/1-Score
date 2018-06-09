@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interface.HomePageInterface;
-import a1_score.tima.vn.a1_score_viper.Modules.HomePage.View.HomePageView;
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class HomePageInteractor implements HomePageInterface.InteractorInput {

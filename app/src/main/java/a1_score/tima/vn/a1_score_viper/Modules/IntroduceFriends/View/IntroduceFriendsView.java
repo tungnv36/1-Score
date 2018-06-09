@@ -84,7 +84,7 @@ public class IntroduceFriendsView extends AppCompatActivity {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getContact();
                 } else {
-                    Toast.makeText(this, "No Permissions ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.no_permission), Toast.LENGTH_SHORT).show();
                 }
                 return;
             }

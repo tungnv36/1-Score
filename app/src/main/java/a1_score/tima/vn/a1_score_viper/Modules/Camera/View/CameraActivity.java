@@ -3,13 +3,8 @@ package a1_score.tima.vn.a1_score_viper.Modules.Camera.View;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
@@ -18,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -28,14 +22,8 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Common.CameraType;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Modules.Camera.Interface.CameraInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Camera.Presenter.CameraPresenter;
@@ -73,6 +61,11 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
         initView();
 
+        //type: Xác định loại khung ảnh sẽ vẽ lên camera
+        //type = 1: khung chữ nhật ngang dùng cho các loại CMND, bằng lái, ...
+        //type = 2: Không có khung, dùng để chụp hợp đồng, giấy tờ dạng A4
+
+        //imageType: Xác định image view nào sẽ hiển thị ảnh vừa chụp
         type = getIntent().getIntExtra(getString(R.string.type), 0);
         imageType = getIntent().getIntExtra(getString(R.string.image_type), 0);
 
@@ -91,6 +84,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             }
         };
 
+        //auto focus khi chạm vào màn hình
         cameraView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,10 +169,10 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         try {
+            camera = Camera.open();
             synchronized (holder) {
                 Draw();
             }
-            camera = Camera.open();
         } catch (Exception e) {
             return;
         }

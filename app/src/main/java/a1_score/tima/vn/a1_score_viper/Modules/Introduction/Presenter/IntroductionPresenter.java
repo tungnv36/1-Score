@@ -1,11 +1,9 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Introduction.Presenter;
 
 import android.app.Activity;
-import android.content.Context;
 
 import a1_score.tima.vn.a1_score_viper.Modules.Introduction.Interactor.IntroductionInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.Introduction.Interface.IntroductionInterface;
-import a1_score.tima.vn.a1_score_viper.Modules.Introduction.View.IntroductionView;
 import a1_score.tima.vn.a1_score_viper.Modules.Introduction.Wireframe.IntroductionWireframe;
 
 public class IntroductionPresenter implements IntroductionInterface.Presenter, IntroductionInterface.InteractorOutput {

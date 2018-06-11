@@ -35,4 +35,7 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     compile 'com.loopeer.lib:shadow:0.0.4-beta3'
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 }

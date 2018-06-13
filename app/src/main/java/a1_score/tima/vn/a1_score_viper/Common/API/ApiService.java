@@ -1,5 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Common.API;
 
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterEntity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,12 +18,13 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    String API_LOGIN = "/api/Counselor/MessageMarkRead";
+    String API_LOGIN = "/api/v1.0/users/token";
+    String API_REGISTER = "/api/v1.0/users/register";
 
-    @GET(API_LOGIN)
-    Call<ResponseBody> getListQuestion(@Query("token") String token,
-                                       @Query("loanCreditId") String loanCreditId,
-                                       @Query("idType") String idType,
-                                       @Query("productId") String productId);
+    @POST(API_LOGIN)
+    Call<ResponseBody> callLogin(@Body LoginEntity loginEntity);
+
+    @POST(API_REGISTER)
+    Call<ResponseBody> callRegister(@Body RegisterEntity registerEntity);
 
 }

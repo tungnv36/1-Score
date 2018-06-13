@@ -13,6 +13,7 @@
     <string name="label_user">Nhập số điện thoại</string>
     <string name="label_pass">Mật khẩu</string>
     <string name="label_re_pass">Nhập lại mật khẩu</string>
+    <string name="label_email">Email</string>
     <string name="lost_pass">Quên mật khẩu?</string>
     <string name="home_page_title">Trang chủ</string>
     <string name="profile_title">Hồ sơ cá nhân</string>
@@ -98,6 +99,8 @@
     <string name="menu_introduction">Giới thiệu</string>
     <string name="err_user_empty">Bạn chưa nhập tài khoản</string>
     <string name="err_pass_empty">Bạn chưa nhập mật khẩu</string>
+    <string name="err_repass_empty">Bạn chưa nhập lại mật khẩu</string>
+    <string name="err_email_empty">Bạn chưa nhập Email</string>
     <string name="login_success">ok</string>
     <string name="login_failed">Đăng nhập thất bại</string>
     <string name="dialog_title">Thông báo</string>

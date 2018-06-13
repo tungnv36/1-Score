@@ -18,13 +18,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Interface.RegisterInterface;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Presenter.RegisterPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RegisterView extends AppCompatActivity implements View.OnClickListener {
+public class RegisterView extends AppCompatActivity implements View.OnClickListener, RegisterInterface.View {
 
     @BindView(R.id.ivLogo)
     ImageView ivLogo;
@@ -61,6 +64,8 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.rootView)
     RelativeLayout rootView;
 
+    private RegisterInterface.Presenter presenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +100,11 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+
+        presenter = new RegisterPresenter(this);
+
+        ibBack.setOnClickListener(this);
+        btRegister.setOnClickListener(this);
     }
 
     /**
@@ -121,7 +131,45 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
                 this.finish();
                 break;
             case R.id.btRegister:
+                presenter.register(etUsername.getText().toString(), etPassword.getText().toString(), etRePassword.getText().toString(), etEmail.getText().toString());
                 break;
         }
+    }
+
+    @Override
+    public void usernameEmpty(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void passwordEmpty(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void confirmPasswordEmpty(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void EmailEmpty(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void registerSuccess(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void registerFailed(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+        presenter = null;
     }
 }

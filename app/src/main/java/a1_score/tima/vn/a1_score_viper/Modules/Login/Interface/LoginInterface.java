@@ -1,6 +1,11 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Login.Interface;
 
 import android.app.Activity;
+import android.content.Context;
+
+import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 
 public interface LoginInterface {
 
@@ -38,7 +43,8 @@ public interface LoginInterface {
     }
     //DataStore
     interface DataStore {
-        String callLogin(String username, String password);
+        void callLogin(final OnResponse<String, LoginResultEntity> m_Response, LoginEntity loginEntity);
+        void setUser(Context context, LoginResultEntity user);
     }
 
 }

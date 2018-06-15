@@ -157,11 +157,6 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void registerSuccess(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
     public void registerFailed(String error) {
         Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }

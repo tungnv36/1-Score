@@ -31,9 +31,9 @@ public class RegisterPresenter implements RegisterInterface.Presenter, RegisterI
     }
 
     @Override
-    public void registerSuccess(String msg) {
-        view.registerSuccess(msg);
-        wireframe.gotToLogin((Activity)view);
+    public void registerSuccess(String msg, String phoneNumber) {
+        wireframe.gotToOTP((Activity)view, phoneNumber);
+        ((Activity)view).finish();
     }
 
     @Override

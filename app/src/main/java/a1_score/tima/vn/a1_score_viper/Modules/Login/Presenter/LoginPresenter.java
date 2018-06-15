@@ -29,6 +29,11 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     }
 
     @Override
+    public void goToForgotPassword() {
+        interactorInput.goToForgotPassword();
+    }
+
+    @Override
     public void onDestroy() {
         interactorInput.unRegister();
         interactorInput = null;
@@ -38,6 +43,11 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     @Override
     public void changeHeightBannerOutput(int height, int margin) {
         view.changeHeightBanner(height, margin);
+    }
+
+    @Override
+    public void goToForgotPasswordOutput() {
+        wireframe.gotToForgotPassword((Activity)view);
     }
 
     @Override

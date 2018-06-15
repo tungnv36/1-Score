@@ -169,6 +169,7 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
                 this.finish();
                 break;
             case R.id.btLostPass:
+                presenter.goToForgotPassword();
                 break;
             case R.id.btLogin:
                 presenter.login(etUsername.getText().toString(), etPassword.getText().toString());

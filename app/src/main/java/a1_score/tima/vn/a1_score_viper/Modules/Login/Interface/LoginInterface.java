@@ -21,17 +21,20 @@ public interface LoginInterface {
     interface Presenter {
         void changeHeightBanner(int height, int margin);
         void login(String username, String password);
+        void goToForgotPassword();
         void onDestroy();
     }
     //interactor
     interface InteractorInput {
         void changeHeightBanner(int height, int margin);
         void login(String username, String password);
+        void goToForgotPassword();
         void unRegister();
     }
 
     interface InteractorOutput {
         void changeHeightBannerOutput(int height, int margin);
+        void goToForgotPasswordOutput();
         void loginSuccess();
         void loginFailed(String error);
         void usernameEmpty(String error);
@@ -40,6 +43,7 @@ public interface LoginInterface {
     //wireframe
     interface Wireframe {
         void gotToHomePage(Activity activity);
+        void gotToForgotPassword(Activity activity);
     }
     //DataStore
     interface DataStore {

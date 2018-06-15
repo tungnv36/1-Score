@@ -25,7 +25,7 @@ public class RegisterInteractor implements RegisterInterface.InteractorInput {
     }
 
     @Override
-    public void register(String username, String password, String confirmPassword, String email) {
+    public void register(final String username, String password, String confirmPassword, String email) {
         if(username.isEmpty()) {
             interactorOutput.usernameEmpty(((Activity)view).getString(R.string.err_user_empty));
             return;
@@ -38,10 +38,6 @@ public class RegisterInteractor implements RegisterInterface.InteractorInput {
             interactorOutput.confirmPasswordEmpty(((Activity)view).getString(R.string.err_repass_empty));
             return;
         }
-//        if(email.isEmpty()) {
-//            interactorOutput.EmailEmpty(((Activity)view).getString(R.string.err_email_empty));
-//            return;
-//        }
         RegisterEntity registerEntity = new RegisterEntity(username, password, confirmPassword, email);
         dataStore.callRegister(new OnResponse<String, RegisterResultEntity>() {
             @Override
@@ -49,7 +45,7 @@ public class RegisterInteractor implements RegisterInterface.InteractorInput {
                 if(extraData == null || extraData.getStatusCode() != 200) {
                     interactorOutput.registerFailed(rs);
                 } else {
-                    interactorOutput.registerSuccess("Đăng ký thành công!");
+                    interactorOutput.registerSuccess("Đăng ký thành công!", username);
                 }
             }
 

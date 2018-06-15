@@ -16,7 +16,6 @@ public interface RegisterInterface {
         void passwordEmpty(String error);
         void confirmPasswordEmpty(String error);
         void EmailEmpty(String error);
-        void registerSuccess(String msg);
         void registerFailed(String error);
         void onDestroy();
     }
@@ -32,7 +31,7 @@ public interface RegisterInterface {
     }
 
     interface InteractorOutput {
-        void registerSuccess(String msg);
+        void registerSuccess(String msg, String phoneNumber);
         void registerFailed(String error);
         void usernameEmpty(String error);
         void passwordEmpty(String error);
@@ -41,7 +40,7 @@ public interface RegisterInterface {
     }
     //wireframe
     interface Wireframe {
-        void gotToLogin(Activity activity);
+        void gotToOTP(Activity activity, String phoneNumber);
     }
     //DataStore
     interface DataStore {

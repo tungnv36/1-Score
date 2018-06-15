@@ -57,6 +57,11 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
     }
 
     @Override
+    public void goToForgotPassword() {
+        interactorOutput.goToForgotPasswordOutput();
+    }
+
+    @Override
     public void unRegister() {
         interactorOutput = null;
         dataStore = null;

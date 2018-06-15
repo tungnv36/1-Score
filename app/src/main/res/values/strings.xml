@@ -6,12 +6,18 @@
     <string name="start">GOT IT</string>
     <string name="login">Đăng nhập</string>
     <string name="register">Đăng ký</string>
+    <string name="change_pass">Đổi mật khẩu</string>
     <string name="update">Cập nhật</string>
     <string name="cancel">Huỷ</string>
     <string name="register_now">Đăng ký ngay</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="des_enter_phone">Vui lòng nhập số điện thoại của bạn, hệ thống sẽ gửi mã OTP để xác nhận</string>
+
+    <string name="enter_phone_number">Nhập số điện thoại của bạn</string>
 
     <string name="label_user">Nhập số điện thoại</string>
     <string name="label_pass">Mật khẩu</string>
+    <string name="label_pass_new">Mật khẩu mới</string>
     <string name="label_re_pass">Nhập lại mật khẩu</string>
     <string name="label_email">Email</string>
     <string name="lost_pass">Quên mật khẩu?</string>
@@ -84,6 +90,8 @@
     <string name="contract_normal">Hợp đồng</string>
     <string name="salary_board">Bảng lương</string>
 
+    <string name="des_otp">Vui lòng nhập OTP để xác nhận</string>
+
     <string name="title_loan_money_dot">Số tiền vay: </string>
     <string name="title_sum_money_dot">Tổng tiền phải trả: </string>
     <string name="cost_of_load">Phí: </string>
@@ -101,9 +109,11 @@
     <string name="err_pass_empty">Bạn chưa nhập mật khẩu</string>
     <string name="err_repass_empty">Bạn chưa nhập lại mật khẩu</string>
     <string name="err_email_empty">Bạn chưa nhập Email</string>
+    <string name="err_phone_empty">Bạn chưa nhập số điện thoại</string>
     <string name="login_success">ok</string>
     <string name="login_failed">Đăng nhập thất bại</string>
     <string name="dialog_title">Thông báo</string>
+    <string name="register_success">Đăng ký thành công</string>
 
     <string name="menu_info">Thông tin cơ bản</string>
     <string name="menu_job">Nghề nghiệp</string>

@@ -79,6 +79,8 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     private int scoreOfLevel = 80;
     private int startScore = 0;
 
+    public static boolean isLogout = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +107,10 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
         super.onResume();
         presenter.initAnimationLogo(ivLogo);
         presenter.setupAnimationSeekBar(sbLevel, startScore, scoreOfLevel);
+        if(isLogout) {
+            isLogout = false;
+            finish();
+        }
     }
 
     private void styleView() {
@@ -167,6 +173,7 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ibMenu:
+                presenter.goToSetting();
                 break;
             case R.id.ibChat:
                 presenter.setupAnimationSupport(HomePageView.this, llCall, R.anim.right_to_left, R.anim.left_to_right);

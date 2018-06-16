@@ -160,6 +160,20 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".Modules.Setting.View.SettingView">
+            <intent-filter>
+                <action android:name="android.intent.action.SETTING_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Modules.ChangePhone.View.ChangePhoneView">
+            <intent-filter>
+                <action android:name="android.intent.action.CHANGE_PHONE_VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

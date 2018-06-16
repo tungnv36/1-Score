@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Common.API;
 
 import a1_score.tima.vn.a1_score_viper.Modules.ChangePasswordForgot.Entity.ChangePasswordForgotEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Entity.ChangePhoneEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpEntity;
@@ -26,7 +27,8 @@ public interface ApiService {
     String API_REGISTER = "/api/v1.0/users/register";
     String API_OTP = "/api/v1.0/otp/compare-otp";
     String API_SEND_OTP = "/api/v1.0/otp/send-otp";
-    String API_CHANGE_PASS = "/api/v1.0/users/forgot-password";
+    String API_FORGOT_PASS = "/api/v1.0/users/forgot-password";
+    String API_CHANGE_PHONE = "/api/v1.0/users/change-phone-number";
 
     @POST(API_LOGIN)
     Call<ResponseBody> callLogin(@Body LoginEntity loginEntity);
@@ -40,7 +42,10 @@ public interface ApiService {
     @POST(API_SEND_OTP)
     Call<ResponseBody> sendOtp(@Body ForgotPasswordEntity forgotPasswordEntity);
 
-    @POST(API_CHANGE_PASS)
-    Call<ResponseBody> changePassword(@Header("Authorization") String token, @Body ChangePasswordForgotEntity changePasswordForgotEntity);
+    @POST(API_FORGOT_PASS)
+    Call<ResponseBody> forgotPassword(@Header("Authorization") String token, @Body ChangePasswordForgotEntity changePasswordForgotEntity);
+
+    @POST(API_CHANGE_PHONE)
+    Call<ResponseBody> changePhone(@Header("Authorization") String token, @Body ChangePhoneEntity changePhoneEntity);
 
 }

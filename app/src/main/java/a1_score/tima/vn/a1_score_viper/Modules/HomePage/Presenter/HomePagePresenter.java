@@ -55,6 +55,11 @@ public class HomePagePresenter implements HomePageInterface.Presenter, HomePageI
     }
 
     @Override
+    public void goToSetting() {
+        interactorInput.goToSetting();
+    }
+
+    @Override
     public void setupAnimationPress(Context context, View view) {
         interactorInput.setupAnimationPress(context, view);
     }
@@ -103,6 +108,11 @@ public class HomePagePresenter implements HomePageInterface.Presenter, HomePageI
     @Override
     public void goToIntroduceFriendsOutput() {
         wireframe.goToIntroduceFriends((Activity)view);
+    }
+
+    @Override
+    public void goToSettingOutput() {
+        wireframe.goToSetting((Activity)view);
     }
 
     @Override

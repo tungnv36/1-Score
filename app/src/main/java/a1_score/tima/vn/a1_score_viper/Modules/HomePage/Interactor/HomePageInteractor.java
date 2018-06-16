@@ -46,6 +46,11 @@ public class HomePageInteractor implements HomePageInterface.InteractorInput {
     }
 
     @Override
+    public void goToSetting() {
+        interactorOutput.goToSettingOutput();
+    }
+
+    @Override
     public void setupAnimationPress(Context context, View view) {
         interactorOutput.runAnimationPress(context, view);
     }

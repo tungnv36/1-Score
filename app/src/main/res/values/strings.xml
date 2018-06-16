@@ -7,6 +7,8 @@
     <string name="login">Đăng nhập</string>
     <string name="register">Đăng ký</string>
     <string name="change_pass">Đổi mật khẩu</string>
+    <string name="change_phone">Đổi số điện thoại</string>
+    <string name="logout">Đăng xuất</string>
     <string name="update">Cập nhật</string>
     <string name="cancel">Huỷ</string>
     <string name="register_now">Đăng ký ngay</string>
@@ -16,6 +18,8 @@
     <string name="enter_phone_number">Nhập số điện thoại của bạn</string>
 
     <string name="label_user">Nhập số điện thoại</string>
+    <string name="label_phone_old">Nhập số điện thoại cũ</string>
+    <string name="label_phone_new">Nhập số điện thoại mới</string>
     <string name="label_pass">Mật khẩu</string>
     <string name="label_pass_new">Mật khẩu mới</string>
     <string name="label_re_pass">Nhập lại mật khẩu</string>
@@ -85,6 +89,7 @@
     <string name="are_you_married">Bạn có gia đình chưa?</string>
     <string name="title_salary">Mức lương</string>
     <string name="title_relationship">Quan hệ</string>
+    <string name="title_setting">Cài đặt</string>
 
     <string name="cv">CV</string>
     <string name="contract_normal">Hợp đồng</string>

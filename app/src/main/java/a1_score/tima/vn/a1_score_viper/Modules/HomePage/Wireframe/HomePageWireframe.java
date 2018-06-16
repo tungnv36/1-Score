@@ -10,6 +10,7 @@ import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interface.HomePageInterf
 import a1_score.tima.vn.a1_score_viper.Modules.IntroduceFriends.View.IntroduceFriendsView;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.View.LoanRequestView;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.View.ProfileView;
+import a1_score.tima.vn.a1_score_viper.Modules.Setting.View.SettingView;
 import a1_score.tima.vn.a1_score_viper.R;
 
 public class HomePageWireframe implements HomePageInterface.Wireframe {
@@ -29,6 +30,12 @@ public class HomePageWireframe implements HomePageInterface.Wireframe {
     @Override
     public void goToIntroduceFriends(Activity activity) {
         Intent intent = new Intent(activity, IntroduceFriendsView.class);
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public void goToSetting(Activity activity) {
+        Intent intent = new Intent(activity, SettingView.class);
         activity.startActivity(intent);
     }
 

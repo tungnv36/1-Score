@@ -102,8 +102,11 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
         btLostPass.setOnClickListener(this);
         btLogin.setOnClickListener(this);
 
-        etUsername.setText("admin");
-        etPassword.setText("admin");
+//        etUsername.setText("admin");
+//        etPassword.setText("admin123");
+
+        etUsername.setText("01656226909");
+        etPassword.setText("7654321");
     }
 
     @Override

@@ -20,6 +20,7 @@ public interface HomePageInterface {
         void goToProfile();
         void goToLoanRequest();
         void goToIntroduceFriends();
+        void goToSetting();
         void setupAnimationPress(Context context, android.view.View view);
         void setupAnimationSupport(Context context, android.view.View view, int animOpen, int animClose);
         void callSupport(Context context, String phoneNumber);
@@ -32,6 +33,7 @@ public interface HomePageInterface {
         void goToProfile();
         void goToLoanRequest();
         void goToIntroduceFriends();
+        void goToSetting();
         void setupAnimationPress(Context context, android.view.View view);
         void setupAnimationSupport(Context context, android.view.View view, int animOpen, int animClose);
         void callSupport(Context context, String phoneNumber);
@@ -44,6 +46,7 @@ public interface HomePageInterface {
         void goToProfileOutput();
         void goToLoanRequestOutput();
         void goToIntroduceFriendsOutput();
+        void goToSettingOutput();
         void runAnimationPress(Context context, android.view.View view);
         void runAnimationSupport(Context context, android.view.View view, int animOpen, int animClose);
         void callSupportOutput(Context context, String phoneNumber);
@@ -53,6 +56,7 @@ public interface HomePageInterface {
         void goToProfile(Activity activity);
         void goToLoanRequest(Activity activity);
         void goToIntroduceFriends(Activity activity);
+        void goToSetting(Activity activity);
         void callSupportOutput(Context context, String phoneNumber);
     }
 }

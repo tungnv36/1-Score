@@ -18,5 +18,8 @@ public class Constant {
 
     public final static String PREFS_NAME = "mData";
 
+    public final static String ROOT_FOLDER = "1-SCORE";
+    public final static String PHOTO_FOLDER = "Photo";
+
 }
 

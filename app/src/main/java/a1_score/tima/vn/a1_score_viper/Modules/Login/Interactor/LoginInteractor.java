@@ -23,12 +23,17 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
     }
 
     @Override
+    public void createFolder() {
+        dataStore.createFolder();
+    }
+
+    @Override
     public void changeHeightBanner(int height, int margin) {
         interactorOutput.changeHeightBannerOutput(height, margin);
     }
 
     @Override
-    public void login(String username, String password) {
+    public void login(final String username, String password) {
         if(username.isEmpty()) {
             interactorOutput.usernameEmpty(((Activity)view).getString(R.string.err_user_empty));
             return;
@@ -44,7 +49,7 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
                 if(extraData == null || extraData.getStatusCode() != 200) {
                     interactorOutput.loginFailed(rs);
                 } else {
-                    dataStore.setUser((Context) view, extraData);
+                    dataStore.setUser((Context) view, extraData, username);
                     interactorOutput.loginSuccess();
                 }
             }

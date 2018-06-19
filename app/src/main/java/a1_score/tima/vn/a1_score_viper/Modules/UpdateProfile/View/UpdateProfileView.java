@@ -105,6 +105,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     private String arrSex[] = {"Nam", "Nữ"};
 
     private UpdateProfileInterface.Presenter presenter;
+    private String fileName = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,6 +126,12 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
 
         initBirthDay();
         initSex();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
     }
 
     @Override
@@ -171,16 +178,19 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
             case R.id.rlFrontCMND:
                 result = Commons.checkPermission2(UpdateProfileView.this);
                 if(result) {
+                    fileName = "_font_cmnd";
                     presenter.takePhoto(1, 1);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
                 }
                 break;
             case R.id.rlBehindCMND:
+                fileName = "_back_cmnd";
                 result = Commons.checkPermission2(UpdateProfileView.this);
                 if(result) {
                     presenter.takePhoto(1, 2);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 2 => llBehindCMND
                 }
                 break;
             case R.id.rlCard:
+                fileName = "_card_cmnd";
                 result = Commons.checkPermission2(UpdateProfileView.this);
                 if(result) {
                     presenter.takePhoto(1, 3);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 3 => llCard
@@ -198,9 +208,15 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
                 String filePath = data.getStringExtra(getString(R.string.result));
                 int type = data.getIntExtra(getString(R.string.type), 0);
                 int imageType = data.getIntExtra(getString(R.string.image_type), 0);
-                presenter.updateImage(type, imageType, filePath);
+                presenter.updateImage(type, imageType, filePath, fileName);
             }
         }
+    }
+
+    private void initData() {
+        presenter.initImage(1, "_font_cmnd");
+        presenter.initImage(2, "_back_cmnd");
+        presenter.initImage(3, "_card_cmnd");
     }
 
     private void initSex() {
@@ -250,20 +266,35 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    public void initImage(int type, Bitmap bitmap) {
+        switch (type) {
+            case 1://CMND truoc
+                llFrontCMND.setVisibility(View.GONE);
+                ivFrontCMND.setImageBitmap(bitmap);
+                break;
+            case 2://CMND sau
+                llBehindCMND.setVisibility(View.GONE);
+                ivBehindCMND.setImageBitmap(bitmap);
+                break;
+            case 3://The ngan hang
+                llCard.setVisibility(View.GONE);
+                ivCard.setImageBitmap(bitmap);
+                break;
+        }
+    }
+
+    @Override
     public void updateImage(int imageType, Bitmap img) {
         switch (imageType) {
             case 1://llFrontCMND
-//                ivFrontCMND.setVisibility(View.VISIBLE);
                 llFrontCMND.setVisibility(View.GONE);
                 ivFrontCMND.setImageBitmap(img);
                 break;
             case 2://llBehindCMND
-//                ivBehindCMND.setVisibility(View.VISIBLE);
                 llBehindCMND.setVisibility(View.GONE);
                 ivBehindCMND.setImageBitmap(img);
                 break;
             case 3://llCard
-//                ivCard.setVisibility(View.VISIBLE);
                 llCard.setVisibility(View.GONE);
                 ivCard.setImageBitmap(img);
                 break;
@@ -273,5 +304,15 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     @Override
     public void updateImageFailed(String err) {
         Toast.makeText(this, err, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateProfileFailed(String err) {
+        Toast.makeText(this, err, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void emptyField(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

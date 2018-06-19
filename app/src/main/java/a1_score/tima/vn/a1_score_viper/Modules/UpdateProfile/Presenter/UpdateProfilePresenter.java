@@ -18,8 +18,13 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
 
     public UpdateProfilePresenter(UpdateProfileInterface.View view) {
         this.view = view;
-        interactorInput = new UpdateProfileInteractor(this);
+        interactorInput = new UpdateProfileInteractor(view, this);
         wireframe = new UpdateProfileWireframe();
+    }
+
+    @Override
+    public void initImage(int type, String name) {
+        interactorInput.initImage(type, name);
     }
 
     @Override
@@ -28,8 +33,13 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
     }
 
     @Override
-    public void updateImage(int type, int imageType, String filePath) {
-        interactorInput.updateImage(type, imageType, filePath);
+    public void updateImage(int type, int imageType, String filePath, String fileName) {
+        interactorInput.updateImage(type, imageType, filePath, fileName);
+    }
+
+    @Override
+    public void updateProfile(String username, String fullname, String date_of_birth, String id_number, String address, String id_image_1, String id_image_2, String bank_acc_number, String card_term, String card_image) {
+        interactorInput.updateProfile(username, fullname, date_of_birth, id_number, address, id_image_1, id_image_2, bank_acc_number, card_term, card_image);
     }
 
     @Override
@@ -37,6 +47,11 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
         view = null;
         interactorInput.unRegister();
         interactorInput = null;
+    }
+
+    @Override
+    public void initImageOutput(int type, Bitmap bitmap) {
+        view.initImage(type, bitmap);
     }
 
     @Override
@@ -59,5 +74,20 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
     @Override
     public void updateImageFailed(String err) {
         view.updateImageFailed(err);
+    }
+
+    @Override
+    public void updateProfileOutput() {
+
+    }
+
+    @Override
+    public void updateProfileFailed(String err) {
+        view.updateProfileFailed(err);
+    }
+
+    @Override
+    public void emptyField(String msg) {
+        view.emptyField(msg);
     }
 }

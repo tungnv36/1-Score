@@ -19,6 +19,11 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     }
 
     @Override
+    public void createFolder() {
+        interactorInput.createFolder();
+    }
+
+    @Override
     public void changeHeightBanner(int height, int margin) {
         interactorInput.changeHeightBanner(height, margin);
     }

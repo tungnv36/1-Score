@@ -19,6 +19,7 @@ public interface LoginInterface {
     }
     //presenter
     interface Presenter {
+        void createFolder();
         void changeHeightBanner(int height, int margin);
         void login(String username, String password);
         void goToForgotPassword();
@@ -26,6 +27,7 @@ public interface LoginInterface {
     }
     //interactor
     interface InteractorInput {
+        void createFolder();
         void changeHeightBanner(int height, int margin);
         void login(String username, String password);
         void goToForgotPassword();
@@ -48,7 +50,8 @@ public interface LoginInterface {
     //DataStore
     interface DataStore {
         void callLogin(final OnResponse<String, LoginResultEntity> m_Response, LoginEntity loginEntity);
-        void setUser(Context context, LoginResultEntity user);
+        void setUser(Context context, LoginResultEntity user, String username);
+        void createFolder();
     }
 
 }

@@ -110,6 +110,12 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.createFolder();
+    }
+
+    @Override
     public void changeHeightBanner(int height, int margin) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);

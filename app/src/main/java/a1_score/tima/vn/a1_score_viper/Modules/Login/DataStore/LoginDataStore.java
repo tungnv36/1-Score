@@ -2,11 +2,14 @@ package a1_score.tima.vn.a1_score_viper.Modules.Login.DataStore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
+
+import java.io.File;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
@@ -74,9 +77,22 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     }
 
     @Override
-    public void setUser(Context context, LoginResultEntity user) {
+    public void setUser(Context context, LoginResultEntity user, String username) {
         SharedPreferences.Editor editor = context.getSharedPreferences(Constant.PREFS_NAME, context.MODE_PRIVATE).edit();
         editor.putString("token", user.getToken());
+        editor.putString("username", username);
         editor.apply();
+    }
+
+    @Override
+    public void createFolder() {
+        File rootFolder = new File(Environment.getExternalStorageDirectory() + File.separator + Constant.ROOT_FOLDER);
+        if(!rootFolder.exists()) {
+            rootFolder.mkdir();
+        }
+        File photoFolder = new File(Environment.getExternalStorageDirectory() + File.separator + Constant.ROOT_FOLDER + File.separator + Constant.PHOTO_FOLDER);
+        if(!photoFolder.exists()) {
+            photoFolder.mkdir();
+        }
     }
 }

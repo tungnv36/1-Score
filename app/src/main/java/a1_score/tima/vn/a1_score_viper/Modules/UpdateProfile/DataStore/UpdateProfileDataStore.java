@@ -17,6 +17,7 @@ import java.io.IOException;
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
+import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileResultEntity;
@@ -33,10 +34,12 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
     private UpdateProfileInterface.View view;
 
     public static UpdateProfileDataStore mInstance;
+    private static SQliteDatabase sQliteDatabase;
 
     public static UpdateProfileDataStore getInstance(UpdateProfileInterface.View view) {
         if (mInstance == null) {
             initApi();
+            sQliteDatabase = SQliteDatabase.getInstance((Context)view);
             mInstance = new UpdateProfileDataStore(view);
         }
         return mInstance;
@@ -59,6 +62,12 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
     }
 
     @Override
+    public int getImageID(String phone, String type) {
+        sQliteDatabase.getImageByPhone(phone, type);
+        return 0;
+    }
+
+    @Override
     public void saveImageToLocal(String fineName, Bitmap bmp) {
         FileOutputStream out = null;
         try {
@@ -77,6 +86,16 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
+        sQliteDatabase.addImage(uploadImageResultEntity, imageName, username, type);
+    }
+
+    @Override
+    public void saveProfileToDB(UpdateProfileEntity updateProfileEntity) {
+        sQliteDatabase.addProfile(updateProfileEntity);
     }
 
     @Override

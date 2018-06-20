@@ -14,6 +14,7 @@ import java.io.File;
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
+import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Interface.LoginInterface;
@@ -27,10 +28,12 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     private LoginInterface.View view;
 
     public static LoginDataStore mInstance;
+    private static SQliteDatabase sQliteDatabase;
 
     public static LoginDataStore getInstance(LoginInterface.View view) {
         if (mInstance == null) {
             initApi();
+            sQliteDatabase = SQliteDatabase.getInstance((Context)view);
             mInstance = new LoginDataStore(view);
         }
         return mInstance;
@@ -77,11 +80,17 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     }
 
     @Override
-    public void setUser(Context context, LoginResultEntity user, String username) {
+    public void setUser(Context context, LoginResultEntity user) {
         SharedPreferences.Editor editor = context.getSharedPreferences(Constant.PREFS_NAME, context.MODE_PRIVATE).edit();
         editor.putString("token", user.getToken());
-        editor.putString("username", username);
+        editor.putString("username", user.getUser().getUsername());
         editor.apply();
+    }
+
+    @Override
+    public void saveUser(LoginResultEntity user) {
+        sQliteDatabase.deleteUser();
+        sQliteDatabase.addUser(user);
     }
 
     @Override

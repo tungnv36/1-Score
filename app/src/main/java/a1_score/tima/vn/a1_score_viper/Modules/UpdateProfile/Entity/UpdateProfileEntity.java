@@ -15,17 +15,24 @@ public class UpdateProfileEntity {
     @SerializedName("address")
     private String address;
     @SerializedName("id_image_1")
-    private String id_image_1;
+    private int id_image_1;
     @SerializedName("id_image_2")
-    private String id_image_2;
+    private int id_image_2;
     @SerializedName("bank_acc_number")
     private String bank_acc_number;
     @SerializedName("card_term")
     private String card_term;
     @SerializedName("card_image")
-    private String card_image;
+    private int card_image;
+    @SerializedName("sex")
+    private int sex;
 
-    public UpdateProfileEntity(String username, String fullname, String date_of_birth, String id_number, String address, String id_image_1, String id_image_2, String bank_acc_number, String card_term, String card_image) {
+    public UpdateProfileEntity() {
+
+    }
+
+    public UpdateProfileEntity(String username, String fullname, String date_of_birth, String id_number, String address, int id_image_1,
+                               int id_image_2, String bank_acc_number, String card_term, int card_image, int sex) {
         this.username = username;
         this.fullname = fullname;
         this.date_of_birth = date_of_birth;
@@ -36,6 +43,7 @@ public class UpdateProfileEntity {
         this.bank_acc_number = bank_acc_number;
         this.card_term = card_term;
         this.card_image = card_image;
+        this.sex = sex;
     }
 
     public String getUsername() {
@@ -78,19 +86,19 @@ public class UpdateProfileEntity {
         this.address = address;
     }
 
-    public String getId_image_1() {
+    public int getId_image_1() {
         return id_image_1;
     }
 
-    public void setId_image_1(String id_image_1) {
+    public void setId_image_1(int id_image_1) {
         this.id_image_1 = id_image_1;
     }
 
-    public String getId_image_2() {
+    public int getId_image_2() {
         return id_image_2;
     }
 
-    public void setId_image_2(String id_image_2) {
+    public void setId_image_2(int id_image_2) {
         this.id_image_2 = id_image_2;
     }
 
@@ -110,11 +118,19 @@ public class UpdateProfileEntity {
         this.card_term = card_term;
     }
 
-    public String getCard_image() {
+    public int getCard_image() {
         return card_image;
     }
 
-    public void setCard_image(String card_image) {
+    public void setCard_image(int card_image) {
         this.card_image = card_image;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }

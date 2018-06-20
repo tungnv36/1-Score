@@ -123,6 +123,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         rlFrontCMND.setOnClickListener(this);
         rlBehindCMND.setOnClickListener(this);
         rlCard.setOnClickListener(this);
+        btUpdate.setOnClickListener(this);
 
         initBirthDay();
         initSex();
@@ -196,7 +197,10 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
                     presenter.takePhoto(1, 3);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 3 => llCard
                 }
                 break;
-
+            case R.id.btUpdate:
+                presenter.updateProfile(etName.getText().toString(), tvBirthDay.getText().toString(), etCMND.getText().toString()
+                        , etAddress.getText().toString(), etAccount.getText().toString(), tvCardTurm.getText().toString(), 0);
+                break;
         }
     }
 

@@ -25,7 +25,7 @@ public interface UpdateProfileInterface {
         void initImage(int type, String name);
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-        void updateProfile(String username, String fullname, String date_of_birth, String id_number, String address, String id_image_1, String id_image_2, String bank_acc_number, String card_term, String card_image);
+        void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex);
         void onDestroy();
     }
     //Interactor
@@ -33,7 +33,7 @@ public interface UpdateProfileInterface {
         void initImage(int type, String name);
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-        void updateProfile(String username, String fullname, String date_of_birth, String id_number, String address, String id_image_1, String id_image_2, String bank_acc_number, String card_term, String card_image);
+        void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex);
         void unRegister();
     }
 
@@ -54,7 +54,10 @@ public interface UpdateProfileInterface {
     interface DataStore {
         String getUser();
         String getToken();
+        int getImageID(String phone, String type);
         void saveImageToLocal(String fineName, Bitmap bmp);
+        void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type);
+        void saveProfileToDB(UpdateProfileEntity updateProfileEntity);
         void uploadImage(final OnResponse<String, UploadImageResultEntity> m_Response, String token, UploadImageEntity uploadImageEntity);
         void updateProfile(final OnResponse<String, UpdateProfileResultEntity> m_Response, String token, UpdateProfileEntity updateProfileEntity);
     }

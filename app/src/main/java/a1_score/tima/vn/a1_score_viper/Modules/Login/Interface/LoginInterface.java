@@ -50,7 +50,8 @@ public interface LoginInterface {
     //DataStore
     interface DataStore {
         void callLogin(final OnResponse<String, LoginResultEntity> m_Response, LoginEntity loginEntity);
-        void setUser(Context context, LoginResultEntity user, String username);
+        void setUser(Context context, LoginResultEntity user);
+        void saveUser(LoginResultEntity user);
         void createFolder();
     }
 

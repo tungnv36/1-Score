@@ -46,10 +46,11 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
         dataStore.callLogin(new OnResponse<String, LoginResultEntity>() {
             @Override
             public void onResponseSuccess(String tag, String rs, LoginResultEntity extraData) {
-                if(extraData == null || extraData.getStatusCode() != 200) {
+                if(extraData == null || extraData.getStatuscode() != 200) {
                     interactorOutput.loginFailed(rs);
                 } else {
-                    dataStore.setUser((Context) view, extraData, username);
+                    dataStore.setUser((Context) view, extraData);
+                    dataStore.saveUser(extraData);
                     interactorOutput.loginSuccess();
                 }
             }

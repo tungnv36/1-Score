@@ -3,16 +3,13 @@ package a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interactor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.util.Base64;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.DataStore.UpdateProfileDataStore;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.HeaderEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
@@ -51,7 +48,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
     }
 
     @Override
-    public void updateImage(final int type, final int imageType, String filePath, String fileName) {
+    public void updateImage(final int type, final int imageType, String filePath, final String fileName) {
         final Bitmap bitmap = BitmapFactory.decodeFile(filePath);
         if(bitmap != null) {
             dataStore.saveImageToLocal(dataStore.getUser() + fileName, bitmap);
@@ -61,6 +58,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
                 @Override
                 public void onResponseSuccess(String tag, String rs, UploadImageResultEntity extraData) {
                     if(extraData != null) {
+                        dataStore.saveImageToDB(extraData, fileName, dataStore.getUser(), getType(type));
                         interactorOutput.updateImageOutput(type, imageType, bitmap);
                     } else {
                         interactorOutput.updateImageFailed(rs);
@@ -77,12 +75,21 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
         }
     }
 
-    @Override
-    public void updateProfile(String username, String fullname, String date_of_birth, String id_number, String address, String id_image_1, String id_image_2, String bank_acc_number, String card_term, String card_image) {
-        if(username.isEmpty()) {
-            interactorOutput.emptyField("Bạn chưa nhập tài khoản");
-            return;
+    private String getType(int type) {
+        switch (type) {
+            case 1:
+                return "CMND_FONT";
+            case 2:
+                return "CMND_BACK";
+            case 3:
+                return "ATM_CARD";
+            default:
+                return "";
         }
+    }
+
+    @Override
+    public void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex) {
         if(fullname.isEmpty()) {
             interactorOutput.emptyField("Bạn chưa nhập tên");
             return;
@@ -108,7 +115,18 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             return;
         }
 
-        UpdateProfileEntity updateProfileEntity = new UpdateProfileEntity(username, fullname, date_of_birth, id_number, address, id_image_1, id_image_2, bank_acc_number, card_term, card_image);
+        UpdateProfileEntity updateProfileEntity = new UpdateProfileEntity();
+        updateProfileEntity.setUsername(dataStore.getUser());
+        updateProfileEntity.setFullname(fullname);
+        updateProfileEntity.setDate_of_birth(date_of_birth);
+        updateProfileEntity.setId_number(id_number);
+        updateProfileEntity.setAddress(address);
+        updateProfileEntity.setId_image_1(dataStore.getImageID(dataStore.getUser(), getType(1)));
+        updateProfileEntity.setId_image_2(dataStore.getImageID(dataStore.getUser(), getType(2)));
+        updateProfileEntity.setBank_acc_number(bank_acc_number);
+        updateProfileEntity.setCard_term(card_term);
+        updateProfileEntity.setCard_image(dataStore.getImageID(dataStore.getUser(), getType(3)));
+        updateProfileEntity.setSex(sex);
         dataStore.updateProfile(new OnResponse<String, UpdateProfileResultEntity>() {
             @Override
             public void onResponseSuccess(String tag, String rs, UpdateProfileResultEntity extraData) {
@@ -123,7 +141,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             public void onResponseError(String tag, String message) {
                 interactorOutput.updateImageFailed(message);
             }
-        },"Bearer " + dataStore.getToken(), updateProfileEntity);
+        },"Bearer " + dataStore.getToken(), null);
     }
 
     @Override

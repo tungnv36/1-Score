@@ -1,5 +1,6 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Main.View;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
 import a1_score.tima.vn.a1_score_viper.Modules.Main.Interface.MainInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Main.Presenter.MainPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -43,6 +45,12 @@ public class MainView extends AppCompatActivity implements View.OnClickListener,
         btRegister.setOnClickListener(this);
 
         getSupportActionBar().hide();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SQliteDatabase sQliteDatabase = SQliteDatabase.getInstance(this);
     }
 
     @Override

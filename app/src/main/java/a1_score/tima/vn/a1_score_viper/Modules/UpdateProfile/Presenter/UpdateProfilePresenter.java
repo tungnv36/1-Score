@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interactor.UpdateProfileInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Wireframe.UpdateProfileWireframe;
@@ -25,6 +26,11 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
     @Override
     public void initImage(int type, String name) {
         interactorInput.initImage(type, name);
+    }
+
+    @Override
+    public void initData() {
+        interactorInput.initData();
     }
 
     @Override
@@ -55,6 +61,11 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
     }
 
     @Override
+    public void initDataOutput(UpdateProfileEntity updateProfileEntity) {
+        view.initDataSuccess(updateProfileEntity);
+    }
+
+    @Override
     public void takePhotoOutput(int type, int imageType) {
         wireframe.gotoCamera((Activity)view, type, imageType);
     }
@@ -77,8 +88,8 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
     }
 
     @Override
-    public void updateProfileOutput() {
-
+    public void updateProfileOutput(String msg) {
+        view.updateProfileSuccess(msg);
     }
 
     @Override

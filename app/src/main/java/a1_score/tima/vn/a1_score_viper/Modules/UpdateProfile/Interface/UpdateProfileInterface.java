@@ -15,14 +15,17 @@ public interface UpdateProfileInterface {
     //View
     interface View {
         void initImage(int type, Bitmap bitmap);//type = 1: cmnd truoc, type = 2: cmnd sau, type = 3: card
+        void initDataSuccess(UpdateProfileEntity updateProfileEntity);
         void updateImage(int imageType, Bitmap img);
         void updateImageFailed(String err);
         void updateProfileFailed(String err);
+        void updateProfileSuccess(String msg);
         void emptyField(String msg);
     }
     //Presenter
     interface Presenter {
         void initImage(int type, String name);
+        void initData();
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
         void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex);
@@ -31,6 +34,7 @@ public interface UpdateProfileInterface {
     //Interactor
     interface InteractorInput {
         void initImage(int type, String name);
+        void initData();
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
         void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex);
@@ -39,10 +43,11 @@ public interface UpdateProfileInterface {
 
     interface InteractorOutput {
         void initImageOutput(int type, Bitmap bitmap);
+        void initDataOutput(UpdateProfileEntity updateProfileEntity);
         void takePhotoOutput(int type, int imageType);
         void updateImageOutput(int type, int imageType, Bitmap img);
         void updateImageFailed(String err);
-        void updateProfileOutput();
+        void updateProfileOutput(String msg);
         void updateProfileFailed(String err);
         void emptyField(String msg);
     }
@@ -55,6 +60,7 @@ public interface UpdateProfileInterface {
         String getUser();
         String getToken();
         int getImageID(String phone, String type);
+        UpdateProfileEntity getData(String userName);
         void saveImageToLocal(String fineName, Bitmap bmp);
         void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type);
         void saveProfileToDB(UpdateProfileEntity updateProfileEntity);

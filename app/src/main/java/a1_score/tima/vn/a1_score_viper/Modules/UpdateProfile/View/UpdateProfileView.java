@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -27,12 +28,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.MYPickerDialog;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Presenter.UpdateProfilePresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -102,7 +105,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     private Date date;
     private String monthYearStr;
 
-    private String arrSex[] = {"Nam", "Nữ"};
+    private String arrSex[] = {"Nam", "Nữ", "Khác"};
 
     private UpdateProfileInterface.Presenter presenter;
     private String fileName = "";
@@ -166,6 +169,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         btUpdate.setTypeface(Commons.setFont(this, getResources().getString(R.string.font_segoe)), Typeface.BOLD);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
         boolean result = false;
@@ -199,7 +203,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.btUpdate:
                 presenter.updateProfile(etName.getText().toString(), tvBirthDay.getText().toString(), etCMND.getText().toString()
-                        , etAddress.getText().toString(), etAccount.getText().toString(), tvCardTurm.getText().toString(), 0);
+                        , etAddress.getText().toString(), etAccount.getText().toString(), tvCardTurm.getText().toString(), spSex.getSelectedItemPosition() + 1);
                 break;
         }
     }
@@ -221,6 +225,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         presenter.initImage(1, "_font_cmnd");
         presenter.initImage(2, "_back_cmnd");
         presenter.initImage(3, "_card_cmnd");
+        presenter.initData();
     }
 
     private void initSex() {
@@ -237,6 +242,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     }
 
     //setup dialog chọn ngày/tháng/năm
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void showDateDialog() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -246,14 +252,21 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
                 date = cal.getTime();
             }
         };
+        int ngay = Integer.parseInt(Commons.getToday().split("/")[0].toString());
+        int thang = Integer.parseInt(Commons.getToday().split("/")[1].toString());
+        int nam = Integer.parseInt(Commons.getToday().split("/")[2].toString());
         String sDay = tvBirthDay.getText().toString();
-        String strArrtmp[] = sDay.split("/");
-        int ngay = Integer.parseInt(strArrtmp[0]);
-        int thang = Integer.parseInt(strArrtmp[1]) - 1;
-        int nam = Integer.parseInt(strArrtmp[2]);
-
-        DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
-        pic.show();
+        if(!sDay.isEmpty()) {
+            String strArrtmp[] = sDay.split("/");
+            ngay = Integer.parseInt(strArrtmp[0]);
+            thang = Integer.parseInt(strArrtmp[1]) - 1;
+            nam = Integer.parseInt(strArrtmp[2]);
+            DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
+            pic.show();
+        } else {
+            DatePickerDialog pic = new DatePickerDialog(this, callback, nam, thang, ngay);
+            pic.show();
+        }
     }
 
     //setup dialog chọn tháng/năm
@@ -288,6 +301,19 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    public void initDataSuccess(UpdateProfileEntity updateProfileEntity) {
+        if(updateProfileEntity != null) {
+            etName.setText(updateProfileEntity.getFullname());
+            tvBirthDay.setText(updateProfileEntity.getDate_of_birth());
+            spSex.setSelection(updateProfileEntity.getSex() - 1);
+            etCMND.setText(updateProfileEntity.getId_number());
+            etAddress.setText(updateProfileEntity.getAddress());
+            etAccount.setText(updateProfileEntity.getBank_acc_number());
+            tvCardTurm.setText(updateProfileEntity.getCard_term());
+        }
+    }
+
+    @Override
     public void updateImage(int imageType, Bitmap img) {
         switch (imageType) {
             case 1://llFrontCMND
@@ -313,6 +339,11 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     @Override
     public void updateProfileFailed(String err) {
         Toast.makeText(this, err, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateProfileSuccess(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     @Override

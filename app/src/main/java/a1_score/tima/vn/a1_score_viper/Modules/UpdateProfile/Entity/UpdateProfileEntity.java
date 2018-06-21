@@ -22,7 +22,7 @@ public class UpdateProfileEntity {
     private String bank_acc_number;
     @SerializedName("card_term")
     private String card_term;
-    @SerializedName("card_image")
+    @SerializedName("id_card_image")
     private int card_image;
     @SerializedName("sex")
     private int sex;

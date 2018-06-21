@@ -27,8 +27,10 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import a1_score.tima.vn.a1_score_viper.R;
 import me.tankery.lib.circularseekbar.CircularSeekBar;
@@ -204,6 +206,13 @@ public class Commons {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
         return "data:image/jpeg;base64," + Base64.encodeToString(byteArray, Base64.NO_WRAP);
+    }
+
+    public static String getToday(){
+        Date presentTime_Date = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return dateFormat.format(presentTime_Date);
     }
 
 }

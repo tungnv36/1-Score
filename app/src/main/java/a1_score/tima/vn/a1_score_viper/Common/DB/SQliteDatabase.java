@@ -138,33 +138,30 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         values.put(KEY_IMAGES_ID, uploadImageResultEntity.getImage().getId());
         values.put(KEY_IMAGES_URL, uploadImageResultEntity.getImage().getUrl());
         values.put(KEY_IMAGES_TYPE, type);
-        values.put(KEY_IMAGES_NAME, imageName);
+        values.put(KEY_IMAGES_NAME, username + imageName);
         values.put(KEY_IMAGES_USER, username);
         values.put(KEY_IMAGES_FORMAT, uploadImageResultEntity.getImage().getImagetype());
 
-        String.valueOf(db.insert(TABLE_NAME_IMAGES, null, values));
+        String returl = String.valueOf(db.insert(TABLE_NAME_IMAGES, null, values));
+        db.close();
+    }
+
+    public void deleteImageBy(String username, String type) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_IMAGES, String.format("%s=? AND %s=?", KEY_IMAGES_USER, KEY_IMAGES_TYPE), new String[] { username, type });
         db.close();
     }
 
     public int getImageByPhone(String username, String type) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String countQuery = String.format("SELECT %s FROM %s WHERE %s = %s AND %s = %s", KEY_IMAGES_ID, TABLE_NAME_IMAGES, KEY_IMAGES_USER, username, KEY_IMAGES_TYPE, type);
+        String countQuery = String.format("SELECT %s FROM %s WHERE %s = '%s' AND %s = '%s'", KEY_IMAGES_ID, TABLE_NAME_IMAGES, KEY_IMAGES_USER, username, KEY_IMAGES_TYPE, type);
         Cursor cursor = db.rawQuery(countQuery, null);
         if(cursor.moveToFirst()) {
-            return cursor.getInt(0);
+            int id = cursor.getInt(0);
+            return id;
         }
         cursor.close();
         return 0;
-    }
-
-    public UploadImageResultEntity getImage(String username) {
-        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.query(TABLE_NAME_IMAGES, null, KEY_IMAGES_USER + " = ?", new String[] { String.valueOf(studentId) },null, null, null);
-//        if(cursor != null)
-//            cursor.moveToFirst();
-//        UploadImageResultEntity student = new UploadImageResultEntity(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
-//        return student;
-        return null;
     }
 
     //---------------Profile---------------
@@ -184,7 +181,32 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         values.put(KEY_PROFILE_CARD_IMAGE, updateProfileEntity.getCard_image());
         values.put(KEY_PROFILE_SEX, updateProfileEntity.getSex());
 
-        db.insert(TABLE_NAME_PROFILE, null, values);
+        long result = db.insert(TABLE_NAME_PROFILE, null, values);
         db.close();
     }
+
+    public UpdateProfileEntity getProfileByPhone(String username) {
+        UpdateProfileEntity updateProfileEntity = new UpdateProfileEntity();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME_PROFILE, KEY_PROFILE_USERNAME, username);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                updateProfileEntity.setUsername(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_USERNAME)));
+                updateProfileEntity.setFullname(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_FULLNAME)));
+                updateProfileEntity.setDate_of_birth(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_DATE_OF_BIRTH)));
+                updateProfileEntity.setAddress(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_ADDRESS)));
+                updateProfileEntity.setId_number(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_ID_NUMBER)));
+                updateProfileEntity.setId_image_1(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_ID_IMAGE_1)));
+                updateProfileEntity.setId_image_2(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_ID_IMAGE_2)));
+                updateProfileEntity.setBank_acc_number(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_BANK_ACC_NUMBER)));
+                updateProfileEntity.setCard_term(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_CARD_TERM)));
+                updateProfileEntity.setCard_image(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_CARD_IMAGE)));
+                updateProfileEntity.setSex(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_SEX)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return updateProfileEntity;
+    }
+
 }

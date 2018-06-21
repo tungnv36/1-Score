@@ -40,7 +40,7 @@ public class MYPickerDialog extends DialogFragment {
 
         int year = cal.get(Calendar.YEAR);
         yearPicker.setMinValue(2000);
-        yearPicker.setMaxValue(year);
+        yearPicker.setMaxValue(2099);
         yearPicker.setValue(year);
 
         builder.setView(dialog)

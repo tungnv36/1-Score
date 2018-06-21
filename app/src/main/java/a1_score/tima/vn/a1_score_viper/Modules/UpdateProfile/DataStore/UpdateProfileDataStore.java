@@ -63,8 +63,12 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
 
     @Override
     public int getImageID(String phone, String type) {
-        sQliteDatabase.getImageByPhone(phone, type);
-        return 0;
+        return sQliteDatabase.getImageByPhone(phone, type);
+    }
+
+    @Override
+    public UpdateProfileEntity getData(String userName) {
+        return sQliteDatabase.getProfileByPhone(userName);
     }
 
     @Override
@@ -90,6 +94,7 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
 
     @Override
     public void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
+//        sQliteDatabase.deleteImageBy(username, type);
         sQliteDatabase.addImage(uploadImageResultEntity, imageName, username, type);
     }
 

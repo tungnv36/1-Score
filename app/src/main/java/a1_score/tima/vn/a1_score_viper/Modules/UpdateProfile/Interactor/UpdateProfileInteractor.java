@@ -43,6 +43,12 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
     }
 
     @Override
+    public void initData() {
+        UpdateProfileEntity updateProfileEntity = dataStore.getData(dataStore.getUser());
+        interactorOutput.initDataOutput(updateProfileEntity);
+    }
+
+    @Override
     public void takePhoto(int type, int imageType) {
         interactorOutput.takePhotoOutput(type, imageType);
     }
@@ -58,7 +64,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
                 @Override
                 public void onResponseSuccess(String tag, String rs, UploadImageResultEntity extraData) {
                     if(extraData != null) {
-                        dataStore.saveImageToDB(extraData, fileName, dataStore.getUser(), getType(type));
+                        dataStore.saveImageToDB(extraData, fileName, dataStore.getUser(), getType(imageType));
                         interactorOutput.updateImageOutput(type, imageType, bitmap);
                     } else {
                         interactorOutput.updateImageFailed(rs);
@@ -78,7 +84,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
     private String getType(int type) {
         switch (type) {
             case 1:
-                return "CMND_FONT";
+                return "CMND_FRONT";
             case 2:
                 return "CMND_BACK";
             case 3:
@@ -115,7 +121,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             return;
         }
 
-        UpdateProfileEntity updateProfileEntity = new UpdateProfileEntity();
+        final UpdateProfileEntity updateProfileEntity = new UpdateProfileEntity();
         updateProfileEntity.setUsername(dataStore.getUser());
         updateProfileEntity.setFullname(fullname);
         updateProfileEntity.setDate_of_birth(date_of_birth);
@@ -131,7 +137,8 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             @Override
             public void onResponseSuccess(String tag, String rs, UpdateProfileResultEntity extraData) {
                 if(extraData != null) {
-                    interactorOutput.updateProfileOutput();
+                    dataStore.saveProfileToDB(updateProfileEntity);
+                    interactorOutput.updateProfileOutput(extraData.getMessage());
                 } else {
                     interactorOutput.updateImageFailed(rs);
                 }
@@ -141,7 +148,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             public void onResponseError(String tag, String message) {
                 interactorOutput.updateImageFailed(message);
             }
-        },"Bearer " + dataStore.getToken(), null);
+        },"Bearer " + dataStore.getToken(), updateProfileEntity);
     }
 
     @Override

@@ -63,7 +63,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             dataStore.uploadImage(new OnResponse<String, UploadImageResultEntity>() {
                 @Override
                 public void onResponseSuccess(String tag, String rs, UploadImageResultEntity extraData) {
-                    if(extraData != null) {
+                    if(extraData != null && extraData.getStatuscode() == 200) {
                         dataStore.saveImageToDB(extraData, fileName, dataStore.getUser(), getType(imageType));
                         interactorOutput.updateImageOutput(type, imageType, bitmap);
                     } else {

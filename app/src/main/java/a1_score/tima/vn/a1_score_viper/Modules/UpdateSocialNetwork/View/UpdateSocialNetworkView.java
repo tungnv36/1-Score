@@ -56,8 +56,9 @@ public class UpdateSocialNetworkView extends AppCompatActivity {
     private void initSocialNetwork() {
         lstSocialNetwork = new ArrayList<>();
         lstSocialNetwork.add(new SocialNetworkEntity(1, R.mipmap.ic_facebook, "Facebook", true, R.color.color_facebook));
-        lstSocialNetwork.add(new SocialNetworkEntity(1, R.mipmap.ic_zalo, "Zalo", false, R.color.color_zalo));
-        lstSocialNetwork.add(new SocialNetworkEntity(1, R.mipmap.ic_instagram, "Instagram", false, R.color.color_instagram));
+        lstSocialNetwork.add(new SocialNetworkEntity(2, R.mipmap.ic_zalo, "Zalo", false, R.color.color_zalo));
+        lstSocialNetwork.add(new SocialNetworkEntity(3, R.mipmap.ic_instagram, "Instagram", false, R.color.color_instagram));
+        lstSocialNetwork.add(new SocialNetworkEntity(4, R.mipmap.ic_linkedin, "Linkedin", false, R.color.color_linkedin));
 
         socialNetworkAdapter = new SocialNetworkAdapter(this, lstSocialNetwork);
         Commons.setVerticalRecyclerView(this, rvSocialNetwork);

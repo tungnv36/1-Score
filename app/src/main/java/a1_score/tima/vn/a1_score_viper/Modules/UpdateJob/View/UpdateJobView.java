@@ -21,10 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.suke.widget.SwitchButton;
-
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.View.UpdateFamilyView;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Presenter.UpdateJobPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -56,14 +53,6 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     Spinner spSalary;
     @BindView(R.id.llSalary)
     LinearLayout llSalary;
-    @BindView(R.id.ivLinkedin)
-    ImageView ivLinkedin;
-    @BindView(R.id.tvLinkedin)
-    TextView tvLinkedin;
-    @BindView(R.id.switch_button)
-    SwitchButton switchButton;
-    @BindView(R.id.rlLinkedin)
-    RelativeLayout rlLinkedin;
     @BindView(R.id.ivCV)
     ImageView ivCV;
     @BindView(R.id.llCV)
@@ -90,7 +79,6 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     LinearLayout llContent1;
     @BindView(R.id.btUpdate)
     Button btUpdate;
-
     private UpdateJobInterface.Presenter presenter;
 
     @Override
@@ -182,19 +170,19 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         switch (v.getId()) {
             case R.id.rlCV:
                 result = Commons.checkPermission2(UpdateJobView.this);
-                if(result) {
+                if (result) {
                     presenter.takePhoto(2, 1);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 1 => rlCV
                 }
                 break;
             case R.id.rlContract:
                 result = Commons.checkPermission2(UpdateJobView.this);
-                if(result) {
+                if (result) {
                     presenter.takePhoto(2, 2);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 2 => rlContract
                 }
                 break;
             case R.id.rlSalaryBoard:
                 result = Commons.checkPermission2(UpdateJobView.this);
-                if(result) {
+                if (result) {
                     presenter.takePhoto(2, 3);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 3 => rlSalaryBoard
                 }
                 break;

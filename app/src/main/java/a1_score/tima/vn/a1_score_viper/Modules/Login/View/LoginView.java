@@ -106,7 +106,7 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
 //        etPassword.setText("admin123");
 
         etUsername.setText("01656226909");
-        etPassword.setText("7654321");
+        etPassword.setText("123456");
     }
 
     @Override

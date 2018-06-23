@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
+//    signingConfigs {
+//        release {
+//            storeFile file("1-score-keystore.keystore")
+//            storePassword '123456'
+//            keyAlias 'key0'
+//            keyPassword '123456'
+//        }
+//    }
     defaultConfig {
         applicationId "a1_score.tima.vn.a1_score_viper"
         minSdkVersion 17

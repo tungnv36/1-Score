@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -203,7 +204,7 @@ public class Commons {
 
     public static String convertBitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
         return "data:image/jpeg;base64," + Base64.encodeToString(byteArray, Base64.NO_WRAP);
     }
@@ -213,6 +214,19 @@ public class Commons {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         return dateFormat.format(presentTime_Date);
+    }
+
+    public static Boolean isTablet(Context context)
+    {
+        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+
+        double wInches = displayMetrics.widthPixels / (double)displayMetrics.densityDpi;
+        double hInches = displayMetrics.heightPixels / (double)displayMetrics.densityDpi;
+
+        double screenDiagonal = Math.sqrt(Math.pow(wInches, 2) + Math.pow(hInches, 2));
+        return (screenDiagonal >= 7.0);
     }
 
 }

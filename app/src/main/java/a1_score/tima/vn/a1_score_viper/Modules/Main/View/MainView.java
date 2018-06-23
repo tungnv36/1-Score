@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.Main.Interface.MainInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Main.Presenter.MainPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -34,6 +35,15 @@ public class MainView extends AppCompatActivity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        if(Commons.isTablet(this)) {
+            DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), getString(R.string.tablet_info), new DialogUtils.OnClickListener() {
+                @Override
+                public void onClickSuccess() {
+                    finish();
+                }
+            });
+        }
 
         presenter = new MainPresenter(this);
 

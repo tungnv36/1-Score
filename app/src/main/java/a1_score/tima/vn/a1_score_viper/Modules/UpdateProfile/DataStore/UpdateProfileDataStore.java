@@ -123,7 +123,7 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
                         }
                     } else {
-                        m_Response.onResponseError(TAG, String.valueOf(response.code()));
+                        m_Response.onResponseError(TAG, String.valueOf(response.message()));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

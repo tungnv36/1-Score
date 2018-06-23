@@ -72,14 +72,15 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
 
     @Override
     public void updateImageOutput(int type, int imageType, Bitmap img) {
-        Bitmap bmp = Commons.rotateImage(img, 90);
-        List<Integer> lstCameraSize = Commons.getCropSize((Activity)view, type, bmp);
-        if(lstCameraSize != null) {
-            Bitmap cropBmp = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
-            view.updateImage(imageType, cropBmp);
-        } else {
-            view.updateImage(imageType, bmp);
-        }
+//        Bitmap bmp = Commons.rotateImage(img, 90);
+//        List<Integer> lstCameraSize = Commons.getCropSize((Activity)view, type, bmp);
+//        if(lstCameraSize != null) {
+//            Bitmap cropBmp = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
+//            view.updateImage(imageType, cropBmp);
+//        } else {
+//            view.updateImage(imageType, bmp);
+//        }
+        view.updateImage(imageType, img);
     }
 
     @Override

@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Common.MYPickerDialog;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
@@ -333,21 +334,22 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
 
     @Override
     public void updateImageFailed(String err) {
-        Toast.makeText(this, err, Toast.LENGTH_LONG).show();
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 
     @Override
     public void updateProfileFailed(String err) {
-        Toast.makeText(this, err, Toast.LENGTH_LONG).show();
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 
     @Override
     public void updateProfileSuccess(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        this.finish();
     }
 
     @Override
     public void emptyField(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), msg);
     }
 }

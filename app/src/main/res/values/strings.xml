@@ -119,6 +119,7 @@
     <string name="login_failed">Đăng nhập thất bại</string>
     <string name="dialog_title">Thông báo</string>
     <string name="register_success">Đăng ký thành công</string>
+    <string name="tablet_info">Xin lỗi!\nỨng dụng của chúng tôi không hỗ trợ máy tính bảng, xin vui lòng cài đặt trên điện thoại.\nXin cảm ơn!</string>
 
     <string name="menu_info">Thông tin cơ bản</string>
     <string name="menu_job">Nghề nghiệp</string>

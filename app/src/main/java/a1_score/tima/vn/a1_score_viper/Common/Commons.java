@@ -139,15 +139,19 @@ public class Commons {
     }
 
     public static List<Integer> getCameraSize(Activity activity, int cameraType) {
+        int rectLeft = 0;
+        int rectTop = 0;
+        int rectRight = 0;
+        int rectBottom = 0;
         List<Integer> lstCameraType = new ArrayList<>();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         switch (cameraType) {
             case 1://CARD
-                int rectLeft = 0;
-                int rectTop = displayMetrics.heightPixels / 2 - (3 * displayMetrics.widthPixels / 10) - 50;
-                int rectRight = displayMetrics.widthPixels;
-                int rectBottom = displayMetrics.heightPixels / 2 + (3 * displayMetrics.widthPixels / 10);
+                rectLeft = 0;
+                rectTop = displayMetrics.heightPixels / 2 - (3 * displayMetrics.widthPixels / 10) - 50;
+                rectRight = displayMetrics.widthPixels;
+                rectBottom = displayMetrics.heightPixels / 2 + (3 * displayMetrics.widthPixels / 10);
                 lstCameraType.add(rectLeft);
                 lstCameraType.add(rectTop);
                 lstCameraType.add(rectRight);
@@ -155,21 +159,35 @@ public class Commons {
                 return lstCameraType;
             case 2://PAPER
                 return null;
+            case 3://AVATAR
+                rectLeft = 50;
+                rectTop = displayMetrics.heightPixels / 7;
+                rectRight = displayMetrics.widthPixels - 50;
+                rectBottom = displayMetrics.heightPixels / 7 + displayMetrics.widthPixels - 50;
+                lstCameraType.add(rectLeft);
+                lstCameraType.add(rectTop);
+                lstCameraType.add(rectRight);
+                lstCameraType.add(rectBottom);
+                return lstCameraType;
             default:
                 return null;
         }
     }
 
     public static List<Integer> getCropSize(Activity activity, int cameraType, Bitmap bmp) {
+        int x;
+        int y;
+        int w;
+        int h;
         List<Integer> lstCameraType = new ArrayList<>();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         switch (cameraType) {
             case 1://CARD
-                int x = 0;
-                int y = bmp.getHeight() / 2 - (3 * bmp.getWidth() / 10) - 50;
-                int w = bmp.getWidth();
-                int h = 50 + 3 * bmp.getWidth() / 5;
+                x = 0;
+                y = bmp.getHeight() / 2 - (3 * bmp.getWidth() / 10) - 50;
+                w = bmp.getWidth();
+                h = 50 + 3 * bmp.getWidth() / 5;
                 lstCameraType.add(x);
                 lstCameraType.add(y);
                 lstCameraType.add(w);
@@ -177,6 +195,16 @@ public class Commons {
                 return lstCameraType;
             case 2://PAPER
                 return null;
+            case 3://AVATAR
+                x = 50;
+                y = bmp.getHeight() / 7;
+                w = bmp.getWidth() - 50;
+                h = bmp.getHeight() / 7 + bmp.getWidth() - 50;
+                lstCameraType.add(x);
+                lstCameraType.add(y);
+                lstCameraType.add(w);
+                lstCameraType.add(h);
+                return lstCameraType;
             default:
                 return null;
         }

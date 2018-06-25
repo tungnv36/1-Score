@@ -17,6 +17,11 @@ public class ChangePhonePresenter implements ChangePhoneInterface.Presenter, Cha
     }
 
     @Override
+    public void initPhone() {
+        interactorInput.initPhone();
+    }
+
+    @Override
     public void changePhone(String oldPhone, String newPhone, String password) {
         interactorInput.changePhone(oldPhone, newPhone, password);
     }
@@ -26,6 +31,11 @@ public class ChangePhonePresenter implements ChangePhoneInterface.Presenter, Cha
         view = null;
         interactorInput.unRegister();
         interactorInput = null;
+    }
+
+    @Override
+    public void initPhoneOutput(String phone) {
+        view.initPhone(phone);
     }
 
     @Override

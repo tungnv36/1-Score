@@ -51,7 +51,8 @@ public class MenuProfileAdapter extends RecyclerView.Adapter<MenuProfileAdapter.
         holder.tvTitle.setText(menuEntity.getTitle());
         holder.tvSubTitle.setText(menuEntity.getSubTitle());
 
-        presenter.setupAnimationProgress(holder.pbLevel, menuEntity.getLastProgress(), menuEntity.getProgress());
+//        presenter.setupAnimationProgress(holder.pbLevel, menuEntity.getLastProgress(), menuEntity.getProgress());
+        holder.pbLevel.setProgress(menuEntity.getProgress());
 
         if(!menuEntity.isShowSubTitle()) {
             holder.tvSubTitle.setVisibility(View.GONE);

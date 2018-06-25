@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -64,6 +65,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         //type: Xác định loại khung ảnh sẽ vẽ lên camera
         //type = 1: khung chữ nhật ngang dùng cho các loại CMND, bằng lái, ...
         //type = 2: Không có khung, dùng để chụp hợp đồng, giấy tờ dạng A4
+        //type = 3: Khung vuông chụp chân dung
 
         //imageType: Xác định image view nào sẽ hiển thị ảnh vừa chụp
         type = getIntent().getIntExtra(getString(R.string.type), 0);
@@ -143,11 +145,23 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             Rect rec = new Rect(lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));//left top right bototm
             canvas.drawRect(rec, paint);
 
-            Rect rec2 = new Rect(0, 0, lstCameraSize.get(2), lstCameraSize.get(1));
+            Rect rec2 = new Rect(0, 0, Commons.getDisplayMetrics(this).widthPixels, lstCameraSize.get(1));
             canvas.drawRect(rec2, paint2);
 
-            Rect rec3 = new Rect(0, lstCameraSize.get(3), lstCameraSize.get(2), Commons.getDisplayMetrics(this).heightPixels);
+            Rect rec3 = new Rect(0, lstCameraSize.get(3), Commons.getDisplayMetrics(this).widthPixels, Commons.getDisplayMetrics(this).heightPixels);
             canvas.drawRect(rec3, paint2);
+
+            Rect rec4 = new Rect(0, lstCameraSize.get(1), lstCameraSize.get(0), lstCameraSize.get(3));
+            canvas.drawRect(rec4, paint2);
+
+            Rect rec5 = new Rect(lstCameraSize.get(2), lstCameraSize.get(1), Commons.getDisplayMetrics(this).widthPixels, lstCameraSize.get(3));
+            canvas.drawRect(rec5, paint2);
+
+//            Rect rec2 = new Rect(0, 0, lstCameraSize.get(2), lstCameraSize.get(1));
+//            canvas.drawRect(rec2, paint2);
+//
+//            Rect rec3 = new Rect(0, lstCameraSize.get(3), lstCameraSize.get(2), Commons.getDisplayMetrics(this).heightPixels);
+//            canvas.drawRect(rec3, paint2);
 
             holderTransparent.unlockCanvasAndPost(canvas);
         }
@@ -169,7 +183,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         try {
-            camera = Camera.open();
+            camera = Camera.open(type==3? Camera.CameraInfo.CAMERA_FACING_FRONT: Camera.CameraInfo.CAMERA_FACING_BACK);
             synchronized (holder) {
                 Draw();
             }

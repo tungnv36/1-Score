@@ -18,14 +18,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:largeHeap="true">
-        <activity android:name=".Modules.Introduction.View.IntroductionView">
+        <activity
+            android:name=".Modules.Introduction.View.IntroductionView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.Main.View.MainView">
+        <activity
+            android:name=".Modules.Main.View.MainView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN_VIEW" />
 
@@ -34,7 +38,8 @@
         </activity>
         <activity
             android:name=".Modules.Login.View.LoginView"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.LOGIN_VIEW" />
 
@@ -43,91 +48,116 @@
         </activity>
         <activity
             android:name=".Modules.Register.View.RegisterView"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.REGISTER_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.HomePage.View.HomePageView">
+        <activity
+            android:name=".Modules.HomePage.View.HomePageView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.HOME_PAGE_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.Profile.View.ProfileView">
+        <activity
+            android:name=".Modules.Profile.View.ProfileView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.PROFILE_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.LoanRequest.View.LoanRequestView">
+        <activity
+            android:name=".Modules.LoanRequest.View.LoanRequestView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.LOAN_REQUEST_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.UpdateProfile.View.UpdateProfileView">
+        <activity
+            android:name=".Modules.UpdateProfile.View.UpdateProfileView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.UPDATE_PROFILE_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.IntroduceFriends.View.IntroduceFriendsView">
+        <activity
+            android:name=".Modules.IntroduceFriends.View.IntroduceFriendsView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.INTRODUCE_FRIEND_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.LoanRegistration.View.LoanRegistrationView">
+        <activity
+            android:name=".Modules.LoanRegistration.View.LoanRegistrationView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.LOAN_REGISTRATION_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.UpdateJob.View.UpdateJobView">
+        <activity
+            android:name=".Modules.UpdateJob.View.UpdateJobView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.UPDATE_JOB_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.UpdateFamily.View.UpdateFamilyView">
+        <activity
+            android:name=".Modules.UpdateFamily.View.UpdateFamilyView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.UPDATE_FAMILY_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.UpdateSocialNetwork.View.UpdateSocialNetworkView">
+        <activity
+            android:name=".Modules.UpdateSocialNetwork.View.UpdateSocialNetworkView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SOCIAL_NETWORK_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.UpdatePapers.View.UpdatePapersView">
+        <activity
+            android:name=".Modules.UpdatePapers.View.UpdatePapersView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.UPDATE_PAPER_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.Camera.View.CameraView">
+        <activity
+            android:name=".Modules.Camera.View.CameraView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.CAMERA_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.Camera.View.CameraActivity">
+        <activity
+            android:name=".Modules.Camera.View.CameraActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.CAMERA_ACTIVITY" />
 
@@ -136,7 +166,8 @@
         </activity>
         <activity
             android:name=".Modules.Otp.View.OtpView"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.OTP_ACTIVITY" />
 
@@ -145,7 +176,8 @@
         </activity>
         <activity
             android:name=".Modules.ForgotPassword.View.ForgotPasswordView"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.FORGOT_PASS_ACTIVITY" />
 
@@ -154,21 +186,26 @@
         </activity>
         <activity
             android:name=".Modules.ChangePasswordForgot.View.ChangePasswordForgotView"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.CHANGE_PASS_FORGOT_ACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.Setting.View.SettingView">
+        <activity
+            android:name=".Modules.Setting.View.SettingView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SETTING_VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Modules.ChangePhone.View.ChangePhoneView">
+        <activity
+            android:name=".Modules.ChangePhone.View.ChangePhoneView"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.CHANGE_PHONE_VIEW" />
 

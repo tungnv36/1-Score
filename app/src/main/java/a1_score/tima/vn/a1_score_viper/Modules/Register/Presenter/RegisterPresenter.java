@@ -31,6 +31,11 @@ public class RegisterPresenter implements RegisterInterface.Presenter, RegisterI
     }
 
     @Override
+    public void EdittextEmpty(int type, String error) {
+        view.EdittextEmpty(type, error);
+    }
+
+    @Override
     public void registerSuccess(String msg, String phoneNumber) {
         wireframe.gotToOTP((Activity)view, phoneNumber);
         ((Activity)view).finish();
@@ -41,23 +46,4 @@ public class RegisterPresenter implements RegisterInterface.Presenter, RegisterI
         view.registerFailed(error);
     }
 
-    @Override
-    public void usernameEmpty(String error) {
-        view.usernameEmpty(error);
-    }
-
-    @Override
-    public void passwordEmpty(String error) {
-        view.passwordEmpty(error);
-    }
-
-    @Override
-    public void confirmPasswordEmpty(String error) {
-        view.confirmPasswordEmpty(error);
-    }
-
-    @Override
-    public void EmailEmpty(String error) {
-        view.EmailEmpty(error);
-    }
 }

@@ -1,6 +1,9 @@
 package a1_score.tima.vn.a1_score_viper.Modules.HomePage.View;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,13 +23,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Entity.MenuEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interface.HomePageInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Presenter.HomePagePresenter;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +79,9 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     GridView gvMenu;
     @BindView(R.id.rootView)
     RelativeLayout rootView;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
+
     private List<MenuEntity> lstMenu;
     private GridMenuAdapter gridMenuAdapter;
 
@@ -80,6 +90,8 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     private int startScore = 0;
 
     public static boolean isLogout = false;
+
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,14 +112,30 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
         ibChat.setOnClickListener(this);
         ibCall.setOnClickListener(this);
         ibChatBoard.setOnClickListener(this);
+        ivLogo.setOnClickListener(this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                avi.show();
+                presenter.initAvatar();
+            }
+        }).start();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.initAnimationLogo(ivLogo);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                presenter.initData();
+            }
+        }).start();
+//        presenter.initAnimationLogo(ivLogo);
         presenter.setupAnimationSeekBar(sbLevel, startScore, scoreOfLevel);
-        if(isLogout) {
+//        sbLevel.setProgress(scoreOfLevel);
+        if (isLogout) {
             isLogout = false;
             finish();
         }
@@ -160,6 +188,20 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
+            if (data != null) {
+                avi.show();
+                String filePath = data.getStringExtra(getString(R.string.result));
+                int type = data.getIntExtra(getString(R.string.type), 0);
+                int imageType = data.getIntExtra(getString(R.string.image_type), 0);
+                presenter.updateImage(type, imageType, filePath);
+            }
+        }
+    }
+
+    @Override
     public void setProgressValue(int progress) {
 
     }
@@ -167,6 +209,39 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     @Override
     public void callSupportFailed(String err) {
         Toast.makeText(this, err, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void initData(final LoginResultEntity.UserEntity userEntity) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tvName.setText(userEntity.getFullname());
+            }
+        });
+    }
+
+    @Override
+    public void initAvatar(final Bitmap bmp) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ivLogo.setImageBitmap(bmp);
+                avi.hide();
+            }
+        });
+    }
+
+    @Override
+    public void updateImage(int imageType, Bitmap img) {
+        ivLogo.setImageBitmap(img);
+        avi.hide();
+    }
+
+    @Override
+    public void updateImageFailed(String err) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
+        avi.hide();
     }
 
     @Override
@@ -187,6 +262,12 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
             case R.id.ibChatBoard:
                 presenter.setupAnimationSupport(HomePageView.this, llCall, R.anim.right_to_left, R.anim.left_to_right);
                 presenter.setupAnimationSupport(HomePageView.this, llChat, R.anim.right_to_left_delay, R.anim.left_to_right_delay);
+                break;
+            case R.id.ivLogo:
+                boolean result = Commons.checkPermission2(HomePageView.this);
+                if (result) {
+                    presenter.takePhoto(3, 0);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
+                }
                 break;
         }
     }

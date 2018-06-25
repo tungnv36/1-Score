@@ -79,6 +79,17 @@
         android:background="@drawable/avatar"
         android:scaleType="fitXY" />
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="visible"
+        app:indicatorName="BallSpinFadeLoaderIndicator"
+        app:indicatorColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/ivLogo"
+        android:layout_marginBottom="40dp" />
+
     <TextView
         android:id="@+id/tvCurrentLevel"
         android:layout_width="wrap_content"

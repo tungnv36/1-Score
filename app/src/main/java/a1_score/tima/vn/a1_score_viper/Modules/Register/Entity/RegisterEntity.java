@@ -10,14 +10,14 @@ public class RegisterEntity {
     private String password;
     @SerializedName("confirm_password")
     private String confirm_password;
-    @SerializedName("email")
-    private String email;
+    @SerializedName("fullname")
+    private String fullname;
 
-    public RegisterEntity(String username, String password, String confirm_password, String email) {
+    public RegisterEntity(String username, String password, String confirm_password, String fullname) {
         this.username = username;
         this.password = password;
         this.confirm_password = confirm_password;
-        this.email = email;
+        this.fullname = fullname;
     }
 
     public String getUsername() {
@@ -44,11 +44,11 @@ public class RegisterEntity {
         this.confirm_password = confirm_password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }

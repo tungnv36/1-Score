@@ -69,7 +69,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
                 final Bitmap bmpCrop = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
 
 //                dataStore.saveImageToLocal(dataStore.getUser() + fileName + ".jpg", bmpCrop);
-                UploadImageEntity uploadImageEntity = new UploadImageEntity(dataStore.getUser(), Commons.convertBitmapToBase64(bmpCrop));
+                UploadImageEntity uploadImageEntity = new UploadImageEntity(dataStore.getUser(), Commons.convertBitmapToBase64(bmpCrop), "");
                 dataStore.uploadImage(new OnResponse<String, UploadImageResultEntity>() {
                     @Override
                     public void onResponseSuccess(String tag, String rs, UploadImageResultEntity extraData) {

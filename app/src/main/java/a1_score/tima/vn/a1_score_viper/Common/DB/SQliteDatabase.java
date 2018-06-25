@@ -53,9 +53,12 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String KEY_USER_CARD_TERM = "CardTerm";
     private static final String KEY_USER_SEX = "Sex";
     private static final String KEY_USER_SCORED = "Scored";
-    private static final String KEY_USER_URL_IMAGE1 = "UrlImage1";
-    private static final String KEY_USER_URL_IMAGE2 = "UrlImage2";
-    private static final String KEY_USER_URL_CARD_IMAGE = "UrlCardImage";
+    private static final String KEY_USER_LEVEL = "Level";
+    private static final String KEY_USER_ID_IMAGE1 = "IdImage1";
+    private static final String KEY_USER_ID_IMAGE2 = "IdImage2";
+    private static final String KEY_USER_ID_CARD_IMAGE = "IdCardImage";
+    private static final String KEY_USER_ID_AVATAR = "IdAvatar";
+    private static final String KEY_USER_PROGRESS = "Progress";
 
     public static SQliteDatabase mInstance;
 
@@ -72,17 +75,17 @@ public class SQliteDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create_images_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
+        String create_images_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
                 TABLE_NAME_IMAGES, KEY_IMAGES_ID, KEY_IMAGES_URL, KEY_IMAGES_TYPE, KEY_IMAGES_NAME, KEY_IMAGES_USER, KEY_IMAGES_FORMAT);
         db.execSQL(create_images_table);
         String create_profile_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)",
                 TABLE_NAME_PROFILE, KEY_PROFILE_ID, KEY_PROFILE_USERNAME, KEY_PROFILE_FULLNAME, KEY_PROFILE_DATE_OF_BIRTH, KEY_PROFILE_ADDRESS,
                 KEY_PROFILE_ID_NUMBER, KEY_PROFILE_ID_IMAGE_1, KEY_PROFILE_ID_IMAGE_2, KEY_PROFILE_BANK_ACC_NUMBER, KEY_PROFILE_CARD_TERM,
                 KEY_PROFILE_CARD_IMAGE, KEY_PROFILE_SEX);
-        String create_user_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
+        String create_user_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)",
                 TABLE_NAME_USER, KEY_USER_ID, KEY_USER_NAME, KEY_USER_PHONE, KEY_USER_FULLNAME, KEY_USER_DATE_OF_BIRTH,
                 KEY_USER_ID_NUMBER, KEY_USER_ADDRESS, KEY_USER_ACC_NUMBER, KEY_USER_CARD_TERM, KEY_USER_SEX,
-                KEY_USER_SCORED, KEY_USER_URL_IMAGE1, KEY_USER_URL_IMAGE2, KEY_USER_URL_CARD_IMAGE);
+                KEY_USER_SCORED, KEY_USER_LEVEL, KEY_USER_ID_IMAGE1, KEY_USER_ID_IMAGE2, KEY_USER_ID_CARD_IMAGE, KEY_USER_ID_AVATAR, KEY_USER_PROGRESS);
         db.execSQL(create_images_table);
         db.execSQL(create_profile_table);
         db.execSQL(create_user_table);
@@ -116,9 +119,12 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         values.put(KEY_USER_CARD_TERM, loginResultEntity.getUser().getCardterm());
         values.put(KEY_USER_SEX, loginResultEntity.getUser().getSex());
         values.put(KEY_USER_SCORED, loginResultEntity.getUser().getScored());
-        values.put(KEY_USER_URL_IMAGE1, loginResultEntity.getUser().getUrlimage1());
-        values.put(KEY_USER_URL_IMAGE2, loginResultEntity.getUser().getUrlimage2());
-        values.put(KEY_USER_URL_CARD_IMAGE, loginResultEntity.getUser().getUrlcardimage());
+        values.put(KEY_USER_LEVEL, loginResultEntity.getUser().getLevel());
+        values.put(KEY_USER_ID_IMAGE1, loginResultEntity.getUser().getIdimage1());
+        values.put(KEY_USER_ID_IMAGE2, loginResultEntity.getUser().getIdimage2());
+        values.put(KEY_USER_ID_CARD_IMAGE, loginResultEntity.getUser().getIdcardimage());
+        values.put(KEY_USER_ID_AVATAR, loginResultEntity.getUser().getIdavatar());
+        values.put(KEY_USER_PROGRESS, loginResultEntity.getUser().getProgress());
 
         db.insert(TABLE_NAME_USER, null, values);
         db.close();
@@ -128,6 +134,34 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME_USER, null, null);
         db.close();
+    }
+
+    public LoginResultEntity.UserEntity getUser() {
+        LoginResultEntity.UserEntity userEntity = new LoginResultEntity.UserEntity();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_USER);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            userEntity.setUserid(cursor.getInt(cursor.getColumnIndex(KEY_USER_ID)));
+            userEntity.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USER_NAME)));
+            userEntity.setPhone(cursor.getString(cursor.getColumnIndex(KEY_USER_PHONE)));
+            userEntity.setFullname(cursor.getString(cursor.getColumnIndex(KEY_USER_FULLNAME)));
+            userEntity.setDateofbirth(cursor.getString(cursor.getColumnIndex(KEY_USER_DATE_OF_BIRTH)));
+            userEntity.setIdnumber(cursor.getString(cursor.getColumnIndex(KEY_USER_ID_NUMBER)));
+            userEntity.setAddress(cursor.getString(cursor.getColumnIndex(KEY_USER_ADDRESS)));
+            userEntity.setBankaccnumber(cursor.getString(cursor.getColumnIndex(KEY_USER_ACC_NUMBER)));
+            userEntity.setCardterm(cursor.getString(cursor.getColumnIndex(KEY_USER_CARD_TERM)));
+            userEntity.setSex(cursor.getString(cursor.getColumnIndex(KEY_USER_SEX)));
+            userEntity.setScored(cursor.getInt(cursor.getColumnIndex(KEY_USER_SCORED)));
+            userEntity.setLevel(cursor.getInt(cursor.getColumnIndex(KEY_USER_LEVEL)));
+            userEntity.setIdimage1(cursor.getString(cursor.getColumnIndex(KEY_USER_ID_IMAGE1)));
+            userEntity.setIdimage2(cursor.getString(cursor.getColumnIndex(KEY_USER_ID_IMAGE2)));
+            userEntity.setIdcardimage(cursor.getString(cursor.getColumnIndex(KEY_USER_ID_CARD_IMAGE)));
+            userEntity.setIdavatar(cursor.getString(cursor.getColumnIndex(KEY_USER_ID_AVATAR)));
+            userEntity.setProgress(cursor.getInt(cursor.getColumnIndex(KEY_USER_PROGRESS)));
+        }
+        cursor.close();
+        return userEntity;
     }
 
     //---------------Images---------------
@@ -152,7 +186,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int getImageByPhone(String username, String type) {
+    public int getImageID(String username, String type) {
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT %s FROM %s WHERE %s = '%s' AND %s = '%s'", KEY_IMAGES_ID, TABLE_NAME_IMAGES, KEY_IMAGES_USER, username, KEY_IMAGES_TYPE, type);
         Cursor cursor = db.rawQuery(countQuery, null);

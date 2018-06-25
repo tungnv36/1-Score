@@ -1,4 +1,4 @@
-package a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.DataStore;
+package a1_score.tima.vn.a1_score_viper.Modules.Profile.DataStore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,39 +18,43 @@ import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interface.HomePageInterface;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interface.ProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileInterface.DataStore {
+public class ProfileDataStore extends ApiRequest implements ProfileInterface.DataStore {
 
-    private UpdateProfileInterface.View view;
+    private ProfileInterface.View view;
 
-    public static UpdateProfileDataStore mInstance;
+    public static ProfileDataStore mInstance;
     private static SQliteDatabase sQliteDatabase;
 
-    public static UpdateProfileDataStore getInstance(UpdateProfileInterface.View view) {
+    public static ProfileDataStore getInstance(ProfileInterface.View view) {
         if (mInstance == null) {
             initApi();
             sQliteDatabase = SQliteDatabase.getInstance((Context)view);
-            mInstance = new UpdateProfileDataStore(view);
+            mInstance = new ProfileDataStore(view);
         }
         return mInstance;
     }
 
-    private UpdateProfileDataStore(UpdateProfileInterface.View view) {
+    private ProfileDataStore(ProfileInterface.View view) {
         this.view = view;
     }
 
     @Override
-    public String getUser() {
+    public LoginResultEntity.UserEntity getUser() {
+        return sQliteDatabase.getUser();
+    }
+
+    @Override
+    public String getUserName() {
         SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
         return pref.getString("username", "");
     }
@@ -59,16 +63,6 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
     public String getToken() {
         SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
         return pref.getString("token", "");
-    }
-
-    @Override
-    public int getImageID(String phone, String type) {
-        return sQliteDatabase.getImageID(phone, type);
-    }
-
-    @Override
-    public UpdateProfileEntity getData(String userName) {
-        return sQliteDatabase.getProfileByPhone(userName);
     }
 
     @Override
@@ -98,11 +92,6 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
     }
 
     @Override
-    public void saveProfileToDB(UpdateProfileEntity updateProfileEntity) {
-        sQliteDatabase.addProfile(updateProfileEntity);
-    }
-
-    @Override
     public void uploadImage(final OnResponse<String, UploadImageResultEntity> m_Response, String token, UploadImageEntity uploadImageEntity) {
         m_Response.onStart();
         Call<ResponseBody> call = m_Service.uploadImage(token, uploadImageEntity);
@@ -123,42 +112,6 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
                         }
                     } else {
                         m_Response.onResponseError(TAG, String.valueOf(response.message()));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                m_Response.onFinish();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                m_Response.onResponseError(TAG, t.getMessage());
-                m_Response.onFinish();
-            }
-        });
-    }
-
-    @Override
-    public void updateProfile(final OnResponse<String, UpdateProfileResultEntity> m_Response, String token, UpdateProfileEntity updateProfileEntity) {
-        m_Response.onStart();
-        Call<ResponseBody> call = m_Service.updateProfile(token, updateProfileEntity);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    if (response.code() == 200) {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        try {
-                            final GsonBuilder gsonBuilder = new GsonBuilder();
-                            final Gson gson = gsonBuilder.create();
-                            UpdateProfileResultEntity updateProfileResultEntity = gson.fromJson(jsonObject.toString(), UpdateProfileResultEntity.class);
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), updateProfileResultEntity);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
-                        }
-                    } else {
-                        m_Response.onResponseError(TAG, String.valueOf(response.code()));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

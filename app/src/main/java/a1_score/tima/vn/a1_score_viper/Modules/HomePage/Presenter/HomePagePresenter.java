@@ -5,6 +5,13 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,6 +21,7 @@ import android.widget.ImageView;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interactor.HomePageInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interface.HomePageInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Wireframe.HomePageWireframe;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.R;
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
@@ -24,9 +32,19 @@ public class HomePagePresenter implements HomePageInterface.Presenter, HomePageI
     private HomePageInterface.View view;
 
     public HomePagePresenter(HomePageInterface.View view) {
-        interactorInput = new HomePageInteractor(this);
+        interactorInput = new HomePageInteractor(view,this);
         wireframe = new HomePageWireframe();
         this.view = view;
+    }
+
+    @Override
+    public void initData() {
+        interactorInput.initData();
+    }
+
+    @Override
+    public void initAvatar() {
+        interactorInput.initAvatar();
     }
 
     @Override
@@ -37,6 +55,16 @@ public class HomePagePresenter implements HomePageInterface.Presenter, HomePageI
     @Override
     public void setupAnimationSeekBar(CircularSeekBar seekBar, int start, int end) {
         interactorInput.setupAnimationSeekBar(seekBar, start, end);
+    }
+
+    @Override
+    public void takePhoto(int type, int imageType) {
+        interactorInput.takePhoto(type, imageType);
+    }
+
+    @Override
+    public void updateImage(int type, int imageType, String filePath) {
+        interactorInput.updateImage(type, imageType, filePath);
     }
 
     @Override
@@ -83,6 +111,27 @@ public class HomePagePresenter implements HomePageInterface.Presenter, HomePageI
     }
 
     @Override
+    public void initAvatarOutput(Bitmap bmp) {
+        if(bmp != null) {
+            Bitmap imageRounded = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+            Canvas canvas = new Canvas(imageRounded);
+            Paint mpaint = new Paint();
+            mpaint.setAntiAlias(true);
+            mpaint.setShader(new BitmapShader(bmp, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+            canvas.drawRoundRect((new RectF(0, 0, bmp.getWidth(), bmp.getHeight())), bmp.getWidth() / 2, bmp.getHeight() / 2, mpaint);
+            view.initAvatar(imageRounded);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeResource(((Context)view).getResources(), R.drawable.avatar);
+            view.initAvatar(bitmap);
+        }
+    }
+
+    @Override
+    public void initDataOutput(LoginResultEntity.UserEntity userEntity) {
+        view.initData(userEntity);
+    }
+
+    @Override
     public void runAnimationLogo(ImageView view) {
         Animation anim = AnimationUtils.loadAnimation((Context) this.view, R.anim.scale_logo);
         view.startAnimation(anim);
@@ -93,6 +142,27 @@ public class HomePagePresenter implements HomePageInterface.Presenter, HomePageI
         ObjectAnimator anim = ObjectAnimator.ofFloat(seekBar, "progress", start,end);
         anim.setDuration(1000 * (end - start)/100);
         anim.start();
+    }
+
+    @Override
+    public void takePhotoOutput(int type, int imageType) {
+        wireframe.goToCamera((Activity)view, type, imageType);
+    }
+
+    @Override
+    public void updateImageOutput(int type, int imageType, Bitmap img) {
+        Bitmap imageRounded = Bitmap.createBitmap(img.getWidth(), img.getHeight(), img.getConfig());
+        Canvas canvas = new Canvas(imageRounded);
+        Paint mpaint = new Paint();
+        mpaint.setAntiAlias(true);
+        mpaint.setShader(new BitmapShader(img, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+        canvas.drawRoundRect((new RectF(0, 0, img.getWidth(), img.getHeight())), img.getWidth() / 2, img.getHeight() / 2, mpaint);
+        view.updateImage(imageType, imageRounded);
+    }
+
+    @Override
+    public void updateImageFailed(String err) {
+        view.updateImageFailed(err);
     }
 
     @Override

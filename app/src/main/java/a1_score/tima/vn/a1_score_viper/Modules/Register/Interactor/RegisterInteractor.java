@@ -25,20 +25,24 @@ public class RegisterInteractor implements RegisterInterface.InteractorInput {
     }
 
     @Override
-    public void register(final String username, String password, String confirmPassword, String email) {
+    public void register(final String username, String password, String confirmPassword, String fullName) {
         if(username.isEmpty()) {
-            interactorOutput.usernameEmpty(((Activity)view).getString(R.string.err_user_empty));
+            interactorOutput.EdittextEmpty(0, ((Activity)view).getString(R.string.err_user_empty));
             return;
         }
         if(password.isEmpty()) {
-            interactorOutput.passwordEmpty(((Activity)view).getString(R.string.err_pass_empty));
+            interactorOutput.EdittextEmpty(1, ((Activity)view).getString(R.string.err_pass_empty));
             return;
         }
         if(confirmPassword.isEmpty()) {
-            interactorOutput.confirmPasswordEmpty(((Activity)view).getString(R.string.err_repass_empty));
+            interactorOutput.EdittextEmpty(2, ((Activity)view).getString(R.string.err_repass_empty));
             return;
         }
-        RegisterEntity registerEntity = new RegisterEntity(username, password, confirmPassword, email);
+        if(fullName.isEmpty()) {
+            interactorOutput.EdittextEmpty(3, ((Activity)view).getString(R.string.err_fullname_empty));
+            return;
+        }
+        RegisterEntity registerEntity = new RegisterEntity(username, password, confirmPassword, fullName);
         dataStore.callRegister(new OnResponse<String, RegisterResultEntity>() {
             @Override
             public void onResponseSuccess(String tag, String rs, RegisterResultEntity extraData) {

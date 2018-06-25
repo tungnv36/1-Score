@@ -23,6 +23,11 @@ public class ChangePhoneInteractor implements ChangePhoneInterface.InteractorInp
     }
 
     @Override
+    public void initPhone() {
+        interactorOutput.initPhoneOutput(dataStore.getUser());
+    }
+
+    @Override
     public void changePhone(String oldPhone, String newPhone, String password) {
         if(oldPhone.isEmpty()) {
             interactorOutput.changePhoneFailed("Bạn chưa nhập số điện thoại cũ");

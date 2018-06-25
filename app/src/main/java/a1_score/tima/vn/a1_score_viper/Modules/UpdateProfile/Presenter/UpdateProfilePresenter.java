@@ -1,7 +1,14 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Presenter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 
 import java.util.List;
 
@@ -10,6 +17,7 @@ import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfil
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interactor.UpdateProfileInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Wireframe.UpdateProfileWireframe;
+import a1_score.tima.vn.a1_score_viper.R;
 
 public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter, UpdateProfileInterface.InteractorOutput {
 
@@ -72,14 +80,6 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
 
     @Override
     public void updateImageOutput(int type, int imageType, Bitmap img) {
-//        Bitmap bmp = Commons.rotateImage(img, 90);
-//        List<Integer> lstCameraSize = Commons.getCropSize((Activity)view, type, bmp);
-//        if(lstCameraSize != null) {
-//            Bitmap cropBmp = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
-//            view.updateImage(imageType, cropBmp);
-//        } else {
-//            view.updateImage(imageType, bmp);
-//        }
         view.updateImage(imageType, img);
     }
 

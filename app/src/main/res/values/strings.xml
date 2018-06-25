@@ -113,6 +113,7 @@
     <string name="err_user_empty">Bạn chưa nhập tài khoản</string>
     <string name="err_pass_empty">Bạn chưa nhập mật khẩu</string>
     <string name="err_repass_empty">Bạn chưa nhập lại mật khẩu</string>
+    <string name="err_fullname_empty">Bạn chưa nhập họ tên</string>
     <string name="err_email_empty">Bạn chưa nhập Email</string>
     <string name="err_phone_empty">Bạn chưa nhập số điện thoại</string>
     <string name="login_success">ok</string>

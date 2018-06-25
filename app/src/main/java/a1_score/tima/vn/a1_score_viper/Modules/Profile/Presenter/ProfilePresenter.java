@@ -4,6 +4,13 @@ import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -11,6 +18,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interactor.ProfileInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interface.ProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Wireframe.ProfileWireframe;
@@ -25,8 +33,28 @@ public class ProfilePresenter implements ProfileInterface.Presenter, ProfileInte
 
     public ProfilePresenter(ProfileInterface.View view) {
         this.view = view;
-        interactorInput = new ProfileInteractor(this);
+        interactorInput = new ProfileInteractor(view, this);
         wireframe = new ProfileWireframe();
+    }
+
+    @Override
+    public void initData() {
+        interactorInput.initData();
+    }
+
+    @Override
+    public void initAvatar() {
+        interactorInput.initAvatar();
+    }
+
+    @Override
+    public void takePhoto(int type, int imageType) {
+        interactorInput.takePhoto(type, imageType);
+    }
+
+    @Override
+    public void updateImage(int type, int imageType, String filePath) {
+        interactorInput.updateImage(type, imageType, filePath);
     }
 
     @Override
@@ -78,8 +106,50 @@ public class ProfilePresenter implements ProfileInterface.Presenter, ProfileInte
     public void onDestroy() {
         interactorInput.unRegister();
         interactorInput = null;
-        view.onDestroy();
         view = null;
+        wireframe = null;
+    }
+
+    @Override
+    public void initAvatarOutput(Bitmap bmp) {
+        if(bmp != null) {
+            Bitmap imageRounded = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+            Canvas canvas = new Canvas(imageRounded);
+            Paint mpaint = new Paint();
+            mpaint.setAntiAlias(true);
+            mpaint.setShader(new BitmapShader(bmp, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+            canvas.drawRoundRect((new RectF(0, 0, bmp.getWidth(), bmp.getHeight())), bmp.getWidth() / 2, bmp.getHeight() / 2, mpaint);
+            view.initAvatar(imageRounded);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeResource(((Context)view).getResources(), R.drawable.avatar);
+            view.initAvatar(bitmap);
+        }
+    }
+
+    @Override
+    public void initData(LoginResultEntity.UserEntity userEntity) {
+        view.initData(userEntity);
+    }
+
+    @Override
+    public void takePhotoOutput(int type, int imageType) {
+        wireframe.goToCamera((Activity)view, type, imageType);
+    }
+
+    @Override
+    public void updateImageOutput(int type, int imageType, Bitmap img) {
+        Bitmap imageRounded = Bitmap.createBitmap(img.getWidth(), img.getHeight(), img.getConfig());
+        Canvas canvas = new Canvas(imageRounded);
+        Paint mpaint = new Paint();
+        mpaint.setAntiAlias(true);
+        mpaint.setShader(new BitmapShader(img, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+        canvas.drawRoundRect((new RectF(0, 0, img.getWidth(), img.getHeight())), img.getWidth() / 2, img.getHeight() / 2, mpaint);
+        view.updateImage(imageType, imageRounded);
+    }
+
+    @Override
+    public void updateImageFailed(String err) {
+        view.updateImageFailed(err);
     }
 
     @Override

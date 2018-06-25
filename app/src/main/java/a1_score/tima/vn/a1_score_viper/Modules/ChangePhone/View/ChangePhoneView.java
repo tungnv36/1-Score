@@ -91,6 +91,12 @@ public class ChangePhoneView extends AppCompatActivity implements ChangePhoneInt
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.initPhone();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
@@ -101,6 +107,11 @@ public class ChangePhoneView extends AppCompatActivity implements ChangePhoneInt
         ViewGroup.LayoutParams params = llTopBanner.getLayoutParams();
         params.height = height;
         llTopBanner.setLayoutParams(params);
+    }
+
+    @Override
+    public void initPhone(String phone) {
+        etOldPhone.setText(phone);
     }
 
     @Override

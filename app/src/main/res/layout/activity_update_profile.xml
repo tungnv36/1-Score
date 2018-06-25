@@ -68,7 +68,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_bottom"
                             android:hint="@string/title_name"
-                            android:inputType="textNoSuggestions"
+                            android:inputType="textNoSuggestions|textFilter"
                             android:padding="10dp" />
 
                     </android.support.design.widget.TextInputLayout>

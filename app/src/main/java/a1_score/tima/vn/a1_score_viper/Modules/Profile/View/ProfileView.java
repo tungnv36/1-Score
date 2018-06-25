@@ -1,5 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Profile.View;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,10 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.wang.avi.AVLoadingIndicatorView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Entity.MenuEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interface.ProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Presenter.ProfilePresenter;
@@ -55,6 +61,8 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
     RecyclerView rvMenu;
     @BindView(R.id.rootView)
     RelativeLayout rootView;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     private ProfileInterface.Presenter presenter;
     private int scoreOfLevel = 80;
@@ -62,6 +70,8 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
 
     private List<MenuEntity> lstMenu;
     private MenuProfileAdapter menuProfileAdapter;
+
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,8 +87,17 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
         presenter = new ProfilePresenter(this);
 
         ibMenu.setOnClickListener(this);
+        ivLogo.setOnClickListener(this);
 
         initMenu();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                avi.show();
+                presenter.initAvatar();
+            }
+        }).start();
     }
 
     private void initMenu() {
@@ -97,8 +116,15 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.initAnimationLogo(ivLogo);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                presenter.initData();
+            }
+        }).start();
+//        presenter.initAnimationLogo(ivLogo);
         presenter.setupAnimationSeekBar(sbLevel, startScore, scoreOfLevel);
+//        sbLevel.setProgress(scoreOfLevel);
     }
 
     private void styleView() {
@@ -131,11 +157,50 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
             case R.id.ibMenu:
                 finish();
                 break;
+            case R.id.ivLogo:
+                boolean result = Commons.checkPermission2(ProfileView.this);
+                if (result) {
+                    presenter.takePhoto(3, 0);
+                }
+                break;
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        presenter.onDestroy();
+        presenter = null;
+    }
+
+    @Override
+    public void initData(final LoginResultEntity.UserEntity userEntity) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tvName.setText(userEntity.getFullname());
+            }
+        });
+    }
+
+    @Override
+    public void initAvatar(final Bitmap bmp) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ivLogo.setImageBitmap(bmp);
+                avi.hide();
+            }
+        });
+    }
+
+    @Override
+    public void updateImage(int imageType, Bitmap img) {
+        ivLogo.setImageBitmap(img);
+    }
+
+    @Override
+    public void updateImageFailed(String err) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 }

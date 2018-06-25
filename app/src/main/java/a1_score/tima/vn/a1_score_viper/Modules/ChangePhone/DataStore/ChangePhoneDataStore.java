@@ -1,5 +1,8 @@
 package a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.DataStore;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -29,6 +32,12 @@ public class ChangePhoneDataStore extends ApiRequest implements ChangePhoneInter
             mInstance = new ChangePhoneDataStore(view);
         }
         return mInstance;
+    }
+
+    @Override
+    public String getUser() {
+        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        return pref.getString("username", "");
     }
 
     private ChangePhoneDataStore(ChangePhoneInterface.View view) {

@@ -51,12 +51,12 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
     TextView tvRePass;
     @BindView(R.id.etRePassword)
     EditText etRePassword;
-    @BindView(R.id.tvEmail)
-    TextView tvEmail;
-    @BindView(R.id.etEmail)
-    EditText etEmail;
-    @BindView(R.id.ivEmail)
-    ImageView ivEmail;
+    @BindView(R.id.tvFullName)
+    TextView tvFullName;
+    @BindView(R.id.etFullName)
+    EditText etFullName;
+    @BindView(R.id.ivFullName)
+    ImageView ivFullName;
     @BindView(R.id.rlLoginView)
     RelativeLayout rlLoginView;
     @BindView(R.id.btRegister)
@@ -131,29 +131,31 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
                 this.finish();
                 break;
             case R.id.btRegister:
-                presenter.register(etUsername.getText().toString(), etPassword.getText().toString(), etRePassword.getText().toString(), etEmail.getText().toString());
+                presenter.register(etUsername.getText().toString(), etPassword.getText().toString(), etRePassword.getText().toString(), etFullName.getText().toString());
                 break;
         }
     }
 
     @Override
-    public void usernameEmpty(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void passwordEmpty(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void confirmPasswordEmpty(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void EmailEmpty(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    public void EdittextEmpty(int type, String error) {
+        switch (type) {
+            case 0:
+                etUsername.setError(error);
+                etUsername.requestFocus();
+                break;
+            case 1:
+                etPassword.setError(error);
+                etPassword.requestFocus();
+                break;
+            case 2:
+                etRePassword.setError(error);
+                etRePassword.requestFocus();
+                break;
+            case 3:
+                etFullName.setError(error);
+                etFullName.requestFocus();
+                break;
+        }
     }
 
     @Override

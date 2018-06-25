@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Login.Presenter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Interactor.LoginInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Interface.LoginInterface;
@@ -29,8 +30,8 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     }
 
     @Override
-    public void login(String username, String password) {
-        interactorInput.login(username, password);
+    public void login(ProgressDialog mProgress, String username, String password) {
+        interactorInput.login(mProgress, username, password);
     }
 
     @Override
@@ -56,7 +57,8 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     }
 
     @Override
-    public void loginSuccess() {
+    public void loginSuccess(ProgressDialog mProgress) {
+        mProgress.dismiss();
         wireframe.gotToHomePage((Activity) view);
     }
 

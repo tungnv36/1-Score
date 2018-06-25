@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Login.Interactor;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
@@ -33,7 +34,7 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
     }
 
     @Override
-    public void login(final String username, String password) {
+    public void login(final ProgressDialog mProgress, final String username, String password) {
         if(username.isEmpty()) {
             interactorOutput.usernameEmpty(((Activity)view).getString(R.string.err_user_empty));
             return;
@@ -51,7 +52,10 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
                 } else {
                     dataStore.setUser((Context) view, extraData);
                     dataStore.saveUser(extraData);
-                    interactorOutput.loginSuccess();
+                    interactorOutput.loginSuccess(mProgress);
+                    if(dataStore.getImageID(username, "AVATAR") != Integer.parseInt(extraData.getUser().getIdavatar().isEmpty()?"0":extraData.getUser().getIdavatar())) {
+                        //get image
+                    }
                 }
             }
 

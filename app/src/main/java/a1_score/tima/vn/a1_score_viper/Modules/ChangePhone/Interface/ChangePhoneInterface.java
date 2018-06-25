@@ -7,21 +7,25 @@ import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Entity.ChangePhoneRes
 public interface ChangePhoneInterface {
 
     interface View {
+        void initPhone(String phone);
         void changePhoneSuccess(String msg);
         void changePhoneFailed(String err);
     }
 
     interface Presenter {
+        void initPhone();
         void changePhone(String oldPhone, String newPhone, String password);
         void onDestroy();
     }
 
     interface InteractorInput {
+        void initPhone();
         void changePhone(String oldPhone, String newPhone, String password);
         void unRegister();
     }
 
     interface InteractorOutput {
+        void initPhoneOutput(String phone);
         void changePhoneSuccess(String msg);
         void changePhoneFailed(String err);
     }
@@ -31,6 +35,7 @@ public interface ChangePhoneInterface {
     }
 
     interface DataStore {
+        String getUser();
         void changePhone(final OnResponse<String, ChangePhoneResultEntity> m_Response, String token, ChangePhoneEntity changePhoneEntity);
     }
 }

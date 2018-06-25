@@ -94,6 +94,11 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     }
 
     @Override
+    public int getImageID(String username, String type) {
+        return sQliteDatabase.getImageID(username, type);
+    }
+
+    @Override
     public void createFolder() {
         File rootFolder = new File(Environment.getExternalStorageDirectory() + File.separator + Constant.ROOT_FOLDER);
         if(!rootFolder.exists()) {

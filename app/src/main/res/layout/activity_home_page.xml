@@ -201,8 +201,20 @@
         android:layout_centerHorizontal="true"
         android:layout_alignBottom="@+id/rlTop"
         android:layout_marginBottom="-40dp"
-        android:background="@drawable/avatar"
+        android:src="@drawable/avatar"
+        android:background="@drawable/bg_avatar"
         android:scaleType="fitXY" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="visible"
+        app:indicatorName="BallSpinFadeLoaderIndicator"
+        app:indicatorColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/ivLogo"
+        android:layout_marginBottom="25dp" />
 
     <TextView
         android:id="@+id/tvCurrentLevel"

@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Login.Interface;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
@@ -21,7 +22,7 @@ public interface LoginInterface {
     interface Presenter {
         void createFolder();
         void changeHeightBanner(int height, int margin);
-        void login(String username, String password);
+        void login(ProgressDialog mProgress, String username, String password);
         void goToForgotPassword();
         void onDestroy();
     }
@@ -29,7 +30,7 @@ public interface LoginInterface {
     interface InteractorInput {
         void createFolder();
         void changeHeightBanner(int height, int margin);
-        void login(String username, String password);
+        void login(ProgressDialog mProgress, String username, String password);
         void goToForgotPassword();
         void unRegister();
     }
@@ -37,7 +38,7 @@ public interface LoginInterface {
     interface InteractorOutput {
         void changeHeightBannerOutput(int height, int margin);
         void goToForgotPasswordOutput();
-        void loginSuccess();
+        void loginSuccess(ProgressDialog mProgress);
         void loginFailed(String error);
         void usernameEmpty(String error);
         void passwordEmpty(String error);
@@ -52,6 +53,7 @@ public interface LoginInterface {
         void callLogin(final OnResponse<String, LoginResultEntity> m_Response, LoginEntity loginEntity);
         void setUser(Context context, LoginResultEntity user);
         void saveUser(LoginResultEntity user);
+        int getImageID(String username, String type);
         void createFolder();
     }
 

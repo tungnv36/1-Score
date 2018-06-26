@@ -134,7 +134,7 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setTitle(getString(R.string.family_info));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.main_light_blue)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.main_dark_blue)));
         } else {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3499FF")));
         }
@@ -147,7 +147,7 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.main_light_blue));
+            window.setStatusBarColor(getResources().getColor(R.color.main_dark_blue));
         }
     }
 

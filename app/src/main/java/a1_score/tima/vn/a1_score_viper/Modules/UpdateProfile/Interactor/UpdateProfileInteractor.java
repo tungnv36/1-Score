@@ -51,6 +51,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
     @Override
     public void initData() {
         UpdateProfileEntity updateProfileEntity = dataStore.getData(dataStore.getUser());
+        updateProfileEntity.setFullname(dataStore.getFullName());
         interactorOutput.initDataOutput(updateProfileEntity);
     }
 
@@ -109,7 +110,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
     }
 
     @Override
-    public void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex) {
+    public void updateProfile(final String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex) {
         if(fullname.isEmpty()) {
             interactorOutput.emptyField("Bạn chưa nhập tên");
             return;
@@ -152,6 +153,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             public void onResponseSuccess(String tag, String rs, UpdateProfileResultEntity extraData) {
                 if(extraData != null) {
                     dataStore.saveProfileToDB(updateProfileEntity);
+                    dataStore.updateFullName(fullname);
                     interactorOutput.updateProfileOutput(extraData.getMessage());
                 } else {
                     interactorOutput.updateImageFailed(rs);

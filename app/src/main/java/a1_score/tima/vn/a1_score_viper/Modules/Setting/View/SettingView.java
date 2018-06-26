@@ -94,6 +94,7 @@ public class SettingView extends AppCompatActivity implements SettingInterface.V
         switch (v.getId()) {
             case R.id.ibBack:
                 finish();
+                overridePendingTransition(R.anim.start_activity_02, R.anim.start_activity_02);
                 break;
         }
     }

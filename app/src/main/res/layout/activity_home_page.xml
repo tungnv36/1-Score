@@ -192,7 +192,7 @@
         app:cs_circle_style="round"
         app:cs_circle_stroke_width="8dp"
         app:cs_disable_pointer="true"
-        app:cs_circle_progress_color="#FDCB48"/>
+        app:cs_circle_progress_color="#FDCB48" />
 
     <ImageView
         android:id="@+id/ivLogo"

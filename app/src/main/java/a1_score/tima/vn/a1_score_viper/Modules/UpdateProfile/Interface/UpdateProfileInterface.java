@@ -58,7 +58,9 @@ public interface UpdateProfileInterface {
     //DataStore
     interface DataStore {
         String getUser();
+        String getFullName();
         String getToken();
+        void updateFullName(String fullname);
         int getImageID(String phone, String type);
         UpdateProfileEntity getData(String userName);
         void saveImageToLocal(String fineName, Bitmap bmp);

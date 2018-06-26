@@ -39,6 +39,7 @@ public class HomePageWireframe implements HomePageInterface.Wireframe {
     public void goToSetting(Activity activity) {
         Intent intent = new Intent(activity, SettingView.class);
         activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.start_activity, R.anim.finish_activity);
     }
 
     @Override

@@ -28,12 +28,14 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.List;
 
+import a1_score.tima.vn.a1_score_viper.Common.API.Config;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Entity.MenuEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interface.HomePageInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Presenter.HomePagePresenter;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -134,7 +136,6 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
         }).start();
 //        presenter.initAnimationLogo(ivLogo);
         presenter.setupAnimationSeekBar(sbLevel, startScore, scoreOfLevel);
-//        sbLevel.setProgress(scoreOfLevel);
         if (isLogout) {
             isLogout = false;
             finish();
@@ -176,7 +177,7 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.main_light_blue));
+            window.setStatusBarColor(getResources().getColor(R.color.main_dark_blue));
         }
     }
 

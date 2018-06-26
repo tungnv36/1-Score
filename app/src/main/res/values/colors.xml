@@ -31,8 +31,10 @@
     <color name="blue_light">#419CF8</color>
     <color name="blue_dark_press">#5b5e9f</color>
     <color name="blue_light_press">#70b5fc</color>
-    <color name="main_light_blue">#3499FF</color>
-    <color name="main_dark_blue">#397ED7</color>
+    <color name="main_light_blue">#297ACC</color>
+    <color name="main_dark_blue">#32469C</color>
+    <!--<color name="main_light_blue">#3499FF</color>-->
+    <!--<color name="main_dark_blue">#397ED7</color>-->
     <color name="light_orange">#FFCF1B</color>
     <color name="dark_orange">#FF881B</color>
     <color name="red_text">#EC5656</color>

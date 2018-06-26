@@ -131,12 +131,12 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
 
         initBirthDay();
         initSex();
+        initData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
     }
 
     @Override
@@ -149,7 +149,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         getSupportActionBar().setTitle(getString(R.string.person_info));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.main_light_blue)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.main_dark_blue)));
         } else {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#3499FF")));
         }
@@ -162,7 +162,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.main_light_blue));
+            window.setStatusBarColor(getResources().getColor(R.color.main_dark_blue));
         }
     }
 

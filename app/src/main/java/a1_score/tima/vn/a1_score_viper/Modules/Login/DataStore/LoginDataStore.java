@@ -2,6 +2,7 @@ package a1_score.tima.vn.a1_score_viper.Modules.Login.DataStore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Environment;
 
 import com.google.gson.Gson;
@@ -10,6 +11,8 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
@@ -18,6 +21,7 @@ import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Interface.LoginInterface;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -84,6 +88,7 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
         SharedPreferences.Editor editor = context.getSharedPreferences(Constant.PREFS_NAME, context.MODE_PRIVATE).edit();
         editor.putString("token", user.getToken());
         editor.putString("username", user.getUser().getUsername());
+        editor.putString("fullname", user.getUser().getFullname());
         editor.apply();
     }
 
@@ -91,6 +96,33 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     public void saveUser(LoginResultEntity user) {
         sQliteDatabase.deleteUser();
         sQliteDatabase.addUser(user);
+    }
+
+    @Override
+    public void saveImageToLocal(String fineName, Bitmap bmp) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(Environment.getExternalStorageDirectory()
+                    + File.separator + Constant.ROOT_FOLDER + File.separator
+                    + Constant.PHOTO_FOLDER + File.separator + fineName);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 80, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
+        sQliteDatabase.deleteImageBy(username, type);
+        sQliteDatabase.addImage(uploadImageResultEntity, imageName, username, type);
     }
 
     @Override

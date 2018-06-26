@@ -56,9 +56,23 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
     }
 
     @Override
+    public String getFullName() {
+        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        return pref.getString("fullname", "");
+    }
+
+    @Override
     public String getToken() {
         SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
         return pref.getString("token", "");
+    }
+
+    @Override
+    public void updateFullName(String fullname) {
+        SharedPreferences.Editor editor = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE).edit();
+        editor.putString("fullname", fullname);
+        editor.apply();
+        sQliteDatabase.updateFullName(getUser(), fullname);
     }
 
     @Override

@@ -176,7 +176,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         values.put(KEY_IMAGES_USER, username);
         values.put(KEY_IMAGES_FORMAT, uploadImageResultEntity.getImage().getImagetype());
 
-        String returl = String.valueOf(db.insert(TABLE_NAME_IMAGES, null, values));
+        db.insert(TABLE_NAME_IMAGES, null, values);
         db.close();
     }
 
@@ -216,6 +216,16 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         values.put(KEY_PROFILE_SEX, updateProfileEntity.getSex());
 
         long result = db.insert(TABLE_NAME_PROFILE, null, values);
+        db.close();
+    }
+
+    public void updateFullName(String username, String fullname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PROFILE_FULLNAME, fullname);
+
+        db.update(TABLE_NAME_PROFILE, values, String.format("%s = ?", KEY_PROFILE_USERNAME), new String[]{username});
         db.close();
     }
 

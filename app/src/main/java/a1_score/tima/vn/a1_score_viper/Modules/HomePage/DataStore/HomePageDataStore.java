@@ -87,6 +87,7 @@ public class HomePageDataStore extends ApiRequest implements HomePageInterface.D
 
     @Override
     public void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
+        sQliteDatabase.deleteImageBy(username, type);
         sQliteDatabase.addImage(uploadImageResultEntity, imageName, username, type);
     }
 

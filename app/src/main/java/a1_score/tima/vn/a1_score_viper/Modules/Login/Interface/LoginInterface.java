@@ -3,10 +3,12 @@ package a1_score.tima.vn.a1_score_viper.Modules.Login.Interface;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
 
 public interface LoginInterface {
 
@@ -53,6 +55,8 @@ public interface LoginInterface {
         void callLogin(final OnResponse<String, LoginResultEntity> m_Response, LoginEntity loginEntity);
         void setUser(Context context, LoginResultEntity user);
         void saveUser(LoginResultEntity user);
+        void saveImageToLocal(String fineName, Bitmap bmp);
+        void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type);
         int getImageID(String username, String type);
         void createFolder();
     }

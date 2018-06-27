@@ -3,12 +3,12 @@ package a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity;
 public class ForgotPasswordResultEntity {
 
     private int StatusCode;
-    private String PhoneNumber;
+    private String OTPCode;
     private String Message;
 
-    public ForgotPasswordResultEntity(int statusCode, String phoneNumber, String message) {
+    public ForgotPasswordResultEntity(int statusCode, String oTPCode, String message) {
         StatusCode = statusCode;
-        PhoneNumber = phoneNumber;
+        OTPCode = oTPCode;
         Message = message;
     }
 
@@ -21,11 +21,11 @@ public class ForgotPasswordResultEntity {
     }
 
     public String getPhoneNumber() {
-        return PhoneNumber;
+        return OTPCode;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
+    public void setPhoneNumber(String oTPCode) {
+        OTPCode = oTPCode;
     }
 
     public String getMessage() {

@@ -130,6 +130,17 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateUser(String oldPhone, String newPhone) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_USER_NAME, newPhone);
+        values.put(KEY_USER_PHONE, newPhone);
+
+        db.update(TABLE_NAME_USER, values, String.format("%s=?", KEY_USER_NAME), new String[]{ oldPhone });
+        db.close();
+    }
+
     public void deleteUser() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME_USER, null, null);

@@ -158,6 +158,21 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
     }
 
     @Override
+    public void loginFailedLostOtp(final String phoneNumber, final String error) {
+        mProgress.dismiss();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(getString(R.string.dialog_title));
+        alertDialog.setMessage(error);
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.goToOtp(phoneNumber, error);
+            }
+        });
+        alertDialog.show();
+    }
+
+    @Override
     public void onDestroy() {
         presenter.onDestroy();
         presenter = null;

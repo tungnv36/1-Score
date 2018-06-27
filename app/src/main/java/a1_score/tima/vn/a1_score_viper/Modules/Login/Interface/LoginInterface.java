@@ -18,6 +18,7 @@ public interface LoginInterface {
         void usernameEmpty(String error);
         void passwordEmpty(String error);
         void loginFailed(String error);
+        void loginFailedLostOtp(String phoneNumber, String error);
         void onDestroy();
     }
     //presenter
@@ -26,6 +27,7 @@ public interface LoginInterface {
         void changeHeightBanner(int height, int margin);
         void login(ProgressDialog mProgress, String username, String password);
         void goToForgotPassword();
+        void goToOtp(String phoneNumber, String msg);
         void onDestroy();
     }
     //interactor
@@ -34,6 +36,7 @@ public interface LoginInterface {
         void changeHeightBanner(int height, int margin);
         void login(ProgressDialog mProgress, String username, String password);
         void goToForgotPassword();
+        void goToOtp(String phoneNumber, String msg);
         void unRegister();
     }
 
@@ -42,13 +45,16 @@ public interface LoginInterface {
         void goToForgotPasswordOutput();
         void loginSuccess(ProgressDialog mProgress);
         void loginFailed(String error);
+        void loginFailedLostOtp(String phoneNumber, String error);
         void usernameEmpty(String error);
         void passwordEmpty(String error);
+        void goToOtpOutput(String phoneNumber, String msg);
     }
     //wireframe
     interface Wireframe {
         void gotToHomePage(Activity activity);
         void gotToForgotPassword(Activity activity);
+        void goToOtp(Activity activity, String phoneNumber, String msg);
     }
     //DataStore
     interface DataStore {

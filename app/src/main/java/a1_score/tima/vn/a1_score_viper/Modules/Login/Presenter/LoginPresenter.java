@@ -40,6 +40,11 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     }
 
     @Override
+    public void goToOtp(String phoneNumber, String msg) {
+        interactorInput.goToOtp(phoneNumber, msg);
+    }
+
+    @Override
     public void onDestroy() {
         interactorInput.unRegister();
         interactorInput = null;
@@ -68,6 +73,11 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     }
 
     @Override
+    public void loginFailedLostOtp(String phoneNumber, String error) {
+        view.loginFailedLostOtp(phoneNumber, error);
+    }
+
+    @Override
     public void usernameEmpty(String error) {
         view.usernameEmpty(error);
     }
@@ -75,6 +85,11 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     @Override
     public void passwordEmpty(String error) {
         view.passwordEmpty(error);
+    }
+
+    @Override
+    public void goToOtpOutput(String phoneNumber, String msg) {
+        wireframe.goToOtp((Activity)view, phoneNumber, msg);
     }
 
 }

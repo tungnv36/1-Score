@@ -2,6 +2,7 @@ package a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.DataStore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,10 +12,12 @@ import org.json.JSONObject;
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
+import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
 import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Entity.ChangePhoneEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Entity.ChangePhoneResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Interface.ChangePhoneInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,11 +28,13 @@ public class ChangePhoneDataStore extends ApiRequest implements ChangePhoneInter
     private ChangePhoneInterface.View view;
 
     public static ChangePhoneDataStore mInstance;
+    public static SQliteDatabase sqLiteDatabase;
 
     public static ChangePhoneDataStore getInstance(ChangePhoneInterface.View view) {
         if (mInstance == null) {
             initApi();
             mInstance = new ChangePhoneDataStore(view);
+            sqLiteDatabase = SQliteDatabase.getInstance((Context)view);
         }
         return mInstance;
     }
@@ -38,6 +43,14 @@ public class ChangePhoneDataStore extends ApiRequest implements ChangePhoneInter
     public String getUser() {
         SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
         return pref.getString("username", "");
+    }
+
+    @Override
+    public void updateUser(Context context, String oldPhone, String userName) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(Constant.PREFS_NAME, context.MODE_PRIVATE).edit();
+        editor.putString("username", userName);
+        editor.apply();
+        sqLiteDatabase.updateUser(oldPhone, userName);
     }
 
     private ChangePhoneDataStore(ChangePhoneInterface.View view) {

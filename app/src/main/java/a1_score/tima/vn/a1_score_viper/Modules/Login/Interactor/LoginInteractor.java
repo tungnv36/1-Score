@@ -54,7 +54,11 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
             @Override
             public void onResponseSuccess(String tag, String rs, LoginResultEntity extraData) {
                 if(extraData == null || extraData.getStatuscode() != 200) {
-                    interactorOutput.loginFailed(rs);
+                    if(extraData.getStatuscode() == 621) {//User chưa active
+                        interactorOutput.loginFailedLostOtp(username, rs);
+                    } else {
+                        interactorOutput.loginFailed(rs);
+                    }
                 } else {
                     dataStore.setUser((Context) view, extraData);
                     dataStore.saveUser(extraData);
@@ -103,6 +107,11 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
     @Override
     public void goToForgotPassword() {
         interactorOutput.goToForgotPasswordOutput();
+    }
+
+    @Override
+    public void goToOtp(String phoneNumber, String msg) {
+        interactorOutput.goToOtpOutput(phoneNumber, msg);
     }
 
     @Override

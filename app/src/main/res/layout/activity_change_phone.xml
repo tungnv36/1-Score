@@ -72,6 +72,7 @@
             android:inputType="phone"
             android:layout_below="@+id/tvOldPhone"
             android:padding="5dp"
+            android:enabled="false"
             android:background="@drawable/edittext_bottom"/>
 
         <ImageView
@@ -99,7 +100,9 @@
             android:inputType="phone"
             android:layout_below="@+id/tvNewPhone"
             android:padding="5dp"
-            android:background="@drawable/edittext_bottom"/>
+            android:background="@drawable/edittext_bottom">
+            <requestFocus/>
+        </EditText>
 
         <ImageView
             android:id="@+id/ivNewPhone"

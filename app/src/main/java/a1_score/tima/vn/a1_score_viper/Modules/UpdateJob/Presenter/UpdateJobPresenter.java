@@ -18,8 +18,13 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
 
     public UpdateJobPresenter(UpdateJobInterface.View view) {
         this.view = view;
-        interactorInput = new UpdateJobInteractor(this);
+        interactorInput = new UpdateJobInteractor(view, this);
         wireframe = new UpdateJobWireframe();
+    }
+
+    @Override
+    public void initImage(int type, String name) {
+        interactorInput.initImage(type, name);
     }
 
     @Override
@@ -28,8 +33,8 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
     }
 
     @Override
-    public void updateImage(int type, int imageType, String filePath) {
-        interactorInput.updateImage(type, imageType, filePath);
+    public void updateImage(int type, int imageType, String filePath, String fileName) {
+        interactorInput.updateImage(type, imageType, filePath, fileName);
     }
 
     @Override
@@ -40,20 +45,18 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
     }
 
     @Override
+    public void initImageOutput(int type, Bitmap bitmap) {
+        view.initImage(type, bitmap);
+    }
+
+    @Override
     public void takePhotoOutput(int type, int imageType) {
         wireframe.gotoCamera((Activity)view, type, imageType);
     }
 
     @Override
     public void updateImageOutput(int type, int imageType, Bitmap img) {
-        Bitmap bmp = Commons.rotateImage(img, 90);
-        List<Integer> lstCameraSize = Commons.getCropSize((Activity)view, type, bmp);
-        if(lstCameraSize != null) {
-            Bitmap cropBmp = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
-            view.updateImage(imageType, cropBmp);
-        } else {
-            view.updateImage(imageType, bmp);
-        }
+        view.updateImage(imageType, img);
     }
 
     @Override

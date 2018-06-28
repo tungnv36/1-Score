@@ -89,7 +89,7 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
     }
 
     @Override
-    public void updateProfileOutput(String msg) {
+    public void updateProfileSuccess(String msg) {
         view.updateProfileSuccess(msg);
     }
 
@@ -98,8 +98,4 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
         view.updateProfileFailed(err);
     }
 
-    @Override
-    public void emptyField(String msg) {
-        view.emptyField(msg);
-    }
 }

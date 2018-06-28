@@ -61,7 +61,7 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
 
     private LoginInterface.Presenter presenter;
 
-    private ProgressDialog mProgress;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,19 +132,19 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
 
     @Override
     public void usernameEmpty(String error) {
-        mProgress.dismiss();
+        progress.dismiss();
         etUsername.setError(error);
     }
 
     @Override
     public void passwordEmpty(String error) {
-        mProgress.dismiss();
+        progress.dismiss();
         etPassword.setError(error);
     }
 
     @Override
     public void loginFailed(String error) {
-        mProgress.dismiss();
+        progress.dismiss();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(getString(R.string.dialog_title));
         alertDialog.setMessage(error);
@@ -159,7 +159,7 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
 
     @Override
     public void loginFailedLostOtp(final String phoneNumber, final String error) {
-        mProgress.dismiss();
+        progress.dismiss();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(getString(R.string.dialog_title));
         alertDialog.setMessage(error);
@@ -200,12 +200,12 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
                 presenter.goToForgotPassword();
                 break;
             case R.id.btLogin:
-                mProgress = new ProgressDialog(LoginView.this);
-                mProgress.setTitle("Loading");
-                mProgress.setMessage("Vui lòng chờ trong giây lát...");
-                mProgress.setCancelable(false);
-                mProgress.show();
-                presenter.login(mProgress, etUsername.getText().toString(), etPassword.getText().toString());
+                progress = new ProgressDialog(LoginView.this);
+                progress.setTitle("Loading");
+                progress.setMessage("Vui lòng chờ trong giây lát...");
+                progress.setCancelable(false);
+                progress.show();
+                presenter.login(progress, etUsername.getText().toString(), etPassword.getText().toString());
                 break;
         }
     }

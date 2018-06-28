@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interactor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
@@ -17,6 +18,7 @@ import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfil
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
+import a1_score.tima.vn.a1_score_viper.R;
 
 public class UpdateProfileInteractor implements UpdateProfileInterface.InteractorInput {
 
@@ -64,19 +66,18 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
     public void updateImage(final int type, final int imageType, String filePath, final String fileName) {
         final Bitmap bitmap = BitmapFactory.decodeFile(filePath);
         if(bitmap != null) {
-            Bitmap bmp = Commons.rotateImage(bitmap, 90);
-            List<Integer> lstCameraSize = Commons.getCropSize((Activity)view, type, bmp);
+            Bitmap bmp = Commons.rotateImage(bitmap, 90);//Xoay ảnh sau khi chụp
+            List<Integer> lstCameraSize = Commons.getCropSize((Activity)view, type, bmp);//Lấy toạ độ để crop ảnh
             if(lstCameraSize != null) {
-                final Bitmap bmpCrop = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
+                final Bitmap bmpCrop = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));//Crop ảnh theo khung
 
-//                dataStore.saveImageToLocal(dataStore.getUser() + fileName + ".jpg", bmpCrop);
                 UploadImageEntity uploadImageEntity = new UploadImageEntity(dataStore.getUser(), Commons.convertBitmapToBase64(bmpCrop), "");
                 dataStore.uploadImage(new OnResponse<String, UploadImageResultEntity>() {
                     @Override
                     public void onResponseSuccess(String tag, String rs, UploadImageResultEntity extraData) {
                         if (extraData != null && extraData.getStatuscode() == 200) {
-                            dataStore.saveImageToLocal(dataStore.getUser() + fileName + ".jpg", bmpCrop);
-                            dataStore.saveImageToDB(extraData, fileName, dataStore.getUser(), getType(imageType));
+                            dataStore.saveImageToLocal(dataStore.getUser() + fileName + ".jpg", bmpCrop);//Lưu ảnh vào file manager
+                            dataStore.saveImageToDB(extraData, fileName, dataStore.getUser(), getType(imageType));//Lưu thông tin ảnh vào db local
                             interactorOutput.updateImageOutput(type, imageType, bmpCrop);
                         } else {
                             interactorOutput.updateImageFailed(rs);
@@ -89,10 +90,10 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
                     }
                 }, "Bearer " + dataStore.getToken(), uploadImageEntity);
             } else {
-                interactorOutput.updateImageFailed("Lỗi xử lý ảnh");
+                interactorOutput.updateImageFailed(((Context)view).getString(R.string.err_handle_image));
             }
         } else {
-            interactorOutput.updateImageFailed("Lỗi tải ảnh");
+            interactorOutput.updateImageFailed(((Context)view).getString(R.string.err_download_image));
         }
     }
 
@@ -112,27 +113,27 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
     @Override
     public void updateProfile(final String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex) {
         if(fullname.isEmpty()) {
-            interactorOutput.emptyField("Bạn chưa nhập tên");
+            interactorOutput.updateProfileFailed(((Context)view).getString(R.string.err_fullname_empty));
             return;
         }
         if(date_of_birth.isEmpty()) {
-            interactorOutput.emptyField("Bạn chưa nhập ngày sinh");
+            interactorOutput.updateProfileFailed(((Context)view).getString(R.string.err_birthday_empty));
             return;
         }
         if(id_number.isEmpty()) {
-            interactorOutput.emptyField("Bạn chưa nhập số CMND");
+            interactorOutput.updateProfileFailed(((Context)view).getString(R.string.err_cmnd_empty));
             return;
         }
         if(address.isEmpty()) {
-            interactorOutput.emptyField("Bạn chưa nhập địa chỉ");
+            interactorOutput.updateProfileFailed(((Context)view).getString(R.string.err_address_empty));
             return;
         }
         if(bank_acc_number.isEmpty()) {
-            interactorOutput.emptyField("Bạn chưa nhập số tài khoản");
+            interactorOutput.updateProfileFailed(((Context)view).getString(R.string.err_number_acc_empty));
             return;
         }
         if(card_term.isEmpty()) {
-            interactorOutput.emptyField("Bạn chưa nhập thời hạn thẻ");
+            interactorOutput.updateProfileFailed(((Context)view).getString(R.string.err_card_term_empty));
             return;
         }
 
@@ -152,17 +153,17 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             @Override
             public void onResponseSuccess(String tag, String rs, UpdateProfileResultEntity extraData) {
                 if(extraData != null) {
-                    dataStore.saveProfileToDB(updateProfileEntity);
-                    dataStore.updateFullName(fullname);
-                    interactorOutput.updateProfileOutput(extraData.getMessage());
+                    dataStore.saveProfileToDB(updateProfileEntity);//Lưu thông tin cá nhân vào db local
+                    dataStore.updateFullName(fullname);//Cập nhật lại fullname trong file cấu hình
+                    interactorOutput.updateProfileSuccess(extraData.getMessage());
                 } else {
-                    interactorOutput.updateImageFailed(rs);
+                    interactorOutput.updateProfileFailed(rs);
                 }
             }
 
             @Override
             public void onResponseError(String tag, String message) {
-                interactorOutput.updateImageFailed(message);
+                interactorOutput.updateProfileFailed(message);
             }
         },"Bearer " + dataStore.getToken(), updateProfileEntity);
     }

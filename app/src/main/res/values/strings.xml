@@ -41,6 +41,7 @@
     <string name="family_info">Thông tin gia đình</string>
     <string name="bank_info">Thông tin ngân hàng</string>
     <string name="job_info">Thông tin nghề nghiệp</string>
+    <string name="colleague_info">Thông tin đồng nghiệp</string>
     <string name="social_network_info">Thông tin mạng xã hội</string>
     <string name="social_network">Mạng xã hội</string>
     <string name="paper">Giấy tờ</string>
@@ -86,7 +87,6 @@
     <string name="title_linkedin">Linkedin</string>
     <string name="title_colleague_name">Họ tên đồng nghiệp</string>
     <string name="title_colleague_phone">Số điện thoại đồng nghiệp</string>
-    <string name="are_you_married">Bạn có gia đình chưa?</string>
     <string name="title_salary">Mức lương</string>
     <string name="title_relationship">Quan hệ</string>
     <string name="title_setting">Cài đặt</string>
@@ -96,7 +96,15 @@
     <string name="contract_normal">Hợp đồng</string>
     <string name="salary_board">Bảng lương</string>
 
-    <string name="des_otp">Vui lòng nhập OTP để xác nhận</string>
+    <string name="menu_info">Thông tin cơ bản</string>
+    <string name="menu_job">Nghề nghiệp</string>
+    <string name="menu_family">Gia đình</string>
+    <string name="menu_social_network">Mạng xã hội</string>
+    <string name="menu_paper">Giấy tờ khác</string>
+    <string name="menu_profile">Hồ sơ cá nhân</string>
+    <string name="menu_loan_request">Yêu cầu vay</string>
+    <string name="menu_mini_game">Mini game</string>
+    <string name="menu_introduction">Giới thiệu</string>
 
     <string name="title_loan_money_dot">Số tiền vay: </string>
     <string name="title_sum_money_dot">Tổng tiền phải trả: </string>
@@ -107,28 +115,28 @@
     <string name="contract_title">Tôi đã đọc và đồng ý với các điều khoản của</string>
     <string name="contract"><u>Hợp đồng</u></string>
 
-    <string name="menu_profile">Hồ sơ cá nhân</string>
-    <string name="menu_loan_request">Yêu cầu vay</string>
-    <string name="menu_mini_game">Mini game</string>
-    <string name="menu_introduction">Giới thiệu</string>
     <string name="err_user_empty">Bạn chưa nhập tài khoản</string>
     <string name="err_pass_empty">Bạn chưa nhập mật khẩu</string>
     <string name="err_repass_empty">Bạn chưa nhập lại mật khẩu</string>
     <string name="err_fullname_empty">Bạn chưa nhập họ tên</string>
     <string name="err_email_empty">Bạn chưa nhập Email</string>
+    <string name="err_address_empty">Bạn chưa nhập địa chỉ</string>
     <string name="err_phone_empty">Bạn chưa nhập số điện thoại</string>
+    <string name="err_birthday_empty">Bạn chưa nhập ngày sinh</string>
+    <string name="err_cmnd_empty">Bạn chưa nhập số CMND</string>
+    <string name="err_number_acc_empty">Bạn chưa nhập số tài khoản</string>
+    <string name="err_card_term_empty">Bạn chưa nhập thời hạn thẻ</string>
+    <string name="des_otp">Vui lòng nhập OTP để xác nhận</string>
+    <string name="info_expired">Có thông tin đã hết hạn</string>
+    <string name="are_you_married">Bạn có gia đình chưa?</string>
+    <string name="err_handle_image">Lỗi xử lý ảnh</string>
+    <string name="err_download_image">Lỗi tải ảnh</string>
+
     <string name="login_success">ok</string>
     <string name="login_failed">Đăng nhập thất bại</string>
     <string name="dialog_title">Thông báo</string>
     <string name="register_success">Đăng ký thành công</string>
     <string name="tablet_info">Xin lỗi!\nỨng dụng của chúng tôi không hỗ trợ máy tính bảng, xin vui lòng cài đặt trên điện thoại.\nXin cảm ơn!</string>
-
-    <string name="menu_info">Thông tin cơ bản</string>
-    <string name="menu_job">Nghề nghiệp</string>
-    <string name="menu_family">Gia đình</string>
-    <string name="menu_social_network">Mạng xã hội</string>
-    <string name="menu_paper">Giấy tờ khác</string>
-    <string name="info_expired">Có thông tin đã hết hạn</string>
 
     <string name="font_segoe">fonts/Segoe UI.ttf</string>
 </resources>

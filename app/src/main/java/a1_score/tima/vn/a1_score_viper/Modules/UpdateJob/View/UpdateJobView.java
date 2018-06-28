@@ -9,19 +9,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Presenter.UpdateJobPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -29,7 +35,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UpdateJobView extends AppCompatActivity implements UpdateJobInterface.View, View.OnClickListener {
-
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
@@ -71,15 +76,28 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     LinearLayout llSalaryBoard;
     @BindView(R.id.rlSalaryBoard)
     RelativeLayout rlSalaryBoard;
-    @BindView(R.id.etColleagueName)
-    EditText etColleagueName;
-    @BindView(R.id.etColleaguePhone)
-    EditText etColleaguePhone;
+    @BindView(R.id.rvColleague)
+    RecyclerView rvColleague;
     @BindView(R.id.llContent1)
     LinearLayout llContent1;
     @BindView(R.id.btUpdate)
     Button btUpdate;
+    @BindView(R.id.ibAddColleague)
+    ImageButton ibAddColleague;
+    @BindView(R.id.tvTitleBank)
+    TextView tvTitleBank;
+    @BindView(R.id.tvBankScore)
+    TextView tvBankScore;
+    @BindView(R.id.rlTitleBank)
+    RelativeLayout rlTitleBank;
+    @BindView(R.id.llContent2)
+    LinearLayout llContent2;
+
     private UpdateJobInterface.Presenter presenter;
+
+    private String fileName;
+    private List<ColleagueEntity> colleagueEntities;
+    private JobControlAdapter jobControlAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,12 +107,20 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         setupActionBar();
         changeStatusBarColor();
         styleView();
+        initColleagueControl();
 
         presenter = new UpdateJobPresenter(this);
 
         rlCV.setOnClickListener(this);
         rlContract.setOnClickListener(this);
         rlSalaryBoard.setOnClickListener(this);
+        ibAddColleague.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
     }
 
     @Override
@@ -134,10 +160,43 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         if (requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
             if (data != null) {
                 String filePath = data.getStringExtra(getString(R.string.result));
-                int type = data.getIntExtra(getString(R.string.type), 0);
-                int imageType = data.getIntExtra(getString(R.string.image_type), 0);
-                presenter.updateImage(type, imageType, filePath);
+                int type = data.getIntExtra(getString(R.string.type), 0);//type = 1: Vẽ khung ảnh chụp CMND, type = 2: Chụp ảnh thường (hợp đồng, hoá đơn, ...)
+                int imageType = data.getIntExtra(getString(R.string.image_type), 0);//imageType = 1: _front_cmnd //imageType = 2 => _back_cmnd
+                presenter.updateImage(type, imageType, filePath, fileName);
             }
+        }
+    }
+
+    private void initColleagueControl() {
+        colleagueEntities = new ArrayList<>();
+        colleagueEntities.add(new ColleagueEntity(1, "", ""));
+        jobControlAdapter = new JobControlAdapter(this, colleagueEntities);
+        Commons.setVerticalRecyclerView(this, rvColleague);
+        rvColleague.setAdapter(jobControlAdapter);
+    }
+
+    private void initData() {
+        presenter.initImage(1, "_cv");
+        presenter.initImage(2, "_contract");
+        presenter.initImage(3, "_salary_board");
+//        presenter.initData();
+    }
+
+    @Override
+    public void initImage(int type, Bitmap bitmap) {
+        switch (type) {
+            case 1://CV
+                llCV.setVisibility(View.GONE);
+                ivCV.setImageBitmap(bitmap);
+                break;
+            case 2://Hợp đồng
+                llContract.setVisibility(View.GONE);
+                ivContract.setImageBitmap(bitmap);
+                break;
+            case 3://bảng lương
+                llSalaryBoard.setVisibility(View.GONE);
+                ivSalaryBoard.setImageBitmap(bitmap);
+                break;
         }
     }
 
@@ -161,7 +220,7 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
 
     @Override
     public void updateImageFailed(String err) {
-        Toast.makeText(UpdateJobView.this, err, Toast.LENGTH_LONG).show();
+        DialogUtils.showAlertDialog(UpdateJobView.this, getString(R.string.dialog_title), err);
     }
 
     @Override
@@ -171,20 +230,27 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
             case R.id.rlCV:
                 result = Commons.checkPermission2(UpdateJobView.this);
                 if (result) {
+                    fileName = "_cv";
                     presenter.takePhoto(2, 1);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 1 => rlCV
                 }
                 break;
             case R.id.rlContract:
                 result = Commons.checkPermission2(UpdateJobView.this);
                 if (result) {
+                    fileName = "_contract";
                     presenter.takePhoto(2, 2);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 2 => rlContract
                 }
                 break;
             case R.id.rlSalaryBoard:
                 result = Commons.checkPermission2(UpdateJobView.this);
                 if (result) {
+                    fileName = "_salary_board";
                     presenter.takePhoto(2, 3);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 3 => rlSalaryBoard
                 }
+                break;
+            case R.id.ibAddColleague:
+                colleagueEntities.add(new ColleagueEntity(colleagueEntities.size() + 1, "", ""));
+                jobControlAdapter.notifyDataSetChanged();
                 break;
         }
     }

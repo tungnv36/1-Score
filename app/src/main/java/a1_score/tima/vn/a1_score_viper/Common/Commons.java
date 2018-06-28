@@ -38,6 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import a1_score.tima.vn.a1_score_viper.Common.Enums.ImageType;
 import a1_score.tima.vn.a1_score_viper.R;
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
@@ -273,6 +274,25 @@ public class Commons {
             return myBitmap;
         } catch (IOException e) {
             return null;
+        }
+    }
+
+    public static String getImageType(ImageType imageType) {
+        switch (imageType) {
+            case CMND_FRONT:
+                return "CMND_FRONT";
+            case CMND_BACK:
+                return "CMND_BACK";
+            case BANK_CARD:
+                return "ATM_CARD";
+            case CV:
+                return "CV";
+            case CONTRACT:
+                return "CONTRACT";
+            case SALARY_BOARD:
+                return "SALARY_BOARD";
+            default:
+                return "";
         }
     }
 

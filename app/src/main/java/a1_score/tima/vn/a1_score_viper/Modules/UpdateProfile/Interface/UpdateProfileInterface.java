@@ -16,40 +16,44 @@ public interface UpdateProfileInterface {
     interface View {
         void initImage(int type, Bitmap bitmap);//type = 1: cmnd truoc, type = 2: cmnd sau, type = 3: card
         void initDataSuccess(UpdateProfileEntity updateProfileEntity);
+
         void updateImage(int imageType, Bitmap img);
         void updateImageFailed(String err);
         void updateProfileFailed(String err);
         void updateProfileSuccess(String msg);
-        void emptyField(String msg);
     }
     //Presenter
     interface Presenter {
         void initImage(int type, String name);
         void initData();
+
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
         void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex);
+
         void onDestroy();
     }
     //Interactor
     interface InteractorInput {
         void initImage(int type, String name);
         void initData();
+
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
         void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex);
+
         void unRegister();
     }
 
     interface InteractorOutput {
         void initImageOutput(int type, Bitmap bitmap);
         void initDataOutput(UpdateProfileEntity updateProfileEntity);
+
         void takePhotoOutput(int type, int imageType);
         void updateImageOutput(int type, int imageType, Bitmap img);
         void updateImageFailed(String err);
-        void updateProfileOutput(String msg);
+        void updateProfileSuccess(String msg);
         void updateProfileFailed(String err);
-        void emptyField(String msg);
     }
     //Wireframe
     interface Wireframe {
@@ -60,9 +64,10 @@ public interface UpdateProfileInterface {
         String getUser();
         String getFullName();
         String getToken();
-        void updateFullName(String fullname);
         int getImageID(String phone, String type);
         UpdateProfileEntity getData(String userName);
+
+        void updateFullName(String fullname);
         void saveImageToLocal(String fineName, Bitmap bmp);
         void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type);
         void saveProfileToDB(UpdateProfileEntity updateProfileEntity);

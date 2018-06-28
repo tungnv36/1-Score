@@ -60,7 +60,7 @@ public class MainView extends AppCompatActivity implements View.OnClickListener,
     @Override
     protected void onResume() {
         super.onResume();
-        SQliteDatabase sQliteDatabase = SQliteDatabase.getInstance(this);
+        SQliteDatabase.getInstance(this);
     }
 
     @Override

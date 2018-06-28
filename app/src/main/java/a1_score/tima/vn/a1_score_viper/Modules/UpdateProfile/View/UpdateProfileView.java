@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Common.MYPickerDialog;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
@@ -102,11 +103,10 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     LinearLayout llContent2;
     @BindView(R.id.btUpdate)
     Button btUpdate;
+
     private Calendar cal;
     private Date date;
     private String monthYearStr;
-
-    private String arrSex[] = {"Nam", "Nữ", "Khác"};
 
     private UpdateProfileInterface.Presenter presenter;
     private String fileName = "";
@@ -129,14 +129,14 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         rlCard.setOnClickListener(this);
         btUpdate.setOnClickListener(this);
 
-        initBirthDay();
+        initDatePicker();
         initSex();
-        initData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        initData();
     }
 
     @Override
@@ -184,7 +184,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
             case R.id.rlFrontCMND:
                 result = Commons.checkPermission2(UpdateProfileView.this);
                 if(result) {
-                    fileName = "_font_cmnd";
+                    fileName = "_front_cmnd";
                     presenter.takePhoto(1, 1);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
                 }
                 break;
@@ -215,27 +215,27 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         if (requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
             if (data != null) {
                 String filePath = data.getStringExtra(getString(R.string.result));
-                int type = data.getIntExtra(getString(R.string.type), 0);
-                int imageType = data.getIntExtra(getString(R.string.image_type), 0);
+                int type = data.getIntExtra(getString(R.string.type), 0);//type = 1: Vẽ khung ảnh chụp CMND, type = 2: Chụp ảnh thường (hợp đồng, hoá đơn, ...)
+                int imageType = data.getIntExtra(getString(R.string.image_type), 0);//imageType = 1: _front_cmnd //imageType = 2 => _back_cmnd
                 presenter.updateImage(type, imageType, filePath, fileName);
             }
         }
     }
 
     private void initData() {
-        presenter.initImage(1, "_font_cmnd");
+        presenter.initImage(1, "_front_cmnd");
         presenter.initImage(2, "_back_cmnd");
         presenter.initImage(3, "_card_cmnd");
         presenter.initData();
     }
 
     private void initSex() {
-        ArrayAdapter<String> adapterSex = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrSex);
+        ArrayAdapter<String> adapterSex = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Constant.ARRAY_SEX);
         adapterSex.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spSex.setAdapter(adapterSex);
     }
 
-    private void initBirthDay() {
+    private void initDatePicker() {
         cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String strDate = sdf.format(cal.getTime());
@@ -348,8 +348,4 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         this.finish();
     }
 
-    @Override
-    public void emptyField(String msg) {
-        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), msg);
-    }
 }

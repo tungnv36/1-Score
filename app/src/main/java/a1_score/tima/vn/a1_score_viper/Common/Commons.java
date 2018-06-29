@@ -296,4 +296,11 @@ public class Commons {
         }
     }
 
+    public static String changePhone(String phone) {
+        if(phone.contains("+")) {
+            return phone;
+        }
+        return String.format("+84%s",phone.substring(1));
+    }
+
 }

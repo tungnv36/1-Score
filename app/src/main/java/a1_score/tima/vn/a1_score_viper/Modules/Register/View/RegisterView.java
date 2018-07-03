@@ -1,5 +1,6 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Register.View;
 
+import android.app.ProgressDialog;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.View.LoginView;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Interface.RegisterInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Presenter.RegisterPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -65,6 +67,8 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
     RelativeLayout rootView;
 
     private RegisterInterface.Presenter presenter;
+
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -131,13 +135,19 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
                 this.finish();
                 break;
             case R.id.btRegister:
-                presenter.register(etUsername.getText().toString(), etPassword.getText().toString(), etRePassword.getText().toString(), etFullName.getText().toString());
+                progress = new ProgressDialog(RegisterView.this);
+                progress.setTitle("Loading");
+                progress.setMessage("Vui lòng chờ trong giây lát...");
+                progress.setCancelable(false);
+                progress.show();
+                presenter.register(progress, etUsername.getText().toString(), etPassword.getText().toString(), etRePassword.getText().toString(), etFullName.getText().toString());
                 break;
         }
     }
 
     @Override
-    public void EdittextEmpty(int type, String error) {
+    public void EdittextEmpty(ProgressDialog mProgress, int type, String error) {
+        mProgress.dismiss();
         switch (type) {
             case 0:
                 etUsername.setError(error);
@@ -159,7 +169,8 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void registerFailed(String error) {
+    public void registerFailed(ProgressDialog mProgress, String error) {
+        mProgress.dismiss();
         Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 

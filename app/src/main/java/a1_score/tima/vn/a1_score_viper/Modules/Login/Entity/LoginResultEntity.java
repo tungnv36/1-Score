@@ -54,17 +54,17 @@ public class LoginResultEntity {
         @SerializedName("Progress")
         private int progress;
         @Expose
-        @SerializedName("IdAvatar")
-        private String idavatar;
+        @SerializedName("UrlAvatar")
+        private String urlavatar;
         @Expose
-        @SerializedName("IdCardImage")
-        private String idcardimage;
+        @SerializedName("UrlCardImage")
+        private String urlcardimage;
         @Expose
-        @SerializedName("IdImage2")
-        private String idimage2;
+        @SerializedName("UrlImage2")
+        private String urlimage2;
         @Expose
-        @SerializedName("IdImage1")
-        private String idimage1;
+        @SerializedName("UrlImage1")
+        private String urlimage1;
         @Expose
         @SerializedName("Level")
         private int level;
@@ -110,36 +110,36 @@ public class LoginResultEntity {
             this.progress = progress;
         }
 
-        public String getIdavatar() {
-            return idavatar;
+        public String getUrlavatar() {
+            return urlavatar;
         }
 
-        public void setIdavatar(String idavatar) {
-            this.idavatar = idavatar;
+        public void setUrlavatar(String urlavatar) {
+            this.urlavatar = urlavatar;
         }
 
-        public String getIdcardimage() {
-            return idcardimage;
+        public String getUrlcardimage() {
+            return urlcardimage;
         }
 
-        public void setIdcardimage(String idcardimage) {
-            this.idcardimage = idcardimage;
+        public void setUrlcardimage(String urlcardimage) {
+            this.urlcardimage = urlcardimage;
         }
 
-        public String getIdimage2() {
-            return idimage2;
+        public String getUrlimage2() {
+            return urlimage2;
         }
 
-        public void setIdimage2(String idimage2) {
-            this.idimage2 = idimage2;
+        public void setUrlimage2(String urlimage2) {
+            this.urlimage2 = urlimage2;
         }
 
-        public String getIdimage1() {
-            return idimage1;
+        public String getUrlimage1() {
+            return urlimage1;
         }
 
-        public void setIdimage1(String idimage1) {
-            this.idimage1 = idimage1;
+        public void setUrlimage1(String urlimage1) {
+            this.urlimage1 = urlimage1;
         }
 
         public int getLevel() {

@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Register.Interface;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.EditText;
 
@@ -13,25 +14,25 @@ import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResultEnt
 public interface RegisterInterface {
     //view
     interface View {
-        void EdittextEmpty(int type, String error);
-        void registerFailed(String error);
+        void EdittextEmpty(ProgressDialog mProgress, int type, String error);
+        void registerFailed(ProgressDialog mProgress, String error);
         void onDestroy();
     }
     //presenter
     interface Presenter {
-        void register(String username, String password, String confirmPassword, String fullName);
+        void register(ProgressDialog mProgress, String username, String password, String confirmPassword, String fullName);
         void onDestroy();
     }
     //interactor
     interface InteractorInput {
-        void register(String username, String password, String confirmPassword, String fullName);
+        void register(ProgressDialog mProgress, String username, String password, String confirmPassword, String fullName);
         void unRegister();
     }
 
     interface InteractorOutput {
-        void EdittextEmpty(int type, String error);
-        void registerSuccess(String msg, String phoneNumber);
-        void registerFailed(String error);
+        void EdittextEmpty(ProgressDialog mProgress, int type, String error);
+        void registerSuccess(ProgressDialog mProgress, String msg, String phoneNumber);
+        void registerFailed(ProgressDialog mProgress, String error);
     }
     //wireframe
     interface Wireframe {

@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
@@ -99,6 +101,10 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     private List<ColleagueEntity> colleagueEntities;
     private JobControlAdapter jobControlAdapter;
 
+    private String[] jobs = {"Nhân viên văn phòng", "Công nhân"};
+    private String[] positions = {"Nhân viên", "Giám đốc", "Trưởng phòng"};
+    private String[] salaries = {"5.000.000 - 10.000.000", "10.000.000 - 20.000.000"};
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +113,7 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         setupActionBar();
         changeStatusBarColor();
         styleView();
+        initDropdown();
         initColleagueControl();
 
         presenter = new UpdateJobPresenter(this);
@@ -175,6 +182,21 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         rvColleague.setAdapter(jobControlAdapter);
     }
 
+    private void initDropdown() {
+        //init job dropdown
+        ArrayAdapter<String> adapterJob = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, jobs);
+        adapterJob.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spJob.setAdapter(adapterJob);
+        //init position dropdown
+        ArrayAdapter<String> adapterPosition = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, positions);
+        adapterPosition.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spPosition.setAdapter(adapterPosition);
+        //init salary dropdown
+        ArrayAdapter<String> adapterSalary = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, salaries);
+        adapterSalary.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spSalary.setAdapter(adapterSalary);
+    }
+
     private void initData() {
         presenter.initImage(1, "_cv");
         presenter.initImage(2, "_contract");
@@ -220,6 +242,21 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
 
     @Override
     public void updateImageFailed(String err) {
+        DialogUtils.showAlertDialog(UpdateJobView.this, getString(R.string.dialog_title), err);
+    }
+
+    @Override
+    public void updateJobSuccess(String msg) {
+        DialogUtils.showAlertDialog(UpdateJobView.this, getString(R.string.dialog_title), msg, new DialogUtils.OnClickListener() {
+            @Override
+            public void onClickSuccess() {
+                UpdateJobView.this.finish();
+            }
+        });
+    }
+
+    @Override
+    public void updateJobFailed(String err) {
         DialogUtils.showAlertDialog(UpdateJobView.this, getString(R.string.dialog_title), err);
     }
 

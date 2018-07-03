@@ -3,7 +3,10 @@ package a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface;
 import android.app.Activity;
 import android.graphics.Bitmap;
 
+import java.util.List;
+
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
 
@@ -14,6 +17,8 @@ public interface UpdateJobInterface {
 
         void updateImage(int imageType, Bitmap img);
         void updateImageFailed(String err);
+        void updateJobSuccess(String msg);
+        void updateJobFailed(String err);
     }
     //Presenter
     interface Presenter {
@@ -21,7 +26,7 @@ public interface UpdateJobInterface {
 
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-
+        void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueEntity> colleagueEntities);
         void onDestroy();
     }
     //Interactor
@@ -30,6 +35,7 @@ public interface UpdateJobInterface {
 
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
+        void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueEntity> colleagueEntities);
 
         void unRegister();
     }
@@ -40,6 +46,8 @@ public interface UpdateJobInterface {
         void takePhotoOutput(int type, int imageType);
         void updateImageOutput(int type, int imageType, Bitmap img);
         void updateImageFailed(String err);
+        void updateJobSuccess(String msg);
+        void updateJobFailed(String err);
     }
     //Wireframe
     interface Wireframe {

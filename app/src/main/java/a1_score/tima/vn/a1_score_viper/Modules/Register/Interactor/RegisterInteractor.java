@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Register.Interactor;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
@@ -25,21 +26,21 @@ public class RegisterInteractor implements RegisterInterface.InteractorInput {
     }
 
     @Override
-    public void register(final String username, String password, String confirmPassword, String fullName) {
+    public void register(final ProgressDialog mProgress, final String username, String password, String confirmPassword, String fullName) {
         if(username.isEmpty()) {
-            interactorOutput.EdittextEmpty(0, ((Activity)view).getString(R.string.err_user_empty));
+            interactorOutput.EdittextEmpty(mProgress, 0, ((Activity)view).getString(R.string.err_user_empty));
             return;
         }
         if(password.isEmpty()) {
-            interactorOutput.EdittextEmpty(1, ((Activity)view).getString(R.string.err_pass_empty));
+            interactorOutput.EdittextEmpty(mProgress, 1, ((Activity)view).getString(R.string.err_pass_empty));
             return;
         }
         if(confirmPassword.isEmpty()) {
-            interactorOutput.EdittextEmpty(2, ((Activity)view).getString(R.string.err_repass_empty));
+            interactorOutput.EdittextEmpty(mProgress, 2, ((Activity)view).getString(R.string.err_repass_empty));
             return;
         }
         if(fullName.isEmpty()) {
-            interactorOutput.EdittextEmpty(3, ((Activity)view).getString(R.string.err_fullname_empty));
+            interactorOutput.EdittextEmpty(mProgress, 3, ((Activity)view).getString(R.string.err_fullname_empty));
             return;
         }
         RegisterEntity registerEntity = new RegisterEntity(username, password, confirmPassword, fullName);
@@ -47,15 +48,15 @@ public class RegisterInteractor implements RegisterInterface.InteractorInput {
             @Override
             public void onResponseSuccess(String tag, String rs, RegisterResultEntity extraData) {
                 if(extraData == null || extraData.getStatusCode() != 200) {
-                    interactorOutput.registerFailed(rs);
+                    interactorOutput.registerFailed(mProgress, rs);
                 } else {
-                    interactorOutput.registerSuccess("Đăng ký thành công!", username);
+                    interactorOutput.registerSuccess(mProgress, "Đăng ký thành công!", username);
                 }
             }
 
             @Override
             public void onResponseError(String tag, String message) {
-                interactorOutput.registerFailed(message);
+                interactorOutput.registerFailed(mProgress, message);
             }
         }, registerEntity);
     }

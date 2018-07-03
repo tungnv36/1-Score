@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interactor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
@@ -12,9 +13,11 @@ import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.DataStore.UpdateJobDataStore;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.R;
 
 public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
 
@@ -86,6 +89,22 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
         }
     }
 
+    @Override
+    public void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueEntity> colleagueEntities) {
+        if(companyName.isEmpty()) {
+            interactorOutput.updateJobFailed(((Context)view).getString(R.string.err_company_name_empty));
+            return;
+        }
+        if(companyAddress.isEmpty()) {
+            interactorOutput.updateJobFailed(((Context)view).getString(R.string.err_company_address_empty));
+            return;
+        }
+        if(colleagueEntities.size() == 0) {
+            interactorOutput.updateJobFailed(((Context)view).getString(R.string.err_company_colleague_empty));
+            return;
+        }
+    }
+
     private String getType(int type) {
         switch (type) {
             case 1:
@@ -102,5 +121,7 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
     @Override
     public void unRegister() {
         interactorOutput = null;
+        view = null;
+        dataStore = null;
     }
 }

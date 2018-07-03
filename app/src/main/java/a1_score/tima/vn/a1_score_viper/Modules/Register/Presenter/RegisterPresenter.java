@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Register.Presenter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Interactor.RegisterInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Interface.RegisterInterface;
@@ -19,8 +20,8 @@ public class RegisterPresenter implements RegisterInterface.Presenter, RegisterI
     }
 
     @Override
-    public void register(String username, String password, String confirmPassword, String email) {
-        interactorInput.register(username, password, confirmPassword, email);
+    public void register(ProgressDialog mProgress, String username, String password, String confirmPassword, String email) {
+        interactorInput.register(mProgress, username, password, confirmPassword, email);
     }
 
     @Override
@@ -31,19 +32,20 @@ public class RegisterPresenter implements RegisterInterface.Presenter, RegisterI
     }
 
     @Override
-    public void EdittextEmpty(int type, String error) {
-        view.EdittextEmpty(type, error);
+    public void EdittextEmpty(ProgressDialog mProgress, int type, String error) {
+        view.EdittextEmpty(mProgress, type, error);
     }
 
     @Override
-    public void registerSuccess(String msg, String phoneNumber) {
+    public void registerSuccess(ProgressDialog mProgress, String msg, String phoneNumber) {
+        mProgress.dismiss();
         wireframe.gotToOTP((Activity)view, phoneNumber);
         ((Activity)view).finish();
     }
 
     @Override
-    public void registerFailed(String error) {
-        view.registerFailed(error);
+    public void registerFailed(ProgressDialog mProgress, String error) {
+        view.registerFailed(mProgress, error);
     }
 
 }

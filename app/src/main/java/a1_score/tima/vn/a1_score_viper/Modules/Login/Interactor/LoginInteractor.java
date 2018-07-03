@@ -52,7 +52,7 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
         LoginEntity loginEntity = new LoginEntity(username, password);
         dataStore.callLogin(new OnResponse<String, LoginResultEntity>() {
             @Override
-            public void onResponseSuccess(String tag, String rs, LoginResultEntity extraData) {
+            public void onResponseSuccess(String tag, String rs, final LoginResultEntity extraData) {
                 if(extraData == null || extraData.getStatuscode() != 200) {
                     if(extraData.getStatuscode() == 621) {//User chưa active
                         interactorOutput.loginFailedLostOtp(username, rs);
@@ -62,38 +62,62 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
                 } else {
                     dataStore.setUser((Context) view, extraData);
                     dataStore.saveUser(extraData);
-                    if(extraData.getUser().getIdavatar() != null && !extraData.getUser().getIdavatar().isEmpty()) {
-                        final int idAvatar = Integer.parseInt(extraData.getUser().getIdavatar());
-                        int idAvatarLocal = dataStore.getImageID(username, "AVATAR");
-                        if (idAvatarLocal != idAvatar) {
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Bitmap bmp = Commons.getBitmapFromURL(String.format("%s%s%s", Config.BASE_SERVER_URL, Config.BASE_IMAGE_URL, String.valueOf(idAvatar)));
-                                    dataStore.saveImageToLocal(String.format("%s_avatar.jpg", username), bmp);
-                                    UploadImageResultEntity uploadImageResultEntity = new UploadImageResultEntity();
-                                    uploadImageResultEntity.setStatuscode(200);
-                                    uploadImageResultEntity.setMessage("Successfuly");
-                                    UploadImageResultEntity.ImageEntity imageEntity = new UploadImageResultEntity.ImageEntity();
-                                    imageEntity.setId(idAvatar);
-                                    imageEntity.setUrl("");
-                                    imageEntity.setImagetype("AVATAR");
-                                    uploadImageResultEntity.setImage(imageEntity);
-                                    dataStore.saveImageToDB(uploadImageResultEntity, String.format("%s_avatar", username), username, "AVATAR");
-                                    ((Activity)view).runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            interactorOutput.loginSuccess(mProgress);
-                                        }
-                                    });
-                                }
-                            }).start();
-                        } else {
-                            interactorOutput.loginSuccess(mProgress);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Bitmap bmp = Commons.getBitmapFromURL(extraData.getUser().getUrlavatar());
+                            dataStore.saveImageToLocal(String.format("%s_avatar.jpg", username), bmp);
+//                            UploadImageResultEntity uploadImageResultEntity = new UploadImageResultEntity();
+//                            uploadImageResultEntity.setStatuscode(200);
+//                            uploadImageResultEntity.setMessage("Successfuly");
+//                            UploadImageResultEntity.ImageEntity imageEntity = new UploadImageResultEntity.ImageEntity();
+//                            imageEntity.setId(idAvatar);
+//                            imageEntity.setUrl("");
+//                            imageEntity.setImagetype("AVATAR");
+//                            uploadImageResultEntity.setImage(imageEntity);
+//                            dataStore.saveImageToDB(uploadImageResultEntity, String.format("%s_avatar", username), username, "AVATAR");
+//                            ((Activity)view).runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    interactorOutput.loginSuccess(mProgress);
+//                                }
+//                            });
                         }
-                    } else {
-                        interactorOutput.loginSuccess(mProgress);
-                    }
+                    }).start();
+
+//                    if(extraData.getUser().getIdavatar() != null && !extraData.getUser().getIdavatar().isEmpty()) {
+//                        final int idAvatar = Integer.parseInt(extraData.getUser().getIdavatar());
+//                        int idAvatarLocal = dataStore.getImageID(username, "AVATAR");
+//                        if (idAvatarLocal != idAvatar) {
+//                            new Thread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Bitmap bmp = Commons.getBitmapFromURL(String.format("%s%s%s", Config.BASE_SERVER_URL, Config.BASE_IMAGE_URL, String.valueOf(idAvatar)));
+//                                    dataStore.saveImageToLocal(String.format("%s_avatar.jpg", username), bmp);
+//                                    UploadImageResultEntity uploadImageResultEntity = new UploadImageResultEntity();
+//                                    uploadImageResultEntity.setStatuscode(200);
+//                                    uploadImageResultEntity.setMessage("Successfuly");
+//                                    UploadImageResultEntity.ImageEntity imageEntity = new UploadImageResultEntity.ImageEntity();
+//                                    imageEntity.setId(idAvatar);
+//                                    imageEntity.setUrl("");
+//                                    imageEntity.setImagetype("AVATAR");
+//                                    uploadImageResultEntity.setImage(imageEntity);
+//                                    dataStore.saveImageToDB(uploadImageResultEntity, String.format("%s_avatar", username), username, "AVATAR");
+//                                    ((Activity)view).runOnUiThread(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            interactorOutput.loginSuccess(mProgress);
+//                                        }
+//                                    });
+//                                }
+//                            }).start();
+//                        } else {
+//                            interactorOutput.loginSuccess(mProgress);
+//                        }
+//                    } else {
+//                        interactorOutput.loginSuccess(mProgress);
+//                    }
                 }
             }
 

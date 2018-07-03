@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interactor.UpdateJobInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Wireframe.UpdateJobWireframe;
@@ -38,6 +39,11 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
     }
 
     @Override
+    public void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueEntity> colleagueEntities) {
+        interactorInput.updateJob(jobID, companyName, companyAddress, positionID, salaryID, colleagueEntities);
+    }
+
+    @Override
     public void onDestroy() {
         interactorInput.unRegister();
         interactorInput = null;
@@ -61,6 +67,16 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
 
     @Override
     public void updateImageFailed(String err) {
+        view.updateImageFailed(err);
+    }
+
+    @Override
+    public void updateJobSuccess(String msg) {
+        view.updateJobSuccess(msg);
+    }
+
+    @Override
+    public void updateJobFailed(String err) {
         view.updateImageFailed(err);
     }
 }

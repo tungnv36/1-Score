@@ -126,6 +126,10 @@
     <string name="err_cmnd_empty">Bạn chưa nhập số CMND</string>
     <string name="err_number_acc_empty">Bạn chưa nhập số tài khoản</string>
     <string name="err_card_term_empty">Bạn chưa nhập thời hạn thẻ</string>
+    <string name="err_company_name_empty">Bạn chưa nhập tên công ty</string>
+    <string name="err_company_address_empty">Bạn chưa nhập địa chỉ công ty</string>
+    <string name="err_company_colleague_empty">Bạn chưa thêm đồng nghiệp</string>
+
     <string name="des_otp">Vui lòng nhập OTP để xác nhận</string>
     <string name="info_expired">Có thông tin đã hết hạn</string>
     <string name="are_you_married">Bạn có gia đình chưa?</string>

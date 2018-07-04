@@ -100,7 +100,7 @@ public class LoginResultEntity {
         private String username;
         @Expose
         @SerializedName("UserId")
-        private int userid;
+        private String userid;
 
         public int getProgress() {
             return progress;
@@ -230,11 +230,11 @@ public class LoginResultEntity {
             this.username = username;
         }
 
-        public int getUserid() {
+        public String getUserid() {
             return userid;
         }
 
-        public void setUserid(int userid) {
+        public void setUserid(String userid) {
             this.userid = userid;
         }
     }

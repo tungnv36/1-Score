@@ -229,7 +229,7 @@ public class OtpView extends AppCompatActivity implements View.OnClickListener, 
                         .append(etFourth.getText().toString())
                         .append(etFifth.getText().toString())
                         .append(etSixth.getText().toString()).toString();
-                presenter.compareOtp(getIntent().getStringExtra("PHONE_NUMBER"), otp, getIntent().getIntExtra("TYPE", 0));
+                presenter.compareOtp(getIntent().getStringExtra("PHONE_NUMBER"), getIntent().getStringExtra("ACTION"), otp, getIntent().getIntExtra("TYPE", 0));
                 break;
         }
     }

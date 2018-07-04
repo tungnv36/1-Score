@@ -17,12 +17,12 @@ public class OtpInteractor implements OtpInterface.InteractorInput {
     }
 
     @Override
-    public void compareOtp(final String phoneNumber, String otp, final int type) {
+    public void compareOtp(final String phoneNumber, final String aciton, String otp, final int type) {
         if(otp.length() < 6) {
             interactorOutput.compareOtpFailed("Bạn chưa nhập đủ OTP");
             return;
         }
-        OtpEntity otpEntity = new OtpEntity(phoneNumber, otp);
+        OtpEntity otpEntity = new OtpEntity(phoneNumber, aciton, otp);
         dataStore.compareOtp(new OnResponse<String, OtpResultEntity>() {
             @Override
             public void onResponseSuccess(String tag, String rs, OtpResultEntity extraData) {

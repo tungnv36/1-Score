@@ -5,21 +5,40 @@ import com.google.gson.annotations.SerializedName;
 public class OtpEntity {
 
     @SerializedName("phone_number")
-    private String phone_number;
+    private String phoneNumber;
+    @SerializedName("action")
+    private String action;
     @SerializedName("otp_code")
     private String otp_code;
 
-    public OtpEntity(String phone_number, String otp_code) {
-        this.phone_number = phone_number;
+    public OtpEntity(String phoneNumber, String action, String otp_code) {
+        this.phoneNumber = phoneNumber;
+        this.action = action;
         this.otp_code = otp_code;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getPhone_number() {
+        return action;
+    }
+
+    public void setPhone_number(String action) {
+        this.action = action;
     }
 
     public String getOtp_code() {

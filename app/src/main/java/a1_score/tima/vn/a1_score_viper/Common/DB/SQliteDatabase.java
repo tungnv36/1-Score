@@ -153,7 +153,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_USER);
         Cursor cursor = db.rawQuery(countQuery, null);
         if(cursor.moveToFirst()) {
-            userEntity.setUserid(cursor.getInt(cursor.getColumnIndex(KEY_USER_ID)));
+            userEntity.setUserid(cursor.getString(cursor.getColumnIndex(KEY_USER_ID)));
             userEntity.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USER_NAME)));
             userEntity.setPhone(cursor.getString(cursor.getColumnIndex(KEY_USER_PHONE)));
             userEntity.setFullname(cursor.getString(cursor.getColumnIndex(KEY_USER_FULLNAME)));

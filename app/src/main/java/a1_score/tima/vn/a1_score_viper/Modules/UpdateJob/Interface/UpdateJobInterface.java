@@ -7,6 +7,9 @@ import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
 
@@ -64,5 +67,7 @@ public interface UpdateJobInterface {
         void saveImageToLocal(String fineName, Bitmap bmp);
         void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type);
         void uploadImage(final OnResponse<String, UploadImageResultEntity> m_Response, String token, UploadImageEntity uploadImageEntity);
+        void updateJob(final OnResponse<String, UpdateJobResultEntity> m_Response, String token, UpdateJobEntity updateJobEntity);
+        void updateColleague(final OnResponse<String, ColleagueResultEntity> m_Response, String token, ColleagueEntity colleagueEntity);
     }
 }

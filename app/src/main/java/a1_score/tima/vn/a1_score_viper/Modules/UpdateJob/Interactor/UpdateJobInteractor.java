@@ -14,6 +14,8 @@ import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.DataStore.UpdateJobDataStore;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
@@ -103,6 +105,23 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
             interactorOutput.updateJobFailed(((Context)view).getString(R.string.err_company_colleague_empty));
             return;
         }
+
+        UpdateJobEntity updateJobEntity = new UpdateJobEntity();
+        dataStore.updateJob(new OnResponse<String, UpdateJobResultEntity>() {
+            @Override
+            public void onResponseSuccess(String tag, String rs, UpdateJobResultEntity extraData) {
+                if(extraData != null) {// && extraData.getStatuscode() == 200
+
+                } else {
+                    interactorOutput.updateJobFailed("");
+                }
+            }
+
+            @Override
+            public void onResponseError(String tag, String message) {
+
+            }
+        }, dataStore.getToken(), updateJobEntity);
     }
 
     private String getType(int type) {

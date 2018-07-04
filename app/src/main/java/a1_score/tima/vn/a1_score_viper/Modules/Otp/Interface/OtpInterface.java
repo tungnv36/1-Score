@@ -14,12 +14,12 @@ public interface OtpInterface {
     }
 
     interface Presenter {
-        void compareOtp(String phoneNumber, String otp, int type);
+        void compareOtp(String phoneNumber, String action, String otp, int type);
         void onDestroy();
     }
 
     interface InteractorInput {
-        void compareOtp(String phoneNumber, String otp, int type);
+        void compareOtp(String phoneNumber, String aciton, String otp, int type);
         void unRegister();
     }
 

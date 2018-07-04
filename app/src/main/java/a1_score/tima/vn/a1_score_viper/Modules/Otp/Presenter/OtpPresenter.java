@@ -21,8 +21,8 @@ public class OtpPresenter implements OtpInterface.Presenter, OtpInterface.Intera
     }
 
     @Override
-    public void compareOtp(String phoneNumber, String otp, int type) {
-        interactorInput.compareOtp(phoneNumber, otp, type);
+    public void compareOtp(String phoneNumber, String action, String otp, int type) {
+        interactorInput.compareOtp(phoneNumber, action, otp, type);
     }
 
     @Override

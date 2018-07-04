@@ -21,6 +21,10 @@ public class Constant {
     public final static String ROOT_FOLDER = "1-SCORE";
     public final static String PHOTO_FOLDER = "Photo";
 
+    public final static String ACTION_CONFIRM_USER = "CONFIRM_USER";
+    public final static String ACTION_FORGOT_PASSWORD = "FORGOT_PASSWORD";
+    public final static String ACTION_CHANGE_PHONE_NUMBER = "CHANGE_PHONE_NUMBER";
+
     public final static String ARRAY_SEX[] = {"Nam", "Nữ", "Khác"};
 }
 

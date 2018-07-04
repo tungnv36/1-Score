@@ -18,6 +18,10 @@ import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
@@ -137,6 +141,16 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
                 m_Response.onFinish();
             }
         });
+    }
+
+    @Override
+    public void updateJob(OnResponse<String, UpdateJobResultEntity> m_Response, String token, UpdateJobEntity updateJobEntity) {
+
+    }
+
+    @Override
+    public void updateColleague(OnResponse<String, ColleagueResultEntity> m_Response, String token, ColleagueEntity colleagueEntity) {
+
     }
 
 }

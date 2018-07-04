@@ -26,11 +26,11 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     String API_LOGIN = "/api/v1.0/authorize/login";
-    String API_REGISTER = "/api/v1.0/users/register";
-    String API_OTP = "/api/v1.0/otp/compare-otp";
+    String API_REGISTER = "/api/v1.0/user/register";
+    String API_OTP = "/api/v1.0/otp/confirm";
     String API_SEND_OTP = "/api/v1.0/otp/send-otp";
-    String API_FORGOT_PASS = "/api/v1.0/users/forgot-password";
-    String API_CHANGE_PHONE = "/api/v1.0/users/change-phone-number";
+    String API_FORGOT_PASS = "/api/v1.0/user/forgot-password";
+    String API_CHANGE_PHONE = "/api/v1.0/user/change-phone-number";
     String API_UPLOAD_IMAGE = "/api/v1.0/images/upload";
     String API_UPDATE_PROFILE = "/api/v1.0/profile";
 

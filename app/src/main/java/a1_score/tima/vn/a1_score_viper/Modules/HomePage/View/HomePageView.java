@@ -142,6 +142,11 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
         }
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     private void styleView() {
         tvName.setTypeface(Commons.setFont(this, getResources().getString(R.string.font_segoe)), Typeface.BOLD);
     }

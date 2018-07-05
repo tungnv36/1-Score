@@ -26,6 +26,7 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     String API_LOGIN = "/api/v1.0/authorize/login";
+    String API_LOGOUT = "/api/v1.0/authorize/logout";
     String API_REGISTER = "/api/v1.0/user/register";
     String API_OTP = "/api/v1.0/otp/confirm";
     String API_SEND_OTP = "/api/v1.0/otp/send-otp";
@@ -57,5 +58,8 @@ public interface ApiService {
 
     @POST(API_UPDATE_PROFILE)
     Call<ResponseBody> updateProfile(@Header("Authorization") String token, @Body UpdateProfileEntity updateProfileEntity);
+
+    @POST(API_LOGOUT)
+    Call<ResponseBody> callLogout(@Header("Authorization") String token);
 
 }

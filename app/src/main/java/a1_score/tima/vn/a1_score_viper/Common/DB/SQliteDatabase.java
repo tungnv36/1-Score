@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
@@ -44,7 +45,6 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String TABLE_NAME_USER = "user";
     private static final String KEY_USER_ID = "UserId";
     private static final String KEY_USER_NAME = "Username";
-    private static final String KEY_USER_PHONE = "Phone";
     private static final String KEY_USER_FULLNAME = "Fullname";
     private static final String KEY_USER_DATE_OF_BIRTH = "DateOfBirth";
     private static final String KEY_USER_ID_NUMBER = "IdNumber";
@@ -82,8 +82,8 @@ public class SQliteDatabase extends SQLiteOpenHelper {
                 TABLE_NAME_PROFILE, KEY_PROFILE_ID, KEY_PROFILE_USERNAME, KEY_PROFILE_FULLNAME, KEY_PROFILE_DATE_OF_BIRTH, KEY_PROFILE_ADDRESS,
                 KEY_PROFILE_ID_NUMBER, KEY_PROFILE_ID_IMAGE_1, KEY_PROFILE_ID_IMAGE_2, KEY_PROFILE_BANK_ACC_NUMBER, KEY_PROFILE_CARD_TERM,
                 KEY_PROFILE_CARD_IMAGE, KEY_PROFILE_SEX);
-        String create_user_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)",
-                TABLE_NAME_USER, KEY_USER_ID, KEY_USER_NAME, KEY_USER_PHONE, KEY_USER_FULLNAME, KEY_USER_DATE_OF_BIRTH,
+        String create_user_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)",
+                TABLE_NAME_USER, KEY_USER_ID, KEY_USER_NAME, KEY_USER_FULLNAME, KEY_USER_DATE_OF_BIRTH,
                 KEY_USER_ID_NUMBER, KEY_USER_ADDRESS, KEY_USER_ACC_NUMBER, KEY_USER_CARD_TERM, KEY_USER_SEX,
                 KEY_USER_SCORED, KEY_USER_LEVEL, KEY_USER_URL_IMAGE1, KEY_USER_URL_IMAGE2, KEY_USER_URL_CARD_IMAGE, KEY_USER_URL_AVATAR, KEY_USER_PROGRESS);
         db.execSQL(create_images_table);
@@ -109,8 +109,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_USER_ID, loginResultEntity.getUser().getUserid());
-        values.put(KEY_USER_NAME, loginResultEntity.getUser().getUsername());
-        values.put(KEY_USER_PHONE, loginResultEntity.getUser().getPhone());
+        values.put(KEY_USER_NAME, Commons.changePhone0(loginResultEntity.getUser().getUsername()));
         values.put(KEY_USER_FULLNAME, loginResultEntity.getUser().getFullname());
         values.put(KEY_USER_DATE_OF_BIRTH, loginResultEntity.getUser().getDateofbirth());
         values.put(KEY_USER_ID_NUMBER, loginResultEntity.getUser().getIdnumber());
@@ -126,7 +125,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         values.put(KEY_USER_URL_AVATAR, loginResultEntity.getUser().getUrlavatar());
         values.put(KEY_USER_PROGRESS, loginResultEntity.getUser().getProgress());
 
-        db.insert(TABLE_NAME_USER, null, values);
+        long result = db.insert(TABLE_NAME_USER, null, values);
         db.close();
     }
 
@@ -134,8 +133,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_USER_NAME, newPhone);
-        values.put(KEY_USER_PHONE, newPhone);
+        values.put(KEY_USER_NAME, Commons.changePhone0(newPhone));
 
         db.update(TABLE_NAME_USER, values, String.format("%s=?", KEY_USER_NAME), new String[]{ oldPhone });
         db.close();
@@ -155,14 +153,13 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             userEntity.setUserid(cursor.getString(cursor.getColumnIndex(KEY_USER_ID)));
             userEntity.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USER_NAME)));
-            userEntity.setPhone(cursor.getString(cursor.getColumnIndex(KEY_USER_PHONE)));
             userEntity.setFullname(cursor.getString(cursor.getColumnIndex(KEY_USER_FULLNAME)));
             userEntity.setDateofbirth(cursor.getString(cursor.getColumnIndex(KEY_USER_DATE_OF_BIRTH)));
             userEntity.setIdnumber(cursor.getString(cursor.getColumnIndex(KEY_USER_ID_NUMBER)));
             userEntity.setAddress(cursor.getString(cursor.getColumnIndex(KEY_USER_ADDRESS)));
             userEntity.setBankaccnumber(cursor.getString(cursor.getColumnIndex(KEY_USER_ACC_NUMBER)));
             userEntity.setCardterm(cursor.getString(cursor.getColumnIndex(KEY_USER_CARD_TERM)));
-            userEntity.setSex(cursor.getString(cursor.getColumnIndex(KEY_USER_SEX)));
+            userEntity.setSex(cursor.getInt(cursor.getColumnIndex(KEY_USER_SEX)));
             userEntity.setScored(cursor.getInt(cursor.getColumnIndex(KEY_USER_SCORED)));
             userEntity.setLevel(cursor.getInt(cursor.getColumnIndex(KEY_USER_LEVEL)));
             userEntity.setUrlimage1(cursor.getString(cursor.getColumnIndex(KEY_USER_URL_IMAGE1)));

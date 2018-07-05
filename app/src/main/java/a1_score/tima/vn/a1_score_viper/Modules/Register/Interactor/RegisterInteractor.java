@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.DataStore.RegisterDataStore;
@@ -27,6 +28,10 @@ public class RegisterInteractor implements RegisterInterface.InteractorInput {
 
     @Override
     public void register(final ProgressDialog mProgress, final String username, String password, String confirmPassword, String fullName) {
+        if(!Commons.isNetworkConnected((Context)view)) {
+            interactorOutput.registerFailed(mProgress, ((Activity)view).getString(R.string.err_internet_connection));
+            return;
+        }
         if(username.isEmpty()) {
             interactorOutput.EdittextEmpty(mProgress, 0, ((Activity)view).getString(R.string.err_user_empty));
             return;

@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
@@ -87,7 +88,7 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     public void setUser(Context context, LoginResultEntity user) {
         SharedPreferences.Editor editor = context.getSharedPreferences(Constant.PREFS_NAME, context.MODE_PRIVATE).edit();
         editor.putString("token", user.getToken());
-        editor.putString("username", user.getUser().getUsername());
+        editor.putString("username", Commons.changePhone0(user.getUser().getUsername()));
         editor.putString("fullname", user.getUser().getFullname());
         editor.apply();
     }

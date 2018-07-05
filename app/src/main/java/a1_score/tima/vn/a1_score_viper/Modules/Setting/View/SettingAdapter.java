@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.View.HomePageView;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interface.ProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Setting.Entity.SettingEntity;
@@ -56,8 +57,17 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ProfileV
                         presenter.goToChangePhone();
                         break;
                     case 2://logout
-                        HomePageView.isLogout = true;
-                        ((Activity)context).finish();
+                        DialogUtils.showAlertDialogYN(context, context.getString(R.string.dialog_title), context.getString(R.string.q_logout), new DialogUtils.OnClickListener() {
+                            @Override
+                            public void onClickSuccess() {
+                                presenter.logout();
+                            }
+
+                            @Override
+                            public void onClickSuccess2() {
+
+                            }
+                        });
                         break;
                 }
             }

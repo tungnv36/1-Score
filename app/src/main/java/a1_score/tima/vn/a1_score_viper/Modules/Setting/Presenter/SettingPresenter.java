@@ -14,7 +14,7 @@ public class SettingPresenter implements SettingInterface.Presenter, SettingInte
 
     public SettingPresenter(SettingInterface.View view) {
         this.view = view;
-        interactorInput = new SettingInteractor(this);
+        interactorInput = new SettingInteractor(view, this);
         wireframe = new SettingWireframe();
     }
 
@@ -32,7 +32,22 @@ public class SettingPresenter implements SettingInterface.Presenter, SettingInte
     }
 
     @Override
+    public void logout() {
+        interactorInput.logout();
+    }
+
+    @Override
     public void goToChangePhoneOutput() {
         wireframe.goToChangePhone((Activity)view);
+    }
+
+    @Override
+    public void logoutOutput() {
+        view.logout();
+    }
+
+    @Override
+    public void logoutFailed(String msg) {
+        view.logoutFailed(msg);
     }
 }

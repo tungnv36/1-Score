@@ -41,6 +41,10 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
 
     @Override
     public void login(final ProgressDialog mProgress, final String username, String password) {
+        if(!Commons.isNetworkConnected((Context)view)) {
+            interactorOutput.loginFailed(((Activity)view).getString(R.string.err_internet_connection));
+            return;
+        }
         if(username.isEmpty()) {
             interactorOutput.usernameEmpty(((Activity)view).getString(R.string.err_user_empty));
             return;
@@ -53,38 +57,34 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
         dataStore.callLogin(new OnResponse<String, LoginResultEntity>() {
             @Override
             public void onResponseSuccess(String tag, String rs, final LoginResultEntity extraData) {
-                if(extraData == null || extraData.getStatuscode() != 200) {
-                    if(extraData.getStatuscode() == 621) {//User chưa active
-                        interactorOutput.loginFailedLostOtp(username, rs);
-                    } else {
-                        interactorOutput.loginFailed(rs);
-                    }
-                } else {
-                    dataStore.setUser((Context) view, extraData);
-                    dataStore.saveUser(extraData);
-
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Bitmap bmp = Commons.getBitmapFromURL(extraData.getUser().getUrlavatar());
-                            dataStore.saveImageToLocal(String.format("%s_avatar.jpg", username), bmp);
-//                            UploadImageResultEntity uploadImageResultEntity = new UploadImageResultEntity();
-//                            uploadImageResultEntity.setStatuscode(200);
-//                            uploadImageResultEntity.setMessage("Successfuly");
-//                            UploadImageResultEntity.ImageEntity imageEntity = new UploadImageResultEntity.ImageEntity();
-//                            imageEntity.setId(idAvatar);
-//                            imageEntity.setUrl("");
-//                            imageEntity.setImagetype("AVATAR");
-//                            uploadImageResultEntity.setImage(imageEntity);
-//                            dataStore.saveImageToDB(uploadImageResultEntity, String.format("%s_avatar", username), username, "AVATAR");
-//                            ((Activity)view).runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    interactorOutput.loginSuccess(mProgress);
-//                                }
-//                            });
+                try {
+                    if (extraData == null || extraData.getStatuscode() != 200) {
+                        if (extraData.getStatuscode() == 621) {//User chưa active
+                            interactorOutput.loginFailedLostOtp(username, rs);
+                        } else {
+                            interactorOutput.loginFailed(rs);
                         }
-                    }).start();
+                    } else {
+                        dataStore.setUser((Context) view, extraData);
+                        dataStore.saveUser(extraData);
+
+                        if (extraData.getUser().getUrlavatar() != null && !extraData.getUser().getUrlavatar().isEmpty()) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Bitmap bmp = Commons.getBitmapFromURL(extraData.getUser().getUrlavatar());
+                                    dataStore.saveImageToLocal(String.format("%s_avatar.jpg", username), bmp);
+                                    ((Activity) view).runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            interactorOutput.loginSuccess(mProgress);
+                                        }
+                                    });
+                                }
+                            }).start();
+                        } else {
+                            interactorOutput.loginSuccess(mProgress);
+                        }
 
 //                    if(extraData.getUser().getIdavatar() != null && !extraData.getUser().getIdavatar().isEmpty()) {
 //                        final int idAvatar = Integer.parseInt(extraData.getUser().getIdavatar());
@@ -118,6 +118,9 @@ public class LoginInteractor implements LoginInterface.InteractorInput {
 //                    } else {
 //                        interactorOutput.loginSuccess(mProgress);
 //                    }
+                    }
+                } catch (Exception ex) {
+                    interactorOutput.loginFailed(ex.getMessage());
                 }
             }
 

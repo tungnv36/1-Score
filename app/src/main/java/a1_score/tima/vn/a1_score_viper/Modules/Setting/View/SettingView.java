@@ -1,5 +1,6 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Setting.View;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
+import a1_score.tima.vn.a1_score_viper.Modules.HomePage.View.HomePageView;
 import a1_score.tima.vn.a1_score_viper.Modules.Setting.Entity.SettingEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Setting.Interface.SettingInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Setting.Presenter.SettingPresenter;
@@ -97,5 +100,16 @@ public class SettingView extends AppCompatActivity implements SettingInterface.V
                 overridePendingTransition(R.anim.start_activity_02, R.anim.start_activity_02);
                 break;
         }
+    }
+
+    @Override
+    public void logout() {
+        HomePageView.isLogout = true;
+        finish();
+    }
+
+    @Override
+    public void logoutFailed(String msg) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), msg);
     }
 }

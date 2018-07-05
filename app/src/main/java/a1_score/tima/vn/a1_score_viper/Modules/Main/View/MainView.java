@@ -43,6 +43,11 @@ public class MainView extends AppCompatActivity implements View.OnClickListener,
                 public void onClickSuccess() {
                     finish();
                 }
+
+                @Override
+                public void onClickSuccess2() {
+
+                }
             });
         }
 

@@ -252,6 +252,11 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
             public void onClickSuccess() {
                 UpdateJobView.this.finish();
             }
+
+            @Override
+            public void onClickSuccess2() {
+
+            }
         });
     }
 

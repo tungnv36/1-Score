@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interactor.UpdateJobInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Wireframe.UpdateJobWireframe;
@@ -29,6 +29,11 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
     }
 
     @Override
+    public void getJobDictionary() {
+        interactorInput.getJobDictionary();
+    }
+
+    @Override
     public void takePhoto(int type, int imageType) {
         interactorInput.takePhoto(type, imageType);
     }
@@ -39,7 +44,7 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
     }
 
     @Override
-    public void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueEntity> colleagueEntities) {
+    public void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities) {
         interactorInput.updateJob(jobID, companyName, companyAddress, positionID, salaryID, colleagueEntities);
     }
 
@@ -53,6 +58,21 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
     @Override
     public void initImageOutput(int type, Bitmap bitmap) {
         view.initImage(type, bitmap);
+    }
+
+    @Override
+    public void getJobsOutput(List<JobDictionaryResultEntity.JobsEntity> jobsEntities) {
+        view.initJobs(jobsEntities);
+    }
+
+    @Override
+    public void getPositionsOutput(List<JobDictionaryResultEntity.PositionsEntity> positionsEntities) {
+        view.initPosition(positionsEntities);
+    }
+
+    @Override
+    public void getSalaryLevelOutput(List<JobDictionaryResultEntity.SalaryLevelsEntity> salaryLevelsEntities) {
+        view.iniSalaryLevel(salaryLevelsEntities);
     }
 
     @Override

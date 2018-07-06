@@ -305,12 +305,12 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     public void initDataSuccess(UpdateProfileEntity updateProfileEntity) {
         if(updateProfileEntity != null) {
             etName.setText(updateProfileEntity.getFullname());
-            tvBirthDay.setText(updateProfileEntity.getDate_of_birth());
+            tvBirthDay.setText(updateProfileEntity.getDateOfBirth());
             spSex.setSelection(updateProfileEntity.getSex() - 1);
-            etCMND.setText(updateProfileEntity.getId_number());
+            etCMND.setText(updateProfileEntity.getIdNumber());
             etAddress.setText(updateProfileEntity.getAddress());
-            etAccount.setText(updateProfileEntity.getBank_acc_number());
-            tvCardTurm.setText(updateProfileEntity.getCard_term());
+            etAccount.setText(updateProfileEntity.getBankAccNumber());
+            tvCardTurm.setText(updateProfileEntity.getCardTerm());
         }
     }
 

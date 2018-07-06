@@ -7,24 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.UpdateFamilyEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class JobControlAdapter extends RecyclerView.Adapter<JobControlAdapter.ProfileViewHolder> {
 
-    private List<ColleagueEntity> colleagueEntities;
+    private List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities;
     private Context context;
 //    private ProfileInterface.Presenter presenter;
 
-    public JobControlAdapter(Context context, List<ColleagueEntity> colleagueEntities) {
+    public JobControlAdapter(Context context, List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities) {
         this.colleagueEntities = colleagueEntities;
         this.context = context;
 //        this.presenter = presenter;
@@ -39,8 +36,9 @@ public class JobControlAdapter extends RecyclerView.Adapter<JobControlAdapter.Pr
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, final int position) {
-        final ColleagueEntity colleagueEntity= colleagueEntities.get(position);
-
+        final UpdateColleagueEntity.ColleagueEntity colleagueEntity= colleagueEntities.get(position);
+        holder.etColleagueName.setText(colleagueEntity.getColleagueName());
+        holder.etColleaguePhone.setText(colleagueEntity.getColleaguePhone());
     }
 
     @Override

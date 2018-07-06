@@ -8,7 +8,7 @@ public class Config {
 //    public static final String BASE_SERVER_URL = "http://192.168.1.178";//local
 //    public static final String BASE_SERVER_URL = "http://192.168.0.217";//local
 
-    public static final String BASE_SERVER_URL = "http://52.76.193.100";//server
-    public static final String BASE_IMAGE_URL = "/api/v1.0/images/";
+    public static final String BASE_SERVER_URL = "http://52.76.193.100/api/v1.0/";//server
+    public static final String BASE_IMAGE_URL = "images/";
 
 }

@@ -140,14 +140,14 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
         final UpdateProfileEntity updateProfileEntity = new UpdateProfileEntity();
         updateProfileEntity.setUsername(dataStore.getUser());
         updateProfileEntity.setFullname(fullname);
-        updateProfileEntity.setDate_of_birth(date_of_birth);
-        updateProfileEntity.setId_number(id_number);
+        updateProfileEntity.setDateOfBirth(date_of_birth);
+        updateProfileEntity.setIdNumber(id_number);
         updateProfileEntity.setAddress(address);
-        updateProfileEntity.setId_image_1(dataStore.getImageID(dataStore.getUser(), getType(1)));
-        updateProfileEntity.setId_image_2(dataStore.getImageID(dataStore.getUser(), getType(2)));
-        updateProfileEntity.setBank_acc_number(bank_acc_number);
-        updateProfileEntity.setCard_term(card_term);
-        updateProfileEntity.setCard_image(dataStore.getImageID(dataStore.getUser(), getType(3)));
+        updateProfileEntity.setIdImage1(dataStore.getImageID(dataStore.getUser(), getType(1)));
+        updateProfileEntity.setIdImage2(dataStore.getImageID(dataStore.getUser(), getType(2)));
+        updateProfileEntity.setBankAccNumber(bank_acc_number);
+        updateProfileEntity.setCardTerm(card_term);
+        updateProfileEntity.setIdCardImage(dataStore.getImageID(dataStore.getUser(), getType(3)));
         updateProfileEntity.setSex(sex);
         dataStore.updateProfile(new OnResponse<String, UpdateProfileResultEntity>() {
             @Override

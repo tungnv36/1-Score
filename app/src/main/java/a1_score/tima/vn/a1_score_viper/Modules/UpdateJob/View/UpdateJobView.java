@@ -27,9 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Presenter.UpdateJobPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -98,12 +98,12 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     private UpdateJobInterface.Presenter presenter;
 
     private String fileName;
-    private List<ColleagueEntity> colleagueEntities;
+    private List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities;
     private JobControlAdapter jobControlAdapter;
 
-    private String[] jobs = {"Nhân viên văn phòng", "Công nhân"};
-    private String[] positions = {"Nhân viên", "Giám đốc", "Trưởng phòng"};
-    private String[] salaries = {"5.000.000 - 10.000.000", "10.000.000 - 20.000.000"};
+    private List<Integer> jobIDs = new ArrayList<>();
+    private List<Integer> positionIDs = new ArrayList<>();
+    private List<Integer> salarieIDs = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,15 +113,16 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         setupActionBar();
         changeStatusBarColor();
         styleView();
-        initDropdown();
         initColleagueControl();
 
         presenter = new UpdateJobPresenter(this);
+        presenter.getJobDictionary();
 
         rlCV.setOnClickListener(this);
         rlContract.setOnClickListener(this);
         rlSalaryBoard.setOnClickListener(this);
         ibAddColleague.setOnClickListener(this);
+        btUpdate.setOnClickListener(this);
     }
 
     @Override
@@ -176,25 +177,13 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
 
     private void initColleagueControl() {
         colleagueEntities = new ArrayList<>();
-        colleagueEntities.add(new ColleagueEntity(1, "", ""));
+        UpdateColleagueEntity.ColleagueEntity colleagueEntity = new UpdateColleagueEntity.ColleagueEntity();
+        colleagueEntity.setColleagueName("");
+        colleagueEntity.setColleaguePhone("");
+        colleagueEntities.add(colleagueEntity);
         jobControlAdapter = new JobControlAdapter(this, colleagueEntities);
         Commons.setVerticalRecyclerView(this, rvColleague);
         rvColleague.setAdapter(jobControlAdapter);
-    }
-
-    private void initDropdown() {
-        //init job dropdown
-        ArrayAdapter<String> adapterJob = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, jobs);
-        adapterJob.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        spJob.setAdapter(adapterJob);
-        //init position dropdown
-        ArrayAdapter<String> adapterPosition = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, positions);
-        adapterPosition.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        spPosition.setAdapter(adapterPosition);
-        //init salary dropdown
-        ArrayAdapter<String> adapterSalary = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, salaries);
-        adapterSalary.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        spSalary.setAdapter(adapterSalary);
     }
 
     private void initData() {
@@ -220,6 +209,42 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
                 ivSalaryBoard.setImageBitmap(bitmap);
                 break;
         }
+    }
+
+    @Override
+    public void initJobs(List<JobDictionaryResultEntity.JobsEntity> jobsEntities) {
+        List<String> jobs = new ArrayList<>();
+        for (JobDictionaryResultEntity.JobsEntity jobsEntity : jobsEntities) {
+            jobs.add(jobsEntity.getJobtype());
+            jobIDs.add(jobsEntity.getId());
+        }
+        ArrayAdapter<String> adapterJob = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, jobs);
+        adapterJob.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spJob.setAdapter(adapterJob);
+    }
+
+    @Override
+    public void initPosition(List<JobDictionaryResultEntity.PositionsEntity> positionsEntities) {
+        List<String> positions = new ArrayList<>();
+        for (JobDictionaryResultEntity.PositionsEntity positionsEntity : positionsEntities) {
+            positions.add(positionsEntity.getPosition());
+            positionIDs.add(positionsEntity.getId());
+        }
+        ArrayAdapter<String> adapterPosition = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, positions);
+        adapterPosition.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spPosition.setAdapter(adapterPosition);
+    }
+
+    @Override
+    public void iniSalaryLevel(List<JobDictionaryResultEntity.SalaryLevelsEntity> salaryLevelsEntities) {
+        List<String> salaries = new ArrayList<>();
+        for (JobDictionaryResultEntity.SalaryLevelsEntity salaryLevelsEntity : salaryLevelsEntities) {
+            salaries.add(salaryLevelsEntity.getSalary());
+            salarieIDs.add(salaryLevelsEntity.getId());
+        }
+        ArrayAdapter<String> adapterSalary = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, salaries);
+        adapterSalary.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spSalary.setAdapter(adapterSalary);
     }
 
     @Override
@@ -291,8 +316,21 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
                 }
                 break;
             case R.id.ibAddColleague:
-                colleagueEntities.add(new ColleagueEntity(colleagueEntities.size() + 1, "", ""));
+                UpdateColleagueEntity.ColleagueEntity colleagueEntity = new UpdateColleagueEntity.ColleagueEntity();
+                colleagueEntity.setColleagueName("");
+                colleagueEntity.setColleaguePhone("");
+                colleagueEntities.add(colleagueEntity);
                 jobControlAdapter.notifyDataSetChanged();
+                break;
+            case R.id.btUpdate:
+                presenter.updateJob(
+                        jobIDs.get(spJob.getSelectedItemPosition()),
+                        etCompanyName.getText().toString(),
+                        etCompanyAddress.getText().toString(),
+                        positionIDs.get(spPosition.getSelectedItemPosition()),
+                        salarieIDs.get(spSalary.getSelectedItemPosition()),
+                        colleagueEntities
+                );
                 break;
         }
     }

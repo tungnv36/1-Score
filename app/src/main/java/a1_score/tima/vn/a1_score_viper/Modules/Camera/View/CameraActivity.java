@@ -34,7 +34,6 @@ import butterknife.ButterKnife;
 
 public class CameraActivity extends AppCompatActivity implements SurfaceHolder.Callback, CameraInterface.View {
 
-    Camera camera;
     @BindView(R.id.CameraView)
     SurfaceView cameraView;
     @BindView(R.id.TransparentView)
@@ -42,13 +41,14 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @BindView(R.id.ibTakePhoto)
     ImageButton ibTakePhoto;
 
-    private SurfaceHolder holder, holderTransparent;
-    private int type;
-    private int imageType;
+    private Camera mCamera;
+    private SurfaceHolder mHolder, mHolderTransparent;
+    private int mType;
+    private int mImageType;
 
-    private CameraInterface.Presenter presenter;
+    private CameraInterface.Presenter mPresenter;
 
-    private ProgressDialog progressBar;
+    private ProgressDialog mProgressBar;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -58,7 +58,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         ButterKnife.bind(this);
         getSupportActionBar().hide();
 
-        presenter = new CameraPresenter(this);
+        mPresenter = new CameraPresenter(this);
 
         initView();
 
@@ -68,14 +68,14 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         //type = 3: Khung vuông chụp chân dung
 
         //imageType: Xác định image view nào sẽ hiển thị ảnh vừa chụp
-        type = getIntent().getIntExtra(getString(R.string.type), 0);
-        imageType = getIntent().getIntExtra(getString(R.string.image_type), 0);
+        mType = getIntent().getIntExtra(getString(R.string.type), 0);
+        mImageType = getIntent().getIntExtra(getString(R.string.image_type), 0);
 
         ibTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initProgress();
-                camera.takePicture(null, null, mPicture);
+                mCamera.takePicture(null, null, mPicture);
             }
         });
 
@@ -91,30 +91,30 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             @Override
             public void onClick(View v) {
                 ibTakePhoto.setEnabled(false);
-                camera.autoFocus(autoFocusCallback);
+                mCamera.autoFocus(autoFocusCallback);
             }
         });
     }
 
     private void initProgress() {
-        progressBar = new ProgressDialog(this);
-        progressBar.setCancelable(true);
-        progressBar.setMessage(getString(R.string.take_photo_progress));
-        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressBar.setProgress(0);
-        progressBar.setMax(100);
-        progressBar.show();
+        mProgressBar = new ProgressDialog(this);
+        mProgressBar.setCancelable(true);
+        mProgressBar.setMessage(getString(R.string.take_photo_progress));
+        mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressBar.setProgress(0);
+        mProgressBar.setMax(100);
+        mProgressBar.show();
     }
 
     private void initView() {
-        holder = cameraView.getHolder();
-        holder.addCallback((SurfaceHolder.Callback) this);
+        mHolder = cameraView.getHolder();
+        mHolder.addCallback((SurfaceHolder.Callback) this);
 
         cameraView.setSecure(true);
 
-        holderTransparent = transparentView.getHolder();
-        holderTransparent.addCallback((SurfaceHolder.Callback) this);
-        holderTransparent.setFormat(PixelFormat.TRANSLUCENT);
+        mHolderTransparent = transparentView.getHolder();
+        mHolderTransparent.addCallback((SurfaceHolder.Callback) this);
+        mHolderTransparent.setFormat(PixelFormat.TRANSLUCENT);
 
         transparentView.setZOrderMediaOverlay(true);
     }
@@ -122,7 +122,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     Camera.PictureCallback mPicture = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            presenter.saveImage(data);
+            mPresenter.saveImage(data);
         }
     };
 
@@ -130,9 +130,9 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
      * Vẽ khung lên camera
      */
     private void Draw() {
-        List<Integer> lstCameraSize = Commons.getCameraSize(this, type);
+        List<Integer> lstCameraSize = Commons.getCameraSize(this, mType);
         if(lstCameraSize != null) {
-            Canvas canvas = holderTransparent.lockCanvas(null);
+            Canvas canvas = mHolderTransparent.lockCanvas(null);
             Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
             paint.setStyle(Paint.Style.STROKE);
             paint.setColor(Color.WHITE);
@@ -157,24 +157,18 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             Rect rec5 = new Rect(lstCameraSize.get(2), lstCameraSize.get(1), Commons.getDisplayMetrics(this).widthPixels, lstCameraSize.get(3));
             canvas.drawRect(rec5, paint2);
 
-//            Rect rec2 = new Rect(0, 0, lstCameraSize.get(2), lstCameraSize.get(1));
-//            canvas.drawRect(rec2, paint2);
-//
-//            Rect rec3 = new Rect(0, lstCameraSize.get(3), lstCameraSize.get(2), Commons.getDisplayMetrics(this).heightPixels);
-//            canvas.drawRect(rec3, paint2);
-
-            holderTransparent.unlockCanvasAndPost(canvas);
+            mHolderTransparent.unlockCanvasAndPost(canvas);
         }
     }
 
     public void refreshCamera() {
-        if (holder.getSurface() == null) {
+        if (mHolder.getSurface() == null) {
             return;
         }
         try {
-            camera.stopPreview();
-            camera.setPreviewDisplay(holder);
-            camera.startPreview();
+            mCamera.stopPreview();
+            mCamera.setPreviewDisplay(mHolder);
+            mCamera.startPreview();
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -183,7 +177,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         try {
-            camera = Camera.open(type==3? Camera.CameraInfo.CAMERA_FACING_FRONT: Camera.CameraInfo.CAMERA_FACING_BACK);
+            mCamera = Camera.open(mType==3? Camera.CameraInfo.CAMERA_FACING_FRONT: Camera.CameraInfo.CAMERA_FACING_BACK);
             synchronized (holder) {
                 Draw();
             }
@@ -191,16 +185,16 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
             return;
         }
         Camera.Parameters param;
-        param = camera.getParameters();
+        param = mCamera.getParameters();
 //        param.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
         Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
         if (display.getRotation() == Surface.ROTATION_0) {
-            camera.setDisplayOrientation(90);
+            mCamera.setDisplayOrientation(90);
         }
-        camera.setParameters(param);
+        mCamera.setParameters(param);
         try {
-            camera.setPreviewDisplay(holder);
-            camera.startPreview();
+            mCamera.setPreviewDisplay(holder);
+            mCamera.startPreview();
         } catch (Exception e) {
             return;
         }
@@ -213,34 +207,34 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        camera.release();
+        mCamera.release();
     }
 
     @Override
     public void saveImageSuccess() {
         Intent returnIntent = new Intent();
         returnIntent.putExtra(getString(R.string.result), Environment.getExternalStorageDirectory() + getString(R.string.image_name));
-        if(type != 0) {
-            returnIntent.putExtra(getString(R.string.type), type);
+        if(mType != 0) {
+            returnIntent.putExtra(getString(R.string.type), mType);
         }
-        if(imageType != 0) {
-            returnIntent.putExtra(getString(R.string.image_type), imageType);
+        if(mImageType != 0) {
+            returnIntent.putExtra(getString(R.string.image_type), mImageType);
         }
         setResult(Commons.TAKE_PHOTO_REQUEST_CODE, returnIntent);
-        progressBar.dismiss();
+        mProgressBar.dismiss();
         finish();
     }
 
     @Override
     public void saveImageFailed() {
         Toast.makeText(this, getString(R.string.take_photo_failed), Toast.LENGTH_LONG).show();
-        progressBar.dismiss();
+        mProgressBar.dismiss();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
-        presenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
     }
 }

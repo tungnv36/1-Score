@@ -23,14 +23,14 @@ import butterknife.ButterKnife;
 
 public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ProfileViewHolder> {
 
-    private List<SettingEntity> lstMenu;
-    private Context context;
-    private SettingInterface.Presenter presenter;
+    private List<SettingEntity> mMenuList;
+    private Context mContext;
+    private SettingInterface.Presenter mPresenter;
 
-    public SettingAdapter(Context context, SettingInterface.Presenter presenter, List<SettingEntity> lstMenu) {
-        this.lstMenu = lstMenu;
-        this.context = context;
-        this.presenter = presenter;
+    public SettingAdapter(Context context, SettingInterface.Presenter presenter, List<SettingEntity> mMenuList) {
+        this.mMenuList = mMenuList;
+        mContext = context;
+        this.mPresenter = presenter;
     }
 
     @NonNull
@@ -42,7 +42,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ProfileV
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, final int position) {
-        final SettingEntity settingEntity = lstMenu.get(position);
+        final SettingEntity settingEntity = mMenuList.get(position);
 
         holder.ivIcon.setImageResource(settingEntity.getIcon());
         holder.tvTitle.setText(settingEntity.getTitle());
@@ -54,13 +54,13 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ProfileV
                     case 0://change pass
                         break;
                     case 1://change phone
-                        presenter.goToChangePhone();
+                        mPresenter.goToChangePhone();
                         break;
                     case 2://logout
-                        DialogUtils.showAlertDialogYN(context, context.getString(R.string.dialog_title), context.getString(R.string.q_logout), new DialogUtils.OnClickListener() {
+                        DialogUtils.showAlertDialogYN(mContext, mContext.getString(R.string.dialog_title), mContext.getString(R.string.q_logout), new DialogUtils.OnClickListener() {
                             @Override
                             public void onClickSuccess() {
-                                presenter.logout();
+                                mPresenter.logout();
                             }
 
                             @Override
@@ -76,7 +76,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ProfileV
 
     @Override
     public int getItemCount() {
-        return lstMenu == null ? 0 : lstMenu.size();
+        return mMenuList == null ? 0 : mMenuList.size();
     }
 
     public class ProfileViewHolder extends RecyclerView.ViewHolder {

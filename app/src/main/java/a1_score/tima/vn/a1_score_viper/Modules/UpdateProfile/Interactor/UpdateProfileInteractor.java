@@ -13,10 +13,10 @@ import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.DataStore.UpdateProfileDataStore;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import a1_score.tima.vn.a1_score_viper.R;
 
@@ -52,9 +52,9 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
 
     @Override
     public void initData() {
-        UpdateProfileEntity updateProfileEntity = dataStore.getData(dataStore.getUser());
-        updateProfileEntity.setFullname(dataStore.getFullName());
-        interactorOutput.initDataOutput(updateProfileEntity);
+        ProfileRequest profileRequest = dataStore.getData(dataStore.getUser());
+        profileRequest.setFullname(dataStore.getFullName());
+        interactorOutput.initDataOutput(profileRequest);
     }
 
     @Override
@@ -71,10 +71,10 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             if(lstCameraSize != null) {
                 final Bitmap bmpCrop = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));//Crop ảnh theo khung
 
-                UploadImageEntity uploadImageEntity = new UploadImageEntity(dataStore.getUser(), Commons.convertBitmapToBase64(bmpCrop), "");
-                dataStore.uploadImage(new OnResponse<String, UploadImageResultEntity>() {
+                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(dataStore.getUser(), Commons.convertBitmapToBase64(bmpCrop), "");
+                dataStore.uploadImage(new OnResponse<String, ImageProfileResponse>() {
                     @Override
-                    public void onResponseSuccess(String tag, String rs, UploadImageResultEntity extraData) {
+                    public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {
                         if (extraData != null && extraData.getStatuscode() == 200) {
                             dataStore.saveImageToLocal(dataStore.getUser() + fileName + ".jpg", bmpCrop);//Lưu ảnh vào file manager
                             dataStore.saveImageToDB(extraData, fileName, dataStore.getUser(), getType(imageType));//Lưu thông tin ảnh vào db local
@@ -88,7 +88,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
                     public void onResponseError(String tag, String message) {
                         interactorOutput.updateImageFailed(message);
                     }
-                }, "Bearer " + dataStore.getToken(), uploadImageEntity);
+                }, "Bearer " + dataStore.getToken(), imageProfileRequest);
             } else {
                 interactorOutput.updateImageFailed(((Context)view).getString(R.string.err_handle_image));
             }
@@ -137,23 +137,23 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             return;
         }
 
-        final UpdateProfileEntity updateProfileEntity = new UpdateProfileEntity();
-        updateProfileEntity.setUsername(dataStore.getUser());
-        updateProfileEntity.setFullname(fullname);
-        updateProfileEntity.setDateOfBirth(date_of_birth);
-        updateProfileEntity.setIdNumber(id_number);
-        updateProfileEntity.setAddress(address);
-        updateProfileEntity.setIdImage1(dataStore.getImageID(dataStore.getUser(), getType(1)));
-        updateProfileEntity.setIdImage2(dataStore.getImageID(dataStore.getUser(), getType(2)));
-        updateProfileEntity.setBankAccNumber(bank_acc_number);
-        updateProfileEntity.setCardTerm(card_term);
-        updateProfileEntity.setIdCardImage(dataStore.getImageID(dataStore.getUser(), getType(3)));
-        updateProfileEntity.setSex(sex);
-        dataStore.updateProfile(new OnResponse<String, UpdateProfileResultEntity>() {
+        final ProfileRequest profileRequest = new ProfileRequest();
+        profileRequest.setUsername(dataStore.getUser());
+        profileRequest.setFullname(fullname);
+        profileRequest.setDateOfBirth(date_of_birth);
+        profileRequest.setIdNumber(id_number);
+        profileRequest.setAddress(address);
+        profileRequest.setIdImage1(dataStore.getImageID(dataStore.getUser(), getType(1)));
+        profileRequest.setIdImage2(dataStore.getImageID(dataStore.getUser(), getType(2)));
+        profileRequest.setBankAccNumber(bank_acc_number);
+        profileRequest.setCardTerm(card_term);
+        profileRequest.setIdCardImage(dataStore.getImageID(dataStore.getUser(), getType(3)));
+        profileRequest.setSex(sex);
+        dataStore.updateProfile(new OnResponse<String, ProfileResponse>() {
             @Override
-            public void onResponseSuccess(String tag, String rs, UpdateProfileResultEntity extraData) {
+            public void onResponseSuccess(String tag, String rs, ProfileResponse extraData) {
                 if(extraData != null) {
-                    dataStore.saveProfileToDB(updateProfileEntity);//Lưu thông tin cá nhân vào db local
+                    dataStore.saveProfileToDB(profileRequest);//Lưu thông tin cá nhân vào db local
                     dataStore.updateFullName(fullname);//Cập nhật lại fullname trong file cấu hình
                     interactorOutput.updateProfileSuccess(extraData.getMessage());
                 } else {
@@ -165,7 +165,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             public void onResponseError(String tag, String message) {
                 interactorOutput.updateProfileFailed(message);
             }
-        },"Bearer " + dataStore.getToken(), updateProfileEntity);
+        },"Bearer " + dataStore.getToken(), profileRequest);
     }
 
     @Override

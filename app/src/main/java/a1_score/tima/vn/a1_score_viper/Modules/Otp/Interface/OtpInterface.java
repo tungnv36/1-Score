@@ -3,7 +3,7 @@ package a1_score.tima.vn.a1_score_viper.Modules.Otp.Interface;
 import android.app.Activity;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
-import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpResultEntity;
 
 public interface OtpInterface {
@@ -35,7 +35,7 @@ public interface OtpInterface {
     }
 
     interface DataStore {
-        void compareOtp(final OnResponse<String, OtpResultEntity> m_Response, OtpEntity otpEntity);
+        void compareOtp(final OnResponse<String, OtpResultEntity> m_Response, OtpRequest otpRequest);
     }
 
 }

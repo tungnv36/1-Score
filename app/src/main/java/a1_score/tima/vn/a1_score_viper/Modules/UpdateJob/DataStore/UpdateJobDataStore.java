@@ -19,14 +19,14 @@ import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,45 +34,45 @@ import retrofit2.Response;
 
 public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface.DataStore {
 
-    private UpdateJobInterface.View view;
+    private UpdateJobInterface.View mView;
 
-    public static UpdateJobDataStore mInstance;
+    public static UpdateJobDataStore sInstance;
     private static SQliteDatabase sQliteDatabase;
 
     public static UpdateJobDataStore getInstance(UpdateJobInterface.View view) {
-        if (mInstance == null) {
+        if (sInstance == null) {
             initApi();
             sQliteDatabase = SQliteDatabase.getInstance((Context)view);
-            mInstance = new UpdateJobDataStore(view);
+            sInstance = new UpdateJobDataStore(view);
         }
-        return mInstance;
+        return sInstance;
     }
 
     private UpdateJobDataStore(UpdateJobInterface.View view) {
-        this.view = view;
+        mView = view;
     }
 
     @Override
     public String getUser() {
-        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("username", "");
     }
 
     @Override
     public String getFullName() {
-        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("fullname", "");
     }
 
     @Override
     public String getToken() {
-        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("token", "");
     }
 
     @Override
     public void updateFullName(String fullname) {
-        SharedPreferences.Editor editor = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE).edit();
         editor.putString("fullname", fullname);
         editor.apply();
         sQliteDatabase.updateFullName(getUser(), fullname);
@@ -92,17 +92,17 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
     }
 
     @Override
-    public List<JobDictionaryResultEntity.JobsEntity> getJobsDic() {
+    public List<JobDictionaryResponse.JobsEntity> getJobsDic() {
         return sQliteDatabase.getJobsDic();
     }
 
     @Override
-    public List<JobDictionaryResultEntity.PositionsEntity> getPositionsDic() {
+    public List<JobDictionaryResponse.PositionsEntity> getPositionsDic() {
         return sQliteDatabase.getPositionsDic();
     }
 
     @Override
-    public List<JobDictionaryResultEntity.SalaryLevelsEntity> getSalariesDic() {
+    public List<JobDictionaryResponse.SalaryLevelsEntity> getSalariesDic() {
         return sQliteDatabase.getSalariesDic();
     }
 
@@ -128,14 +128,14 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
     }
 
     @Override
-    public void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
-        sQliteDatabase.addImage(uploadImageResultEntity, imageName, username, type);
+    public void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type) {
+        sQliteDatabase.addImage(imageProfileResponse, imageName, username, type);
     }
 
     @Override
-    public void uploadImage(final OnResponse<String, UploadImageResultEntity> m_Response, String token, UploadImageEntity uploadImageEntity) {
+    public void uploadImage(final OnResponse<String, ImageProfileResponse> m_Response, String token, ImageProfileRequest imageProfileRequest) {
         m_Response.onStart();
-        Call<ResponseBody> call = m_Service.uploadImage(token, uploadImageEntity);
+        Call<ResponseBody> call = m_Service.uploadImage(token, imageProfileRequest);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -145,8 +145,8 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
                         try {
                             final GsonBuilder gsonBuilder = new GsonBuilder();
                             final Gson gson = gsonBuilder.create();
-                            UploadImageResultEntity uploadImageResultEntity = gson.fromJson(jsonObject.toString(), UploadImageResultEntity.class);
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), uploadImageResultEntity);
+                            ImageProfileResponse imageProfileResponse = gson.fromJson(jsonObject.toString(), ImageProfileResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), imageProfileResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
@@ -169,29 +169,29 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
     }
 
     @Override
-    public void updateJob(OnResponse<String, UpdateJobResultEntity> m_Response, String token, UpdateJobEntity updateJobEntity) {
+    public void updateJob(OnResponse<String, JobResponse> m_Response, String token, JobRequest jobRequest) {
 
     }
 
     @Override
-    public void updateColleague(OnResponse<String, UpdateColleagueResultEntity> m_Response, String token, UpdateColleagueEntity colleagueEntity) {
+    public void updateColleague(OnResponse<String, ColleagueResponse> m_Response, String token, ColleagueRequest colleagueEntity) {
 
     }
 
     @Override
-    public long updateJobDicToDB(JobDictionaryResultEntity jobDictionaryResultEntity) {
+    public long updateJobDicToDB(JobDictionaryResponse jobDictionaryResponse) {
         long result = 0;
-        List<JobDictionaryResultEntity.JobsEntity> jobsEntities = jobDictionaryResultEntity.getJobs();
-        List<JobDictionaryResultEntity.PositionsEntity> positionsEntities = jobDictionaryResultEntity.getPositions();
-        List<JobDictionaryResultEntity.SalaryLevelsEntity> salaryLevelsEntities = jobDictionaryResultEntity.getSalarylevels();
+        List<JobDictionaryResponse.JobsEntity> jobsEntities = jobDictionaryResponse.getJobs();
+        List<JobDictionaryResponse.PositionsEntity> positionsEntities = jobDictionaryResponse.getPositions();
+        List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities = jobDictionaryResponse.getSalarylevels();
 
-        for (JobDictionaryResultEntity.JobsEntity jobsEntity : jobsEntities) {
+        for (JobDictionaryResponse.JobsEntity jobsEntity : jobsEntities) {
             result += sQliteDatabase.addJobDic(jobsEntity);
         }
-        for (JobDictionaryResultEntity.PositionsEntity positionsEntity : positionsEntities) {
+        for (JobDictionaryResponse.PositionsEntity positionsEntity : positionsEntities) {
             result += sQliteDatabase.addPositionDic(positionsEntity);
         }
-        for (JobDictionaryResultEntity.SalaryLevelsEntity salaryLevelsEntity : salaryLevelsEntities) {
+        for (JobDictionaryResponse.SalaryLevelsEntity salaryLevelsEntity : salaryLevelsEntities) {
             result += sQliteDatabase.addSalaryDic(salaryLevelsEntity);
         }
 
@@ -199,7 +199,7 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
     }
 
     @Override
-    public void getJobDictionary(final OnResponse<String, JobDictionaryResultEntity> m_Response, String token) {
+    public void getJobDictionary(final OnResponse<String, JobDictionaryResponse> m_Response, String token) {
         m_Response.onStart();
         Call<ResponseBody> call = m_Service.getJobDictionary(token);
         call.enqueue(new Callback<ResponseBody>() {
@@ -211,8 +211,8 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
                         try {
                             final GsonBuilder gsonBuilder = new GsonBuilder();
                             final Gson gson = gsonBuilder.create();
-                            JobDictionaryResultEntity jobDictionaryResultEntity = gson.fromJson(jsonObject.toString(), JobDictionaryResultEntity.class);
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), jobDictionaryResultEntity);
+                            JobDictionaryResponse jobDictionaryResponse = gson.fromJson(jsonObject.toString(), JobDictionaryResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), jobDictionaryResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
@@ -235,12 +235,12 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
     }
 
     @Override
-    public long addJob(UpdateJobResultEntity.JobEntity jobEntity) {
+    public long addJob(JobResponse.JobEntity jobEntity) {
         return sQliteDatabase.addJob(jobEntity);
     }
 
     @Override
-    public long addColleague(String username, UpdateColleagueResultEntity.ColleagueEntity colleagueEntity) {
+    public long addColleague(String username, ColleagueResponse.ColleagueEntity colleagueEntity) {
         return sQliteDatabase.addColleague(username, colleagueEntity);
     }
 

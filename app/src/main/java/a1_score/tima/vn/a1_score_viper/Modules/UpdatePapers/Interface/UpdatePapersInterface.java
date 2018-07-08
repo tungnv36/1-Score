@@ -3,8 +3,6 @@ package a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Interface;
 import android.app.Activity;
 import android.graphics.Bitmap;
 
-import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.UpdatePapersEntity;
-
 public interface UpdatePapersInterface {
     //View
     interface View {

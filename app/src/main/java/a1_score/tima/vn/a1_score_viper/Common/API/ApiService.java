@@ -1,15 +1,14 @@
 package a1_score.tima.vn.a1_score_viper.Common.API;
 
-import a1_score.tima.vn.a1_score_viper.Modules.ChangePasswordForgot.Entity.ChangePasswordForgotEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Entity.ChangePhoneEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Entity.UserPhone;
+import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -39,28 +38,28 @@ public interface ApiService {
     String API_UPDATE_COLLEAGUE = "colleague";
 
     @POST(API_LOGIN)
-    Call<ResponseBody> callLogin(@Body LoginEntity loginEntity);
+    Call<ResponseBody> callLogin(@Body LoginRequest loginRequest);
 
     @POST(API_REGISTER)
-    Call<ResponseBody> callRegister(@Body RegisterEntity registerEntity);
+    Call<ResponseBody> callRegister(@Body RegisterRequest registerRequest);
 
     @POST(API_OTP)
-    Call<ResponseBody> callCompareOtp(@Body OtpEntity otpEntity);
+    Call<ResponseBody> callCompareOtp(@Body OtpRequest otpRequest);
 
     @POST(API_SEND_OTP)
-    Call<ResponseBody> sendOtp(@Body ForgotPasswordEntity forgotPasswordEntity);
+    Call<ResponseBody> sendOtp(@Body ForgotPasswordRequest forgotPasswordRequest);
 
     @POST(API_FORGOT_PASS)
-    Call<ResponseBody> forgotPassword(@Header("Authorization") String token, @Body ChangePasswordForgotEntity changePasswordForgotEntity);
+    Call<ResponseBody> forgotPassword(@Header("Authorization") String token, @Body a1_score.tima.vn.a1_score_viper.Modules.ResetPassword.Entity.ForgotPasswordRequest forgotPasswordRequest);
 
     @POST(API_CHANGE_PHONE)
-    Call<ResponseBody> changePhone(@Header("Authorization") String token, @Body ChangePhoneEntity changePhoneEntity);
+    Call<ResponseBody> changePhone(@Header("Authorization") String token, @Body UserPhone userPhone);
 
     @POST(API_UPLOAD_IMAGE)
-    Call<ResponseBody> uploadImage(@Header("Authorization") String token, @Body UploadImageEntity uploadImageEntity);
+    Call<ResponseBody> uploadImage(@Header("Authorization") String token, @Body ImageProfileRequest imageProfileRequest);
 
     @POST(API_UPDATE_PROFILE)
-    Call<ResponseBody> updateProfile(@Header("Authorization") String token, @Body UpdateProfileEntity updateProfileEntity);
+    Call<ResponseBody> updateProfile(@Header("Authorization") String token, @Body ProfileRequest profileRequest);
 
     @POST(API_LOGOUT)
     Call<ResponseBody> callLogout(@Header("Authorization") String token);
@@ -69,9 +68,9 @@ public interface ApiService {
     Call<ResponseBody> getJobDictionary(@Header("Authorization") String token);
 
     @POST(API_UPDATE_JOB)
-    Call<ResponseBody> updateJob(@Header("Authorization") String token, @Body UpdateJobEntity updateJobEntity);
+    Call<ResponseBody> updateJob(@Header("Authorization") String token, @Body JobRequest jobRequest);
 
     @POST(API_UPDATE_COLLEAGUE)
-    Call<ResponseBody> updateColleague(@Header("Authorization") String token, @Body UpdateColleagueEntity colleagueEntity);
+    Call<ResponseBody> updateColleague(@Header("Authorization") String token, @Body ColleagueRequest colleagueEntity);
 
 }

@@ -10,44 +10,44 @@ import a1_score.tima.vn.a1_score_viper.R;
 
 public class OtpPresenter implements OtpInterface.Presenter, OtpInterface.InteractorOutput {
 
-    private OtpInterface.View view;
-    private OtpInterface.InteractorInput interactorInput;
-    private OtpInterface.Wireframe wireframe;
+    private OtpInterface.View mView;
+    private OtpInterface.InteractorInput mInteractorInput;
+    private OtpInterface.Wireframe mWireframe;
 
     public OtpPresenter(OtpInterface.View view) {
-        this.view = view;
-        interactorInput = new OtpInteractor(view, this);
-        wireframe = new OtpWireframe();
+        this.mView = view;
+        mInteractorInput = new OtpInteractor(view, this);
+        mWireframe = new OtpWireframe();
     }
 
     @Override
     public void compareOtp(String phoneNumber, String action, String otp, int type) {
-        interactorInput.compareOtp(phoneNumber, action, otp, type);
+        mInteractorInput.compareOtp(phoneNumber, action, otp, type);
     }
 
     @Override
     public void onDestroy() {
-        view = null;
-        interactorInput.unRegister();
-        interactorInput = null;
+        mView = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
     }
 
     @Override
     public void compareOtpSuccess() {
-        view.compareOtpSuccess(((Activity)view).getString(R.string.register_success));
-        wireframe.goToLogin((Activity)view);
-        ((Activity)view).finish();
+        mView.compareOtpSuccess(((Activity)mView).getString(R.string.register_success));
+        mWireframe.goToLogin((Activity)mView);
+        ((Activity)mView).finish();
     }
 
     @Override
     public void compareOtpForgotPassSuccess(String phoneNumber, String token) {
-        wireframe.goToChangePass((Activity)view, phoneNumber, token);
-        ((Activity)view).finish();
+        mWireframe.goToChangePass((Activity)mView, phoneNumber, token);
+        ((Activity)mView).finish();
     }
 
     @Override
     public void compareOtpFailed(String err) {
-        view.compareOtpFailed(err);
+        mView.compareOtpFailed(err);
     }
 
 }

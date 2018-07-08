@@ -5,20 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 
 public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "onescore";
@@ -181,26 +178,26 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     }
 
     //---------------user---------------
-    public void addUser(LoginResultEntity loginResultEntity) {
+    public void addUser(LoginResponse loginResponse) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_USER_ID, loginResultEntity.getUser().getUserid());
-        values.put(KEY_USER_NAME, Commons.changePhone0(loginResultEntity.getUser().getUsername()));
-        values.put(KEY_USER_FULLNAME, loginResultEntity.getUser().getFullname());
-        values.put(KEY_USER_DATE_OF_BIRTH, loginResultEntity.getUser().getDateofbirth());
-        values.put(KEY_USER_ID_NUMBER, loginResultEntity.getUser().getIdnumber());
-        values.put(KEY_USER_ADDRESS, loginResultEntity.getUser().getAddress());
-        values.put(KEY_USER_ACC_NUMBER, loginResultEntity.getUser().getBankaccnumber());
-        values.put(KEY_USER_CARD_TERM, loginResultEntity.getUser().getCardterm());
-        values.put(KEY_USER_SEX, loginResultEntity.getUser().getSex());
-        values.put(KEY_USER_SCORED, loginResultEntity.getUser().getScored());
-        values.put(KEY_USER_LEVEL, loginResultEntity.getUser().getLevel());
-        values.put(KEY_USER_URL_IMAGE1, loginResultEntity.getUser().getUrlimage1());
-        values.put(KEY_USER_URL_IMAGE2, loginResultEntity.getUser().getUrlimage2());
-        values.put(KEY_USER_URL_CARD_IMAGE, loginResultEntity.getUser().getUrlcardimage());
-        values.put(KEY_USER_URL_AVATAR, loginResultEntity.getUser().getUrlavatar());
-        values.put(KEY_USER_PROGRESS, loginResultEntity.getUser().getProgress());
+        values.put(KEY_USER_ID, loginResponse.getUser().getUserid());
+        values.put(KEY_USER_NAME, Commons.changePhone0(loginResponse.getUser().getUsername()));
+        values.put(KEY_USER_FULLNAME, loginResponse.getUser().getFullname());
+        values.put(KEY_USER_DATE_OF_BIRTH, loginResponse.getUser().getDateofbirth());
+        values.put(KEY_USER_ID_NUMBER, loginResponse.getUser().getIdnumber());
+        values.put(KEY_USER_ADDRESS, loginResponse.getUser().getAddress());
+        values.put(KEY_USER_ACC_NUMBER, loginResponse.getUser().getBankaccnumber());
+        values.put(KEY_USER_CARD_TERM, loginResponse.getUser().getCardterm());
+        values.put(KEY_USER_SEX, loginResponse.getUser().getSex());
+        values.put(KEY_USER_SCORED, loginResponse.getUser().getScored());
+        values.put(KEY_USER_LEVEL, loginResponse.getUser().getLevel());
+        values.put(KEY_USER_URL_IMAGE1, loginResponse.getUser().getUrlimage1());
+        values.put(KEY_USER_URL_IMAGE2, loginResponse.getUser().getUrlimage2());
+        values.put(KEY_USER_URL_CARD_IMAGE, loginResponse.getUser().getUrlcardimage());
+        values.put(KEY_USER_URL_AVATAR, loginResponse.getUser().getUrlavatar());
+        values.put(KEY_USER_PROGRESS, loginResponse.getUser().getProgress());
 
         db.insert(TABLE_NAME_USER, null, values);
         db.close();
@@ -222,8 +219,8 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public LoginResultEntity.UserEntity getUser() {
-        LoginResultEntity.UserEntity userEntity = new LoginResultEntity.UserEntity();
+    public LoginResponse.UserEntity getUser() {
+        LoginResponse.UserEntity userEntity = new LoginResponse.UserEntity();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_USER);
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -250,16 +247,16 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     }
 
     //---------------Images---------------
-    public void addImage(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
+    public void addImage(ImageProfileResponse imageProfileResponse, String imageName, String username, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_IMAGES_ID, uploadImageResultEntity.getImage().getId());
-        values.put(KEY_IMAGES_URL, uploadImageResultEntity.getImage().getUrl());
+        values.put(KEY_IMAGES_ID, imageProfileResponse.getImage().getId());
+        values.put(KEY_IMAGES_URL, imageProfileResponse.getImage().getUrl());
         values.put(KEY_IMAGES_TYPE, type);
         values.put(KEY_IMAGES_NAME, username + imageName);
         values.put(KEY_IMAGES_USER, username);
-        values.put(KEY_IMAGES_FORMAT, uploadImageResultEntity.getImage().getImagetype());
+        values.put(KEY_IMAGES_FORMAT, imageProfileResponse.getImage().getImagetype());
 
         db.insert(TABLE_NAME_IMAGES, null, values);
         db.close();
@@ -284,21 +281,21 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     }
 
     //---------------Profile---------------
-    public void addProfile(UpdateProfileEntity updateProfileEntity) {
+    public void addProfile(ProfileRequest profileRequest) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_PROFILE_USERNAME, updateProfileEntity.getUsername());
-        values.put(KEY_PROFILE_FULLNAME, updateProfileEntity.getFullname());
-        values.put(KEY_PROFILE_DATE_OF_BIRTH, updateProfileEntity.getDateOfBirth());
-        values.put(KEY_PROFILE_ADDRESS, updateProfileEntity.getAddress());
-        values.put(KEY_PROFILE_ID_NUMBER, updateProfileEntity.getIdNumber());
-        values.put(KEY_PROFILE_ID_IMAGE_1, updateProfileEntity.getIdImage1());
-        values.put(KEY_PROFILE_ID_IMAGE_2, updateProfileEntity.getIdImage2());
-        values.put(KEY_PROFILE_BANK_ACC_NUMBER, updateProfileEntity.getBankAccNumber());
-        values.put(KEY_PROFILE_CARD_TERM, updateProfileEntity.getCardTerm());
-        values.put(KEY_PROFILE_CARD_IMAGE, updateProfileEntity.getIdCardImage());
-        values.put(KEY_PROFILE_SEX, updateProfileEntity.getSex());
+        values.put(KEY_PROFILE_USERNAME, profileRequest.getUsername());
+        values.put(KEY_PROFILE_FULLNAME, profileRequest.getFullname());
+        values.put(KEY_PROFILE_DATE_OF_BIRTH, profileRequest.getDateOfBirth());
+        values.put(KEY_PROFILE_ADDRESS, profileRequest.getAddress());
+        values.put(KEY_PROFILE_ID_NUMBER, profileRequest.getIdNumber());
+        values.put(KEY_PROFILE_ID_IMAGE_1, profileRequest.getIdImage1());
+        values.put(KEY_PROFILE_ID_IMAGE_2, profileRequest.getIdImage2());
+        values.put(KEY_PROFILE_BANK_ACC_NUMBER, profileRequest.getBankAccNumber());
+        values.put(KEY_PROFILE_CARD_TERM, profileRequest.getCardTerm());
+        values.put(KEY_PROFILE_CARD_IMAGE, profileRequest.getIdCardImage());
+        values.put(KEY_PROFILE_SEX, profileRequest.getSex());
 
         db.insert(TABLE_NAME_PROFILE, null, values);
         db.close();
@@ -314,32 +311,32 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public UpdateProfileEntity getProfileByPhone(String username) {
-        UpdateProfileEntity updateProfileEntity = new UpdateProfileEntity();
+    public ProfileRequest getProfileByPhone(String username) {
+        ProfileRequest profileRequest = new ProfileRequest();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME_PROFILE, KEY_PROFILE_USERNAME, username);
         Cursor cursor = db.rawQuery(countQuery, null);
         if(cursor.moveToFirst()) {
             do {
-                updateProfileEntity.setUsername(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_USERNAME)));
-                updateProfileEntity.setFullname(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_FULLNAME)));
-                updateProfileEntity.setDateOfBirth(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_DATE_OF_BIRTH)));
-                updateProfileEntity.setAddress(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_ADDRESS)));
-                updateProfileEntity.setIdNumber(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_ID_NUMBER)));
-                updateProfileEntity.setIdImage1(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_ID_IMAGE_1)));
-                updateProfileEntity.setIdImage2(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_ID_IMAGE_2)));
-                updateProfileEntity.setBankAccNumber(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_BANK_ACC_NUMBER)));
-                updateProfileEntity.setCardTerm(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_CARD_TERM)));
-                updateProfileEntity.setIdCardImage(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_CARD_IMAGE)));
-                updateProfileEntity.setSex(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_SEX)));
+                profileRequest.setUsername(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_USERNAME)));
+                profileRequest.setFullname(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_FULLNAME)));
+                profileRequest.setDateOfBirth(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_DATE_OF_BIRTH)));
+                profileRequest.setAddress(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_ADDRESS)));
+                profileRequest.setIdNumber(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_ID_NUMBER)));
+                profileRequest.setIdImage1(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_ID_IMAGE_1)));
+                profileRequest.setIdImage2(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_ID_IMAGE_2)));
+                profileRequest.setBankAccNumber(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_BANK_ACC_NUMBER)));
+                profileRequest.setCardTerm(cursor.getString(cursor.getColumnIndex(KEY_PROFILE_CARD_TERM)));
+                profileRequest.setIdCardImage(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_CARD_IMAGE)));
+                profileRequest.setSex(cursor.getInt(cursor.getColumnIndex(KEY_PROFILE_SEX)));
             } while (cursor.moveToNext());
         }
         cursor.close();
-        return updateProfileEntity;
+        return profileRequest;
     }
 
     //------------------jobs dictionary----------------
-    public long addJobDic(JobDictionaryResultEntity.JobsEntity jobsEntity) {
+    public long addJobDic(JobDictionaryResponse.JobsEntity jobsEntity) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -351,9 +348,9 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         return result;
     }
 
-    public List<JobDictionaryResultEntity.JobsEntity> getJobsDic() {
-        List<JobDictionaryResultEntity.JobsEntity> jobsEntities = new ArrayList<>();
-        JobDictionaryResultEntity.JobsEntity jobsEntity = new JobDictionaryResultEntity.JobsEntity();
+    public List<JobDictionaryResponse.JobsEntity> getJobsDic() {
+        List<JobDictionaryResponse.JobsEntity> jobsEntities = new ArrayList<>();
+        JobDictionaryResponse.JobsEntity jobsEntity = new JobDictionaryResponse.JobsEntity();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_JOBS_DIC);
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -387,7 +384,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     }
 
     //------------------positions dictionary----------------
-    public long addPositionDic(JobDictionaryResultEntity.PositionsEntity positionsEntity) {
+    public long addPositionDic(JobDictionaryResponse.PositionsEntity positionsEntity) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -399,9 +396,9 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         return result;
     }
 
-    public List<JobDictionaryResultEntity.PositionsEntity> getPositionsDic() {
-        List<JobDictionaryResultEntity.PositionsEntity> positionsEntities = new ArrayList<>();
-        JobDictionaryResultEntity.PositionsEntity positionsEntity = new JobDictionaryResultEntity.PositionsEntity();
+    public List<JobDictionaryResponse.PositionsEntity> getPositionsDic() {
+        List<JobDictionaryResponse.PositionsEntity> positionsEntities = new ArrayList<>();
+        JobDictionaryResponse.PositionsEntity positionsEntity = new JobDictionaryResponse.PositionsEntity();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_POSITIONS_DIC);
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -435,7 +432,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     }
 
     //------------------salaries dictionary----------------
-    public long addSalaryDic(JobDictionaryResultEntity.SalaryLevelsEntity salaryLevelsEntity) {
+    public long addSalaryDic(JobDictionaryResponse.SalaryLevelsEntity salaryLevelsEntity) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -447,9 +444,9 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         return result;
     }
 
-    public List<JobDictionaryResultEntity.SalaryLevelsEntity> getSalariesDic() {
-        List<JobDictionaryResultEntity.SalaryLevelsEntity> salaryLevelsEntities = new ArrayList<>();
-        JobDictionaryResultEntity.SalaryLevelsEntity salaryLevelsEntity = new JobDictionaryResultEntity.SalaryLevelsEntity();
+    public List<JobDictionaryResponse.SalaryLevelsEntity> getSalariesDic() {
+        List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities = new ArrayList<>();
+        JobDictionaryResponse.SalaryLevelsEntity salaryLevelsEntity = new JobDictionaryResponse.SalaryLevelsEntity();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_SALARIES_DIC);
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -483,7 +480,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     }
 
     //------------------Job----------------
-    public long addJob(UpdateJobResultEntity.JobEntity jobEntity) {
+    public long addJob(JobResponse.JobEntity jobEntity) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -507,8 +504,8 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public UpdateJobResultEntity.JobEntity getJob() {
-        UpdateJobResultEntity.JobEntity jobEntity = new UpdateJobResultEntity.JobEntity();
+    public JobResponse.JobEntity getJob() {
+        JobResponse.JobEntity jobEntity = new JobResponse.JobEntity();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_JOB);
         Cursor cursor = db.rawQuery(countQuery, null);
@@ -528,7 +525,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     }
 
     //------------------Colleague----------------
-    public long addColleague(String username, UpdateColleagueResultEntity.ColleagueEntity colleagueEntity) {
+    public long addColleague(String username, ColleagueResponse.ColleagueEntity colleagueEntity) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -547,8 +544,8 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public UpdateColleagueResultEntity.ColleagueEntity getColleague() {
-        UpdateColleagueResultEntity.ColleagueEntity colleagueEntity = new UpdateColleagueResultEntity.ColleagueEntity();
+    public ColleagueResponse.ColleagueEntity getColleague() {
+        ColleagueResponse.ColleagueEntity colleagueEntity = new ColleagueResponse.ColleagueEntity();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_JOB);
         Cursor cursor = db.rawQuery(countQuery, null);

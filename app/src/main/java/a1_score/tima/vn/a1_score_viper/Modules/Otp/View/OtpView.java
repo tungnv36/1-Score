@@ -48,7 +48,7 @@ public class OtpView extends AppCompatActivity implements View.OnClickListener, 
     @BindView(R.id.etSixth)
     EditText etSixth;
 
-    private OtpInterface.Presenter presenter;
+    private OtpInterface.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class OtpView extends AppCompatActivity implements View.OnClickListener, 
 
         tvDescription.setText(getIntent().getStringExtra("MSG"));
 
-        presenter = new OtpPresenter(this);
+        mPresenter = new OtpPresenter(this);
 
         etFirst.post(new Runnable() {
             @Override
@@ -229,7 +229,7 @@ public class OtpView extends AppCompatActivity implements View.OnClickListener, 
                         .append(etFourth.getText().toString())
                         .append(etFifth.getText().toString())
                         .append(etSixth.getText().toString()).toString();
-                presenter.compareOtp(getIntent().getStringExtra("PHONE_NUMBER"), getIntent().getStringExtra("ACTION"), otp, getIntent().getIntExtra("TYPE", 0));
+                mPresenter.compareOtp(getIntent().getStringExtra("PHONE_NUMBER"), getIntent().getStringExtra("ACTION"), otp, getIntent().getIntExtra("TYPE", 0));
                 break;
         }
     }

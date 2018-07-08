@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Introduction.Entity;
 
 public class IntroductionEntity {
+
     private boolean isFirstTime;
 
     public IntroductionEntity(boolean isFirstTime) {

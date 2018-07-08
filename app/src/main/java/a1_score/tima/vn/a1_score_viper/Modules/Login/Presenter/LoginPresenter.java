@@ -9,87 +9,87 @@ import a1_score.tima.vn.a1_score_viper.Modules.Login.Wireframe.LoginWireframe;
 
 public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.InteractorOutput {
 
-    private LoginInterface.View view;
-    private LoginInterface.InteractorInput interactorInput;
-    private LoginInterface.Wireframe wireframe;
+    private LoginInterface.View mView;
+    private LoginInterface.InteractorInput mInteractorInput;
+    private LoginInterface.Wireframe mWireframe;
 
     public LoginPresenter(LoginInterface.View view) {
-        this.view = view;
-        interactorInput = new LoginInteractor(view, this);
-        wireframe = new LoginWireframe();
+        mView = view;
+        mInteractorInput = new LoginInteractor(view, this);
+        mWireframe = new LoginWireframe();
     }
 
     @Override
     public void createFolder() {
-        interactorInput.createFolder();
+        mInteractorInput.createFolder();
     }
 
     @Override
     public void changeHeightBanner(int height, int margin) {
-        interactorInput.changeHeightBanner(height, margin);
+        mInteractorInput.changeHeightBanner(height, margin);
     }
 
     @Override
     public void login(ProgressDialog mProgress, String username, String password) {
-        interactorInput.login(mProgress, username, password);
+        mInteractorInput.login(mProgress, username, password);
     }
 
     @Override
     public void goToForgotPassword() {
-        interactorInput.goToForgotPassword();
+        mInteractorInput.goToForgotPassword();
     }
 
     @Override
     public void goToOtp(String phoneNumber, String msg) {
-        interactorInput.goToOtp(phoneNumber, msg);
+        mInteractorInput.goToOtp(phoneNumber, msg);
     }
 
     @Override
     public void onDestroy() {
-        interactorInput.unRegister();
-        interactorInput = null;
-        wireframe = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
+        mWireframe = null;
     }
 
     @Override
     public void changeHeightBannerOutput(int height, int margin) {
-        view.changeHeightBanner(height, margin);
+        mView.changeHeightBanner(height, margin);
     }
 
     @Override
     public void goToForgotPasswordOutput() {
-        wireframe.gotToForgotPassword((Activity)view);
+        mWireframe.gotToForgotPassword((Activity)mView);
     }
 
     @Override
     public void loginSuccess(ProgressDialog mProgress) {
         mProgress.dismiss();
-        wireframe.gotToHomePage((Activity) view);
+        mWireframe.gotToHomePage((Activity) mView);
     }
 
     @Override
     public void loginFailed(String error) {
-        view.loginFailed(error);
+        mView.loginFailed(error);
     }
 
     @Override
     public void loginFailedLostOtp(String phoneNumber, String error) {
-        view.loginFailedLostOtp(phoneNumber, error);
+        mView.loginFailedLostOtp(phoneNumber, error);
     }
 
     @Override
     public void usernameEmpty(String error) {
-        view.usernameEmpty(error);
+        mView.usernameEmpty(error);
     }
 
     @Override
     public void passwordEmpty(String error) {
-        view.passwordEmpty(error);
+        mView.passwordEmpty(error);
     }
 
     @Override
     public void goToOtpOutput(String phoneNumber, String msg) {
-        wireframe.goToOtp((Activity)view, phoneNumber, msg);
+        mWireframe.goToOtp((Activity)mView, phoneNumber, msg);
     }
 
 }

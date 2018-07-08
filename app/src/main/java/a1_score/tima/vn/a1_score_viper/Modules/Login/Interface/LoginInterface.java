@@ -6,9 +6,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 
 public interface LoginInterface {
 
@@ -66,11 +66,11 @@ public interface LoginInterface {
     }
     //DataStore
     interface DataStore {
-        void callLogin(final OnResponse<String, LoginResultEntity> m_Response, LoginEntity loginEntity);
-        void setUser(Context context, LoginResultEntity user);
-        void saveUser(LoginResultEntity user);
+        void callLogin(final OnResponse<String, LoginResponse> m_Response, LoginRequest loginRequest);
+        void setUser(Context context, LoginResponse user);
+        void saveUser(LoginResponse user);
         void saveImageToLocal(String fineName, Bitmap bmp);
-        void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type);
+        void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type);
         int getImageID(String username, String type);
         void createFolder();
     }

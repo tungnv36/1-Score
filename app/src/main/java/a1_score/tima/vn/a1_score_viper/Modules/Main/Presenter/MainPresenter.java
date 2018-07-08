@@ -15,40 +15,40 @@ import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class MainPresenter implements MainInterface.Presenter, MainInterface.InteractorOutput {
 
-    private MainInterface.InteractorInput interactorInput;
-    private MainInterface.Wireframe wireframe;
-    private MainInterface.View view;
+    private MainInterface.InteractorInput mInteractorInput;
+    private MainInterface.Wireframe mWireframe;
+    private MainInterface.View mView;
 
     public MainPresenter(MainInterface.View view) {
-        interactorInput = new MainInteractor(this);
-        wireframe = new MainWireframe();
-        this.view = view;
+        mInteractorInput = new MainInteractor(this);
+        mWireframe = new MainWireframe();
+        mView = view;
     }
 
     @Override
     public void lauchLoginScreen() {
-        interactorInput.lauchLoginScreen();
+        mInteractorInput.lauchLoginScreen();
     }
 
     @Override
     public void lauchRegisterScreen() {
-        interactorInput.lauchRegisterScreen();
+        mInteractorInput.lauchRegisterScreen();
     }
 
     @Override
     public void onDestroy() {
-        interactorInput.unRegister();
-        interactorInput = null;
-        wireframe = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
+        mWireframe = null;
     }
 
     @Override
     public void lauchLoginOutput() {
-        wireframe.goToLoginView((Activity) view);
+        mWireframe.goToLoginView((Activity) mView);
     }
 
     @Override
     public void lauchRegisterOutput() {
-        wireframe.goToRegisterView((Activity) view);
+        mWireframe.goToRegisterView((Activity) mView);
     }
 }

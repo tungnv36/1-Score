@@ -7,33 +7,33 @@ import a1_score.tima.vn.a1_score_viper.Modules.Camera.Interface.CameraInterface;
 
 public class CameraPresenter implements CameraInterface.Presenter, CameraInterface.InteractorOutput {
 
-    private CameraInterface.View view;
-    private CameraInterface.InteractorInput interactorInput;
+    private CameraInterface.View mView;
+    private CameraInterface.InteractorInput mInteractorInput;
 
     public CameraPresenter(CameraInterface.View view) {
-        this.view = view;
-        interactorInput = new CameraInteractor(this);
+        mView = view;
+        mInteractorInput = new CameraInteractor(this);
     }
 
     @Override
     public void saveImage(byte[] data) {
-        interactorInput.saveImage((Activity)view, data);
+        mInteractorInput.saveImage((Activity)mView, data);
     }
 
     @Override
     public void onDestroy() {
-        view = null;
-        interactorInput.unRegister();
-        interactorInput = null;
+        mView = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
     }
 
     @Override
     public void saveImageSuccess() {
-        view.saveImageSuccess();
+        mView.saveImageSuccess();
     }
 
     @Override
     public void saveImageFailed() {
-        view.saveImageFailed();
+        mView.saveImageFailed();
     }
 }

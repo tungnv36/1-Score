@@ -7,25 +7,25 @@ import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class MainInteractor implements MainInterface.InteractorInput {
 
-    private MainInterface.InteractorOutput presenter;
+    private MainInterface.InteractorOutput mPresenter;
 
     public MainInteractor(MainInterface.InteractorOutput presenter) {
-        this.presenter = presenter;
+        mPresenter = presenter;
     }
 
     @Override
     public void lauchLoginScreen() {
-        presenter.lauchLoginOutput();
+        mPresenter.lauchLoginOutput();
     }
 
     @Override
     public void lauchRegisterScreen() {
-        presenter.lauchRegisterOutput();
+        mPresenter.lauchRegisterOutput();
     }
 
     @Override
     public void unRegister() {
-        presenter = null;
+        mPresenter = null;
     }
 
 }

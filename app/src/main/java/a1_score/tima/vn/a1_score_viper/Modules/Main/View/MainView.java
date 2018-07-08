@@ -29,7 +29,7 @@ public class MainView extends AppCompatActivity implements View.OnClickListener,
     @BindView(R.id.btRegister)
     Button btRegister;
 
-    private MainInterface.Presenter presenter;
+    private MainInterface.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class MainView extends AppCompatActivity implements View.OnClickListener,
             });
         }
 
-        presenter = new MainPresenter(this);
+        mPresenter = new MainPresenter(this);
 
         //style button
         btLogin.setTypeface(Commons.setFont(this, getResources().getString(R.string.font_segoe)));
@@ -73,10 +73,10 @@ public class MainView extends AppCompatActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btLogin:
-                presenter.lauchLoginScreen();
+                mPresenter.lauchLoginScreen();
                 break;
             case R.id.btRegister:
-                presenter.lauchRegisterScreen();
+                mPresenter.lauchRegisterScreen();
                 break;
         }
     }

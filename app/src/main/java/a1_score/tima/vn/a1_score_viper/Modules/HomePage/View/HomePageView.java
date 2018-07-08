@@ -28,14 +28,12 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Common.API.Config;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Entity.MenuEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interface.HomePageInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Presenter.HomePagePresenter;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,12 +82,12 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     @BindView(R.id.avi)
     AVLoadingIndicatorView avi;
 
-    private List<MenuEntity> lstMenu;
-    private GridMenuAdapter gridMenuAdapter;
+    private List<MenuEntity> mMenuList;
+    private GridMenuAdapter mGridMenuAdapter;
 
-    private HomePageInterface.Presenter presenter;
-    private int scoreOfLevel = 80;
-    private int startScore = 0;
+    private HomePageInterface.Presenter mPresenter;
+    private int mScoreOfLevel = 80;
+    private int mStartScore = 0;
 
     public static boolean isLogout = false;
 
@@ -107,7 +105,7 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
         addMenu();//Thêm grid menu
         styleView();//Đổi font chữ button
 
-        presenter = new HomePagePresenter(this);
+        mPresenter = new HomePagePresenter(this);
 
         gvMenu.setOnItemClickListener(this);
         ibMenu.setOnClickListener(this);
@@ -120,7 +118,7 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
             @Override
             public void run() {
                 avi.show();
-                presenter.initAvatar();
+                mPresenter.initAvatar();
             }
         }).start();
     }
@@ -131,11 +129,11 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
         new Thread(new Runnable() {
             @Override
             public void run() {
-                presenter.initData();
+                mPresenter.initData();
             }
         }).start();
-//        presenter.initAnimationLogo(ivLogo);
-        presenter.setupAnimationSeekBar(sbLevel, startScore, scoreOfLevel);
+//        mPresenter.initAnimationLogo(ivLogo);
+        mPresenter.setupAnimationSeekBar(sbLevel, mStartScore, mScoreOfLevel);
         if (isLogout) {
             isLogout = false;
             finish();
@@ -152,18 +150,18 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     }
 
     private void addMenu() {
-        lstMenu = new ArrayList<>();
-        lstMenu.add(new MenuEntity(1, R.drawable.ic_search, getResources().getString(R.string.menu_profile), "300/1000 điểm"));
-        lstMenu.add(new MenuEntity(2, R.drawable.ic_loan, getResources().getString(R.string.menu_loan_request), ""));
-        lstMenu.add(new MenuEntity(3, R.drawable.ic_mini_game, getResources().getString(R.string.menu_mini_game), "1500 điểm"));
-        lstMenu.add(new MenuEntity(4, R.drawable.ic_contact, getResources().getString(R.string.menu_introduction), "150 điểm/người"));
+        mMenuList = new ArrayList<>();
+        mMenuList.add(new MenuEntity(1, R.drawable.ic_search, getResources().getString(R.string.menu_profile), "300/1000 điểm"));
+        mMenuList.add(new MenuEntity(2, R.drawable.ic_loan, getResources().getString(R.string.menu_loan_request), ""));
+        mMenuList.add(new MenuEntity(3, R.drawable.ic_mini_game, getResources().getString(R.string.menu_mini_game), "1500 điểm"));
+        mMenuList.add(new MenuEntity(4, R.drawable.ic_contact, getResources().getString(R.string.menu_introduction), "150 điểm/người"));
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = ((int) (4 * displayMetrics.heightPixels / 10) - 60) / 2;
 
-        gridMenuAdapter = new GridMenuAdapter(lstMenu, height);
-        gvMenu.setAdapter(gridMenuAdapter);
+        mGridMenuAdapter = new GridMenuAdapter(mMenuList, height);
+        gvMenu.setAdapter(mGridMenuAdapter);
     }
 
     public void changeHeightBanner() {
@@ -189,8 +187,8 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
-        presenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
     }
 
     @Override
@@ -202,7 +200,7 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
                 String filePath = data.getStringExtra(getString(R.string.result));
                 int type = data.getIntExtra(getString(R.string.type), 0);
                 int imageType = data.getIntExtra(getString(R.string.image_type), 0);
-                presenter.updateImage(type, imageType, filePath);
+                mPresenter.updateImage(type, imageType, filePath);
             }
         }
     }
@@ -218,7 +216,7 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     }
 
     @Override
-    public void initData(final LoginResultEntity.UserEntity userEntity) {
+    public void initData(final LoginResponse.UserEntity userEntity) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -254,25 +252,25 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ibMenu:
-                presenter.goToSetting();
+                mPresenter.goToSetting();
                 break;
             case R.id.ibChat:
-                presenter.setupAnimationSupport(HomePageView.this, llCall, R.anim.right_to_left, R.anim.left_to_right);
-                presenter.setupAnimationSupport(HomePageView.this, llChat, R.anim.right_to_left_delay, R.anim.left_to_right_delay);
+                mPresenter.setupAnimationSupport(HomePageView.this, llCall, R.anim.right_to_left, R.anim.left_to_right);
+                mPresenter.setupAnimationSupport(HomePageView.this, llChat, R.anim.right_to_left_delay, R.anim.left_to_right_delay);
                 break;
             case R.id.ibCall:
-                presenter.setupAnimationSupport(HomePageView.this, llCall, R.anim.right_to_left, R.anim.left_to_right);
-                presenter.setupAnimationSupport(HomePageView.this, llChat, R.anim.right_to_left_delay, R.anim.left_to_right_delay);
-                presenter.callSupport(HomePageView.this, getString(R.string.phone_number));
+                mPresenter.setupAnimationSupport(HomePageView.this, llCall, R.anim.right_to_left, R.anim.left_to_right);
+                mPresenter.setupAnimationSupport(HomePageView.this, llChat, R.anim.right_to_left_delay, R.anim.left_to_right_delay);
+                mPresenter.callSupport(HomePageView.this, getString(R.string.phone_number));
                 break;
             case R.id.ibChatBoard:
-                presenter.setupAnimationSupport(HomePageView.this, llCall, R.anim.right_to_left, R.anim.left_to_right);
-                presenter.setupAnimationSupport(HomePageView.this, llChat, R.anim.right_to_left_delay, R.anim.left_to_right_delay);
+                mPresenter.setupAnimationSupport(HomePageView.this, llCall, R.anim.right_to_left, R.anim.left_to_right);
+                mPresenter.setupAnimationSupport(HomePageView.this, llChat, R.anim.right_to_left_delay, R.anim.left_to_right_delay);
                 break;
             case R.id.ivLogo:
                 boolean result = Commons.checkPermission2(HomePageView.this);
                 if (result) {
-                    presenter.takePhoto(3, 0);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
+                    mPresenter.takePhoto(3, 0);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
                 }
                 break;
         }
@@ -287,7 +285,7 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
                 break;
         }
         if (permissionGranted) {
-            presenter.callSupport(HomePageView.this, getString(R.string.phone_number));
+            mPresenter.callSupport(HomePageView.this, getString(R.string.phone_number));
         } else {
             Toast.makeText(this, getString(R.string.permission_fail), Toast.LENGTH_SHORT).show();
         }
@@ -295,18 +293,18 @@ public class HomePageView extends AppCompatActivity implements HomePageInterface
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        presenter.setupAnimationPress(HomePageView.this.getApplicationContext(), view);
+        mPresenter.setupAnimationPress(HomePageView.this.getApplicationContext(), view);
         switch (position) {
             case 0:
-                presenter.goToProfile();
+                mPresenter.goToProfile();
                 break;
             case 1:
-                presenter.goToLoanRequest();
+                mPresenter.goToLoanRequest();
                 break;
             case 2:
                 break;
             case 3:
-                presenter.goToIntroduceFriends();
+                mPresenter.goToIntroduceFriends();
                 break;
         }
     }

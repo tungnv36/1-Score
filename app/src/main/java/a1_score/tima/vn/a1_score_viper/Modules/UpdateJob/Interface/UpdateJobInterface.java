@@ -6,22 +6,22 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 
 public interface UpdateJobInterface {
     //View
     interface View {
         void initImage(int type, Bitmap bitmap);//type = 1: cv, type = 2: hop dong, type = 3: bang luong
 
-        void initJobs(List<JobDictionaryResultEntity.JobsEntity> jobsEntities);
-        void initPosition(List<JobDictionaryResultEntity.PositionsEntity> positionsEntities);
-        void iniSalaryLevel(List<JobDictionaryResultEntity.SalaryLevelsEntity> salaryLevelsEntities);
+        void initJobs(List<JobDictionaryResponse.JobsEntity> jobsEntities);
+        void initPosition(List<JobDictionaryResponse.PositionsEntity> positionsEntities);
+        void iniSalaryLevel(List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities);
         void updateImage(int imageType, Bitmap img);
         void updateImageFailed(String err);
         void updateJobSuccess(String msg);
@@ -34,7 +34,7 @@ public interface UpdateJobInterface {
         void getJobDictionary();
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-        void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities);
+        void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueRequest.ColleagueEntity> colleagueEntities);
         void onDestroy();
     }
     //Interactor
@@ -44,7 +44,7 @@ public interface UpdateJobInterface {
         void getJobDictionary();
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-        void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities);
+        void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueRequest.ColleagueEntity> colleagueEntities);
 
         void unRegister();
     }
@@ -52,9 +52,9 @@ public interface UpdateJobInterface {
     interface InteractorOutput {
         void initImageOutput(int type, Bitmap bitmap);
 
-        void getJobsOutput(List<JobDictionaryResultEntity.JobsEntity> jobsEntities);
-        void getPositionsOutput(List<JobDictionaryResultEntity.PositionsEntity> positionsEntities);
-        void getSalaryLevelOutput(List<JobDictionaryResultEntity.SalaryLevelsEntity> salaryLevelsEntities);
+        void getJobsOutput(List<JobDictionaryResponse.JobsEntity> jobsEntities);
+        void getPositionsOutput(List<JobDictionaryResponse.PositionsEntity> positionsEntities);
+        void getSalaryLevelOutput(List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities);
         void takePhotoOutput(int type, int imageType);
         void updateImageOutput(int type, int imageType, Bitmap img);
         void updateImageFailed(String err);
@@ -72,19 +72,19 @@ public interface UpdateJobInterface {
         String getToken();
         int getImageID(String phone, String type);
         boolean checkJobsDicExist();
-        List<JobDictionaryResultEntity.JobsEntity> getJobsDic();
-        List<JobDictionaryResultEntity.PositionsEntity> getPositionsDic();
-        List<JobDictionaryResultEntity.SalaryLevelsEntity> getSalariesDic();
+        List<JobDictionaryResponse.JobsEntity> getJobsDic();
+        List<JobDictionaryResponse.PositionsEntity> getPositionsDic();
+        List<JobDictionaryResponse.SalaryLevelsEntity> getSalariesDic();
 
         void updateFullName(String fullname);
         void saveImageToLocal(String fineName, Bitmap bmp);
-        void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type);
-        void uploadImage(final OnResponse<String, UploadImageResultEntity> m_Response, String token, UploadImageEntity uploadImageEntity);
-        void updateJob(final OnResponse<String, UpdateJobResultEntity> m_Response, String token, UpdateJobEntity updateJobEntity);
-        void updateColleague(final OnResponse<String, UpdateColleagueResultEntity> m_Response, String token, UpdateColleagueEntity colleagueEntity);
-        long updateJobDicToDB(JobDictionaryResultEntity jobDictionaryResultEntity);
-        void getJobDictionary(final OnResponse<String, JobDictionaryResultEntity> m_Response, String token);
-        long addJob(UpdateJobResultEntity.JobEntity jobEntity);
-        long addColleague(String username, UpdateColleagueResultEntity.ColleagueEntity colleagueEntity);
+        void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type);
+        void uploadImage(final OnResponse<String, ImageProfileResponse> m_Response, String token, ImageProfileRequest imageProfileRequest);
+        void updateJob(final OnResponse<String, JobResponse> m_Response, String token, JobRequest jobRequest);
+        void updateColleague(final OnResponse<String, ColleagueResponse> m_Response, String token, ColleagueRequest colleagueEntity);
+        long updateJobDicToDB(JobDictionaryResponse jobDictionaryResponse);
+        void getJobDictionary(final OnResponse<String, JobDictionaryResponse> m_Response, String token);
+        long addJob(JobResponse.JobEntity jobEntity);
+        long addColleague(String username, ColleagueResponse.ColleagueEntity colleagueEntity);
     }
 }

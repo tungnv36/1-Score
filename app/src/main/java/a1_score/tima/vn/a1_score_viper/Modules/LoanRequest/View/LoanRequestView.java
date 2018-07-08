@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanRequestEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Presenter.LoanRequestPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -61,13 +59,13 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
     @BindView(R.id.ivLogo)
     ImageView ivLogo;
 
-    private LoanRequestInterface.Presenter presenter;
+    private LoanRequestInterface.Presenter mPresenter;
 
-    private int scoreOfLevel = 80;
-    private int startScore = 0;
+    private int mScoreOfLevel = 80;
+    private int mStartScore = 0;
 
-    private List<LoanRequestEntity> lstLoan;
-    private LoanRequestAdapter loanRequestAdapter;
+    private List<LoanRequest> mLoanList;
+    private LoanRequestAdapter mLoanRequestAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +77,7 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
         changeHeightBanner();
         styleView();
 
-        presenter = new LoanRequestPresenter(this);
+        mPresenter = new LoanRequestPresenter(this);
 
         initData();
 
@@ -89,13 +87,13 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.initAnimationLogo(ivLogo);
-        presenter.setupAnimationProgress(pbLevel, startScore, scoreOfLevel);
+        mPresenter.initAnimationLogo(ivLogo);
+        mPresenter.setupAnimationProgress(pbLevel, mStartScore, mScoreOfLevel);
     }
 
     private void initData() {
-        lstLoan = new ArrayList<>();
-        lstLoan.add(new LoanRequestEntity(
+        mLoanList = new ArrayList<>();
+        mLoanList.add(new LoanRequest(
                 R.mipmap.ic_micro_loan,
                 "Micro loan",
                 "3.000.000 VNĐ",
@@ -106,7 +104,7 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
                 "Level 5",
                 false
         ));
-        lstLoan.add(new LoanRequestEntity(
+        mLoanList.add(new LoanRequest(
                 R.mipmap.ic_medium_loan,
                 "Micro loan",
                 "5.000.000 VNĐ",
@@ -117,7 +115,7 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
                 "Level 15",
                 false
         ));
-        lstLoan.add(new LoanRequestEntity(
+        mLoanList.add(new LoanRequest(
                 R.mipmap.ic_big_loan,
                 "Micro loan",
                 "10.000.000 VNĐ",
@@ -129,9 +127,9 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
                 false
         ));
 
-        loanRequestAdapter = new LoanRequestAdapter(this, presenter, lstLoan);
+        mLoanRequestAdapter = new LoanRequestAdapter(this, mPresenter, mLoanList);
         Commons.setVerticalRecyclerView(this, rvLoanList);
-        rvLoanList.setAdapter(loanRequestAdapter);
+        rvLoanList.setAdapter(mLoanRequestAdapter);
     }
 
     private void styleView() {
@@ -160,8 +158,8 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
 
     @Override
     public void openOrCloseInfo(RelativeLayout view, Button button, boolean isOpen, int position) {
-        lstLoan.get(position).setOpen(!lstLoan.get(position).isOpen());
-        loanRequestAdapter.notifyDataSetChanged();
+        mLoanList.get(position).setOpen(!mLoanList.get(position).isOpen());
+        mLoanRequestAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -66,9 +66,9 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.rootView)
     RelativeLayout rootView;
 
-    private RegisterInterface.Presenter presenter;
+    private RegisterInterface.Presenter mPresenter;
 
-    private ProgressDialog progress;
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,7 +105,7 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        presenter = new RegisterPresenter(this);
+        mPresenter = new RegisterPresenter(this);
 
         ibBack.setOnClickListener(this);
         btRegister.setOnClickListener(this);
@@ -135,12 +135,12 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
                 this.finish();
                 break;
             case R.id.btRegister:
-                progress = new ProgressDialog(RegisterView.this);
-                progress.setTitle("Loading");
-                progress.setMessage("Vui lòng chờ trong giây lát...");
-                progress.setCancelable(false);
-                progress.show();
-                presenter.register(progress, etUsername.getText().toString(), etPassword.getText().toString(), etRePassword.getText().toString(), etFullName.getText().toString());
+                mProgress = new ProgressDialog(RegisterView.this);
+                mProgress.setTitle("Loading");
+                mProgress.setMessage("Vui lòng chờ trong giây lát...");
+                mProgress.setCancelable(false);
+                mProgress.show();
+                mPresenter.register(mProgress, etUsername.getText().toString(), etPassword.getText().toString(), etRePassword.getText().toString(), etFullName.getText().toString());
                 break;
         }
     }
@@ -177,7 +177,7 @@ public class RegisterView extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
-        presenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
     }
 }

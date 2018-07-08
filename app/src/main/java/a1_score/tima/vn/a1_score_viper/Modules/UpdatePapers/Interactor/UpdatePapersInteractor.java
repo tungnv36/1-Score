@@ -7,30 +7,30 @@ import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Interface.UpdatePape
 
 public class UpdatePapersInteractor implements UpdatePapersInterface.InteractorInput {
 
-    private UpdatePapersInterface.InteractorOutput interactorOutput;
+    private UpdatePapersInterface.InteractorOutput mInteractorOutput;
 
     public UpdatePapersInteractor(UpdatePapersInterface.InteractorOutput interactorOutput) {
-        this.interactorOutput = interactorOutput;
+        mInteractorOutput = interactorOutput;
     }
 
     @Override
     public void takePhoto(int type) {
-        interactorOutput.takePhotoOutput(type);
+        mInteractorOutput.takePhotoOutput(type);
     }
 
     @Override
     public void updateList(int type, int position, String filePath) {
         if(position != -1) {
             Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-            interactorOutput.updateListOutput(type, position, bitmap);
+            mInteractorOutput.updateListOutput(type, position, bitmap);
         } else {
-            interactorOutput.updateListFailed("Tải ảnh lỗi!");
+            mInteractorOutput.updateListFailed("Tải ảnh lỗi!");
         }
     }
 
     @Override
     public void unRegister() {
-        interactorOutput = null;
+        mInteractorOutput = null;
     }
 
 }

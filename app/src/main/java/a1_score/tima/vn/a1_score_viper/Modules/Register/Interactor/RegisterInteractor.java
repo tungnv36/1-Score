@@ -6,69 +6,67 @@ import android.content.Context;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.DataStore.RegisterDataStore;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Interface.RegisterInterface;
 import a1_score.tima.vn.a1_score_viper.R;
 
 public class RegisterInteractor implements RegisterInterface.InteractorInput {
 
-    private RegisterInterface.InteractorOutput interactorOutput;
-    private RegisterInterface.DataStore dataStore;
-    private RegisterInterface.View view;
+    private RegisterInterface.InteractorOutput mInteractorOutput;
+    private RegisterInterface.DataStore mDataStore;
+    private RegisterInterface.View mView;
 
-    public RegisterInteractor(RegisterInterface.View view, RegisterInterface.InteractorOutput interactorOutput) {
-        this.interactorOutput = interactorOutput;
-        this.view = view;
-        dataStore = RegisterDataStore.getInstance(view);
+    public RegisterInteractor(RegisterInterface.View view, RegisterInterface.InteractorOutput mInteractorOutput) {
+        this.mInteractorOutput = mInteractorOutput;
+        mView = view;
+        mDataStore = RegisterDataStore.getInstance(view);
     }
 
     @Override
     public void register(final ProgressDialog mProgress, final String username, String password, String confirmPassword, String fullName) {
-        if(!Commons.isNetworkConnected((Context)view)) {
-            interactorOutput.registerFailed(mProgress, ((Activity)view).getString(R.string.err_internet_connection));
+        if(!Commons.isNetworkConnected((Context)mView)) {
+            mInteractorOutput.registerFailed(mProgress, ((Activity)mView).getString(R.string.err_internet_connection));
             return;
         }
         if(username.isEmpty()) {
-            interactorOutput.EdittextEmpty(mProgress, 0, ((Activity)view).getString(R.string.err_user_empty));
+            mInteractorOutput.EdittextEmpty(mProgress, 0, ((Activity)mView).getString(R.string.err_user_empty));
             return;
         }
         if(password.isEmpty()) {
-            interactorOutput.EdittextEmpty(mProgress, 1, ((Activity)view).getString(R.string.err_pass_empty));
+            mInteractorOutput.EdittextEmpty(mProgress, 1, ((Activity)mView).getString(R.string.err_pass_empty));
             return;
         }
         if(confirmPassword.isEmpty()) {
-            interactorOutput.EdittextEmpty(mProgress, 2, ((Activity)view).getString(R.string.err_repass_empty));
+            mInteractorOutput.EdittextEmpty(mProgress, 2, ((Activity)mView).getString(R.string.err_repass_empty));
             return;
         }
         if(fullName.isEmpty()) {
-            interactorOutput.EdittextEmpty(mProgress, 3, ((Activity)view).getString(R.string.err_fullname_empty));
+            mInteractorOutput.EdittextEmpty(mProgress, 3, ((Activity)mView).getString(R.string.err_fullname_empty));
             return;
         }
-        RegisterEntity registerEntity = new RegisterEntity(username, password, confirmPassword, fullName);
-        dataStore.callRegister(new OnResponse<String, RegisterResultEntity>() {
+        RegisterRequest registerRequest = new RegisterRequest(username, password, confirmPassword, fullName);
+        mDataStore.callRegister(new OnResponse<String, RegisterResponse>() {
             @Override
-            public void onResponseSuccess(String tag, String rs, RegisterResultEntity extraData) {
+            public void onResponseSuccess(String tag, String rs, RegisterResponse extraData) {
                 if(extraData == null || extraData.getStatusCode() != 200) {
-                    interactorOutput.registerFailed(mProgress, rs);
+                    mInteractorOutput.registerFailed(mProgress, rs);
                 } else {
-                    interactorOutput.registerSuccess(mProgress, "Đăng ký thành công!", username);
+                    mInteractorOutput.registerSuccess(mProgress, ((Context)mView).getString(R.string.msg_register_success), username);
                 }
             }
 
             @Override
             public void onResponseError(String tag, String message) {
-                interactorOutput.registerFailed(mProgress, message);
+                mInteractorOutput.registerFailed(mProgress, message);
             }
-        }, registerEntity);
+        }, registerRequest);
     }
 
     @Override
     public void unRegister() {
-        interactorOutput = null;
-        dataStore = null;
+        mInteractorOutput = null;
+        mDataStore = null;
     }
 }

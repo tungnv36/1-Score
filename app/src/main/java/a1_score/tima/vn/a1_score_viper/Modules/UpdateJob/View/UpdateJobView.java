@@ -28,8 +28,8 @@ import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Presenter.UpdateJobPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -95,15 +95,15 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     @BindView(R.id.llContent2)
     LinearLayout llContent2;
 
-    private UpdateJobInterface.Presenter presenter;
+    private UpdateJobInterface.Presenter mPresenter;
 
-    private String fileName;
-    private List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities;
-    private JobControlAdapter jobControlAdapter;
+    private String mFileName;
+    private List<ColleagueRequest.ColleagueEntity> mColleagueList;
+    private JobControlAdapter mJobControlAdapter;
 
-    private List<Integer> jobIDs = new ArrayList<>();
-    private List<Integer> positionIDs = new ArrayList<>();
-    private List<Integer> salarieIDs = new ArrayList<>();
+    private List<Integer> mJobIdList = new ArrayList<>();
+    private List<Integer> mPositionIdList = new ArrayList<>();
+    private List<Integer> mSalarieIdList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,8 +115,8 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         styleView();
         initColleagueControl();
 
-        presenter = new UpdateJobPresenter(this);
-        presenter.getJobDictionary();
+        mPresenter = new UpdateJobPresenter(this);
+        mPresenter.getJobDictionary();
 
         rlCV.setOnClickListener(this);
         rlContract.setOnClickListener(this);
@@ -170,27 +170,27 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
                 String filePath = data.getStringExtra(getString(R.string.result));
                 int type = data.getIntExtra(getString(R.string.type), 0);//type = 1: Vẽ khung ảnh chụp CMND, type = 2: Chụp ảnh thường (hợp đồng, hoá đơn, ...)
                 int imageType = data.getIntExtra(getString(R.string.image_type), 0);//imageType = 1: _front_cmnd //imageType = 2 => _back_cmnd
-                presenter.updateImage(type, imageType, filePath, fileName);
+                mPresenter.updateImage(type, imageType, filePath, mFileName);
             }
         }
     }
 
     private void initColleagueControl() {
-        colleagueEntities = new ArrayList<>();
-        UpdateColleagueEntity.ColleagueEntity colleagueEntity = new UpdateColleagueEntity.ColleagueEntity();
+        mColleagueList = new ArrayList<>();
+        ColleagueRequest.ColleagueEntity colleagueEntity = new ColleagueRequest.ColleagueEntity();
         colleagueEntity.setColleagueName("");
         colleagueEntity.setColleaguePhone("");
-        colleagueEntities.add(colleagueEntity);
-        jobControlAdapter = new JobControlAdapter(this, colleagueEntities);
+        mColleagueList.add(colleagueEntity);
+        mJobControlAdapter = new JobControlAdapter(this, mColleagueList);
         Commons.setVerticalRecyclerView(this, rvColleague);
-        rvColleague.setAdapter(jobControlAdapter);
+        rvColleague.setAdapter(mJobControlAdapter);
     }
 
     private void initData() {
-        presenter.initImage(1, "_cv");
-        presenter.initImage(2, "_contract");
-        presenter.initImage(3, "_salary_board");
-//        presenter.initData();
+        mPresenter.initImage(1, "_cv");
+        mPresenter.initImage(2, "_contract");
+        mPresenter.initImage(3, "_salary_board");
+//        mPresenter.initData();
     }
 
     @Override
@@ -212,11 +212,11 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     }
 
     @Override
-    public void initJobs(List<JobDictionaryResultEntity.JobsEntity> jobsEntities) {
+    public void initJobs(List<JobDictionaryResponse.JobsEntity> jobsEntities) {
         List<String> jobs = new ArrayList<>();
-        for (JobDictionaryResultEntity.JobsEntity jobsEntity : jobsEntities) {
+        for (JobDictionaryResponse.JobsEntity jobsEntity : jobsEntities) {
             jobs.add(jobsEntity.getJobtype());
-            jobIDs.add(jobsEntity.getId());
+            mJobIdList.add(jobsEntity.getId());
         }
         ArrayAdapter<String> adapterJob = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, jobs);
         adapterJob.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
@@ -224,11 +224,11 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     }
 
     @Override
-    public void initPosition(List<JobDictionaryResultEntity.PositionsEntity> positionsEntities) {
+    public void initPosition(List<JobDictionaryResponse.PositionsEntity> positionsEntities) {
         List<String> positions = new ArrayList<>();
-        for (JobDictionaryResultEntity.PositionsEntity positionsEntity : positionsEntities) {
+        for (JobDictionaryResponse.PositionsEntity positionsEntity : positionsEntities) {
             positions.add(positionsEntity.getPosition());
-            positionIDs.add(positionsEntity.getId());
+            mPositionIdList.add(positionsEntity.getId());
         }
         ArrayAdapter<String> adapterPosition = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, positions);
         adapterPosition.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
@@ -236,11 +236,11 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     }
 
     @Override
-    public void iniSalaryLevel(List<JobDictionaryResultEntity.SalaryLevelsEntity> salaryLevelsEntities) {
+    public void iniSalaryLevel(List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities) {
         List<String> salaries = new ArrayList<>();
-        for (JobDictionaryResultEntity.SalaryLevelsEntity salaryLevelsEntity : salaryLevelsEntities) {
+        for (JobDictionaryResponse.SalaryLevelsEntity salaryLevelsEntity : salaryLevelsEntities) {
             salaries.add(salaryLevelsEntity.getSalary());
-            salarieIDs.add(salaryLevelsEntity.getId());
+            mSalarieIdList.add(salaryLevelsEntity.getId());
         }
         ArrayAdapter<String> adapterSalary = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, salaries);
         adapterSalary.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
@@ -297,39 +297,39 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
             case R.id.rlCV:
                 result = Commons.checkPermission2(UpdateJobView.this);
                 if (result) {
-                    fileName = "_cv";
-                    presenter.takePhoto(2, 1);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 1 => rlCV
+                    mFileName = "_cv";
+                    mPresenter.takePhoto(2, 1);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 1 => rlCV
                 }
                 break;
             case R.id.rlContract:
                 result = Commons.checkPermission2(UpdateJobView.this);
                 if (result) {
-                    fileName = "_contract";
-                    presenter.takePhoto(2, 2);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 2 => rlContract
+                    mFileName = "_contract";
+                    mPresenter.takePhoto(2, 2);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 2 => rlContract
                 }
                 break;
             case R.id.rlSalaryBoard:
                 result = Commons.checkPermission2(UpdateJobView.this);
                 if (result) {
-                    fileName = "_salary_board";
-                    presenter.takePhoto(2, 3);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 3 => rlSalaryBoard
+                    mFileName = "_salary_board";
+                    mPresenter.takePhoto(2, 3);//type = 2: Vẽ khung ảnh chụp giấy tờ //imageType = 3 => rlSalaryBoard
                 }
                 break;
             case R.id.ibAddColleague:
-                UpdateColleagueEntity.ColleagueEntity colleagueEntity = new UpdateColleagueEntity.ColleagueEntity();
+                ColleagueRequest.ColleagueEntity colleagueEntity = new ColleagueRequest.ColleagueEntity();
                 colleagueEntity.setColleagueName("");
                 colleagueEntity.setColleaguePhone("");
-                colleagueEntities.add(colleagueEntity);
-                jobControlAdapter.notifyDataSetChanged();
+                mColleagueList.add(colleagueEntity);
+                mJobControlAdapter.notifyDataSetChanged();
                 break;
             case R.id.btUpdate:
-                presenter.updateJob(
-                        jobIDs.get(spJob.getSelectedItemPosition()),
+                mPresenter.updateJob(
+                        mJobIdList.get(spJob.getSelectedItemPosition()),
                         etCompanyName.getText().toString(),
                         etCompanyAddress.getText().toString(),
-                        positionIDs.get(spPosition.getSelectedItemPosition()),
-                        salarieIDs.get(spSalary.getSelectedItemPosition()),
-                        colleagueEntities
+                        mPositionIdList.get(spPosition.getSelectedItemPosition()),
+                        mSalarieIdList.get(spSalary.getSelectedItemPosition()),
+                        mColleagueList
                 );
                 break;
         }

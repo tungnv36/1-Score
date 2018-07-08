@@ -8,36 +8,36 @@ import a1_score.tima.vn.a1_score_viper.Modules.Introduction.Interface.Introducti
 
 public class IntroductionInteractor implements IntroductionInterface.InteractorInput {
 
-    private IntroductionInterface.InteractorOutput presenterOutput;
-    private IntroductionDataStore introductionDataStore;
+    private IntroductionInterface.InteractorOutput mInteractorOutput;
+    private IntroductionDataStore mIntroductionDataStore;
 
-    public IntroductionInteractor(IntroductionInterface.InteractorOutput presenterOutput, IntroductionInterface.View introView) {
-        this.presenterOutput = presenterOutput;
-        introductionDataStore = new IntroductionDataStore((Context) introView);
+    public IntroductionInteractor(IntroductionInterface.InteractorOutput interactorOutput, IntroductionInterface.View introView) {
+        this.mInteractorOutput = interactorOutput;
+        mIntroductionDataStore = new IntroductionDataStore((Context) introView);
     }
 
     @Override
     public void nextPage(int currentPage, int countPage) {
         if(currentPage < countPage - 1) {
-            presenterOutput.nextPageOutput(++currentPage);
+            mInteractorOutput.nextPageOutput(++currentPage);
         } else {
-            presenterOutput.launchMainScreen();
+            mInteractorOutput.launchMainScreen();
             IntroductionEntity introductionEntity = new IntroductionEntity(false);
-            introductionDataStore.setFirstTimeLaunch(introductionEntity);
+            mIntroductionDataStore.setFirstTimeLaunch(introductionEntity);
         }
     }
 
     @Override
     public void backPage(int currentPage) {
         if(currentPage > 0) {
-            presenterOutput.backPageOutput(--currentPage);
+            mInteractorOutput.backPageOutput(--currentPage);
         }
     }
 
     @Override
     public void checkFirstLaunch() {
-        if (!introductionDataStore.isFirstTimeLaunch()) {
-            presenterOutput.launchMainScreen();
+        if (!mIntroductionDataStore.isFirstTimeLaunch()) {
+            mInteractorOutput.launchMainScreen();
 //            IntroductionEntity introductionEntity = new IntroductionEntity(true);
 //            introductionDataStore.setFirstTimeLaunch(introductionEntity);
         }
@@ -45,7 +45,7 @@ public class IntroductionInteractor implements IntroductionInterface.InteractorI
 
     @Override
     public void unRegister() {
-        presenterOutput = null;
+        mInteractorOutput = null;
     }
 
 }

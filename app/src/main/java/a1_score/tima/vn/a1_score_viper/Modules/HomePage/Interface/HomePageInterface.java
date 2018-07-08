@@ -6,9 +6,9 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public interface HomePageInterface {
@@ -17,7 +17,7 @@ public interface HomePageInterface {
         void onDestroy();
         void setProgressValue(int progress);
         void callSupportFailed(String err);
-        void initData(LoginResultEntity.UserEntity userEntity);
+        void initData(LoginResponse.UserEntity userEntity);
         void initAvatar(Bitmap bmp);
         void updateImage(int imageType, Bitmap img);
         void updateImageFailed(String err);
@@ -59,7 +59,7 @@ public interface HomePageInterface {
 
     interface InteractorOutput {
         void initAvatarOutput(Bitmap bmp);
-        void initDataOutput(LoginResultEntity.UserEntity userEntity);
+        void initDataOutput(LoginResponse.UserEntity userEntity);
         void runAnimationLogo(ImageView view);
         void runAnimationSeekBar(CircularSeekBar seekBar, int start, int end);
         void takePhotoOutput(int type, int imageType);
@@ -86,9 +86,9 @@ public interface HomePageInterface {
     interface DataStore {
         String getUserName();
         String getToken();
-        LoginResultEntity.UserEntity getUser();
+        LoginResponse.UserEntity getUser();
         void saveImageToLocal(String fineName, Bitmap bmp);
-        void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type);
-        void uploadImage(final OnResponse<String, UploadImageResultEntity> m_Response, String token, UploadImageEntity uploadImageEntity);
+        void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type);
+        void uploadImage(final OnResponse<String, ImageProfileResponse> m_Response, String token, ImageProfileRequest imageProfileRequest);
     }
 }

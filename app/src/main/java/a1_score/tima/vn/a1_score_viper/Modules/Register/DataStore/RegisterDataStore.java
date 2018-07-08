@@ -8,11 +8,8 @@ import org.json.JSONObject;
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.DataStore.LoginDataStore;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Interface.LoginInterface;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Interface.RegisterInterface;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -21,26 +18,26 @@ import retrofit2.Response;
 
 public class RegisterDataStore extends ApiRequest implements RegisterInterface.DataStore {
 
-    private RegisterInterface.View view;
+    private RegisterInterface.View mView;
 
-    public static RegisterDataStore mInstance;
+    public static RegisterDataStore sInstance;
 
     public static RegisterDataStore getInstance(RegisterInterface.View view) {
-        if (mInstance == null) {
+        if (sInstance == null) {
             initApi();
-            mInstance = new RegisterDataStore(view);
+            sInstance = new RegisterDataStore(view);
         }
-        return mInstance;
+        return sInstance;
     }
 
     private RegisterDataStore(RegisterInterface.View view) {
-        this.view = view;
+        mView = view;
     }
 
     @Override
-    public void callRegister(final OnResponse<String, RegisterResultEntity> m_Response, RegisterEntity registerEntity) {
+    public void callRegister(final OnResponse<String, RegisterResponse> m_Response, RegisterRequest registerRequest) {
         m_Response.onStart();
-        Call<ResponseBody> call = m_Service.callRegister(registerEntity);
+        Call<ResponseBody> call = m_Service.callRegister(registerRequest);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -50,8 +47,8 @@ public class RegisterDataStore extends ApiRequest implements RegisterInterface.D
                         try {
                             final GsonBuilder gsonBuilder = new GsonBuilder();
                             final Gson gson = gsonBuilder.create();
-                            RegisterResultEntity registerResultEntity = gson.fromJson(jsonObject.toString(), RegisterResultEntity.class);
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), registerResultEntity);
+                            RegisterResponse registerResponse = gson.fromJson(jsonObject.toString(), RegisterResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), registerResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);

@@ -2,14 +2,10 @@ package a1_score.tima.vn.a1_score_viper.Modules.Register.Interface;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.widget.EditText;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResponse;
 
 public interface RegisterInterface {
     //view
@@ -40,6 +36,6 @@ public interface RegisterInterface {
     }
     //DataStore
     interface DataStore {
-        void callRegister(final OnResponse<String, RegisterResultEntity> m_Response, RegisterEntity registerEntity);
+        void callRegister(final OnResponse<String, RegisterResponse> m_Response, RegisterRequest registerRequest);
     }
 }

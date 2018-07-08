@@ -1,38 +1,43 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity;
 
+import com.google.gson.annotations.SerializedName;
+
 public class OtpResultEntity {
 
-    private int StatusCode;
-    private String Message;
-    private String Token;
+    @SerializedName("StatusCode")
+    private int statusCode;
+    @SerializedName("Message")
+    private String message;
+    @SerializedName("Token")
+    private String token;
 
     public OtpResultEntity(int statusCode, String message, String token) {
-        StatusCode = statusCode;
-        Message = message;
-        Token = token;
+        this.statusCode = statusCode;
+        this.message = message;
+        this.token = token;
     }
 
     public int getStatusCode() {
-        return StatusCode;
+        return statusCode;
     }
 
     public void setStatusCode(int statusCode) {
-        StatusCode = statusCode;
+        this.statusCode = statusCode;
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        this.message = message;
     }
 
     public String getToken() {
-        return Token;
+        return token;
     }
 
     public void setToken(String token) {
-        Token = token;
+        this.token = token;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Interface.ForgotPasswordInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Presenter.ForgotPasswordPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -27,7 +28,7 @@ public class ForgotPasswordView extends AppCompatActivity implements View.OnClic
     @BindView(R.id.btConfirm)
     Button btConfirm;
 
-    private ForgotPasswordInterface.Presenter presenter;
+    private ForgotPasswordInterface.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class ForgotPasswordView extends AppCompatActivity implements View.OnClic
         ButterKnife.bind(this);
         getSupportActionBar().hide();
 
-        presenter = new ForgotPasswordPresenter(this);
+        mPresenter = new ForgotPasswordPresenter(this);
         btConfirm.setOnClickListener(this);
 
         etPhone.setText("01656226909");
@@ -46,24 +47,24 @@ public class ForgotPasswordView extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btConfirm:
-                presenter.forgotPassword(etPhone.getText().toString());
+                mPresenter.forgotPassword(etPhone.getText().toString());
                 break;
         }
     }
 
     @Override
     public void forgotPasswordSuccess(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), msg);
     }
 
     @Override
     public void forgotPasswordFailed(String err) {
-        Toast.makeText(this, err, Toast.LENGTH_LONG).show();
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
+        mPresenter.onDestroy();
     }
 }

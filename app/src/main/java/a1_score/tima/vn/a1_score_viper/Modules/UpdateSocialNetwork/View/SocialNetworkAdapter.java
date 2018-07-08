@@ -1,18 +1,13 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.View;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,21 +15,20 @@ import com.suke.widget.SwitchButton;
 
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Modules.Profile.Entity.MenuEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.Entity.SocialNetworkEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.Entity.SocialNetworkRequest;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SocialNetworkAdapter extends RecyclerView.Adapter<SocialNetworkAdapter.ProfileViewHolder> {
 
-    private List<SocialNetworkEntity> lstSocialNetwork;
-    private Context context;
+    private List<SocialNetworkRequest> mSocialNetworkList;
+    private Context mContext;
 //    private ProfileInterface.Presenter presenter;
 
-    public SocialNetworkAdapter(Context context, List<SocialNetworkEntity> lstSocialNetwork) {
-        this.lstSocialNetwork = lstSocialNetwork;
-        this.context = context;
+    public SocialNetworkAdapter(Context context, List<SocialNetworkRequest> socialNetworkList) {
+        mSocialNetworkList = socialNetworkList;
+        mContext = context;
     }
 
     @NonNull
@@ -48,14 +42,14 @@ public class SocialNetworkAdapter extends RecyclerView.Adapter<SocialNetworkAdap
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, final int position) {
-        final SocialNetworkEntity socialNetworkEntity = lstSocialNetwork.get(position);
+        final SocialNetworkRequest socialNetworkRequest = mSocialNetworkList.get(position);
 
-        holder.ivLogo.setImageResource(socialNetworkEntity.getIcon());
-        holder.tvName.setText(socialNetworkEntity.getName());
-        holder.swOnOff.setChecked(socialNetworkEntity.isOn());
-        holder.tvName.setTextColor(ContextCompat.getColor(context, socialNetworkEntity.getTextColor()));
+        holder.ivLogo.setImageResource(socialNetworkRequest.getIcon());
+        holder.tvName.setText(socialNetworkRequest.getName());
+        holder.swOnOff.setChecked(socialNetworkRequest.isOn());
+        holder.tvName.setTextColor(ContextCompat.getColor(mContext, socialNetworkRequest.getTextColor()));
 
-        if(position == lstSocialNetwork.size() - 1) {
+        if(position == mSocialNetworkList.size() - 1) {
             holder.rlLinkedin.setBackgroundResource(R.color.transparent);
         }
 
@@ -63,7 +57,7 @@ public class SocialNetworkAdapter extends RecyclerView.Adapter<SocialNetworkAdap
 
     @Override
     public int getItemCount() {
-        return lstSocialNetwork == null ? 0 : lstSocialNetwork.size();
+        return mSocialNetworkList == null ? 0 : mSocialNetworkList.size();
     }
 
     public class ProfileViewHolder extends RecyclerView.ViewHolder {

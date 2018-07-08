@@ -24,14 +24,14 @@ import butterknife.ButterKnife;
 
 public class MenuProfileAdapter extends RecyclerView.Adapter<MenuProfileAdapter.ProfileViewHolder> {
 
-    private List<MenuEntity> lstMenu;
-    private Context context;
-    private ProfileInterface.Presenter presenter;
+    private List<MenuEntity> mMenuList;
+    private Context mContext;
+    private ProfileInterface.Presenter mPresenter;
 
-    public MenuProfileAdapter(Context context, ProfileInterface.Presenter presenter, List<MenuEntity> lstMenu) {
-        this.lstMenu = lstMenu;
-        this.context = context;
-        this.presenter = presenter;
+    public MenuProfileAdapter(Context context, ProfileInterface.Presenter presenter, List<MenuEntity> menuList) {
+        mMenuList = menuList;
+        mContext = context;
+        mPresenter = presenter;
     }
 
     @NonNull
@@ -45,7 +45,7 @@ public class MenuProfileAdapter extends RecyclerView.Adapter<MenuProfileAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, final int position) {
-        final MenuEntity menuEntity = lstMenu.get(position);
+        final MenuEntity menuEntity = mMenuList.get(position);
 
         holder.ivIcon.setImageResource(menuEntity.getIcon());
         holder.tvTitle.setText(menuEntity.getTitle());
@@ -61,22 +61,22 @@ public class MenuProfileAdapter extends RecyclerView.Adapter<MenuProfileAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.setupAnimationPress(context, v);
+                mPresenter.setupAnimationPress(mContext, v);
                 switch (position) {
                     case 0:
-                        presenter.goToUpdateProfile();
+                        mPresenter.goToUpdateProfile();
                         break;
                     case 1:
-                        presenter.goToUpdateJob();
+                        mPresenter.goToUpdateJob();
                         break;
                     case 2:
-                        presenter.goToUpdateFamily();
+                        mPresenter.goToUpdateFamily();
                         break;
                     case 3:
-                        presenter.goToUpdateSocialNetwork();
+                        mPresenter.goToUpdateSocialNetwork();
                         break;
                     case 4:
-                        presenter.goToUpdatePapers();
+                        mPresenter.goToUpdatePapers();
                         break;
                 }
             }
@@ -85,7 +85,7 @@ public class MenuProfileAdapter extends RecyclerView.Adapter<MenuProfileAdapter.
 
     @Override
     public int getItemCount() {
-        return lstMenu == null ? 0 : lstMenu.size();
+        return mMenuList == null ? 0 : mMenuList.size();
     }
 
     public class ProfileViewHolder extends RecyclerView.ViewHolder {

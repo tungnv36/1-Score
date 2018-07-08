@@ -20,63 +20,63 @@ import a1_score.tima.vn.a1_score_viper.R;
 
 public class LoanRequestPresenter implements LoanRequestInterface.Presenter, LoanRequestInterface.InteractorOutput {
 
-    private LoanRequestInterface.View view;
-    private LoanRequestInterface.InteractorInput interactorInput;
-    private LoanRequestInterface.Wireframe wireframe;
+    private LoanRequestInterface.View mView;
+    private LoanRequestInterface.InteractorInput mInteractorInput;
+    private LoanRequestInterface.Wireframe mWireframe;
 
     public LoanRequestPresenter(LoanRequestInterface.View view) {
-        this.view = view;
-        this.interactorInput = new LoanRequestInteractor(this);
-        wireframe = new LoanRequestWireframe();
+        mView = view;
+        this.mInteractorInput = new LoanRequestInteractor(this);
+        mWireframe = new LoanRequestWireframe();
     }
 
     @Override
     public void goToLoanRegistration() {
-        interactorInput.goToLoanRegistration();
+        mInteractorInput.goToLoanRegistration();
     }
 
     @Override
     public void initAnimationLogo(ImageView view) {
-        interactorInput.initAnimationLogo(view);
+        mInteractorInput.initAnimationLogo(view);
     }
 
     @Override
     public void setupAnimationProgress(ProgressBar progress, int start, int end) {
-        interactorInput.setupAnimationProgress(progress, start, end);
+        mInteractorInput.setupAnimationProgress(progress, start, end);
     }
 
     @Override
     public void openOrCloseInfo(Context context, RelativeLayout view, Button button, boolean isOpen, int position) {
-        interactorInput.openOrCloseInfo(context, view, button, isOpen, position);
+        mInteractorInput.openOrCloseInfo(context, view, button, isOpen, position);
     }
 
     @Override
     public void setupAnimationItem(Context context, View view) {
-        interactorInput.setupAnimationItem(context, view);
+        mInteractorInput.setupAnimationItem(context, view);
     }
 
     @Override
     public void setupAnimationOpenOrClose(Context context, View view, boolean isOpen) {
-        interactorInput.setupAnimationItemOpenOrClose(context, view, isOpen);
+        mInteractorInput.setupAnimationItemOpenOrClose(context, view, isOpen);
     }
 
     @Override
     public void onDestroy() {
-        interactorInput.unRegister();
-        interactorInput = null;
-        view.onDestroy();
-        view = null;
-        wireframe = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
+        mView.onDestroy();
+        mView = null;
+        mWireframe = null;
     }
 
     @Override
     public void goToLoanRegistrationOutput() {
-        wireframe.goToLoanRegistration((Activity)view);
+        mWireframe.goToLoanRegistration((Activity)mView);
     }
 
     @Override
     public void runAnimationLogo(ImageView view) {
-        Animation anim = AnimationUtils.loadAnimation((Context) this.view, R.anim.scale_logo);
+        Animation anim = AnimationUtils.loadAnimation((Context) mView, R.anim.scale_logo);
         view.startAnimation(anim);
     }
 
@@ -90,7 +90,7 @@ public class LoanRequestPresenter implements LoanRequestInterface.Presenter, Loa
 
     @Override
     public void openOrCloseInfoOutput(Context context, RelativeLayout view, Button button, boolean isOpen, int position) {
-        this.view.openOrCloseInfo(view, button, isOpen, position);
+        mView.openOrCloseInfo(view, button, isOpen, position);
     }
 
     @Override

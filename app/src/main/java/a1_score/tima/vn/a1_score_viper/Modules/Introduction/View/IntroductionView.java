@@ -39,12 +39,11 @@ public class IntroductionView extends AppCompatActivity implements IntroductionI
     @BindView(R.id.btn_skip)
     Button btnSkip;
 
-    private MyViewPagerAdapter myViewPagerAdapter;
-    private int[] layouts;
+    private MyViewPagerAdapter mViewPagerAdapter;
+    private int[] mLayouts;
+    private TextView[] mDots;
 
-    private TextView[] dots;
-
-    private IntroductionInterface.Presenter introPresenter;
+    private IntroductionInterface.Presenter mPresenter;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -54,32 +53,32 @@ public class IntroductionView extends AppCompatActivity implements IntroductionI
         ButterKnife.bind(this);
         getSupportActionBar().hide();
 
-        introPresenter = new IntroductionPresenter(this);
+        mPresenter = new IntroductionPresenter(this);
 
         // Checking for first time launch - before calling setContentView()
-        introPresenter.checkFirstLaunch();
+        mPresenter.checkFirstLaunch();
 
         // Making notification bar transparent
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
 
-        // layouts of all welcome sliders
-        // add few more layouts if you want
-        layouts = new int[] {
+        // mLayouts of all welcome sliders
+        // add few more mLayouts if you want
+        mLayouts = new int[] {
                 R.layout.activity_introduction_first,
                 R.layout.activity_introduction_second,
                 R.layout.activity_introduction_third
         };
 
-        // adding bottom dots
+        // adding bottom mDots
         addBottomDots(0);
 
         // making notification bar transparent
         changeStatusBarColor();
 
-        myViewPagerAdapter = new MyViewPagerAdapter();
-        viewPager.setAdapter(myViewPagerAdapter);
+        mViewPagerAdapter = new MyViewPagerAdapter();
+        viewPager.setAdapter(mViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
         btnSkip.setEnabled(false);
@@ -88,22 +87,22 @@ public class IntroductionView extends AppCompatActivity implements IntroductionI
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                introPresenter.backPagePresenter(viewPager.getCurrentItem());
+                mPresenter.backPagePresenter(viewPager.getCurrentItem());
             }
         });
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                introPresenter.nextPagePresenter(viewPager.getCurrentItem(), layouts.length);
+                mPresenter.nextPagePresenter(viewPager.getCurrentItem(), mLayouts.length);
             }
         });
     }
 
     @Override
     public void onDestroy() {
-        introPresenter.onDestroy();
-        introPresenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
         super.onDestroy();
     }
 
@@ -118,19 +117,19 @@ public class IntroductionView extends AppCompatActivity implements IntroductionI
     }
 
     private void addBottomDots(int currentPage) {
-        dots = new TextView[layouts.length];
+        mDots = new TextView[mLayouts.length];
 
         layoutDots.removeAllViews();
-        for (int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            dots[i].setTextColor(getResources().getColor(R.color.dot_inactive_screen3));
-            layoutDots.addView(dots[i]);
+        for (int i = 0; i < mDots.length; i++) {
+            mDots[i] = new TextView(this);
+            mDots[i].setText(Html.fromHtml("&#8226;"));
+            mDots[i].setTextSize(35);
+            mDots[i].setTextColor(getResources().getColor(R.color.dot_inactive_screen3));
+            layoutDots.addView(mDots[i]);
         }
 
-        if (dots.length > 0)
-            dots[currentPage].setTextColor(getResources().getColor(R.color.dot_active_screen3));
+        if (mDots.length > 0)
+            mDots[currentPage].setTextColor(getResources().getColor(R.color.dot_active_screen3));
     }
 
     //  viewpager change listener
@@ -139,7 +138,7 @@ public class IntroductionView extends AppCompatActivity implements IntroductionI
         @Override
         public void onPageSelected(int position) {
             addBottomDots(position);
-            if (position == layouts.length - 1) {
+            if (position == mLayouts.length - 1) {
                 btnNext.setText(getString(R.string.start));
             } else if (position == 0) {
                 btnNext.setText(getString(R.string.next));
@@ -183,7 +182,7 @@ public class IntroductionView extends AppCompatActivity implements IntroductionI
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View view = layoutInflater.inflate(layouts[position], container, false);
+            View view = layoutInflater.inflate(mLayouts[position], container, false);
             container.addView(view);
 
             return view;
@@ -191,7 +190,7 @@ public class IntroductionView extends AppCompatActivity implements IntroductionI
 
         @Override
         public int getCount() {
-            return layouts.length;
+            return mLayouts.length;
         }
 
         @Override

@@ -9,43 +9,43 @@ import a1_score.tima.vn.a1_score_viper.Modules.Register.Wireframe.RegisterWirefr
 
 public class RegisterPresenter implements RegisterInterface.Presenter, RegisterInterface.InteractorOutput {
 
-    private RegisterInterface.View view;
-    private RegisterInterface.InteractorInput interactorInput;
-    private RegisterInterface.Wireframe wireframe;
+    private RegisterInterface.View mView;
+    private RegisterInterface.InteractorInput mInteractorInput;
+    private RegisterInterface.Wireframe mWireframe;
 
     public RegisterPresenter(RegisterInterface.View view) {
-        this.view = view;
-        interactorInput = new RegisterInteractor(view, this);
-        wireframe = new RegisterWireframe();
+        mView = view;
+        mInteractorInput = new RegisterInteractor(view, this);
+        mWireframe = new RegisterWireframe();
     }
 
     @Override
     public void register(ProgressDialog mProgress, String username, String password, String confirmPassword, String email) {
-        interactorInput.register(mProgress, username, password, confirmPassword, email);
+        mInteractorInput.register(mProgress, username, password, confirmPassword, email);
     }
 
     @Override
     public void onDestroy() {
-        view = null;
-        interactorInput.unRegister();
-        interactorInput = null;
+        mView = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
     }
 
     @Override
     public void EdittextEmpty(ProgressDialog mProgress, int type, String error) {
-        view.EdittextEmpty(mProgress, type, error);
+        mView.EdittextEmpty(mProgress, type, error);
     }
 
     @Override
     public void registerSuccess(ProgressDialog mProgress, String msg, String phoneNumber) {
         mProgress.dismiss();
-        wireframe.gotToOTP((Activity)view, phoneNumber);
-        ((Activity)view).finish();
+        mWireframe.gotToOTP((Activity)mView, phoneNumber);
+        ((Activity)mView).finish();
     }
 
     @Override
     public void registerFailed(ProgressDialog mProgress, String error) {
-        view.registerFailed(mProgress, error);
+        mView.registerFailed(mProgress, error);
     }
 
 }

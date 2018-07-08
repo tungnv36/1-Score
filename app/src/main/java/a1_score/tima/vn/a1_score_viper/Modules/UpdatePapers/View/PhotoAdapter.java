@@ -1,6 +1,5 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.View;
 
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,57 +10,54 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Entity.MenuEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.UpdateFamilyEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.UpdatePapersEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersEntity;
 import a1_score.tima.vn.a1_score_viper.R;
 
 public class PhotoAdapter extends BaseAdapter {
 
-    private List<UpdatePapersEntity> lstPaper;
-    private int height;
+    private List<PapersEntity> mPaperList;
+    private int mHeight;
 
-    public PhotoAdapter(List<UpdatePapersEntity> lstPaper, int height) {
-        this.lstPaper = lstPaper;
-        this.height = height;
+    public PhotoAdapter(List<PapersEntity> paperList, int height) {
+        mPaperList = paperList;
+        mHeight = height;
     }
 
     @Override
     public int getCount() {
-        return lstPaper == null ? 0 : lstPaper.size();
+        return mPaperList == null ? 0 : mPaperList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return lstPaper.get(position);
+        return mPaperList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return lstPaper.get(position).getId();
+        return mPaperList.get(position).getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_paper, null);
-            convertView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
+            convertView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mHeight));
         }
 
-        UpdatePapersEntity updatePapersEntity = lstPaper.get(position);
+        PapersEntity papersEntity = mPaperList.get(position);
 
         ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivImage);
         LinearLayout llImage = (LinearLayout) convertView.findViewById(R.id.llImage);
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
-        tvTitle.setText(updatePapersEntity.getTitle());
+        tvTitle.setText(papersEntity.getTitle());
 
-        if(updatePapersEntity.isShow()) {
+        if(papersEntity.isShow()) {
             ivImage.setVisibility(View.VISIBLE);
             llImage.setVisibility(View.GONE);
-            if(updatePapersEntity.getImage() != null) {
-                ivImage.setImageBitmap(updatePapersEntity.getImage());
+            if(papersEntity.getImage() != null) {
+                ivImage.setImageBitmap(papersEntity.getImage());
             }
         } else {
             ivImage.setVisibility(View.GONE);

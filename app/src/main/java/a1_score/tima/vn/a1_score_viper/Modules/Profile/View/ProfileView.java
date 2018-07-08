@@ -26,7 +26,7 @@ import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Entity.MenuEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interface.ProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Presenter.ProfilePresenter;
@@ -64,12 +64,12 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
     @BindView(R.id.avi)
     AVLoadingIndicatorView avi;
 
-    private ProfileInterface.Presenter presenter;
-    private int scoreOfLevel = 80;
-    private int startScore = 0;
+    private ProfileInterface.Presenter mPresenter;
+    private int mScoreOfLevel = 80;
+    private int mStartScore = 0;
 
-    private List<MenuEntity> lstMenu;
-    private MenuProfileAdapter menuProfileAdapter;
+    private List<MenuEntity> mMenuList;
+    private MenuProfileAdapter mMenuProfileAdapter;
 
     private ProgressDialog mProgress;
 
@@ -84,7 +84,7 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
         Commons.setupSizeLogo(this, ivLogo, sbLevel);
         styleView();
 
-        presenter = new ProfilePresenter(this);
+        mPresenter = new ProfilePresenter(this);
 
         ibMenu.setOnClickListener(this);
         ivLogo.setOnClickListener(this);
@@ -95,22 +95,22 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
             @Override
             public void run() {
                 avi.show();
-                presenter.initAvatar();
+                mPresenter.initAvatar();
             }
         }).start();
     }
 
     private void initMenu() {
-        lstMenu = new ArrayList<>();
-        lstMenu.add(new MenuEntity(R.mipmap.ic_info, getString(R.string.menu_info), getString(R.string.info_expired), 0, 80, false));
-        lstMenu.add(new MenuEntity(R.mipmap.ic_job, getString(R.string.menu_job), getString(R.string.info_expired), 0, 20, true));
-        lstMenu.add(new MenuEntity(R.mipmap.ic_family, getString(R.string.menu_family), getString(R.string.info_expired), 0, 100, false));
-        lstMenu.add(new MenuEntity(R.mipmap.ic_social_network, getString(R.string.menu_social_network), getString(R.string.info_expired), 0, 50, false));
-        lstMenu.add(new MenuEntity(R.mipmap.ic_paper, getString(R.string.menu_paper), getString(R.string.info_expired), 0, 40, false));
+        mMenuList = new ArrayList<>();
+        mMenuList.add(new MenuEntity(R.mipmap.ic_info, getString(R.string.menu_info), getString(R.string.info_expired), 0, 80, false));
+        mMenuList.add(new MenuEntity(R.mipmap.ic_job, getString(R.string.menu_job), getString(R.string.info_expired), 0, 20, true));
+        mMenuList.add(new MenuEntity(R.mipmap.ic_family, getString(R.string.menu_family), getString(R.string.info_expired), 0, 100, false));
+        mMenuList.add(new MenuEntity(R.mipmap.ic_social_network, getString(R.string.menu_social_network), getString(R.string.info_expired), 0, 50, false));
+        mMenuList.add(new MenuEntity(R.mipmap.ic_paper, getString(R.string.menu_paper), getString(R.string.info_expired), 0, 40, false));
 
-        menuProfileAdapter = new MenuProfileAdapter(this, presenter, lstMenu);
+        mMenuProfileAdapter = new MenuProfileAdapter(this, mPresenter, mMenuList);
         Commons.setVerticalRecyclerView(this, rvMenu);
-        rvMenu.setAdapter(menuProfileAdapter);
+        rvMenu.setAdapter(mMenuProfileAdapter);
     }
 
     @Override
@@ -119,12 +119,12 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
         new Thread(new Runnable() {
             @Override
             public void run() {
-                presenter.initData();
+                mPresenter.initData();
             }
         }).start();
-//        presenter.initAnimationLogo(ivLogo);
-        presenter.setupAnimationSeekBar(sbLevel, startScore, scoreOfLevel);
-//        sbLevel.setProgress(scoreOfLevel);
+//        mPresenter.initAnimationLogo(ivLogo);
+        mPresenter.setupAnimationSeekBar(sbLevel, mStartScore, mScoreOfLevel);
+//        sbLevel.setProgress(mScoreOfLevel);
     }
 
     private void styleView() {
@@ -160,7 +160,7 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
             case R.id.ivLogo:
                 boolean result = Commons.checkPermission2(ProfileView.this);
                 if (result) {
-                    presenter.takePhoto(3, 0);
+                    mPresenter.takePhoto(3, 0);
                 }
                 break;
         }
@@ -169,12 +169,12 @@ public class ProfileView extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
-        presenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
     }
 
     @Override
-    public void initData(final LoginResultEntity.UserEntity userEntity) {
+    public void initData(final LoginResponse.UserEntity userEntity) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

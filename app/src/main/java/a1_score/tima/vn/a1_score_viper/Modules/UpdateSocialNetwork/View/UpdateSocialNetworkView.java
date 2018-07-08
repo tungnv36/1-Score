@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.Entity.SocialNetworkEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.Entity.SocialNetworkRequest;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +39,8 @@ public class UpdateSocialNetworkView extends AppCompatActivity {
     @BindView(R.id.btUpdate)
     Button btUpdate;
 
-    private List<SocialNetworkEntity> lstSocialNetwork;
-    private SocialNetworkAdapter socialNetworkAdapter;
+    private List<SocialNetworkRequest> mSocialNetworkList;
+    private SocialNetworkAdapter mSocialNetworkAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,15 +54,15 @@ public class UpdateSocialNetworkView extends AppCompatActivity {
     }
 
     private void initSocialNetwork() {
-        lstSocialNetwork = new ArrayList<>();
-        lstSocialNetwork.add(new SocialNetworkEntity(1, R.mipmap.ic_facebook, "Facebook", true, R.color.color_facebook));
-        lstSocialNetwork.add(new SocialNetworkEntity(2, R.mipmap.ic_zalo, "Zalo", false, R.color.color_zalo));
-        lstSocialNetwork.add(new SocialNetworkEntity(3, R.mipmap.ic_instagram, "Instagram", false, R.color.color_instagram));
-        lstSocialNetwork.add(new SocialNetworkEntity(4, R.mipmap.ic_linkedin, "Linkedin", false, R.color.color_linkedin));
+        mSocialNetworkList = new ArrayList<>();
+        mSocialNetworkList.add(new SocialNetworkRequest(1, R.mipmap.ic_facebook, "Facebook", true, R.color.color_facebook));
+        mSocialNetworkList.add(new SocialNetworkRequest(2, R.mipmap.ic_zalo, "Zalo", false, R.color.color_zalo));
+        mSocialNetworkList.add(new SocialNetworkRequest(3, R.mipmap.ic_instagram, "Instagram", false, R.color.color_instagram));
+        mSocialNetworkList.add(new SocialNetworkRequest(4, R.mipmap.ic_linkedin, "Linkedin", false, R.color.color_linkedin));
 
-        socialNetworkAdapter = new SocialNetworkAdapter(this, lstSocialNetwork);
+        mSocialNetworkAdapter = new SocialNetworkAdapter(this, mSocialNetworkList);
         Commons.setVerticalRecyclerView(this, rvSocialNetwork);
-        rvSocialNetwork.setAdapter(socialNetworkAdapter);
+        rvSocialNetwork.setAdapter(mSocialNetworkAdapter);
     }
 
     @Override

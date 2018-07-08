@@ -8,46 +8,46 @@ import a1_score.tima.vn.a1_score_viper.Modules.Setting.Wireframe.SettingWirefram
 
 public class SettingPresenter implements SettingInterface.Presenter, SettingInterface.InteractorOutput {
 
-    private SettingInterface.View view;
-    private SettingInterface.InteractorInput interactorInput;
-    private SettingInterface.Wireframe wireframe;
+    private SettingInterface.View mView;
+    private SettingInterface.InteractorInput mInteractorInput;
+    private SettingInterface.Wireframe mWireframe;
 
     public SettingPresenter(SettingInterface.View view) {
-        this.view = view;
-        interactorInput = new SettingInteractor(view, this);
-        wireframe = new SettingWireframe();
+        mView = view;
+        mInteractorInput = new SettingInteractor(view, this);
+        mWireframe = new SettingWireframe();
     }
 
     @Override
     public void onDestroy() {
-        view = null;
-        interactorInput.unRegister();
-        interactorInput = null;
-        wireframe = null;
+        mView = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
+        mWireframe = null;
     }
 
     @Override
     public void goToChangePhone() {
-        interactorInput.goToChangePhone();
+        mInteractorInput.goToChangePhone();
     }
 
     @Override
     public void logout() {
-        interactorInput.logout();
+        mInteractorInput.logout();
     }
 
     @Override
     public void goToChangePhoneOutput() {
-        wireframe.goToChangePhone((Activity)view);
+        mWireframe.goToChangePhone((Activity)mView);
     }
 
     @Override
     public void logoutOutput() {
-        view.logout();
+        mView.logout();
     }
 
     @Override
     public void logoutFailed(String msg) {
-        view.logoutFailed(msg);
+        mView.logoutFailed(msg);
     }
 }

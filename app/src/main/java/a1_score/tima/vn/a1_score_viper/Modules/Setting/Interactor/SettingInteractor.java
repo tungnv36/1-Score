@@ -2,47 +2,47 @@ package a1_score.tima.vn.a1_score_viper.Modules.Setting.Interactor;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Setting.DataStore.SettingDataStore;
-import a1_score.tima.vn.a1_score_viper.Modules.Setting.Entity.LogoutResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Setting.Entity.LogoutResponseEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Setting.Interface.SettingInterface;
 
 public class SettingInteractor implements SettingInterface.InteractorInput {
 
-    private SettingInterface.InteractorOutput interactorOutput;
-    private SettingInterface.View view;
-    private SettingInterface.DataStore dataStore;
+    private SettingInterface.InteractorOutput mInteractorOutput;
+    private SettingInterface.View mView;
+    private SettingInterface.DataStore mDataStore;
 
-    public SettingInteractor(SettingInterface.View view, SettingInterface.InteractorOutput interactorOutput) {
-        this.view = view;
-        this.interactorOutput = interactorOutput;
-        dataStore = SettingDataStore.getInstance(view);
+    public SettingInteractor(SettingInterface.View view, SettingInterface.InteractorOutput mInteractorOutput) {
+        mView = view;
+        this.mInteractorOutput = mInteractorOutput;
+        mDataStore = SettingDataStore.getInstance(view);
     }
 
     @Override
     public void unRegister() {
-        interactorOutput = null;
+        mInteractorOutput = null;
     }
 
     @Override
     public void goToChangePhone() {
-        interactorOutput.goToChangePhoneOutput();
+        mInteractorOutput.goToChangePhoneOutput();
     }
 
     @Override
     public void logout() {
-        dataStore.logout(new OnResponse<String, LogoutResultEntity>() {
+        mDataStore.logout(new OnResponse<String, LogoutResponseEntity>() {
             @Override
-            public void onResponseSuccess(String tag, String rs, LogoutResultEntity extraData) {
+            public void onResponseSuccess(String tag, String rs, LogoutResponseEntity extraData) {
                 if(extraData != null && extraData.getStatuscode() == 200) {
-                    interactorOutput.logoutOutput();
+                    mInteractorOutput.logoutOutput();
                 } else {
-                    interactorOutput.logoutFailed(extraData.getMessage());
+                    mInteractorOutput.logoutFailed(extraData.getMessage());
                 }
             }
 
             @Override
             public void onResponseError(String tag, String message) {
-                interactorOutput.logoutFailed(message);
+                mInteractorOutput.logoutFailed(message);
             }
-        }, "Bearer " + dataStore.getToken());
+        }, "Bearer " + mDataStore.getToken());
     }
 }

@@ -59,9 +59,9 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
     @BindView(R.id.ivLogo)
     ImageView ivLogo;
 
-    private LoginInterface.Presenter presenter;
+    private LoginInterface.Presenter mPresenter;
 
-    private ProgressDialog progress;
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,13 +72,14 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
         changeStatusBarColor();
         btLogin.setTypeface(Commons.setFont(this, getResources().getString(R.string.font_segoe)));
 
-        presenter = new LoginPresenter(this);
+        mPresenter = new LoginPresenter(this);
 
+        //Xử lý co giao diện khi ẩn hiện bàn phím
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int newHeight = 4 * displayMetrics.heightPixels / 10;
         int marginLogo = 0;
-        presenter.changeHeightBanner(newHeight, marginLogo);
+        mPresenter.changeHeightBanner(newHeight, marginLogo);
 
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -93,11 +94,11 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
                 if (keypadHeight > screenHeight * 0.15) {
                     int newHeight = 3 * (screenHeight - keypadHeight) / 10;
                     int marginLogo = 60;
-                    presenter.changeHeightBanner(newHeight, marginLogo);
+                    mPresenter.changeHeightBanner(newHeight, marginLogo);
                 } else {
                     int newHeight = 4 * (screenHeight - keypadHeight) / 10;
                     int marginLogo = 00;
-                    presenter.changeHeightBanner(newHeight, marginLogo);
+                    mPresenter.changeHeightBanner(newHeight, marginLogo);
                 }
             }
         });
@@ -113,7 +114,7 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.createFolder();
+        mPresenter.createFolder();
     }
 
     @Override
@@ -132,19 +133,19 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
 
     @Override
     public void usernameEmpty(String error) {
-        progress.dismiss();
+        mProgress.dismiss();
         etUsername.setError(error);
     }
 
     @Override
     public void passwordEmpty(String error) {
-        progress.dismiss();
+        mProgress.dismiss();
         etPassword.setError(error);
     }
 
     @Override
     public void loginFailed(String error) {
-        progress.dismiss();
+        mProgress.dismiss();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(getString(R.string.dialog_title));
         alertDialog.setMessage(error);
@@ -159,14 +160,14 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
 
     @Override
     public void loginFailedLostOtp(final String phoneNumber, final String error) {
-        progress.dismiss();
+        mProgress.dismiss();
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(getString(R.string.dialog_title));
         alertDialog.setMessage(error);
         alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                presenter.goToOtp(phoneNumber, error);
+                mPresenter.goToOtp(phoneNumber, error);
             }
         });
         alertDialog.show();
@@ -174,8 +175,8 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
 
     @Override
     public void onDestroy() {
-        presenter.onDestroy();
-        presenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
         super.onDestroy();
     }
 
@@ -197,15 +198,15 @@ public class LoginView extends AppCompatActivity implements LoginInterface.View,
                 this.finish();
                 break;
             case R.id.btLostPass:
-                presenter.goToForgotPassword();
+                mPresenter.goToForgotPassword();
                 break;
             case R.id.btLogin:
-                progress = new ProgressDialog(LoginView.this);
-                progress.setTitle("Loading");
-                progress.setMessage("Vui lòng chờ trong giây lát...");
-                progress.setCancelable(false);
-                progress.show();
-                presenter.login(progress, etUsername.getText().toString(), etPassword.getText().toString());
+                mProgress = new ProgressDialog(LoginView.this);
+                mProgress.setTitle("Loading");
+                mProgress.setMessage("Vui lòng chờ trong giây lát...");
+                mProgress.setCancelable(false);
+                mProgress.show();
+                mPresenter.login(mProgress, etUsername.getText().toString(), etPassword.getText().toString());
                 break;
         }
     }

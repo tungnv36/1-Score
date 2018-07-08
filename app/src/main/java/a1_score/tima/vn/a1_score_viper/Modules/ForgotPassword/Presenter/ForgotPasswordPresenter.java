@@ -8,37 +8,36 @@ import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Wireframe.ForgotPa
 
 public class ForgotPasswordPresenter implements ForgotPasswordInterface.Presenter, ForgotPasswordInterface.InteractorOutput {
 
-    private ForgotPasswordInterface.View view;
-    private ForgotPasswordInterface.InteractorInput interactorInput;
-    private ForgotPasswordInterface.Wireframe wireframe;
+    private ForgotPasswordInterface.View mView;
+    private ForgotPasswordInterface.InteractorInput mInteractorInput;
+    private ForgotPasswordInterface.Wireframe mWireframe;
 
     public ForgotPasswordPresenter(ForgotPasswordInterface.View view) {
-        this.view = view;
-        interactorInput = new ForgotPasswordInteractor(view, this);
-        wireframe = new ForgotPasswordWireframe();
+        mView = view;
+        mInteractorInput = new ForgotPasswordInteractor(view, this);
+        mWireframe = new ForgotPasswordWireframe();
     }
 
     @Override
     public void forgotPassword(String phone) {
-        interactorInput.forgotPassword(phone);
+        mInteractorInput.forgotPassword(phone);
     }
 
     @Override
     public void onDestroy() {
-        view = null;
-        interactorInput.unRegister();
-        interactorInput = null;
+        mView = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
     }
 
     @Override
     public void forgotPasswordSuccess(String msg, String phone) {
-//        view.forgotPasswordSuccess(msg);
-        wireframe.goToOtp((Activity)view, phone, msg);
-        ((Activity)view).finish();
+        mWireframe.goToOtp((Activity)mView, phone, msg);
+        ((Activity)mView).finish();
     }
 
     @Override
     public void forgotPasswordFailed(String err) {
-        view.forgotPasswordFailed(err);
+        mView.forgotPasswordFailed(err);
     }
 }

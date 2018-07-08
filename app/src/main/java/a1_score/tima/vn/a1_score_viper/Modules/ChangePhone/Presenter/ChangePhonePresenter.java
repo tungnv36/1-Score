@@ -7,45 +7,45 @@ import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Interface.ChangePhone
 
 public class ChangePhonePresenter implements ChangePhoneInterface.Presenter, ChangePhoneInterface.InteractorOutput {
 
-    private ChangePhoneInterface.View view;
-    private ChangePhoneInterface.InteractorInput interactorInput;
-    private ChangePhoneInterface.Wireframe wireframe;
+    private ChangePhoneInterface.View mView;
+    private ChangePhoneInterface.InteractorInput mInteractorInput;
+    private ChangePhoneInterface.Wireframe mWireframe;
 
     public ChangePhonePresenter(ChangePhoneInterface.View view) {
-        this.view = view;
-        interactorInput = new ChangePhoneInteractor(view, this);
+        this.mView = view;
+        mInteractorInput = new ChangePhoneInteractor(view, this);
     }
 
     @Override
     public void initPhone() {
-        interactorInput.initPhone();
+        mInteractorInput.initPhone();
     }
 
     @Override
     public void changePhone(String oldPhone, String newPhone, String password) {
-        interactorInput.changePhone(oldPhone, newPhone, password);
+        mInteractorInput.changePhone(oldPhone, newPhone, password);
     }
 
     @Override
     public void onDestroy() {
-        view = null;
-        interactorInput.unRegister();
-        interactorInput = null;
+        mView = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
     }
 
     @Override
     public void initPhoneOutput(String phone) {
-        view.initPhone(phone);
+        mView.initPhone(phone);
     }
 
     @Override
     public void changePhoneSuccess(String msg) {
-        view.changePhoneSuccess(msg);
-        ((Activity)view).finish();
+        mView.changePhoneSuccess(msg);
+        ((Activity)mView).finish();
     }
 
     @Override
     public void changePhoneFailed(String err) {
-        view.changePhoneFailed(err);
+        mView.changePhoneFailed(err);
     }
 }

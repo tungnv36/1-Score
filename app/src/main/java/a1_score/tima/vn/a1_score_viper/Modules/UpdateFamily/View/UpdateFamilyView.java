@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.UpdateFamilyEntity;
+import a1_score.tima.vn.a1_score_viper.Common.Constant;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface.UpdateFamilyInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Presenter.UpdateFamilyPresenter;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.View.UpdatePapersView;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,10 +94,14 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
     LinearLayout llContent2;
     @BindView(R.id.btUpdate)
     Button btUpdate;
-    private List<UpdateFamilyEntity> lstUpdateFamily;
-    private FamilyControlAdapter familyControlAdapter;
+    @BindView(R.id.llPaper)
+    LinearLayout llPaper;
+    
+    private List<FamilyRequest> mFamilyList;
+    private FamilyControlAdapter mFamilyControlAdapter;
 
-    private UpdateFamilyInterface.Presenter presenter;
+    private String mFileName;
+    private UpdateFamilyInterface.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,22 +111,65 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         setupActionBar();
         changeStatusBarColor();
         styleView();
-        initFamilyControl();
+        setupFamilyControl();
+        setupDropdown();
 
-        presenter = new UpdateFamilyPresenter(this);
+        mPresenter = new UpdateFamilyPresenter(this);
 
         ibAdd.setOnClickListener(this);
         rlMarriageRegistration.setOnClickListener(this);
         rlSonBirthCertificate.setOnClickListener(this);
         rlStudentCard.setOnClickListener(this);
+
+        switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                showHideView(isChecked);
+            }
+        });
     }
 
-    private void initFamilyControl() {
-        lstUpdateFamily = new ArrayList<>();
-        lstUpdateFamily.add(new UpdateFamilyEntity(1, 1, "", ""));
-        familyControlAdapter = new FamilyControlAdapter(this, lstUpdateFamily);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+        showHideView(switchButton.isChecked());
+    }
+
+    private void setupFamilyControl() {
+        mFamilyList = new ArrayList<>();
+        mFamilyList.add(new FamilyRequest(1, 1, "", ""));
+        mFamilyControlAdapter = new FamilyControlAdapter(this, mFamilyList);
         Commons.setVerticalRecyclerView(this, rvFamily);
-        rvFamily.setAdapter(familyControlAdapter);
+        rvFamily.setAdapter(mFamilyControlAdapter);
+    }
+
+    private void initData() {
+        mPresenter.initImage(1, "_mr");
+        mPresenter.initImage(2, "_sbc");
+        mPresenter.initImage(3, "_sc");
+//        mPresenter.initData();
+
+    }
+
+    private void setupDropdown() {
+        ArrayAdapter<String> adapterSex = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Constant.ARRAY_NUMBER_SON);
+        adapterSex.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+        spSon.setAdapter(adapterSex);
+    }
+
+    private void showHideView(boolean isShow) {
+        if (isShow) {
+            etNameVC.setVisibility(View.GONE);
+            etPhoneVC.setVisibility(View.GONE);
+            llSon.setVisibility(View.GONE);
+            llPaper.setVisibility(View.GONE);
+        } else {
+            etNameVC.setVisibility(View.VISIBLE);
+            etPhoneVC.setVisibility(View.VISIBLE);
+            llSon.setVisibility(View.VISIBLE);
+            llPaper.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -160,25 +208,28 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         boolean result = false;
         switch (v.getId()) {
             case R.id.ibAdd:
-                lstUpdateFamily.add(new UpdateFamilyEntity(lstUpdateFamily.size() + 1, 1, "", ""));
-                familyControlAdapter.notifyDataSetChanged();
+                mFamilyList.add(new FamilyRequest(mFamilyList.size() + 1, 1, "", ""));
+                mFamilyControlAdapter.notifyDataSetChanged();
                 break;
             case R.id.rlMarriageRegistration:
                 result = Commons.checkPermission2(UpdateFamilyView.this);
-                if(result) {
-                    presenter.takePhoto(2, 1);
+                if (result) {
+                    mFileName = "_mr";//MarriageRegistration
+                    mPresenter.takePhoto(2, 1);
                 }
                 break;
             case R.id.rlSonBirthCertificate:
                 result = Commons.checkPermission2(UpdateFamilyView.this);
-                if(result) {
-                    presenter.takePhoto(2, 2);
+                if (result) {
+                    mFileName = "_sbc";//SonBirthCertificate
+                    mPresenter.takePhoto(2, 2);
                 }
                 break;
             case R.id.rlStudentCard:
                 result = Commons.checkPermission2(UpdateFamilyView.this);
-                if(result) {
-                    presenter.takePhoto(1, 3);
+                if (result) {
+                    mFileName = "_sc";//StudentCard
+                    mPresenter.takePhoto(1, 3);
                 }
                 break;
         }
@@ -192,8 +243,26 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                 String filePath = data.getStringExtra(getString(R.string.result));
                 int type = data.getIntExtra(getString(R.string.type), 0);
                 int imageType = data.getIntExtra(getString(R.string.image_type), 0);
-                presenter.updateImage(type, imageType, filePath);
+                mPresenter.updateImage(type, imageType, filePath, mFileName);
             }
+        }
+    }
+
+    @Override
+    public void initImage(int type, Bitmap bitmap) {
+        switch (type) {
+            case 1://Đăng ký kết hôn
+                llMarriageRegistration.setVisibility(View.GONE);
+                ivMarriageRegistration.setImageBitmap(bitmap);
+                break;
+            case 2://Giấy khai sinh của con
+                llSonBirthCertificate.setVisibility(View.GONE);
+                ivSonBirthCertificate.setImageBitmap(bitmap);
+                break;
+            case 3://Thẻ học sinh
+                llStudentCard.setVisibility(View.GONE);
+                ivStudentCard.setImageBitmap(bitmap);
+                break;
         }
     }
 
@@ -218,5 +287,15 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
     @Override
     public void updateImageFailed(String err) {
         Toast.makeText(this, err, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void updateFamilyFailed(String err) {
+
+    }
+
+    @Override
+    public void updateFamilySuccess(String msg) {
+
     }
 }

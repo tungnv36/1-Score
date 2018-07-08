@@ -19,10 +19,10 @@ import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Interface.LoginInterface;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,28 +30,28 @@ import retrofit2.Response;
 
 public class LoginDataStore extends ApiRequest implements LoginInterface.DataStore {
 
-    private LoginInterface.View view;
+    private LoginInterface.View mView;
 
-    public static LoginDataStore mInstance;
+    public static LoginDataStore sInstance;
     private static SQliteDatabase sQliteDatabase;
 
     public static LoginDataStore getInstance(LoginInterface.View view) {
-        if (mInstance == null) {
+        if (sInstance == null) {
             initApi();
             sQliteDatabase = SQliteDatabase.getInstance((Context)view);
-            mInstance = new LoginDataStore(view);
+            sInstance = new LoginDataStore(view);
         }
-        return mInstance;
+        return sInstance;
     }
 
     private LoginDataStore(LoginInterface.View view) {
-        this.view = view;
+        mView = view;
     }
 
     @Override
-    public void callLogin(final OnResponse<String, LoginResultEntity> m_Response, LoginEntity loginEntity) {
+    public void callLogin(final OnResponse<String, LoginResponse> m_Response, LoginRequest loginRequest) {
         m_Response.onStart();
-        Call<ResponseBody> call = m_Service.callLogin(loginEntity);
+        Call<ResponseBody> call = m_Service.callLogin(loginRequest);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -61,8 +61,8 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
                         try {
                             final GsonBuilder gsonBuilder = new GsonBuilder();
                             final Gson gson = gsonBuilder.create();
-                            LoginResultEntity loginResultEntity = gson.fromJson(jsonObject.toString(), LoginResultEntity.class);
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), loginResultEntity);
+                            LoginResponse loginResponse = gson.fromJson(jsonObject.toString(), LoginResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), loginResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
@@ -85,7 +85,7 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     }
 
     @Override
-    public void setUser(Context context, LoginResultEntity user) {
+    public void setUser(Context context, LoginResponse user) {
         SharedPreferences.Editor editor = context.getSharedPreferences(Constant.PREFS_NAME, context.MODE_PRIVATE).edit();
         editor.putString("token", user.getToken());
         editor.putString("username", Commons.changePhone0(user.getUser().getUsername()));
@@ -94,7 +94,7 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     }
 
     @Override
-    public void saveUser(LoginResultEntity user) {
+    public void saveUser(LoginResponse user) {
         sQliteDatabase.deleteUser();
         sQliteDatabase.addUser(user);
     }
@@ -121,9 +121,9 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
     }
 
     @Override
-    public void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
+    public void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type) {
         sQliteDatabase.deleteImageBy(username, type);
-        sQliteDatabase.addImage(uploadImageResultEntity, imageName, username, type);
+        sQliteDatabase.addImage(imageProfileResponse, imageName, username, type);
     }
 
     @Override

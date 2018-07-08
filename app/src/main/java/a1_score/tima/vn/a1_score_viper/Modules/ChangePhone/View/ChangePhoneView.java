@@ -56,7 +56,7 @@ public class ChangePhoneView extends AppCompatActivity implements ChangePhoneInt
     @BindView(R.id.rootView)
     RelativeLayout rootView;
 
-    private ChangePhoneInterface.Presenter presenter;
+    private ChangePhoneInterface.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class ChangePhoneView extends AppCompatActivity implements ChangePhoneInt
         ButterKnife.bind(this);
         getSupportActionBar().hide();
 
-        presenter = new ChangePhonePresenter(this);
+        mPresenter = new ChangePhonePresenter(this);
 
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -94,14 +94,14 @@ public class ChangePhoneView extends AppCompatActivity implements ChangePhoneInt
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.initPhone();
+        mPresenter.initPhone();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
-        presenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
     }
 
     public void changeHeightBanner(int height) {
@@ -132,7 +132,7 @@ public class ChangePhoneView extends AppCompatActivity implements ChangePhoneInt
                 this.finish();
                 break;
             case R.id.btChangePhone:
-                presenter.changePhone(etOldPhone.getText().toString(), etNewPhone.getText().toString(), etPass.getText().toString());
+                mPresenter.changePhone(etOldPhone.getText().toString(), etNewPhone.getText().toString(), etPass.getText().toString());
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Profile.Entity;
 
 public class MenuEntity {
+
     private int icon;
     private String title;
     private String subTitle;

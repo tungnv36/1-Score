@@ -1,7 +1,6 @@
 package a1_score.tima.vn.a1_score_viper.Modules.Profile.Presenter;
 
 import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,7 +17,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interactor.ProfileInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interface.ProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Wireframe.ProfileWireframe;
@@ -27,87 +26,87 @@ import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class ProfilePresenter implements ProfileInterface.Presenter, ProfileInterface.InteractorOutput {
 
-    private ProfileInterface.View view;
-    private ProfileInterface.InteractorInput interactorInput;
-    private ProfileInterface.Wireframe wireframe;
+    private ProfileInterface.View mView;
+    private ProfileInterface.InteractorInput mInteractorInput;
+    private ProfileInterface.Wireframe mWireframe;
 
     public ProfilePresenter(ProfileInterface.View view) {
-        this.view = view;
-        interactorInput = new ProfileInteractor(view, this);
-        wireframe = new ProfileWireframe();
+        mView = view;
+        mInteractorInput = new ProfileInteractor(view, this);
+        mWireframe = new ProfileWireframe();
     }
 
     @Override
     public void initData() {
-        interactorInput.initData();
+        mInteractorInput.initData();
     }
 
     @Override
     public void initAvatar() {
-        interactorInput.initAvatar();
+        mInteractorInput.initAvatar();
     }
 
     @Override
     public void takePhoto(int type, int imageType) {
-        interactorInput.takePhoto(type, imageType);
+        mInteractorInput.takePhoto(type, imageType);
     }
 
     @Override
     public void updateImage(int type, int imageType, String filePath) {
-        interactorInput.updateImage(type, imageType, filePath);
+        mInteractorInput.updateImage(type, imageType, filePath);
     }
 
     @Override
     public void goToUpdateProfile() {
-        interactorInput.goToUpdateProfile();
+        mInteractorInput.goToUpdateProfile();
     }
 
     @Override
     public void goToUpdateJob() {
-        interactorInput.goToUpdateJob();
+        mInteractorInput.goToUpdateJob();
     }
 
     @Override
     public void goToUpdateFamily() {
-        interactorInput.goToUpdateFamily();
+        mInteractorInput.goToUpdateFamily();
     }
 
     @Override
     public void goToUpdateSocialNetwork() {
-        interactorInput.goToUpdateSocialNetwork();
+        mInteractorInput.goToUpdateSocialNetwork();
     }
 
     @Override
     public void goToUpdatePapers() {
-        interactorInput.goToUpdatePapers();
+        mInteractorInput.goToUpdatePapers();
     }
 
     @Override
     public void initAnimationLogo(ImageView view) {
-        interactorInput.initAnimationLogo(view);
+        mInteractorInput.initAnimationLogo(view);
     }
 
     @Override
     public void setupAnimationSeekBar(CircularSeekBar seekBar, int start, int end) {
-        interactorInput.setupAnimationSeekBar(seekBar, start, end);
+        mInteractorInput.setupAnimationSeekBar(seekBar, start, end);
     }
 
     @Override
     public void setupAnimationProgress(ProgressBar progress, int start, int end) {
-        interactorInput.setupAnimationProgress(progress, start, end);
+        mInteractorInput.setupAnimationProgress(progress, start, end);
     }
 
     @Override
     public void setupAnimationPress(Context context, View view) {
-        interactorInput.setupAnimationPress(context, view);
+        mInteractorInput.setupAnimationPress(context, view);
     }
 
     @Override
     public void onDestroy() {
-        interactorInput.unRegister();
-        interactorInput = null;
-        view = null;
-        wireframe = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
+        mView = null;
+        mWireframe = null;
     }
 
     @Override
@@ -119,21 +118,21 @@ public class ProfilePresenter implements ProfileInterface.Presenter, ProfileInte
             mpaint.setAntiAlias(true);
             mpaint.setShader(new BitmapShader(bmp, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
             canvas.drawRoundRect((new RectF(0, 0, bmp.getWidth(), bmp.getHeight())), bmp.getWidth() / 2, bmp.getHeight() / 2, mpaint);
-            view.initAvatar(imageRounded);
+            mView.initAvatar(imageRounded);
         } else {
-            Bitmap bitmap = BitmapFactory.decodeResource(((Context)view).getResources(), R.drawable.avatar);
-            view.initAvatar(bitmap);
+            Bitmap bitmap = BitmapFactory.decodeResource(((Context)mView).getResources(), R.drawable.avatar);
+            mView.initAvatar(bitmap);
         }
     }
 
     @Override
-    public void initData(LoginResultEntity.UserEntity userEntity) {
-        view.initData(userEntity);
+    public void initData(LoginResponse.UserEntity userEntity) {
+        mView.initData(userEntity);
     }
 
     @Override
     public void takePhotoOutput(int type, int imageType) {
-        wireframe.goToCamera((Activity)view, type, imageType);
+        mWireframe.goToCamera((Activity)mView, type, imageType);
     }
 
     @Override
@@ -144,42 +143,42 @@ public class ProfilePresenter implements ProfileInterface.Presenter, ProfileInte
         mpaint.setAntiAlias(true);
         mpaint.setShader(new BitmapShader(img, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
         canvas.drawRoundRect((new RectF(0, 0, img.getWidth(), img.getHeight())), img.getWidth() / 2, img.getHeight() / 2, mpaint);
-        view.updateImage(imageType, imageRounded);
+        mView.updateImage(imageType, imageRounded);
     }
 
     @Override
     public void updateImageFailed(String err) {
-        view.updateImageFailed(err);
+        mView.updateImageFailed(err);
     }
 
     @Override
     public void goToUpdateProfileOutput() {
-        wireframe.goToUpdateProfile((Activity)view);
+        mWireframe.goToUpdateProfile((Activity)mView);
     }
 
     @Override
     public void goToUpdateJobOutput() {
-        wireframe.goToUpdateJob((Activity)view);
+        mWireframe.goToUpdateJob((Activity)mView);
     }
 
     @Override
     public void goToUpdateFamilyOutput() {
-        wireframe.goToUpdateFamily((Activity)view);
+        mWireframe.goToUpdateFamily((Activity)mView);
     }
 
     @Override
     public void goToUpdateSocialNetworkOutput() {
-        wireframe.goToUpdateSocialNetwork((Activity)view);
+        mWireframe.goToUpdateSocialNetwork((Activity)mView);
     }
 
     @Override
     public void goToUpdatePapersOutput() {
-        wireframe.goToUpdatePapers((Activity)view);
+        mWireframe.goToUpdatePapers((Activity)mView);
     }
 
     @Override
     public void runAnimationLogo(ImageView view) {
-        Animation anim = AnimationUtils.loadAnimation((Context) this.view, R.anim.scale_logo);
+        Animation anim = AnimationUtils.loadAnimation((Context) this.mView, R.anim.scale_logo);
         view.startAnimation(anim);
     }
 

@@ -37,7 +37,7 @@ import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Common.MYPickerDialog;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Presenter.UpdateProfilePresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -130,7 +130,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         btUpdate.setOnClickListener(this);
 
         initDatePicker();
-        initSex();
+        setupDropdownSex();
     }
 
     @Override
@@ -229,7 +229,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         presenter.initData();
     }
 
-    private void initSex() {
+    private void setupDropdownSex() {
         ArrayAdapter<String> adapterSex = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Constant.ARRAY_SEX);
         adapterSex.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spSex.setAdapter(adapterSex);
@@ -302,15 +302,15 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void initDataSuccess(UpdateProfileEntity updateProfileEntity) {
-        if(updateProfileEntity != null) {
-            etName.setText(updateProfileEntity.getFullname());
-            tvBirthDay.setText(updateProfileEntity.getDateOfBirth());
-            spSex.setSelection(updateProfileEntity.getSex() - 1);
-            etCMND.setText(updateProfileEntity.getIdNumber());
-            etAddress.setText(updateProfileEntity.getAddress());
-            etAccount.setText(updateProfileEntity.getBankAccNumber());
-            tvCardTurm.setText(updateProfileEntity.getCardTerm());
+    public void initDataSuccess(ProfileRequest profileRequest) {
+        if(profileRequest != null) {
+            etName.setText(profileRequest.getFullname());
+            tvBirthDay.setText(profileRequest.getDateOfBirth());
+            spSex.setSelection(profileRequest.getSex() - 1);
+            etCMND.setText(profileRequest.getIdNumber());
+            etAddress.setText(profileRequest.getAddress());
+            etAccount.setText(profileRequest.getBankAccNumber());
+            tvCardTurm.setText(profileRequest.getCardTerm());
         }
     }
 

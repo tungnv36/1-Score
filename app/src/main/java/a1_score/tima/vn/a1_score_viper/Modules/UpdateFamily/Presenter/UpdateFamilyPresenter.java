@@ -12,52 +12,70 @@ import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Wireframe.UpdateFami
 
 public class UpdateFamilyPresenter implements UpdateFamilyInterface.Presenter, UpdateFamilyInterface.InteractorOutput {
 
-    private UpdateFamilyInterface.View view;
-    private UpdateFamilyInterface.InteractorInput interactorInput;
-    private UpdateFamilyInterface.Wireframe wireframe;
+    private UpdateFamilyInterface.View mView;
+    private UpdateFamilyInterface.InteractorInput mInteractorInput;
+    private UpdateFamilyInterface.Wireframe mWireframe;
 
     public UpdateFamilyPresenter(UpdateFamilyInterface.View view) {
-        this.view = view;
-        interactorInput = new UpdateFamilyInteractor(this);
-        wireframe = new UpdateFamilyWireframe();
+        mView = view;
+        mInteractorInput = new UpdateFamilyInteractor(view, this);
+        mWireframe = new UpdateFamilyWireframe();
+    }
+
+    @Override
+    public void initImage(int type, String name) {
+        mInteractorInput.initImage(type, name);
     }
 
     @Override
     public void takePhoto(int type, int imageType) {
-        interactorInput.takePhoto(type, imageType);
+        mInteractorInput.takePhoto(type, imageType);
     }
 
     @Override
-    public void updateImage(int type, int imageType, String filePath) {
-        interactorInput.updateImage(type, imageType, filePath);
+    public void updateImage(int type, int imageType, String filePath, String fileName) {
+        mInteractorInput.updateImage(type, imageType, filePath, fileName);
+    }
+
+    @Override
+    public void updateFamily(boolean isFamily, String nameVC, String phoneVC, String numberOfSon, int mrId, int sbcId, int scId) {
+
     }
 
     @Override
     public void onDestroy() {
-        view = null;
-        interactorInput.unRegister();
-        interactorInput = null;
+        mView = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
     }
 
     @Override
     public void takePhotoOutput(int type, int imageType) {
-        wireframe.gotoCamera((Activity)view, type, imageType);
+        mWireframe.gotoCamera((Activity)mView, type, imageType);
+    }
+
+    @Override
+    public void initImageOutput(int type, Bitmap bitmap) {
+        mView.initImage(type, bitmap);
     }
 
     @Override
     public void updateImageOutput(int type, int imageType, Bitmap img) {
-        Bitmap bmp = Commons.rotateImage(img, 90);
-        List<Integer> lstCameraSize = Commons.getCropSize((Activity)view, type, bmp);
-        if(lstCameraSize != null) {
-            Bitmap cropBmp = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
-            view.updateImage(imageType, cropBmp);
-        } else {
-            view.updateImage(imageType, bmp);
-        }
+        mView.updateImage(imageType, img);
     }
 
     @Override
     public void updateImageFailed(String err) {
-        view.updateImageFailed(err);
+        mView.updateImageFailed(err);
+    }
+
+    @Override
+    public void updateFamilySuccess(String msg) {
+
+    }
+
+    @Override
+    public void updateFamilyFailed(String err) {
+
     }
 }

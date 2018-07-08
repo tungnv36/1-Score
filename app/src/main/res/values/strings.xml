@@ -38,8 +38,9 @@
     <string name="add_photo">Thêm ảnh</string>
     <string name="phone_number">tel:1900633688</string>
     <string name="person_info">Thông tin cá nhân</string>
-    <string name="family_info">Thông tin gia đình</string>
+    <string name="family_info">Thông tin vợ chồng</string>
     <string name="bank_info">Thông tin ngân hàng</string>
+    <string name="member_family_info">Thông tin gia đình</string>
     <string name="job_info">Thông tin nghề nghiệp</string>
     <string name="colleague_info">Thông tin đồng nghiệp</string>
     <string name="social_network_info">Thông tin mạng xã hội</string>
@@ -83,7 +84,7 @@
     <string name="title_company_name">Tên công ty</string>
     <string name="title_company_address">Địa chỉ công ty</string>
     <string name="title_position">Vị trí</string>
-    <string name="title_son">Mức lương</string>
+    <string name="title_son">Bạn có bao nhiêu con?</string>
     <string name="title_linkedin">Linkedin</string>
     <string name="title_colleague_name">Họ tên đồng nghiệp</string>
     <string name="title_colleague_phone">Số điện thoại đồng nghiệp</string>
@@ -130,6 +131,10 @@
     <string name="err_company_address_empty">Bạn chưa nhập địa chỉ công ty</string>
     <string name="err_company_colleague_empty">Bạn chưa thêm đồng nghiệp</string>
     <string name="err_internet_connection">Không có kết nối mạng\nVui lòng kích hoạt wifi hoặc 3G</string>
+    <string name="err_old_phone_empty">Bạn chưa nhập số điện thoại cũ</string>
+    <string name="err_new_phone_empty">Bạn chưa nhập số điện thoại mới</string>
+
+    <string name="msg_register_success">Đăng ký thành công!</string>
 
     <string name="des_otp">Vui lòng nhập OTP để xác nhận</string>
     <string name="info_expired">Có thông tin đã hết hạn</string>
@@ -145,4 +150,6 @@
     <string name="q_logout">Bạn có chắc chắn muốn thoát ứng dụng?</string>
 
     <string name="font_segoe">fonts/Segoe UI.ttf</string>
+
+    <string name="facebook_app_id">1700484340071163</string>
 </resources>

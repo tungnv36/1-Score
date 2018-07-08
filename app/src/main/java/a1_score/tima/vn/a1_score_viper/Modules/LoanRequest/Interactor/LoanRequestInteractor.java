@@ -11,45 +11,45 @@ import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequest
 
 public class LoanRequestInteractor implements LoanRequestInterface.InteractorInput {
 
-    private LoanRequestInterface.InteractorOutput presenter;
+    private LoanRequestInterface.InteractorOutput mPresenter;
 
     public LoanRequestInteractor(LoanRequestInterface.InteractorOutput presenter) {
-        this.presenter = presenter;
+        this.mPresenter = presenter;
     }
 
     @Override
     public void goToLoanRegistration() {
-        presenter.goToLoanRegistrationOutput();
+        mPresenter.goToLoanRegistrationOutput();
     }
 
     @Override
     public void initAnimationLogo(ImageView view) {
-        presenter.runAnimationLogo(view);
+        mPresenter.runAnimationLogo(view);
     }
 
     @Override
     public void setupAnimationProgress(ProgressBar progress, int start, int end) {
-        presenter.runAnimationProgress(progress, start, end);
+        mPresenter.runAnimationProgress(progress, start, end);
     }
 
     @Override
     public void openOrCloseInfo(Context context, RelativeLayout view, Button button, boolean isOpen, int position) {
-        presenter.openOrCloseInfoOutput(context, view, button, isOpen, position);
+        mPresenter.openOrCloseInfoOutput(context, view, button, isOpen, position);
     }
 
     @Override
     public void setupAnimationItem(Context context, View view) {
-        presenter.runAnimationItem(context, view);
+        mPresenter.runAnimationItem(context, view);
     }
 
     @Override
     public void setupAnimationItemOpenOrClose(Context context, View view, boolean isOpen) {
-        presenter.runAnimationItemOpenOrClose(context, view, isOpen);
+        mPresenter.runAnimationItemOpenOrClose(context, view, isOpen);
     }
 
     @Override
     public void unRegister() {
-        presenter = null;
+        mPresenter = null;
     }
 
 }

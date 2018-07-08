@@ -18,11 +18,10 @@ import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
-import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -31,45 +30,45 @@ import retrofit2.Response;
 
 public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileInterface.DataStore {
 
-    private UpdateProfileInterface.View view;
+    private UpdateProfileInterface.View mView;
 
-    public static UpdateProfileDataStore mInstance;
+    public static UpdateProfileDataStore sInstance;
     private static SQliteDatabase sQliteDatabase;
 
     public static UpdateProfileDataStore getInstance(UpdateProfileInterface.View view) {
-        if (mInstance == null) {
+        if (sInstance == null) {
             initApi();
             sQliteDatabase = SQliteDatabase.getInstance((Context)view);
-            mInstance = new UpdateProfileDataStore(view);
+            sInstance = new UpdateProfileDataStore(view);
         }
-        return mInstance;
+        return sInstance;
     }
 
     private UpdateProfileDataStore(UpdateProfileInterface.View view) {
-        this.view = view;
+        mView = view;
     }
 
     @Override
     public String getUser() {
-        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("username", "");
     }
 
     @Override
     public String getFullName() {
-        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("fullname", "");
     }
 
     @Override
     public String getToken() {
-        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("token", "");
     }
 
     @Override
     public void updateFullName(String fullname) {
-        SharedPreferences.Editor editor = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE).edit();
         editor.putString("fullname", fullname);
         editor.apply();
         sQliteDatabase.updateFullName(getUser(), fullname);
@@ -81,7 +80,7 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
     }
 
     @Override
-    public UpdateProfileEntity getData(String userName) {
+    public ProfileRequest getData(String userName) {
         return sQliteDatabase.getProfileByPhone(userName);
     }
 
@@ -107,19 +106,19 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
     }
 
     @Override
-    public void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
-        sQliteDatabase.addImage(uploadImageResultEntity, imageName, username, type);
+    public void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type) {
+        sQliteDatabase.addImage(imageProfileResponse, imageName, username, type);
     }
 
     @Override
-    public void saveProfileToDB(UpdateProfileEntity updateProfileEntity) {
-        sQliteDatabase.addProfile(updateProfileEntity);
+    public void saveProfileToDB(ProfileRequest profileRequest) {
+        sQliteDatabase.addProfile(profileRequest);
     }
 
     @Override
-    public void uploadImage(final OnResponse<String, UploadImageResultEntity> m_Response, String token, UploadImageEntity uploadImageEntity) {
+    public void uploadImage(final OnResponse<String, ImageProfileResponse> m_Response, String token, ImageProfileRequest imageProfileRequest) {
         m_Response.onStart();
-        Call<ResponseBody> call = m_Service.uploadImage(token, uploadImageEntity);
+        Call<ResponseBody> call = m_Service.uploadImage(token, imageProfileRequest);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -129,8 +128,8 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
                         try {
                             final GsonBuilder gsonBuilder = new GsonBuilder();
                             final Gson gson = gsonBuilder.create();
-                            UploadImageResultEntity uploadImageResultEntity = gson.fromJson(jsonObject.toString(), UploadImageResultEntity.class);
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), uploadImageResultEntity);
+                            ImageProfileResponse imageProfileResponse = gson.fromJson(jsonObject.toString(), ImageProfileResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), imageProfileResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
@@ -153,9 +152,9 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
     }
 
     @Override
-    public void updateProfile(final OnResponse<String, UpdateProfileResultEntity> m_Response, String token, UpdateProfileEntity updateProfileEntity) {
+    public void updateProfile(final OnResponse<String, ProfileResponse> m_Response, String token, ProfileRequest profileRequest) {
         m_Response.onStart();
-        Call<ResponseBody> call = m_Service.updateProfile(token, updateProfileEntity);
+        Call<ResponseBody> call = m_Service.updateProfile(token, profileRequest);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -165,8 +164,8 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
                         try {
                             final GsonBuilder gsonBuilder = new GsonBuilder();
                             final Gson gson = gsonBuilder.create();
-                            UpdateProfileResultEntity updateProfileResultEntity = gson.fromJson(jsonObject.toString(), UpdateProfileResultEntity.class);
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), updateProfileResultEntity);
+                            ProfileResponse profileResponse = gson.fromJson(jsonObject.toString(), ProfileResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), profileResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);

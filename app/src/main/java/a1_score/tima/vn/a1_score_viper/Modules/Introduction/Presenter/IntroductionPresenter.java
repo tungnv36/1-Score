@@ -8,52 +8,52 @@ import a1_score.tima.vn.a1_score_viper.Modules.Introduction.Wireframe.Introducti
 
 public class IntroductionPresenter implements IntroductionInterface.Presenter, IntroductionInterface.InteractorOutput {
 
-    private IntroductionInterface.InteractorInput introInteractor;
-    private IntroductionInterface.View introView;
-    private IntroductionInterface.Wireframe introWireframe;
+    private IntroductionInterface.InteractorInput mInteractorInput;
+    private IntroductionInterface.View mView;
+    private IntroductionInterface.Wireframe mWireframe;
 
-    public IntroductionPresenter(IntroductionInterface.View introView) {
-        introInteractor = new IntroductionInteractor(this, introView);
-        introWireframe = new IntroductionWireframe();
-        this.introView = introView;
+    public IntroductionPresenter(IntroductionInterface.View view) {
+        mInteractorInput = new IntroductionInteractor(this, view);
+        mWireframe = new IntroductionWireframe();
+        mView = view;
     }
 
     @Override
     public void nextPagePresenter(int currentPage, int countPage) {
-        introInteractor.nextPage(currentPage, countPage);
+        mInteractorInput.nextPage(currentPage, countPage);
     }
 
     @Override
     public void backPagePresenter(int currentPage) {
-        introInteractor.backPage(currentPage);
+        mInteractorInput.backPage(currentPage);
     }
 
     @Override
     public void checkFirstLaunch() {
-        introInteractor.checkFirstLaunch();
+        mInteractorInput.checkFirstLaunch();
     }
 
     @Override
     public void onDestroy() {
-        introInteractor.unRegister();
-        introInteractor = null;
-        introWireframe = null;
+        mInteractorInput.unRegister();
+        mInteractorInput = null;
+        mWireframe = null;
     }
 
     @Override
     public void nextPageOutput(int page) {
-        introView.setPage(page);
+        mView.setPage(page);
     }
 
     @Override
     public void backPageOutput(int page) {
-        introView.setPage(page);
+        mView.setPage(page);
     }
 
     @Override
     public void launchMainScreen() {
-        introWireframe.goToMainView((Activity) introView);
-        introView.finishView();
+        mWireframe.goToMainView((Activity) mView);
+        mView.finishView();
     }
 
 }

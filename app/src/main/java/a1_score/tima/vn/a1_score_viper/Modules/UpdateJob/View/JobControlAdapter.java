@@ -10,20 +10,20 @@ import android.widget.EditText;
 
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class JobControlAdapter extends RecyclerView.Adapter<JobControlAdapter.ProfileViewHolder> {
 
-    private List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities;
-    private Context context;
+    private List<ColleagueRequest.ColleagueEntity> mColleagueList;
+    private Context mContext;
 //    private ProfileInterface.Presenter presenter;
 
-    public JobControlAdapter(Context context, List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities) {
-        this.colleagueEntities = colleagueEntities;
-        this.context = context;
+    public JobControlAdapter(Context context, List<ColleagueRequest.ColleagueEntity> colleagueList) {
+        mColleagueList = colleagueList;
+        mContext = context;
 //        this.presenter = presenter;
     }
 
@@ -36,14 +36,14 @@ public class JobControlAdapter extends RecyclerView.Adapter<JobControlAdapter.Pr
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, final int position) {
-        final UpdateColleagueEntity.ColleagueEntity colleagueEntity= colleagueEntities.get(position);
+        final ColleagueRequest.ColleagueEntity colleagueEntity= mColleagueList.get(position);
         holder.etColleagueName.setText(colleagueEntity.getColleagueName());
         holder.etColleaguePhone.setText(colleagueEntity.getColleaguePhone());
     }
 
     @Override
     public int getItemCount() {
-        return colleagueEntities == null ? 0 : colleagueEntities.size();
+        return mColleagueList == null ? 0 : mColleagueList.size();
     }
 
     public class ProfileViewHolder extends RecyclerView.ViewHolder {

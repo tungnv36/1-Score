@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
-import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpResultEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.Otp.Interface.OtpInterface;
 import okhttp3.ResponseBody;
@@ -18,26 +18,26 @@ import retrofit2.Response;
 
 public class OtpDataStore extends ApiRequest implements OtpInterface.DataStore {
 
-    private OtpInterface.View view;
+    private OtpInterface.View mView;
 
-    public static OtpDataStore mInstance;
+    private static OtpDataStore sInstance;
 
     public static OtpDataStore getInstance(OtpInterface.View view) {
-        if (mInstance == null) {
+        if (sInstance == null) {
             initApi();
-            mInstance = new OtpDataStore(view);
+            sInstance = new OtpDataStore(view);
         }
-        return mInstance;
+        return sInstance;
     }
 
     private OtpDataStore(OtpInterface.View view) {
-        this.view = view;
+        mView = view;
     }
 
     @Override
-    public void compareOtp(final OnResponse<String, OtpResultEntity> m_Response, OtpEntity otpEntity) {
+    public void compareOtp(final OnResponse<String, OtpResultEntity> m_Response, OtpRequest otpRequest) {
         m_Response.onStart();
-        Call<ResponseBody> call = m_Service.callCompareOtp(otpEntity);
+        Call<ResponseBody> call = m_Service.callCompareOtp(otpRequest);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

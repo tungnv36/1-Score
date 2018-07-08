@@ -13,7 +13,7 @@ import android.graphics.Shader;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UpdateProfileEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interactor.UpdateProfileInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Wireframe.UpdateProfileWireframe;
@@ -69,8 +69,8 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
     }
 
     @Override
-    public void initDataOutput(UpdateProfileEntity updateProfileEntity) {
-        view.initDataSuccess(updateProfileEntity);
+    public void initDataOutput(ProfileRequest profileRequest) {
+        view.initDataSuccess(profileRequest);
     }
 
     @Override

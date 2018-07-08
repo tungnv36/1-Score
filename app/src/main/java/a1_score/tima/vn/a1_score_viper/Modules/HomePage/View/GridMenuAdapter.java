@@ -17,34 +17,34 @@ import a1_score.tima.vn.a1_score_viper.R;
 
 public class GridMenuAdapter extends BaseAdapter {
 
-    private List<MenuEntity> cityList;
-    private int heightScreen;
+    private List<MenuEntity> mCityList;
+    private int mHeightScreen;
 
     public GridMenuAdapter(List<MenuEntity> cityList, int heightScreen) {
-        this.cityList = cityList;
-        this.heightScreen = heightScreen;
+        mCityList = cityList;
+        mHeightScreen = heightScreen;
     }
 
     @Override
     public int getCount() {
-        return cityList == null ? 0 : cityList.size();
+        return mCityList == null ? 0 : mCityList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return cityList.get(position);
+        return mCityList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return cityList.get(position).getId();
+        return mCityList.get(position).getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_main_menu, null);
-            convertView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, heightScreen));//(int)(heightScreen / 5)
+            convertView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mHeightScreen));//(int)(heightScreen / 5)
         }
 
         ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
@@ -54,9 +54,9 @@ public class GridMenuAdapter extends BaseAdapter {
         tvTitle.setTypeface(Commons.setFont(parent.getContext(), parent.getContext().getResources().getString(R.string.font_segoe)), Typeface.BOLD);
         tvScore.setTypeface(Commons.setFont(parent.getContext(), parent.getContext().getResources().getString(R.string.font_segoe)));
 
-        ivIcon.setImageResource(cityList.get(position).getIcon());
-        tvTitle.setText(cityList.get(position).getTitle());
-        tvScore.setText(cityList.get(position).getScore());
+        ivIcon.setImageResource(mCityList.get(position).getIcon());
+        tvTitle.setText(mCityList.get(position).getTitle());
+        tvScore.setText(mCityList.get(position).getScore());
 
         return convertView;
     }

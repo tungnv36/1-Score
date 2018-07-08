@@ -46,10 +46,10 @@ public class SettingView extends AppCompatActivity implements SettingInterface.V
     @BindView(R.id.rvMenu)
     RecyclerView rvMenu;
 
-    private List<SettingEntity> arrSetting = new ArrayList<>();
-    private SettingAdapter settingAdapter = null;
+    private List<SettingEntity> mSettingList = new ArrayList<>();
+    private SettingAdapter mSettingAdapter = null;
 
-    private SettingInterface.Presenter presenter;
+    private SettingInterface.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class SettingView extends AppCompatActivity implements SettingInterface.V
         getSupportActionBar().hide();
         changeStatusBarColor();
 
-        presenter = new SettingPresenter(this);
+        mPresenter = new SettingPresenter(this);
         initMenu();
         ibBack.setOnClickListener(this);
     }
@@ -67,18 +67,18 @@ public class SettingView extends AppCompatActivity implements SettingInterface.V
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
-        presenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
     }
 
     void initMenu() {
-        arrSetting.add(new SettingEntity(R.mipmap.ic_change_pass, getString(R.string.change_pass)));
-        arrSetting.add(new SettingEntity(R.mipmap.ic_change_phone, getString(R.string.change_phone)));
-        arrSetting.add(new SettingEntity(R.mipmap.ic_logout, getString(R.string.logout)));
+        mSettingList.add(new SettingEntity(R.mipmap.ic_change_pass, getString(R.string.change_pass)));
+        mSettingList.add(new SettingEntity(R.mipmap.ic_change_phone, getString(R.string.change_phone)));
+        mSettingList.add(new SettingEntity(R.mipmap.ic_logout, getString(R.string.logout)));
 
-        settingAdapter = new SettingAdapter(this, presenter, arrSetting);
+        mSettingAdapter = new SettingAdapter(this, mPresenter, mSettingList);
         Commons.setVerticalRecyclerView(this, rvMenu);
-        rvMenu.setAdapter(settingAdapter);
+        rvMenu.setAdapter(mSettingAdapter);
     }
 
     /**

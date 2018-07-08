@@ -18,11 +18,10 @@ import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
-import a1_score.tima.vn.a1_score_viper.Modules.HomePage.Interface.HomePageInterface;
-import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Profile.Interface.ProfileInterface;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,38 +29,38 @@ import retrofit2.Response;
 
 public class ProfileDataStore extends ApiRequest implements ProfileInterface.DataStore {
 
-    private ProfileInterface.View view;
+    private ProfileInterface.View mView;
 
-    public static ProfileDataStore mInstance;
+    public static ProfileDataStore sInstance;
     private static SQliteDatabase sQliteDatabase;
 
     public static ProfileDataStore getInstance(ProfileInterface.View view) {
-        if (mInstance == null) {
+        if (sInstance == null) {
             initApi();
             sQliteDatabase = SQliteDatabase.getInstance((Context)view);
-            mInstance = new ProfileDataStore(view);
+            sInstance = new ProfileDataStore(view);
         }
-        return mInstance;
+        return sInstance;
     }
 
     private ProfileDataStore(ProfileInterface.View view) {
-        this.view = view;
+        mView = view;
     }
 
     @Override
-    public LoginResultEntity.UserEntity getUser() {
+    public LoginResponse.UserEntity getUser() {
         return sQliteDatabase.getUser();
     }
 
     @Override
     public String getUserName() {
-        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("username", "");
     }
 
     @Override
     public String getToken() {
-        SharedPreferences pref = ((Context)view).getSharedPreferences(Constant.PREFS_NAME, ((Context)view).MODE_PRIVATE);
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("token", "");
     }
 
@@ -87,14 +86,14 @@ public class ProfileDataStore extends ApiRequest implements ProfileInterface.Dat
     }
 
     @Override
-    public void saveImageToDB(UploadImageResultEntity uploadImageResultEntity, String imageName, String username, String type) {
-        sQliteDatabase.addImage(uploadImageResultEntity, imageName, username, type);
+    public void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type) {
+        sQliteDatabase.addImage(imageProfileResponse, imageName, username, type);
     }
 
     @Override
-    public void uploadImage(final OnResponse<String, UploadImageResultEntity> m_Response, String token, UploadImageEntity uploadImageEntity) {
+    public void uploadImage(final OnResponse<String, ImageProfileResponse> m_Response, String token, ImageProfileRequest imageProfileRequest) {
         m_Response.onStart();
-        Call<ResponseBody> call = m_Service.uploadImage(token, uploadImageEntity);
+        Call<ResponseBody> call = m_Service.uploadImage(token, imageProfileRequest);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -104,8 +103,8 @@ public class ProfileDataStore extends ApiRequest implements ProfileInterface.Dat
                         try {
                             final GsonBuilder gsonBuilder = new GsonBuilder();
                             final Gson gson = gsonBuilder.create();
-                            UploadImageResultEntity uploadImageResultEntity = gson.fromJson(jsonObject.toString(), UploadImageResultEntity.class);
-                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), uploadImageResultEntity);
+                            ImageProfileResponse imageProfileResponse = gson.fromJson(jsonObject.toString(), ImageProfileResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), imageProfileResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);

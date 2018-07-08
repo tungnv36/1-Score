@@ -6,33 +6,32 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.DataStore.UpdateJobDataStore;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateColleagueResultEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.UpdateJobResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.UploadImageResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import a1_score.tima.vn.a1_score_viper.R;
 
 public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
 
-    private UpdateJobInterface.InteractorOutput interactorOutput;
-    private UpdateJobInterface.View view;
-    private UpdateJobInterface.DataStore dataStore;
+    private UpdateJobInterface.InteractorOutput mInteractorOutput;
+    private UpdateJobInterface.View mView;
+    private UpdateJobInterface.DataStore mDataStore;
 
-    public UpdateJobInteractor(UpdateJobInterface.View view, UpdateJobInterface.InteractorOutput interactorOutput) {
-        this.interactorOutput = interactorOutput;
-        this.view = view;
-        dataStore = UpdateJobDataStore.getInstance(view);
+    public UpdateJobInteractor(UpdateJobInterface.View view, UpdateJobInterface.InteractorOutput mInteractorOutput) {
+        this.mInteractorOutput = mInteractorOutput;
+        mView = view;
+        mDataStore = UpdateJobDataStore.getInstance(view);
     }
 
     @Override
@@ -41,11 +40,11 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
             File fImage = new File(
                     Environment.getExternalStorageDirectory()
                             + File.separator + Constant.ROOT_FOLDER + File.separator
-                            + Constant.PHOTO_FOLDER + File.separator + dataStore.getUser() + name + ".jpg");
+                            + Constant.PHOTO_FOLDER + File.separator + mDataStore.getUser() + name + ".jpg");
             if (fImage.exists()) {
                 Bitmap bitmap = BitmapFactory.decodeFile(fImage.getPath());
                 if (bitmap != null) {
-                    interactorOutput.initImageOutput(type, bitmap);
+                    mInteractorOutput.initImageOutput(type, bitmap);
                 }
             }
         } catch (Exception ex) {
@@ -55,19 +54,19 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
 
     @Override
     public void getJobDictionary() {
-        if(dataStore.checkJobsDicExist()) {
-            interactorOutput.getJobsOutput(dataStore.getJobsDic());
-            interactorOutput.getPositionsOutput(dataStore.getPositionsDic());
-            interactorOutput.getSalaryLevelOutput(dataStore.getSalariesDic());
+        if(mDataStore.checkJobsDicExist()) {
+            mInteractorOutput.getJobsOutput(mDataStore.getJobsDic());
+            mInteractorOutput.getPositionsOutput(mDataStore.getPositionsDic());
+            mInteractorOutput.getSalaryLevelOutput(mDataStore.getSalariesDic());
         } else {
-            dataStore.getJobDictionary(new OnResponse<String, JobDictionaryResultEntity>() {
+            mDataStore.getJobDictionary(new OnResponse<String, JobDictionaryResponse>() {
                 @Override
-                public void onResponseSuccess(String tag, String rs, JobDictionaryResultEntity extraData) {
+                public void onResponseSuccess(String tag, String rs, JobDictionaryResponse extraData) {
                     if(extraData != null && extraData.getStatuscode() == 200) {
-                        if(dataStore.updateJobDicToDB(extraData) > 0) {
-                            interactorOutput.getJobsOutput(dataStore.getJobsDic());
-                            interactorOutput.getPositionsOutput(dataStore.getPositionsDic());
-                            interactorOutput.getSalaryLevelOutput(dataStore.getSalariesDic());
+                        if(mDataStore.updateJobDicToDB(extraData) > 0) {
+                            mInteractorOutput.getJobsOutput(mDataStore.getJobsDic());
+                            mInteractorOutput.getPositionsOutput(mDataStore.getPositionsDic());
+                            mInteractorOutput.getSalaryLevelOutput(mDataStore.getSalariesDic());
                         }
                     }
                 }
@@ -76,13 +75,13 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
                 public void onResponseError(String tag, String message) {
 
                 }
-            }, dataStore.getToken());
+            }, mDataStore.getToken());
         }
     }
 
     @Override
     public void takePhoto(int type, int imageType) {
-        interactorOutput.takePhotoOutput(type, imageType);
+        mInteractorOutput.takePhotoOutput(type, imageType);
     }
 
     @Override
@@ -94,97 +93,97 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
 //            if(lstCameraSize != null) {
 //                final Bitmap bmpCrop = Bitmap.createBitmap(bitmap, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
 
-                UploadImageEntity uploadImageEntity = new UploadImageEntity(dataStore.getUser(), Commons.convertBitmapToBase64(bmp), "");
-                dataStore.uploadImage(new OnResponse<String, UploadImageResultEntity>() {
+                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(mDataStore.getUser(), Commons.convertBitmapToBase64(bmp), "");
+                mDataStore.uploadImage(new OnResponse<String, ImageProfileResponse>() {
                     @Override
-                    public void onResponseSuccess(String tag, String rs, UploadImageResultEntity extraData) {
+                    public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {
                         if (extraData != null && extraData.getStatuscode() == 200) {
-                            dataStore.saveImageToLocal(dataStore.getUser() + fileName + ".jpg", bmp);
-                            dataStore.saveImageToDB(extraData, fileName, dataStore.getUser(), getType(imageType));
-                            interactorOutput.updateImageOutput(type, imageType, bmp);
+                            mDataStore.saveImageToLocal(mDataStore.getUser() + fileName + ".jpg", bmp);
+                            mDataStore.saveImageToDB(extraData, fileName, mDataStore.getUser(), getType(imageType));
+                            mInteractorOutput.updateImageOutput(type, imageType, bmp);
                         } else {
-                            interactorOutput.updateImageFailed(rs);
+                            mInteractorOutput.updateImageFailed(rs);
                         }
                     }
 
                     @Override
                     public void onResponseError(String tag, String message) {
-                        interactorOutput.updateImageFailed(message);
+                        mInteractorOutput.updateImageFailed(message);
                     }
-                }, "Bearer " + dataStore.getToken(), uploadImageEntity);
+                }, "Bearer " + mDataStore.getToken(), imageProfileRequest);
 //            } else {
-//                interactorOutput.updateImageFailed("Lỗi xử lý ảnh");
+//                mInteractorOutput.updateImageFailed("Lỗi xử lý ảnh");
 //            }
         } else {
-            interactorOutput.updateImageFailed("Lỗi tải ảnh");
+            mInteractorOutput.updateImageFailed("Lỗi tải ảnh");
         }
     }
 
     @Override
-    public void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<UpdateColleagueEntity.ColleagueEntity> colleagueEntities) {
+    public void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueRequest.ColleagueEntity> colleagueEntities) {
         if(companyName.isEmpty()) {
-            interactorOutput.updateJobFailed(((Context)view).getString(R.string.err_company_name_empty));
+            mInteractorOutput.updateJobFailed(((Context)mView).getString(R.string.err_company_name_empty));
             return;
         }
         if(companyAddress.isEmpty()) {
-            interactorOutput.updateJobFailed(((Context)view).getString(R.string.err_company_address_empty));
+            mInteractorOutput.updateJobFailed(((Context)mView).getString(R.string.err_company_address_empty));
             return;
         }
         if(colleagueEntities.size() == 0) {
-            interactorOutput.updateJobFailed(((Context)view).getString(R.string.err_company_colleague_empty));
+            mInteractorOutput.updateJobFailed(((Context)mView).getString(R.string.err_company_colleague_empty));
             return;
         }
 
-        String username = dataStore.getUser();
+        String username = mDataStore.getUser();
 
-        final UpdateColleagueEntity updateColleagueEntity = new UpdateColleagueEntity();
-        updateColleagueEntity.setUsername(dataStore.getUser());
-        updateColleagueEntity.setColleague(colleagueEntities);
+        final ColleagueRequest colleagueRequest = new ColleagueRequest();
+        colleagueRequest.setUsername(mDataStore.getUser());
+        colleagueRequest.setColleagues(colleagueEntities);
 
-        UpdateJobEntity updateJobEntity = new UpdateJobEntity();
-        updateJobEntity.setJobId(jobID);
-        updateJobEntity.setCompanyName(companyName);
-        updateJobEntity.setCompanyAddress(companyAddress);
-        updateJobEntity.setPositionId(positionID);
-        updateJobEntity.setSalaryId(positionID);
-        updateJobEntity.setUsername(username);
-        updateJobEntity.setCvId(dataStore.getImageID(username, getType(1)));
-        updateJobEntity.setContractId(dataStore.getImageID(username, getType(2)));
-        updateJobEntity.setSalaryId(dataStore.getImageID(username, getType(3)));
+        JobRequest jobRequest = new JobRequest();
+        jobRequest.setJobId(jobID);
+        jobRequest.setCompanyName(companyName);
+        jobRequest.setCompanyAddress(companyAddress);
+        jobRequest.setPositionId(positionID);
+        jobRequest.setSalaryId(positionID);
+        jobRequest.setUsername(username);
+        jobRequest.setCvId(mDataStore.getImageID(username, getType(1)));
+        jobRequest.setContractId(mDataStore.getImageID(username, getType(2)));
+        jobRequest.setSalaryId(mDataStore.getImageID(username, getType(3)));
 
-        dataStore.updateJob(new OnResponse<String, UpdateJobResultEntity>() {
+        mDataStore.updateJob(new OnResponse<String, JobResponse>() {
             @Override
-            public void onResponseSuccess(String tag, String rs, UpdateJobResultEntity extraData) {
+            public void onResponseSuccess(String tag, String rs, JobResponse extraData) {
                 if(extraData != null && extraData.getStatuscode() == 200) {
-                    dataStore.addJob(extraData.getJob());
-                    dataStore.updateColleague(new OnResponse<String, UpdateColleagueResultEntity>() {
+                    mDataStore.addJob(extraData.getJob());
+                    mDataStore.updateColleague(new OnResponse<String, ColleagueResponse>() {
                         @Override
-                        public void onResponseSuccess(String tag, String rs, UpdateColleagueResultEntity extraData) {
+                        public void onResponseSuccess(String tag, String rs, ColleagueResponse extraData) {
                             if(extraData != null && extraData.getStatuscode() == 200) {
-                                for (UpdateColleagueResultEntity.ColleagueEntity colleagueEntity : extraData.getColleague()) {
-                                    dataStore.addColleague(extraData.getUsername(), colleagueEntity);
+                                for (ColleagueResponse.ColleagueEntity colleagueEntity : extraData.getColleagues()) {
+                                    mDataStore.addColleague(extraData.getUsername(), colleagueEntity);
                                 }
-                                interactorOutput.updateJobSuccess(extraData.getMessage());
+                                mInteractorOutput.updateJobSuccess(extraData.getMessage());
                             } else {
-                                interactorOutput.updateJobFailed(extraData.getMessage());
+                                mInteractorOutput.updateJobFailed(extraData.getMessage());
                             }
                         }
 
                         @Override
                         public void onResponseError(String tag, String message) {
-                            interactorOutput.updateJobFailed(message);
+                            mInteractorOutput.updateJobFailed(message);
                         }
-                    }, dataStore.getToken(), updateColleagueEntity);
+                    }, mDataStore.getToken(), colleagueRequest);
                 } else {
-                    interactorOutput.updateJobFailed(extraData.getMessage());
+                    mInteractorOutput.updateJobFailed(extraData.getMessage());
                 }
             }
 
             @Override
             public void onResponseError(String tag, String message) {
-                interactorOutput.updateJobFailed(message);
+                mInteractorOutput.updateJobFailed(message);
             }
-        }, dataStore.getToken(), updateJobEntity);
+        }, mDataStore.getToken(), jobRequest);
     }
 
     private String getType(int type) {
@@ -202,8 +201,8 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
 
     @Override
     public void unRegister() {
-        interactorOutput = null;
-        view = null;
-        dataStore = null;
+        mInteractorOutput = null;
+        mView = null;
+        mDataStore = null;
     }
 }

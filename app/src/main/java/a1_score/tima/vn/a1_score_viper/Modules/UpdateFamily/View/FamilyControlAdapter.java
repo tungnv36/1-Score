@@ -7,29 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.UpdateFamilyEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FamilyControlAdapter extends RecyclerView.Adapter<FamilyControlAdapter.ProfileViewHolder> {
 
-    private List<UpdateFamilyEntity> lstFamily;
-    private Context context;
+    private List<FamilyRequest> mFamilyList;
+    private Context mContext;
 //    private ProfileInterface.Presenter presenter;
 
-    public FamilyControlAdapter(Context context, List<UpdateFamilyEntity> lstFamily) {
-        this.lstFamily = lstFamily;
-        this.context = context;
+    public FamilyControlAdapter(Context context, List<FamilyRequest> familyList) {
+        mFamilyList = familyList;
+        mContext = context;
 //        this.presenter = presenter;
     }
 
@@ -44,14 +40,14 @@ public class FamilyControlAdapter extends RecyclerView.Adapter<FamilyControlAdap
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, final int position) {
-        final UpdateFamilyEntity updateFamilyEntity = lstFamily.get(position);
+        final FamilyRequest familyRequest = mFamilyList.get(position);
 
 
     }
 
     @Override
     public int getItemCount() {
-        return lstFamily == null ? 0 : lstFamily.size();
+        return mFamilyList == null ? 0 : mFamilyList.size();
     }
 
     public class ProfileViewHolder extends RecyclerView.ViewHolder {

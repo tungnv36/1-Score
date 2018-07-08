@@ -26,5 +26,6 @@ public class Constant {
     public final static String ACTION_CHANGE_PHONE_NUMBER = "CHANGE_PHONE_NUMBER";
 
     public final static String ARRAY_SEX[] = {"Nam", "Nữ", "Khác"};
+    public final static String ARRAY_NUMBER_SON[] = {"1 con", "2 con", "3 con", "4 con", "5 con", "6 con", "7 con"};
 }
 

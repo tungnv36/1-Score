@@ -6,9 +6,10 @@ import android.content.SharedPreferences;
 import a1_score.tima.vn.a1_score_viper.Modules.Introduction.Entity.IntroductionEntity;
 
 public class IntroductionDataStore {
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
-    Context _context;
+
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    private Context mContext;
 
     // shared pref mode
     int PRIVATE_MODE = 0;
@@ -19,17 +20,17 @@ public class IntroductionDataStore {
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
 
     public IntroductionDataStore(Context context) {
-        this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
-        editor = pref.edit();
+        this.mContext = context;
+        mSharedPreferences = mContext.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        mEditor = mSharedPreferences.edit();
     }
 
     public void setFirstTimeLaunch(IntroductionEntity introductionEntity) {
-        editor.putBoolean(IS_FIRST_TIME_LAUNCH, introductionEntity.isFirstTime());
-        editor.commit();
+        mEditor.putBoolean(IS_FIRST_TIME_LAUNCH, introductionEntity.isFirstTime());
+        mEditor.commit();
     }
 
     public boolean isFirstTimeLaunch() {
-        return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+        return mSharedPreferences.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 }

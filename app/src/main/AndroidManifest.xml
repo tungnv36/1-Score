@@ -187,7 +187,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Modules.ChangePasswordForgot.View.ChangePasswordForgotView"
+            android:name=".Modules.ResetPassword.View.ResetPasswordView"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -214,6 +214,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1234567890xxxx"
+            android:exported="true" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/label_pass" />
     </application>
 
 </manifest>

@@ -3,7 +3,7 @@ package a1_score.tima.vn.a1_score_viper.Modules.Setting.Interface;
 import android.app.Activity;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
-import a1_score.tima.vn.a1_score_viper.Modules.Setting.Entity.LogoutResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.Setting.Entity.LogoutResponseEntity;
 
 public interface SettingInterface {
     interface View {
@@ -35,7 +35,7 @@ public interface SettingInterface {
 
     interface DataStore {
         String getToken();
-        void logout(final OnResponse<String, LogoutResultEntity> m_Response, String token);
+        void logout(final OnResponse<String, LogoutResponseEntity> m_Response, String token);
     }
 
 }

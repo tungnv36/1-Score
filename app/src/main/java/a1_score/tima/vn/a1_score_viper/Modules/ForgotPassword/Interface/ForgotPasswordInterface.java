@@ -3,8 +3,8 @@ package a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Interface;
 import android.app.Activity;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
-import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordEntity;
-import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordResultEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordResponse;
 
 public interface ForgotPasswordInterface {
 
@@ -33,7 +33,7 @@ public interface ForgotPasswordInterface {
     }
 
     interface DataStore {
-        void sendOtp(final OnResponse<String, ForgotPasswordResultEntity> m_Response, ForgotPasswordEntity forgotPasswordEntity);
+        void sendOtp(final OnResponse<String, ForgotPasswordResponse> m_Response, ForgotPasswordRequest forgotPasswordRequest);
     }
 
 }

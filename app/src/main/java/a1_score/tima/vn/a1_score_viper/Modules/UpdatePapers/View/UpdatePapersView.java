@@ -1,23 +1,13 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.View;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -25,23 +15,16 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
-import a1_score.tima.vn.a1_score_viper.Modules.Camera.View.CameraView;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.UpdatePapersEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Interface.UpdatePapersInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Presenter.UpdatePapersPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -63,11 +46,11 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
     @BindView(R.id.btUpdate)
     Button btUpdate;
 
-    private List<UpdatePapersEntity> lstPapers;
-    private PhotoAdapter photoAdapter;
+    private List<PapersEntity> mPapersList;
+    private PhotoAdapter mPhotoAdapter;
 
-    private int posSelected = -1;
-    private UpdatePapersInterface.Presenter presenter;
+    private int mSelectedPosition = -1;
+    private UpdatePapersInterface.Presenter mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,25 +62,25 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
         styleView();
         initPapers();
 
-        presenter = new UpdatePapersPresenter(this);
+        mPresenter = new UpdatePapersPresenter(this);
     }
 
     private void initPapers() {
-        lstPapers = new ArrayList<>();
-        lstPapers.add(new UpdatePapersEntity(1, false, null, "Hộ khẩu", 2));
-        lstPapers.add(new UpdatePapersEntity(2, false, null, "Giấy tờ nhà đất", 2));
-        lstPapers.add(new UpdatePapersEntity(3, false, null, "Bảo hiểm y tế", 1));
-        lstPapers.add(new UpdatePapersEntity(4, false, null, "Hoá đơn điện nước", 2));
-        lstPapers.add(new UpdatePapersEntity(5, false, null, "Hoá đơn Internet", 2));
-        lstPapers.add(new UpdatePapersEntity(6, false, null, "Đăng ký ô tô (Mặt trước)", 1));
-        lstPapers.add(new UpdatePapersEntity(7, false, null, "Đăng ký ô tô (Mặt sau)", 1));
-        lstPapers.add(new UpdatePapersEntity(8, false, null, "Đăng ký xe máy (Mặt trước)", 1));
-        lstPapers.add(new UpdatePapersEntity(9, false, null, "Đăng ký xe máy (Mặt sau)", 1));
+        mPapersList = new ArrayList<>();
+        mPapersList.add(new PapersEntity(1, false, null, "Hộ khẩu", 2));
+        mPapersList.add(new PapersEntity(2, false, null, "Giấy tờ nhà đất", 2));
+        mPapersList.add(new PapersEntity(3, false, null, "Bảo hiểm y tế", 1));
+        mPapersList.add(new PapersEntity(4, false, null, "Hoá đơn điện nước", 2));
+        mPapersList.add(new PapersEntity(5, false, null, "Hoá đơn Internet", 2));
+        mPapersList.add(new PapersEntity(6, false, null, "Đăng ký ô tô (Mặt trước)", 1));
+        mPapersList.add(new PapersEntity(7, false, null, "Đăng ký ô tô (Mặt sau)", 1));
+        mPapersList.add(new PapersEntity(8, false, null, "Đăng ký xe máy (Mặt trước)", 1));
+        mPapersList.add(new PapersEntity(9, false, null, "Đăng ký xe máy (Mặt sau)", 1));
 
         int height = (int) (Commons.getDisplayMetrics(this).heightPixels / 5);
 
-        photoAdapter = new PhotoAdapter(lstPapers, height);
-        gvPhoto.setAdapter(photoAdapter);
+        mPhotoAdapter = new PhotoAdapter(mPapersList, height);
+        gvPhoto.setAdapter(mPhotoAdapter);
         gvPhoto.setOnItemClickListener(this);
     }
 
@@ -134,10 +117,10 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        posSelected = position;
+        mSelectedPosition = position;
         boolean result = Commons.checkPermission2(UpdatePapersView.this);
         if(result) {
-            presenter.takePhoto(lstPapers.get(position).getType());
+            mPresenter.takePhoto(mPapersList.get(position).getType());
         }
     }
 
@@ -145,7 +128,7 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case Commons.MY_CAMERA_REQUEST_CODE:
-                presenter.takePhoto(lstPapers.get(posSelected).getType());
+                mPresenter.takePhoto(mPapersList.get(mSelectedPosition).getType());
                 break;
         }
     }
@@ -156,16 +139,16 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
         if(requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
             if(data != null) {
                 String filePath = data.getStringExtra("result");
-                presenter.updateList(lstPapers.get(posSelected).getType(), posSelected, filePath);
+                mPresenter.updateList(mPapersList.get(mSelectedPosition).getType(), mSelectedPosition, filePath);
             }
         }
     }
 
     @Override
     public void updateList(int position, Bitmap img) {
-        lstPapers.get(posSelected).setImage(img);
-        lstPapers.get(posSelected).setShow(true);
-        photoAdapter.notifyDataSetChanged();
+        mPapersList.get(mSelectedPosition).setImage(img);
+        mPapersList.get(mSelectedPosition).setShow(true);
+        mPhotoAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -176,8 +159,8 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
-        presenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
     }
 
 }

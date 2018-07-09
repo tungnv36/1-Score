@@ -3,51 +3,65 @@ package a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity;
 import com.google.gson.annotations.SerializedName;
 
 public class FamilyRequest {
-    @SerializedName("id")
-    private int id;
-    @SerializedName("RelationshipID")
-    private int relationshipID;
-    @SerializedName("Name")
-    private String name;
-    @SerializedName("phone")
-    private String phone;
 
-    public FamilyRequest(int id, int relationshipID, String name, String phone) {
-        this.id = id;
-        this.relationshipID = relationshipID;
-        this.name = name;
-        this.phone = phone;
+    @SerializedName("children_number")
+    private int childrenNumber;
+    @SerializedName("marriage_registration_id")
+    private int marriageRegistrationId;
+    @SerializedName("family_phone")
+    private String familyPhone;
+    @SerializedName("family_name")
+    private String familyName;
+    @SerializedName("merriage_status")
+    private int merriageStatus;
+    @SerializedName("username")
+    private String username;
+
+    public int getChildrenNumber() {
+        return childrenNumber;
     }
 
-    public int getId() {
-        return id;
+    public void setChildrenNumber(int childrenNumber) {
+        this.childrenNumber = childrenNumber;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getMarriageRegistrationId() {
+        return marriageRegistrationId;
     }
 
-    public int getRelationshipID() {
-        return relationshipID;
+    public void setMarriageRegistrationId(int marriageRegistrationId) {
+        this.marriageRegistrationId = marriageRegistrationId;
     }
 
-    public void setRelationshipID(int relationshipID) {
-        this.relationshipID = relationshipID;
+    public String getFamilyPhone() {
+        return familyPhone;
     }
 
-    public String getName() {
-        return name;
+    public void setFamilyPhone(String familyPhone) {
+        this.familyPhone = familyPhone;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFamilyName() {
+        return familyName;
     }
 
-    public String getPhone() {
-        return phone;
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public int getMerriageStatus() {
+        return merriageStatus;
+    }
+
+    public void setMerriageStatus(int merriageStatus) {
+        this.merriageStatus = merriageStatus;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

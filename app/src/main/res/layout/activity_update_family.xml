@@ -143,6 +143,20 @@
                         android:orientation="horizontal">
 
                         <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.5">
+
+                            <TextView
+                                android:id="@+id/tvMarriageRegistrationLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/title_marriage_registration"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:id="@+id/rlMarriageRegistration"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -182,86 +196,86 @@
                             </LinearLayout>
                         </RelativeLayout>
 
-                        <RelativeLayout
-                            android:id="@+id/rlSonBirthCertificate"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/background_white_corner_border">
+                        <!--<RelativeLayout-->
+                            <!--android:id="@+id/rlSonBirthCertificate"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:layout_marginRight="5dp"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:background="@drawable/background_white_corner_border">-->
 
-                            <ImageView
-                                android:id="@+id/ivSonBirthCertificate"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:scaleType="fitCenter" />
+                            <!--<ImageView-->
+                                <!--android:id="@+id/ivSonBirthCertificate"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_margin="5dp"-->
+                                <!--android:scaleType="fitCenter" />-->
 
-                            <LinearLayout
-                                android:id="@+id/llSonBirthCertificate"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp">
+                            <!--<LinearLayout-->
+                                <!--android:id="@+id/llSonBirthCertificate"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:gravity="center"-->
+                                <!--android:orientation="vertical"-->
+                                <!--android:paddingBottom="10dp"-->
+                                <!--android:paddingTop="10dp">-->
 
-                                <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:scaleType="fitXY"
-                                    android:src="@mipmap/ic_add_circle" />
+                                <!--<ImageView-->
+                                    <!--android:layout_width="30dp"-->
+                                    <!--android:layout_height="30dp"-->
+                                    <!--android:layout_marginBottom="10dp"-->
+                                    <!--android:scaleType="fitXY"-->
+                                    <!--android:src="@mipmap/ic_add_circle" />-->
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginRight="5dp"
-                                    android:gravity="center"
-                                    android:text="@string/title_son_birth_certificate"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-                        </RelativeLayout>
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginLeft="5dp"-->
+                                    <!--android:layout_marginRight="5dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="@string/title_son_birth_certificate"-->
+                                    <!--android:textSize="12sp" />-->
+                            <!--</LinearLayout>-->
+                        <!--</RelativeLayout>-->
 
-                        <RelativeLayout
-                            android:id="@+id/rlStudentCard"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/background_white_corner_border">
+                        <!--<RelativeLayout-->
+                            <!--android:id="@+id/rlStudentCard"-->
+                            <!--android:layout_width="0dp"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:background="@drawable/background_white_corner_border">-->
 
-                            <ImageView
-                                android:id="@+id/ivStudentCard"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="5dp"
-                                android:scaleType="fitCenter" />
+                            <!--<ImageView-->
+                                <!--android:id="@+id/ivStudentCard"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_margin="5dp"-->
+                                <!--android:scaleType="fitCenter" />-->
 
-                            <LinearLayout
-                                android:id="@+id/llStudentCard"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp">
+                            <!--<LinearLayout-->
+                                <!--android:id="@+id/llStudentCard"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:gravity="center"-->
+                                <!--android:orientation="vertical"-->
+                                <!--android:paddingBottom="10dp"-->
+                                <!--android:paddingTop="10dp">-->
 
-                                <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:scaleType="fitXY"
-                                    android:src="@mipmap/ic_add_circle" />
+                                <!--<ImageView-->
+                                    <!--android:layout_width="30dp"-->
+                                    <!--android:layout_height="30dp"-->
+                                    <!--android:layout_marginBottom="10dp"-->
+                                    <!--android:scaleType="fitXY"-->
+                                    <!--android:src="@mipmap/ic_add_circle" />-->
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:text="@string/title_student_card"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-                        </RelativeLayout>
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="@string/title_student_card"-->
+                                    <!--android:textSize="12sp" />-->
+                            <!--</LinearLayout>-->
+                        <!--</RelativeLayout>-->
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -318,7 +332,9 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rvFamily"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true">
 
                     </android.support.v7.widget.RecyclerView>
 

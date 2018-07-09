@@ -22,6 +22,9 @@ public interface UpdateJobInterface {
         void initJobs(List<JobDictionaryResponse.JobsEntity> jobsEntities);
         void initPosition(List<JobDictionaryResponse.PositionsEntity> positionsEntities);
         void iniSalaryLevel(List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities);
+        void initJob(JobResponse.JobEntity jobEntity);
+        void initColleague(List<ColleagueResponse.ColleagueEntity> colleagueEntities);
+
         void updateImage(int imageType, Bitmap img);
         void updateImageFailed(String err);
         void updateJobSuccess(String msg);
@@ -32,6 +35,9 @@ public interface UpdateJobInterface {
         void initImage(int type, String name);
 
         void getJobDictionary();
+        void getJob();
+        void getColleague();
+
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
         void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueRequest.ColleagueEntity> colleagueEntities);
@@ -42,6 +48,8 @@ public interface UpdateJobInterface {
         void initImage(int type, String name);
 
         void getJobDictionary();
+        void getJob();
+        void getColleague();
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
         void updateJob(int jobID, String companyName, String companyAddress, int positionID, int salaryID, List<ColleagueRequest.ColleagueEntity> colleagueEntities);
@@ -55,6 +63,9 @@ public interface UpdateJobInterface {
         void getJobsOutput(List<JobDictionaryResponse.JobsEntity> jobsEntities);
         void getPositionsOutput(List<JobDictionaryResponse.PositionsEntity> positionsEntities);
         void getSalaryLevelOutput(List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities);
+        void initJobOutput(JobResponse.JobEntity jobEntity);
+        void initColleagueOutput(List<ColleagueResponse.ColleagueEntity> colleagueEntities);
+
         void takePhotoOutput(int type, int imageType);
         void updateImageOutput(int type, int imageType, Bitmap img);
         void updateImageFailed(String err);
@@ -75,6 +86,8 @@ public interface UpdateJobInterface {
         List<JobDictionaryResponse.JobsEntity> getJobsDic();
         List<JobDictionaryResponse.PositionsEntity> getPositionsDic();
         List<JobDictionaryResponse.SalaryLevelsEntity> getSalariesDic();
+        JobResponse.JobEntity getJob(String username);
+        List<ColleagueResponse.ColleagueEntity> getColleague(String username);
 
         void updateFullName(String fullname);
         void saveImageToLocal(String fineName, Bitmap bmp);

@@ -18,6 +18,8 @@ import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface.UpdateFamilyInterface;
@@ -134,8 +136,75 @@ public class UpdateFamilyDataStore extends ApiRequest implements UpdateFamilyInt
     }
 
     @Override
-    public void updateFamily(OnResponse<String, FamilyResponse> m_Response, String token, FamilyRequest familyRequest) {
+    public void updateFamily(final OnResponse<String, FamilyResponse> m_Response, String token, FamilyRequest familyRequest) {
+        m_Response.onStart();
+        Call<ResponseBody> call = m_Service.updateFamily(token, familyRequest);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        try {
+                            final GsonBuilder gsonBuilder = new GsonBuilder();
+                            final Gson gson = gsonBuilder.create();
+                            FamilyResponse familyResponse = gson.fromJson(jsonObject.toString(), FamilyResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), familyResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
+                        }
+                    } else {
+                        m_Response.onResponseError(TAG, String.valueOf(response.message()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                m_Response.onFinish();
+            }
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                m_Response.onResponseError(TAG, t.getMessage());
+                m_Response.onFinish();
+            }
+        });
+    }
+
+    @Override
+    public void updateFamilyMembers(final OnResponse<String, FamilyMembersResponse> m_Response, String token, FamilyMembersRequest familyMembersRequest) {
+        m_Response.onStart();
+        Call<ResponseBody> call = m_Service.updateFamilyMembers(token, familyMembersRequest);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        try {
+                            final GsonBuilder gsonBuilder = new GsonBuilder();
+                            final Gson gson = gsonBuilder.create();
+                            FamilyMembersResponse familyMembersResponse = gson.fromJson(jsonObject.toString(), FamilyMembersResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), familyMembersResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
+                        }
+                    } else {
+                        m_Response.onResponseError(TAG, String.valueOf(response.message()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                m_Response.onFinish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                m_Response.onResponseError(TAG, t.getMessage());
+                m_Response.onFinish();
+            }
+        });
     }
 
 }

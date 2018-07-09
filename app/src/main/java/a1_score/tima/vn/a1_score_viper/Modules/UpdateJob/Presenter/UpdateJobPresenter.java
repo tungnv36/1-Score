@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interactor.UpdateJobInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Wireframe.UpdateJobWireframe;
@@ -31,6 +33,16 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
     @Override
     public void getJobDictionary() {
         mInteractorInput.getJobDictionary();
+    }
+
+    @Override
+    public void getJob() {
+        mInteractorInput.getJob();
+    }
+
+    @Override
+    public void getColleague() {
+        mInteractorInput.getColleague();
     }
 
     @Override
@@ -73,6 +85,16 @@ public class UpdateJobPresenter implements UpdateJobInterface.Presenter, UpdateJ
     @Override
     public void getSalaryLevelOutput(List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities) {
         mView.iniSalaryLevel(salaryLevelsEntities);
+    }
+
+    @Override
+    public void initJobOutput(JobResponse.JobEntity jobEntity) {
+        mView.initJob(jobEntity);
+    }
+
+    @Override
+    public void initColleagueOutput(List<ColleagueResponse.ColleagueEntity> colleagueEntities) {
+        mView.initColleague(colleagueEntities);
     }
 
     @Override

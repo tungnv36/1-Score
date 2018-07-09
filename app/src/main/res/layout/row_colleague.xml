@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_bottom"
             android:hint="@string/title_colleague_phone"
-            android:inputType="textNoSuggestions"
+            android:inputType="phone"
             android:padding="10dp" />
 
     </android.support.design.widget.TextInputLayout>

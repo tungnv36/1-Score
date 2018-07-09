@@ -84,6 +84,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String KEY_JOB_USERNAME = "Username";
     private static final String KEY_JOB_JOB_ID = "JobId";
     private static final String KEY_JOB_COMPANY_NAME = "CompanyName";
+    private static final String KEY_JOB_COMPANY_ADDRESS = "CompanyAddress";
     private static final String KEY_JOB_POSITION_ID = "PositionId";
     private static final String KEY_JOB_SALARY_ID = "SalaryId";
     private static final String KEY_JOB_CV_ID = "CvId";
@@ -128,18 +129,19 @@ public class SQliteDatabase extends SQLiteOpenHelper {
                 TABLE_NAME_POSITIONS_DIC, KEY_POSITIONS_DIC_ID, KEY_POSITIONS_DIC_JOB_TYPE);
         String create_salaries_dic_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT)",
                 TABLE_NAME_SALARIES_DIC, KEY_SALARIES_DIC_ID, KEY_SALARIES_DIC_POSITION);
-        String create_job_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT, %s INTEGER, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER)",
+        String create_job_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT, %s INTEGER, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER)",
                 TABLE_NAME_JOB,
                 KEY_JOB_USERNAME,
                 KEY_JOB_JOB_ID,
                 KEY_JOB_COMPANY_NAME,
+                KEY_JOB_COMPANY_ADDRESS,
                 KEY_JOB_POSITION_ID,
                 KEY_JOB_SALARY_ID,
                 KEY_JOB_CV_ID,
                 KEY_JOB_CONTRACT_ID,
                 KEY_JOB_SALARY_BOARD_ID);
         String create_colleague_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT, %s TEXT, %s TEXT)",
-                TABLE_NAME_JOB,
+                TABLE_NAME_COLLEAGUE,
                 KEY_COLLEAGUE_USERNAME,
                 KEY_COLLEAGUE_NAME,
                 KEY_COLLEAGUE_PHONE);
@@ -487,6 +489,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         values.put(KEY_JOB_USERNAME, jobEntity.getUsername());
         values.put(KEY_JOB_JOB_ID, jobEntity.getJobid());
         values.put(KEY_JOB_COMPANY_NAME, jobEntity.getCompanyname());
+        values.put(KEY_JOB_COMPANY_ADDRESS, jobEntity.getCompanyAddress());
         values.put(KEY_JOB_POSITION_ID, jobEntity.getPositionid());
         values.put(KEY_JOB_SALARY_ID, jobEntity.getSalaryid());
         values.put(KEY_JOB_CV_ID, jobEntity.getCvid());
@@ -498,22 +501,22 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         return result;
     }
 
-    public void deleteAllJob() {
+    public void deleteJobByUsername(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME_JOB, null, null);
+        db.delete(TABLE_NAME_JOB, String.format("%s = ?", KEY_JOB_USERNAME), new String[]{username});
         db.close();
     }
 
-    public JobResponse.JobEntity getJob() {
+    public JobResponse.JobEntity getJob(String username) {
         JobResponse.JobEntity jobEntity = new JobResponse.JobEntity();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_JOB);
         Cursor cursor = db.rawQuery(countQuery, null);
         if(cursor.moveToFirst()) {
-            jobEntity.setCompanyname(cursor.getString(cursor.getColumnIndex(KEY_SALARIES_DIC_ID)));
             jobEntity.setUsername(cursor.getString(cursor.getColumnIndex(KEY_JOB_USERNAME)));
             jobEntity.setJobid(cursor.getInt(cursor.getColumnIndex(KEY_JOB_JOB_ID)));
             jobEntity.setCompanyname(cursor.getString(cursor.getColumnIndex(KEY_JOB_COMPANY_NAME)));
+            jobEntity.setCompanyAddress(cursor.getString(cursor.getColumnIndex(KEY_JOB_COMPANY_ADDRESS)));
             jobEntity.setPositionid(cursor.getInt(cursor.getColumnIndex(KEY_JOB_POSITION_ID)));
             jobEntity.setSalaryid(cursor.getInt(cursor.getColumnIndex(KEY_JOB_SALARY_ID)));
             jobEntity.setCvid(cursor.getInt(cursor.getColumnIndex(KEY_JOB_CV_ID)));
@@ -538,23 +541,27 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         return result;
     }
 
-    public void deleteAllColleague() {
+    public void deleteColleagueByUsername(String username, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME_COLLEAGUE, null, null);
+        db.delete(TABLE_NAME_COLLEAGUE, String.format("%s = ? AND %s = ?", KEY_JOB_USERNAME, KEY_COLLEAGUE_PHONE), new String[]{username, phone});
         db.close();
     }
 
-    public ColleagueResponse.ColleagueEntity getColleague() {
-        ColleagueResponse.ColleagueEntity colleagueEntity = new ColleagueResponse.ColleagueEntity();
+    public List<ColleagueResponse.ColleagueEntity> getColleague(String username) {
+        List<ColleagueResponse.ColleagueEntity> colleagueEntities = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_JOB);
+        String countQuery = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME_COLLEAGUE, KEY_COLLEAGUE_USERNAME, username);
         Cursor cursor = db.rawQuery(countQuery, null);
         if(cursor.moveToFirst()) {
-            colleagueEntity.setColleaguename(cursor.getString(cursor.getColumnIndex(KEY_COLLEAGUE_NAME)));
-            colleagueEntity.setColleaguephone(cursor.getString(cursor.getColumnIndex(KEY_COLLEAGUE_PHONE)));
+            do {
+                ColleagueResponse.ColleagueEntity colleagueEntity = new ColleagueResponse.ColleagueEntity();
+                colleagueEntity.setColleaguename(cursor.getString(cursor.getColumnIndex(KEY_COLLEAGUE_NAME)));
+                colleagueEntity.setColleaguephone(Commons.changePhone0(cursor.getString(cursor.getColumnIndex(KEY_COLLEAGUE_PHONE))));
+                colleagueEntities.add(colleagueEntity);
+            } while (cursor.moveToNext());
         }
         cursor.close();
-        return colleagueEntity;
+        return colleagueEntities;
     }
 
 }

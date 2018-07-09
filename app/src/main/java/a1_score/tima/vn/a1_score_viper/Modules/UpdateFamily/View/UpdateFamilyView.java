@@ -1,5 +1,6 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.View;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -31,6 +32,8 @@ import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface.UpdateFamilyInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Presenter.UpdateFamilyPresenter;
@@ -39,6 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UpdateFamilyView extends AppCompatActivity implements View.OnClickListener, UpdateFamilyInterface.View {
+
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
@@ -60,24 +64,16 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
     Spinner spSon;
     @BindView(R.id.llSon)
     LinearLayout llSon;
+    @BindView(R.id.tvMarriageRegistrationLabel)
+    TextView tvMarriageRegistrationLabel;
     @BindView(R.id.ivMarriageRegistration)
     ImageView ivMarriageRegistration;
     @BindView(R.id.llMarriageRegistration)
     LinearLayout llMarriageRegistration;
     @BindView(R.id.rlMarriageRegistration)
     RelativeLayout rlMarriageRegistration;
-    @BindView(R.id.ivSonBirthCertificate)
-    ImageView ivSonBirthCertificate;
-    @BindView(R.id.llSonBirthCertificate)
-    LinearLayout llSonBirthCertificate;
-    @BindView(R.id.rlSonBirthCertificate)
-    RelativeLayout rlSonBirthCertificate;
-    @BindView(R.id.ivStudentCard)
-    ImageView ivStudentCard;
-    @BindView(R.id.llStudentCard)
-    LinearLayout llStudentCard;
-    @BindView(R.id.rlStudentCard)
-    RelativeLayout rlStudentCard;
+    @BindView(R.id.llPaper)
+    LinearLayout llPaper;
     @BindView(R.id.llContent1)
     LinearLayout llContent1;
     @BindView(R.id.tvTitleBank)
@@ -94,13 +90,19 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
     LinearLayout llContent2;
     @BindView(R.id.btUpdate)
     Button btUpdate;
-    @BindView(R.id.llPaper)
-    LinearLayout llPaper;
-    
-    private List<FamilyRequest> mFamilyList;
+
+    private Dialog mDialog;
+    private ImageView ivBirthCertificate;
+    private ImageView ivStudyCard;
+
+    private List<FamilyMembersRequest> mFamilyList;
+    private List<Bitmap> mBirthCertificateList;
+    private List<Bitmap> mStudyCardList;
+    private List<Integer> mRelationshipIdList = new ArrayList<>();
     private FamilyControlAdapter mFamilyControlAdapter;
 
-    private String mFileName;
+    public static String sFileName;
+    public static int sPositionFamilySelected;
     private UpdateFamilyInterface.Presenter mPresenter;
 
     @Override
@@ -118,8 +120,9 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
 
         ibAdd.setOnClickListener(this);
         rlMarriageRegistration.setOnClickListener(this);
-        rlSonBirthCertificate.setOnClickListener(this);
-        rlStudentCard.setOnClickListener(this);
+        btUpdate.setOnClickListener(this);
+//        rlSonBirthCertificate.setOnClickListener(this);
+//        rlStudentCard.setOnClickListener(this);
 
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
@@ -138,16 +141,18 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
 
     private void setupFamilyControl() {
         mFamilyList = new ArrayList<>();
-        mFamilyList.add(new FamilyRequest(1, 1, "", ""));
-        mFamilyControlAdapter = new FamilyControlAdapter(this, mFamilyList);
+        mBirthCertificateList = new ArrayList<>();
+        mStudyCardList = new ArrayList<>();
+//        mFamilyList.add(createNewFamilyControl());
+        mFamilyControlAdapter = new FamilyControlAdapter(this, mPresenter, mFamilyList, mBirthCertificateList, mStudyCardList);
         Commons.setVerticalRecyclerView(this, rvFamily);
         rvFamily.setAdapter(mFamilyControlAdapter);
     }
 
     private void initData() {
         mPresenter.initImage(1, "_mr");
-        mPresenter.initImage(2, "_sbc");
-        mPresenter.initImage(3, "_sc");
+//        mPresenter.initImage(2, "_sbc");
+//        mPresenter.initImage(3, "_sc");
 //        mPresenter.initData();
 
     }
@@ -203,35 +208,115 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         btUpdate.setTypeface(Commons.setFont(this, getResources().getString(R.string.font_segoe)), Typeface.BOLD);
     }
 
+    private FamilyMembersRequest createNewFamilyControl() {
+        FamilyMembersRequest familyMembersRequest = new FamilyMembersRequest();
+        familyMembersRequest.setUsername("");
+        familyMembersRequest.setRelationshipName("");
+        familyMembersRequest.setRelationshipPhone("");
+        familyMembersRequest.setRelationshipTypeId(0);
+        familyMembersRequest.setBirthCertificateId(0);
+        familyMembersRequest.setStudentCardId(0);
+        return familyMembersRequest;
+    }
+
+    private void showDialogAddFamilyMembers() {
+        try {
+            mDialog = new Dialog(this);
+            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            mDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            mDialog.setContentView(R.layout.dialog_add_family_members);
+
+            final Spinner spRelationship = (Spinner) mDialog.findViewById(R.id.spRelationship);
+            final EditText etName = (EditText) mDialog.findViewById(R.id.etName);
+            final EditText etPhone = (EditText) mDialog.findViewById(R.id.etPhone);
+            RelativeLayout rlBirthCertificate = (RelativeLayout) mDialog.findViewById(R.id.rlBirthCertificate);
+            RelativeLayout rlStudyCard = (RelativeLayout) mDialog.findViewById(R.id.rlStudyCard);
+            ivBirthCertificate = (ImageView) mDialog.findViewById(R.id.ivBirthCertificate);
+            ivStudyCard = (ImageView) mDialog.findViewById(R.id.ivStudyCard);
+            Button btCancel = (Button)mDialog.findViewById(R.id.btCancel);
+            Button btUpdate = (Button)mDialog.findViewById(R.id.btUpdate);
+
+            rlBirthCertificate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean result = Commons.checkPermission2(UpdateFamilyView.this);
+                    if (result) {
+                        sFileName = "_bc" + mBirthCertificateList.size() + 1;//SonBirthCertificate
+                        mPresenter.takePhoto(2, 2);
+                    }
+                }
+            });
+
+            rlStudyCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean result = Commons.checkPermission2(UpdateFamilyView.this);
+                    if (result) {
+                        sFileName = "_sc" + mStudyCardList.size() + 1;//SonBirthCertificate
+                        mPresenter.takePhoto(1, 3);
+                    }
+                }
+            });
+
+            btUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.updateFamilyMembers(
+                            mDialog,
+                            mRelationshipIdList.get(spRelationship.getSelectedItemPosition()),
+                            etName.getText().toString(),
+                            etPhone.getText().toString(),
+                            "_bc" + mBirthCertificateList.size() + 1,
+                            "_sc" + mStudyCardList.size() + 1);
+                }
+            });
+
+            btCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDialog.dismiss();
+                }
+            });
+
+            mDialog.show();
+        } catch (Exception ex) {
+            DialogUtils.showAlertDialog(UpdateFamilyView.this, getString(R.string.dialog_title), ex.getMessage());
+        }
+    }
+
     @Override
     public void onClick(View v) {
         boolean result = false;
         switch (v.getId()) {
             case R.id.ibAdd:
-                mFamilyList.add(new FamilyRequest(mFamilyList.size() + 1, 1, "", ""));
-                mFamilyControlAdapter.notifyDataSetChanged();
+                showDialogAddFamilyMembers();
+//                mFamilyList.add(createNewFamilyControl());
+//                mFamilyControlAdapter.notifyDataSetChanged();
                 break;
             case R.id.rlMarriageRegistration:
                 result = Commons.checkPermission2(UpdateFamilyView.this);
                 if (result) {
-                    mFileName = "_mr";//MarriageRegistration
+                    sFileName = "_mr";//MarriageRegistration
                     mPresenter.takePhoto(2, 1);
                 }
                 break;
-            case R.id.rlSonBirthCertificate:
-                result = Commons.checkPermission2(UpdateFamilyView.this);
-                if (result) {
-                    mFileName = "_sbc";//SonBirthCertificate
-                    mPresenter.takePhoto(2, 2);
-                }
+            case R.id.btUpdate:
+                mPresenter.updateFamily(switchButton.isChecked(), etNameVC.getText().toString(), etPhoneVC.getText().toString(), spSon.getSelectedItemPosition());
                 break;
-            case R.id.rlStudentCard:
-                result = Commons.checkPermission2(UpdateFamilyView.this);
-                if (result) {
-                    mFileName = "_sc";//StudentCard
-                    mPresenter.takePhoto(1, 3);
-                }
-                break;
+//            case R.id.rlSonBirthCertificate:
+//                result = Commons.checkPermission2(UpdateFamilyView.this);
+//                if (result) {
+//                    mFileName = "_sbc";//SonBirthCertificate
+//                    mPresenter.takePhoto(2, 2);
+//                }
+//                break;
+//            case R.id.rlStudentCard:
+//                result = Commons.checkPermission2(UpdateFamilyView.this);
+//                if (result) {
+//                    mFileName = "_sc";//StudentCard
+//                    mPresenter.takePhoto(1, 3);
+//                }
+//                break;
         }
     }
 
@@ -243,7 +328,7 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                 String filePath = data.getStringExtra(getString(R.string.result));
                 int type = data.getIntExtra(getString(R.string.type), 0);
                 int imageType = data.getIntExtra(getString(R.string.image_type), 0);
-                mPresenter.updateImage(type, imageType, filePath, mFileName);
+                mPresenter.updateImage(type, imageType, filePath, sFileName);
             }
         }
     }
@@ -256,12 +341,12 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                 ivMarriageRegistration.setImageBitmap(bitmap);
                 break;
             case 2://Giấy khai sinh của con
-                llSonBirthCertificate.setVisibility(View.GONE);
-                ivSonBirthCertificate.setImageBitmap(bitmap);
+//                llSonBirthCertificate.setVisibility(View.GONE);
+//                ivSonBirthCertificate.setImageBitmap(bitmap);
                 break;
             case 3://Thẻ học sinh
-                llStudentCard.setVisibility(View.GONE);
-                ivStudentCard.setImageBitmap(bitmap);
+//                llStudentCard.setVisibility(View.GONE);
+//                ivStudentCard.setImageBitmap(bitmap);
                 break;
         }
     }
@@ -274,28 +359,55 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                 ivMarriageRegistration.setImageBitmap(img);
                 break;
             case 2://llSonBirthCertificate
-                llSonBirthCertificate.setVisibility(View.GONE);
-                ivSonBirthCertificate.setImageBitmap(img);
+//                llSonBirthCertificate.setVisibility(View.GONE);
+//                ivSonBirthCertificate.setImageBitmap(img);
+//                mFamilyList.get(sPositionFamilySelected).set
+
+//                mBirthCertificateList.add(img);
+//                mFamilyControlAdapter.notifyDataSetChanged();
                 break;
             case 3://llStudentCard
-                llStudentCard.setVisibility(View.GONE);
-                ivStudentCard.setImageBitmap(img);
+//                llStudentCard.setVisibility(View.GONE);
+//                ivStudentCard.setImageBitmap(img);
+
+//                mStudyCardList.add(img);
+//                mFamilyControlAdapter.notifyDataSetChanged();
                 break;
         }
     }
 
     @Override
     public void updateImageFailed(String err) {
-        Toast.makeText(this, err, Toast.LENGTH_LONG).show();
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 
     @Override
     public void updateFamilyFailed(String err) {
-
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 
     @Override
     public void updateFamilySuccess(String msg) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), msg, new DialogUtils.OnClickListener() {
+            @Override
+            public void onClickSuccess() {
+                UpdateFamilyView.this.finish();
+            }
 
+            @Override
+            public void onClickSuccess2() {
+
+            }
+        });
+    }
+
+    @Override
+    public void updateFamilyMembersSuccess(Dialog dialog, String msg) {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void updateFamilyMembersFailed(Dialog dialog, String err) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 }

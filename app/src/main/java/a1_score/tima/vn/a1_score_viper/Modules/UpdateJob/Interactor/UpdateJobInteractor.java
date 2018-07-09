@@ -75,7 +75,23 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
                 public void onResponseError(String tag, String message) {
 
                 }
-            }, mDataStore.getToken());
+            }, String.format("Bearer %s", mDataStore.getToken()));
+        }
+    }
+
+    @Override
+    public void getJob() {
+        JobResponse.JobEntity jobEntity = mDataStore.getJob(mDataStore.getUser());
+        if(jobEntity != null) {
+            mInteractorOutput.initJobOutput(jobEntity);
+        }
+    }
+
+    @Override
+    public void getColleague() {
+        List<ColleagueResponse.ColleagueEntity> colleagueEntities = mDataStore.getColleague(mDataStore.getUser());
+        if(colleagueEntities != null) {
+            mInteractorOutput.initColleagueOutput(colleagueEntities);
         }
     }
 
@@ -145,11 +161,11 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
         jobRequest.setCompanyName(companyName);
         jobRequest.setCompanyAddress(companyAddress);
         jobRequest.setPositionId(positionID);
-        jobRequest.setSalaryId(positionID);
+        jobRequest.setSalaryId(salaryID);
         jobRequest.setUsername(username);
         jobRequest.setCvId(mDataStore.getImageID(username, getType(1)));
         jobRequest.setContractId(mDataStore.getImageID(username, getType(2)));
-        jobRequest.setSalaryId(mDataStore.getImageID(username, getType(3)));
+        jobRequest.setSalaryBoardId(mDataStore.getImageID(username, getType(3)));
 
         mDataStore.updateJob(new OnResponse<String, JobResponse>() {
             @Override
@@ -161,7 +177,7 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
                         public void onResponseSuccess(String tag, String rs, ColleagueResponse extraData) {
                             if(extraData != null && extraData.getStatuscode() == 200) {
                                 for (ColleagueResponse.ColleagueEntity colleagueEntity : extraData.getColleagues()) {
-                                    mDataStore.addColleague(extraData.getUsername(), colleagueEntity);
+                                    mDataStore.addColleague(mDataStore.getUser(), colleagueEntity);
                                 }
                                 mInteractorOutput.updateJobSuccess(extraData.getMessage());
                             } else {
@@ -173,7 +189,7 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
                         public void onResponseError(String tag, String message) {
                             mInteractorOutput.updateJobFailed(message);
                         }
-                    }, mDataStore.getToken(), colleagueRequest);
+                    }, String.format("Bearer %s", mDataStore.getToken()), colleagueRequest);
                 } else {
                     mInteractorOutput.updateJobFailed(extraData.getMessage());
                 }
@@ -183,7 +199,7 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
             public void onResponseError(String tag, String message) {
                 mInteractorOutput.updateJobFailed(message);
             }
-        }, mDataStore.getToken(), jobRequest);
+        }, String.format("Bearer %s", mDataStore.getToken()), jobRequest);
     }
 
     private String getType(int type) {

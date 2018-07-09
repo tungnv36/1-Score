@@ -5,6 +5,8 @@ import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPassw
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
@@ -36,6 +38,8 @@ public interface ApiService {
     String API_GET_JOB_DICTIONARY = "job/dictionary";
     String API_UPDATE_JOB = "job";
     String API_UPDATE_COLLEAGUE = "colleague";
+    String API_UPDATE_FAMILY_MEMBERS = "relationship";
+    String API_UPDATE_FAMILY = "family";
 
     @POST(API_LOGIN)
     Call<ResponseBody> callLogin(@Body LoginRequest loginRequest);
@@ -72,5 +76,11 @@ public interface ApiService {
 
     @POST(API_UPDATE_COLLEAGUE)
     Call<ResponseBody> updateColleague(@Header("Authorization") String token, @Body ColleagueRequest colleagueEntity);
+
+    @POST(API_UPDATE_FAMILY_MEMBERS)
+    Call<ResponseBody> updateFamilyMembers(@Header("Authorization") String token, @Body FamilyMembersRequest familyMembersRequest);
+
+    @POST(API_UPDATE_FAMILY)
+    Call<ResponseBody> updateFamily(@Header("Authorization") String token, @Body FamilyRequest familyRequest);
 
 }

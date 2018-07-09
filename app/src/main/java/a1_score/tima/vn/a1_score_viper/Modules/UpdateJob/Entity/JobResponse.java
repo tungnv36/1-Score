@@ -48,6 +48,8 @@ public class JobResponse {
         private int positionid;
         @SerializedName("CompanyName")
         private String companyname;
+        @SerializedName("CompanyAddress")
+        private String companyAddress;
         @SerializedName("JobId")
         private int jobid;
         @SerializedName("Username")
@@ -99,6 +101,14 @@ public class JobResponse {
 
         public void setCompanyname(String companyname) {
             this.companyname = companyname;
+        }
+
+        public String getCompanyAddress() {
+            return companyAddress;
+        }
+
+        public void setCompanyAddress(String companyAddress) {
+            this.companyAddress = companyAddress;
         }
 
         public int getJobid() {

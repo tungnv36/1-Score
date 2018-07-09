@@ -107,6 +107,16 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
     }
 
     @Override
+    public JobResponse.JobEntity getJob(String username) {
+        return sQliteDatabase.getJob(username);
+    }
+
+    @Override
+    public List<ColleagueResponse.ColleagueEntity> getColleague(String username) {
+        return sQliteDatabase.getColleague(username);
+    }
+
+    @Override
     public void saveImageToLocal(String fineName, Bitmap bmp) {
         FileOutputStream out = null;
         try {
@@ -169,13 +179,75 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
     }
 
     @Override
-    public void updateJob(OnResponse<String, JobResponse> m_Response, String token, JobRequest jobRequest) {
+    public void updateJob(final OnResponse<String, JobResponse> m_Response, String token, JobRequest jobRequest) {
+        m_Response.onStart();
+        Call<ResponseBody> call = m_Service.updateJob(token, jobRequest);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        try {
+                            final GsonBuilder gsonBuilder = new GsonBuilder();
+                            final Gson gson = gsonBuilder.create();
+                            JobResponse jobResponse = gson.fromJson(jsonObject.toString(), JobResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), jobResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
+                        }
+                    } else {
+                        m_Response.onResponseError(TAG, String.valueOf(response.message()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                m_Response.onFinish();
+            }
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                m_Response.onResponseError(TAG, t.getMessage());
+                m_Response.onFinish();
+            }
+        });
     }
 
     @Override
-    public void updateColleague(OnResponse<String, ColleagueResponse> m_Response, String token, ColleagueRequest colleagueEntity) {
+    public void updateColleague(final OnResponse<String, ColleagueResponse> m_Response, String token, ColleagueRequest colleagueEntity) {
+        m_Response.onStart();
+        Call<ResponseBody> call = m_Service.updateColleague(token, colleagueEntity);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        try {
+                            final GsonBuilder gsonBuilder = new GsonBuilder();
+                            final Gson gson = gsonBuilder.create();
+                            ColleagueResponse colleagueResponse = gson.fromJson(jsonObject.toString(), ColleagueResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), colleagueResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
+                        }
+                    } else {
+                        m_Response.onResponseError(TAG, String.valueOf(response.message()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                m_Response.onFinish();
+            }
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                m_Response.onResponseError(TAG, t.getMessage());
+                m_Response.onFinish();
+            }
+        });
     }
 
     @Override
@@ -236,11 +308,13 @@ public class UpdateJobDataStore extends ApiRequest implements UpdateJobInterface
 
     @Override
     public long addJob(JobResponse.JobEntity jobEntity) {
+        sQliteDatabase.deleteJobByUsername(jobEntity.getUsername());
         return sQliteDatabase.addJob(jobEntity);
     }
 
     @Override
     public long addColleague(String username, ColleagueResponse.ColleagueEntity colleagueEntity) {
+        sQliteDatabase.deleteColleagueByUsername(username, colleagueEntity.getColleaguephone());
         return sQliteDatabase.addColleague(username, colleagueEntity);
     }
 

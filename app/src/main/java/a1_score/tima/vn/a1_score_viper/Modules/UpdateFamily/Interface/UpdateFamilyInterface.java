@@ -1,9 +1,12 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
@@ -18,6 +21,8 @@ public interface UpdateFamilyInterface {
         void updateImageFailed(String err);
         void updateFamilyFailed(String err);
         void updateFamilySuccess(String msg);
+        void updateFamilyMembersSuccess(Dialog dialog, String msg);
+        void updateFamilyMembersFailed(Dialog dialog, String err);
     }
     //Presenter
     interface Presenter {
@@ -25,7 +30,8 @@ public interface UpdateFamilyInterface {
 
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-        void updateFamily(boolean isFamily, String nameVC, String phoneVC, String numberOfSon, int mrId, int sbcId, int scId);
+        void updateFamilyMembers(Dialog dialog, int relationshipTypeId, String name, String phone, String sbcName, String scName);
+        void updateFamily(boolean isFamily, String nameVC, String phoneVC, int numberOfSon);
         void onDestroy();
     }
     //Interactor
@@ -33,7 +39,8 @@ public interface UpdateFamilyInterface {
         void initImage(int type, String name);
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-        void updateFamily(boolean isFamily, String nameVC, String phoneVC, String numberOfSon, int mrId, int sbcId, int scId);
+        void updateFamilyMembers(Dialog dialog, int relationshipTypeId, String name, String phone, String sbcName, String scName);
+        void updateFamily(boolean isFamily, String nameVC, String phoneVC, int numberOfSon);
         void unRegister();
     }
 
@@ -45,6 +52,8 @@ public interface UpdateFamilyInterface {
         void updateImageFailed(String err);
         void updateFamilySuccess(String msg);
         void updateFamilyFailed(String err);
+        void updateFamilyMembersSuccess(Dialog dialog, String msg);
+        void updateFamilyMembersFailed(Dialog dialog, String err);
     }
     //Wireframe
     interface Wireframe {
@@ -61,5 +70,6 @@ public interface UpdateFamilyInterface {
         void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type);
         void uploadImage(final OnResponse<String, ImageProfileResponse> m_Response, String token, ImageProfileRequest imageProfileRequest);
         void updateFamily(final OnResponse<String, FamilyResponse> m_Response, String token, FamilyRequest familyRequest);
+        void updateFamilyMembers(final OnResponse<String, FamilyMembersResponse> m_Response, String token, FamilyMembersRequest familyMembersRequest);
     }
 }

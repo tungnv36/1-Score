@@ -3,6 +3,8 @@ package a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.View;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +41,42 @@ public class JobControlAdapter extends RecyclerView.Adapter<JobControlAdapter.Pr
         final ColleagueRequest.ColleagueEntity colleagueEntity= mColleagueList.get(position);
         holder.etColleagueName.setText(colleagueEntity.getColleagueName());
         holder.etColleaguePhone.setText(colleagueEntity.getColleaguePhone());
+
+        holder.etColleagueName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mColleagueList.get(position).setColleagueName(s.toString());
+                UpdateJobView.sColleagueList = mColleagueList;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        holder.etColleaguePhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mColleagueList.get(position).setColleaguePhone(s.toString());
+                UpdateJobView.sColleagueList = mColleagueList;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override

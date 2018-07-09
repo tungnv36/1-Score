@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interactor;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,10 @@ import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.DataStore.UpdateFamilyDataStore;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface.UpdateFamilyInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
@@ -69,7 +74,7 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
                         public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {
                             if (extraData != null && extraData.getStatuscode() == 200) {
                                 mDataStore.saveImageToLocal(mDataStore.getUser() + fileName + ".jpg", bmpCrop);//Lưu ảnh vào file manager
-                                mDataStore.saveImageToDB(extraData, fileName, mDataStore.getUser(), getType(imageType));//Lưu thông tin ảnh vào db local
+                                mDataStore.saveImageToDB(extraData, fileName, mDataStore.getUser(), getType(imageType, fileName));//Lưu thông tin ảnh vào db local
                                 mInteractorOutput.updateImageOutput(type, imageType, bmpCrop);
                             } else {
                                 mInteractorOutput.updateImageFailed(rs);
@@ -92,7 +97,7 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
                     public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {
                         if (extraData != null && extraData.getStatuscode() == 200) {
                             mDataStore.saveImageToLocal(mDataStore.getUser() + fileName + ".jpg", bmp);
-                            mDataStore.saveImageToDB(extraData, fileName, mDataStore.getUser(), getType(imageType));
+                            mDataStore.saveImageToDB(extraData, fileName, mDataStore.getUser(), getType(imageType, fileName));
                             mInteractorOutput.updateImageOutput(type, imageType, bmp);
                         } else {
                             mInteractorOutput.updateImageFailed(rs);
@@ -111,18 +116,68 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
     }
 
     @Override
-    public void updateFamily(boolean isFamily, String nameVC, String phoneVC, String numberOfSon, int mrId, int sbcId, int scId) {
+    public void updateFamilyMembers(final Dialog dialog, int relationshipTypeId, String name, String phone, String sbcName, String scName) {
+        String username = mDataStore.getUser();
+        FamilyMembersRequest familyMembersRequest = new FamilyMembersRequest();
+        familyMembersRequest.setUsername(username);
+        familyMembersRequest.setRelationshipTypeId(relationshipTypeId);
+        familyMembersRequest.setRelationshipName(name);
+        familyMembersRequest.setRelationshipPhone(phone);
+        familyMembersRequest.setBirthCertificateId(mDataStore.getImageID(username, getType(2, sbcName)));
+        familyMembersRequest.setStudentCardId(mDataStore.getImageID(username, getType(3, scName)));
 
+        mDataStore.updateFamilyMembers(new OnResponse<String, FamilyMembersResponse>() {
+            @Override
+            public void onResponseSuccess(String tag, String rs, FamilyMembersResponse extraData) {
+                if(extraData != null && extraData.getStatuscode() == 2) {
+                    mInteractorOutput.updateFamilyMembersSuccess(dialog, extraData.getMessage());
+                } else {
+                    mInteractorOutput.updateFamilyMembersFailed(dialog, extraData.getMessage());
+                }
+            }
+
+            @Override
+            public void onResponseError(String tag, String message) {
+                mInteractorOutput.updateFamilyMembersFailed(dialog, message);
+            }
+        }, String.format("Bearer %s", mDataStore.getToken()), familyMembersRequest);
     }
 
-    private String getType(int type) {
+    @Override
+    public void updateFamily(boolean isFamily, String nameVC, String phoneVC, int numberOfSon) {
+        String username = mDataStore.getUser();
+        FamilyRequest familyRequest = new FamilyRequest();
+        familyRequest.setUsername(username);
+        familyRequest.setMerriageStatus(isFamily?1:0);
+        familyRequest.setFamilyName(nameVC);
+        familyRequest.setFamilyPhone(phoneVC);
+        familyRequest.setChildrenNumber(numberOfSon);
+
+        mDataStore.updateFamily(new OnResponse<String, FamilyResponse>() {
+            @Override
+            public void onResponseSuccess(String tag, String rs, FamilyResponse extraData) {
+                if(extraData != null && extraData.getStatuscode() == 2) {
+                    mInteractorOutput.updateFamilySuccess(extraData.getMessage());
+                } else {
+                    mInteractorOutput.updateFamilyFailed(extraData.getMessage());
+                }
+            }
+
+            @Override
+            public void onResponseError(String tag, String message) {
+                mInteractorOutput.updateFamilyFailed(message);
+            }
+        }, String.format("Bearer %s", mDataStore.getToken()), familyRequest);
+    }
+
+    private String getType(int type, String fileName) {
         switch (type) {
             case 1:
                 return "MR";//Đăng ký kết hôn
             case 2:
-                return "SBC";//Giấy khai sinh
+                return "SBC" + fileName.substring(fileName.length() - 1);//Giấy khai sinh
             case 3:
-                return "SC";//Thẻ học sinh
+                return "SC" + fileName.substring(fileName.length() - 1);//Thẻ học sinh
             default:
                 return "";
         }

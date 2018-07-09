@@ -29,7 +29,9 @@ import java.util.List;
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Presenter.UpdateJobPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -98,7 +100,7 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     private UpdateJobInterface.Presenter mPresenter;
 
     private String mFileName;
-    private List<ColleagueRequest.ColleagueEntity> mColleagueList;
+    public static List<ColleagueRequest.ColleagueEntity> sColleagueList;
     private JobControlAdapter mJobControlAdapter;
 
     private List<Integer> mJobIdList = new ArrayList<>();
@@ -176,12 +178,12 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
     }
 
     private void initColleagueControl() {
-        mColleagueList = new ArrayList<>();
+        sColleagueList = new ArrayList<>();
         ColleagueRequest.ColleagueEntity colleagueEntity = new ColleagueRequest.ColleagueEntity();
         colleagueEntity.setColleagueName("");
         colleagueEntity.setColleaguePhone("");
-        mColleagueList.add(colleagueEntity);
-        mJobControlAdapter = new JobControlAdapter(this, mColleagueList);
+        sColleagueList.add(colleagueEntity);
+        mJobControlAdapter = new JobControlAdapter(this, sColleagueList);
         Commons.setVerticalRecyclerView(this, rvColleague);
         rvColleague.setAdapter(mJobControlAdapter);
     }
@@ -190,7 +192,8 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         mPresenter.initImage(1, "_cv");
         mPresenter.initImage(2, "_contract");
         mPresenter.initImage(3, "_salary_board");
-//        mPresenter.initData();
+        mPresenter.getJob();
+        mPresenter.getColleague();
     }
 
     @Override
@@ -245,6 +248,36 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
         ArrayAdapter<String> adapterSalary = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, salaries);
         adapterSalary.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spSalary.setAdapter(adapterSalary);
+    }
+
+    @Override
+    public void initJob(JobResponse.JobEntity jobEntity) {
+        spJob.setSelection(getPositionByID(mJobIdList, jobEntity.getJobid()));
+        spPosition.setSelection(getPositionByID(mPositionIdList, jobEntity.getPositionid()));
+        spSalary.setSelection(getPositionByID(mSalarieIdList, jobEntity.getSalaryid()));
+        etCompanyName.setText(jobEntity.getCompanyname());
+        etCompanyAddress.setText(jobEntity.getCompanyAddress());
+    }
+
+    @Override
+    public void initColleague(List<ColleagueResponse.ColleagueEntity> colleagueEntities) {
+        sColleagueList.clear();
+        for(ColleagueResponse.ColleagueEntity colleagueEntity : colleagueEntities) {
+            ColleagueRequest.ColleagueEntity colleagueEntity1 = new ColleagueRequest.ColleagueEntity();
+            colleagueEntity1.setColleagueName(colleagueEntity.getColleaguename());
+            colleagueEntity1.setColleaguePhone(colleagueEntity.getColleaguephone());
+            sColleagueList.add(colleagueEntity1);
+        }
+        mJobControlAdapter.notifyDataSetChanged();
+    }
+
+    private int getPositionByID(List<Integer> idList, int id) {
+        for(int i = 0; i < idList.size(); i++) {
+            if(idList.get(i) == id) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     @Override
@@ -319,7 +352,7 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
                 ColleagueRequest.ColleagueEntity colleagueEntity = new ColleagueRequest.ColleagueEntity();
                 colleagueEntity.setColleagueName("");
                 colleagueEntity.setColleaguePhone("");
-                mColleagueList.add(colleagueEntity);
+                sColleagueList.add(colleagueEntity);
                 mJobControlAdapter.notifyDataSetChanged();
                 break;
             case R.id.btUpdate:
@@ -329,7 +362,7 @@ public class UpdateJobView extends AppCompatActivity implements UpdateJobInterfa
                         etCompanyAddress.getText().toString(),
                         mPositionIdList.get(spPosition.getSelectedItemPosition()),
                         mSalarieIdList.get(spSalary.getSelectedItemPosition()),
-                        mColleagueList
+                        sColleagueList
                 );
                 break;
         }

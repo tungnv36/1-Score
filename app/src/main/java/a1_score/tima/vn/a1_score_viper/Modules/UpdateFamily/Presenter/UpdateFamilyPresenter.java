@@ -1,6 +1,7 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Presenter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 
 import java.util.List;
@@ -38,8 +39,13 @@ public class UpdateFamilyPresenter implements UpdateFamilyInterface.Presenter, U
     }
 
     @Override
-    public void updateFamily(boolean isFamily, String nameVC, String phoneVC, String numberOfSon, int mrId, int sbcId, int scId) {
+    public void updateFamilyMembers(Dialog dialog, int relationshipTypeId, String name, String phone, String sbcName, String scName) {
+        mInteractorInput.updateFamilyMembers(dialog, relationshipTypeId, name, phone, sbcName, scName);
+    }
 
+    @Override
+    public void updateFamily(boolean isFamily, String nameVC, String phoneVC, int numberOfSon) {
+        mInteractorInput.updateFamily(isFamily, nameVC, phoneVC, numberOfSon);
     }
 
     @Override
@@ -71,11 +77,21 @@ public class UpdateFamilyPresenter implements UpdateFamilyInterface.Presenter, U
 
     @Override
     public void updateFamilySuccess(String msg) {
-
+        mView.updateFamilySuccess(msg);
     }
 
     @Override
     public void updateFamilyFailed(String err) {
+        mView.updateImageFailed(err);
+    }
 
+    @Override
+    public void updateFamilyMembersSuccess(Dialog dialog, String msg) {
+        mView.updateFamilyMembersSuccess(dialog, msg);
+    }
+
+    @Override
+    public void updateFamilyMembersFailed(Dialog dialog, String err) {
+        mView.updateFamilyMembersFailed(dialog, err);
     }
 }

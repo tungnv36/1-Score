@@ -50,10 +50,13 @@ public class UpdateSocialNetworkView extends AppCompatActivity {
         setupActionBar();
         changeStatusBarColor();
         styleView();
-        initSocialNetwork();
+        setupSocialNetwork();
     }
 
-    private void initSocialNetwork() {
+    /*
+     * Khởi tạo danh sách mạng xã hội
+     */
+    private void setupSocialNetwork() {
         mSocialNetworkList = new ArrayList<>();
         mSocialNetworkList.add(new SocialNetworkRequest(1, R.mipmap.ic_facebook, "Facebook", true, R.color.color_facebook));
         mSocialNetworkList.add(new SocialNetworkRequest(2, R.mipmap.ic_zalo, "Zalo", false, R.color.color_zalo));

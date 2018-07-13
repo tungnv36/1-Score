@@ -12,8 +12,8 @@ public class FamilyRequest {
     private String familyPhone;
     @SerializedName("family_name")
     private String familyName;
-    @SerializedName("merriage_status")
-    private int merriageStatus;
+    @SerializedName("marriage_status")
+    private int marriageStatus;
     @SerializedName("username")
     private String username;
 
@@ -49,12 +49,12 @@ public class FamilyRequest {
         this.familyName = familyName;
     }
 
-    public int getMerriageStatus() {
-        return merriageStatus;
+    public int getMarriageStatus() {
+        return marriageStatus;
     }
 
-    public void setMerriageStatus(int merriageStatus) {
-        this.merriageStatus = merriageStatus;
+    public void setMarriageStatus(int marriageStatus) {
+        this.marriageStatus = marriageStatus;
     }
 
     public String getUsername() {

@@ -52,12 +52,53 @@
                     android:layout_below="@+id/rlTitleInfo"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rvSocialNetwork"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <com.facebook.login.widget.LoginButton
+                        android:id="@+id/lbFacebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp" />
 
-                    </android.support.v7.widget.RecyclerView>
+                    <RelativeLayout
+                        android:id="@+id/rlFacebook"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_bottom"
+                        android:padding="10dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/ivLogo"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@mipmap/ic_facebook" />
+
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="16sp"
+                            android:layout_toRightOf="@+id/ivLogo"
+                            android:text="@string/title_facebook" />
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/swOnOff"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true" />
+
+                    </RelativeLayout>
+
+                    <!--<android.support.v7.widget.RecyclerView-->
+                        <!--android:id="@+id/rvSocialNetwork"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
+
+                    <!--</android.support.v7.widget.RecyclerView>-->
                 </LinearLayout>
             </RelativeLayout>
         </com.loopeer.shadow.ShadowView>

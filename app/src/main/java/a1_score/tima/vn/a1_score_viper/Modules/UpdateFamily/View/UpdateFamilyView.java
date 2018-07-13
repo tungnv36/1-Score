@@ -23,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.suke.widget.SwitchButton;
 
@@ -34,7 +33,10 @@ import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersRequest;
-import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.RelationshipDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.RelationshipResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface.UpdateFamilyInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Presenter.UpdateFamilyPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -98,11 +100,12 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
     private List<FamilyMembersRequest> mFamilyList;
     private List<Bitmap> mBirthCertificateList;
     private List<Bitmap> mStudyCardList;
+    private List<String> mRelationshipType;
     private List<Integer> mRelationshipIdList = new ArrayList<>();
+    private List<String> mRelationshipList = new ArrayList<>();
     private FamilyControlAdapter mFamilyControlAdapter;
 
     public static String sFileName;
-    public static int sPositionFamilySelected;
     private UpdateFamilyInterface.Presenter mPresenter;
 
     @Override
@@ -114,7 +117,7 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         changeStatusBarColor();
         styleView();
         setupFamilyControl();
-        setupDropdown();
+//        setupDropdown();
 
         mPresenter = new UpdateFamilyPresenter(this);
 
@@ -130,31 +133,35 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                 showHideView(isChecked);
             }
         });
+
+        mPresenter.getRelationshipDictionary();
+
+        setupDropdown();
+        initData();
+        showHideView(switchButton.isChecked());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
-        showHideView(switchButton.isChecked());
     }
 
     private void setupFamilyControl() {
         mFamilyList = new ArrayList<>();
         mBirthCertificateList = new ArrayList<>();
         mStudyCardList = new ArrayList<>();
+        mRelationshipType = new ArrayList<>();
 //        mFamilyList.add(createNewFamilyControl());
-        mFamilyControlAdapter = new FamilyControlAdapter(this, mPresenter, mFamilyList, mBirthCertificateList, mStudyCardList);
+        mFamilyControlAdapter = new FamilyControlAdapter(this, mPresenter, mFamilyList, mBirthCertificateList, mStudyCardList, mRelationshipType);
         Commons.setVerticalRecyclerView(this, rvFamily);
         rvFamily.setAdapter(mFamilyControlAdapter);
     }
 
     private void initData() {
         mPresenter.initImage(1, "_mr");
-//        mPresenter.initImage(2, "_sbc");
-//        mPresenter.initImage(3, "_sc");
-//        mPresenter.initData();
-
+        mPresenter.getFamily();
+//        mPresenter.getRelationshipDictionary();
+//        mPresenter.initRelationship();
     }
 
     private void setupDropdown() {
@@ -164,7 +171,7 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
     }
 
     private void showHideView(boolean isShow) {
-        if (isShow) {
+        if (!isShow) {
             etNameVC.setVisibility(View.GONE);
             etPhoneVC.setVisibility(View.GONE);
             llSon.setVisibility(View.GONE);
@@ -175,6 +182,23 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
             llSon.setVisibility(View.VISIBLE);
             llPaper.setVisibility(View.VISIBLE);
         }
+    }
+
+    private int getPositionById(int ID) {
+        for (int i = 0; i < mRelationshipIdList.size(); i++) {
+            if(ID == mRelationshipIdList.get(i)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public String getRelationshipTypeById(int ID) {
+        if(mRelationshipList != null && mRelationshipList.size() > 0) {
+            int pos = getPositionById(ID);
+            return mRelationshipList.get(pos);
+        }
+        return "";
     }
 
     @Override
@@ -208,17 +232,6 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         btUpdate.setTypeface(Commons.setFont(this, getResources().getString(R.string.font_segoe)), Typeface.BOLD);
     }
 
-    private FamilyMembersRequest createNewFamilyControl() {
-        FamilyMembersRequest familyMembersRequest = new FamilyMembersRequest();
-        familyMembersRequest.setUsername("");
-        familyMembersRequest.setRelationshipName("");
-        familyMembersRequest.setRelationshipPhone("");
-        familyMembersRequest.setRelationshipTypeId(0);
-        familyMembersRequest.setBirthCertificateId(0);
-        familyMembersRequest.setStudentCardId(0);
-        return familyMembersRequest;
-    }
-
     private void showDialogAddFamilyMembers() {
         try {
             mDialog = new Dialog(this);
@@ -236,12 +249,16 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
             Button btCancel = (Button)mDialog.findViewById(R.id.btCancel);
             Button btUpdate = (Button)mDialog.findViewById(R.id.btUpdate);
 
+            ArrayAdapter<String> adapterJob = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mRelationshipList);
+            adapterJob.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+            spRelationship.setAdapter(adapterJob);
+
             rlBirthCertificate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     boolean result = Commons.checkPermission2(UpdateFamilyView.this);
                     if (result) {
-                        sFileName = "_bc" + mBirthCertificateList.size() + 1;//SonBirthCertificate
+                        sFileName = "_bc" + (mFamilyList.size() + 1);//SonBirthCertificate
                         mPresenter.takePhoto(2, 2);
                     }
                 }
@@ -252,7 +269,7 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                 public void onClick(View v) {
                     boolean result = Commons.checkPermission2(UpdateFamilyView.this);
                     if (result) {
-                        sFileName = "_sc" + mStudyCardList.size() + 1;//SonBirthCertificate
+                        sFileName = "_sc" + (mFamilyList.size() + 1);//SonBirthCertificate
                         mPresenter.takePhoto(1, 3);
                     }
                 }
@@ -266,8 +283,8 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                             mRelationshipIdList.get(spRelationship.getSelectedItemPosition()),
                             etName.getText().toString(),
                             etPhone.getText().toString(),
-                            "_bc" + mBirthCertificateList.size() + 1,
-                            "_sc" + mStudyCardList.size() + 1);
+                            "_bc" + (mFamilyList.size() + 1),
+                            "_sc" + (mFamilyList.size() + 1));
                 }
             });
 
@@ -290,8 +307,6 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.ibAdd:
                 showDialogAddFamilyMembers();
-//                mFamilyList.add(createNewFamilyControl());
-//                mFamilyControlAdapter.notifyDataSetChanged();
                 break;
             case R.id.rlMarriageRegistration:
                 result = Commons.checkPermission2(UpdateFamilyView.this);
@@ -303,20 +318,6 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
             case R.id.btUpdate:
                 mPresenter.updateFamily(switchButton.isChecked(), etNameVC.getText().toString(), etPhoneVC.getText().toString(), spSon.getSelectedItemPosition());
                 break;
-//            case R.id.rlSonBirthCertificate:
-//                result = Commons.checkPermission2(UpdateFamilyView.this);
-//                if (result) {
-//                    mFileName = "_sbc";//SonBirthCertificate
-//                    mPresenter.takePhoto(2, 2);
-//                }
-//                break;
-//            case R.id.rlStudentCard:
-//                result = Commons.checkPermission2(UpdateFamilyView.this);
-//                if (result) {
-//                    mFileName = "_sc";//StudentCard
-//                    mPresenter.takePhoto(1, 3);
-//                }
-//                break;
         }
     }
 
@@ -341,14 +342,51 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                 ivMarriageRegistration.setImageBitmap(bitmap);
                 break;
             case 2://Giấy khai sinh của con
+                mBirthCertificateList.add(bitmap);
 //                llSonBirthCertificate.setVisibility(View.GONE);
 //                ivSonBirthCertificate.setImageBitmap(bitmap);
                 break;
             case 3://Thẻ học sinh
+                mStudyCardList.add(bitmap);
 //                llStudentCard.setVisibility(View.GONE);
 //                ivStudentCard.setImageBitmap(bitmap);
                 break;
         }
+    }
+
+    @Override
+    public void initFamily(FamilyResponse.FamilyEntity familyEntity) {
+        switchButton.setChecked(familyEntity.getMarriagestatus()==1);
+        etNameVC.setText(familyEntity.getFamilyname());
+        etPhoneVC.setText(familyEntity.getFamilyphone());
+        spSon.setSelection(2);
+    }
+
+    @Override
+    public void initRelationshipDictionary(List<RelationshipDictionaryResponse.RelationshipTypeEntity> relationshipTypeEntities) {
+        for(RelationshipDictionaryResponse.RelationshipTypeEntity relationshipTypeEntity : relationshipTypeEntities) {
+            mRelationshipIdList.add(relationshipTypeEntity.getId());
+            mRelationshipList.add(relationshipTypeEntity.getTypename());
+        }
+        mPresenter.initRelationship();
+    }
+
+    @Override
+    public void initRelationship(String username, List<FamilyMembersResponse.RelationshipEntity> relationshipEntities) {
+        for(FamilyMembersResponse.RelationshipEntity relationshipsEntity : relationshipEntities) {
+            FamilyMembersRequest familyMembersRequest = new FamilyMembersRequest();
+            familyMembersRequest.setUsername(username);
+            familyMembersRequest.setStudentCardId(relationshipsEntity.getStudentcardid());
+            familyMembersRequest.setBirthCertificateId(relationshipsEntity.getBirthcertificateid());
+            familyMembersRequest.setRelationshipPhone(relationshipsEntity.getRelationshipphone());
+            familyMembersRequest.setRelationshipName(relationshipsEntity.getRelationshipname());
+            familyMembersRequest.setRelationshipTypeId(relationshipsEntity.getRelationshiptypeid());
+            mFamilyList.add(familyMembersRequest);
+            mRelationshipType.add(getRelationshipTypeById(relationshipsEntity.getRelationshiptypeid()));
+            mPresenter.initImage(2, "_bc" + mFamilyList.size());
+            mPresenter.initImage(3, "_sc" + mFamilyList.size());
+        }
+        mFamilyControlAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -359,19 +397,10 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
                 ivMarriageRegistration.setImageBitmap(img);
                 break;
             case 2://llSonBirthCertificate
-//                llSonBirthCertificate.setVisibility(View.GONE);
-//                ivSonBirthCertificate.setImageBitmap(img);
-//                mFamilyList.get(sPositionFamilySelected).set
-
-//                mBirthCertificateList.add(img);
-//                mFamilyControlAdapter.notifyDataSetChanged();
+                ivBirthCertificate.setImageBitmap(img);
                 break;
             case 3://llStudentCard
-//                llStudentCard.setVisibility(View.GONE);
-//                ivStudentCard.setImageBitmap(img);
-
-//                mStudyCardList.add(img);
-//                mFamilyControlAdapter.notifyDataSetChanged();
+                ivStudyCard.setImageBitmap(img);
                 break;
         }
     }
@@ -396,14 +425,19 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onClickSuccess2() {
-
+                UpdateFamilyView.this.finish();
             }
         });
     }
 
     @Override
-    public void updateFamilyMembersSuccess(Dialog dialog, String msg) {
+    public void updateFamilyMembersSuccess(Dialog dialog, String msg, FamilyMembersRequest familyMembersRequest) {
         dialog.dismiss();
+        mFamilyList.add(familyMembersRequest);
+        mRelationshipType.add(getRelationshipTypeById(familyMembersRequest.getRelationshipTypeId()));
+        mPresenter.initImage(2, "_bc" + mFamilyList.size());
+        mPresenter.initImage(3, "_sc" + mFamilyList.size());
+        mFamilyControlAdapter.notifyDataSetChanged();
     }
 
     @Override

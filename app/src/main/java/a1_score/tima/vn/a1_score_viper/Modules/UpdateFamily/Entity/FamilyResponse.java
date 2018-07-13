@@ -44,8 +44,8 @@ public class FamilyResponse {
         private String familyphone;
         @SerializedName("FamilyName")
         private String familyname;
-        @SerializedName("MerriageStatus")
-        private int merriagestatus;
+        @SerializedName("MarriageStatus")
+        private int marriagestatus;
 
         public int getChildrennumber() {
             return childrennumber;
@@ -79,12 +79,12 @@ public class FamilyResponse {
             this.familyname = familyname;
         }
 
-        public int getMerriagestatus() {
-            return merriagestatus;
+        public int getMarriagestatus() {
+            return marriagestatus;
         }
 
-        public void setMerriagestatus(int merriagestatus) {
-            this.merriagestatus = merriagestatus;
+        public void setMarriagestatus(int marriagestatus) {
+            this.marriagestatus = marriagestatus;
         }
     }
 }

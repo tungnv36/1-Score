@@ -18,6 +18,8 @@ import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembers
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.RelationshipDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.RelationshipResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface.UpdateFamilyInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
@@ -47,10 +49,42 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
                 if (bitmap != null) {
                     mInteractorOutput.initImageOutput(type, bitmap);
                 }
+            } else {
+                mInteractorOutput.initImageOutput(type, null);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void getRelationshipDictionary() {
+        mDataStore.getRelationshipDictionary(new OnResponse<String, RelationshipDictionaryResponse>() {
+            @Override
+            public void onResponseSuccess(String tag, String rs, RelationshipDictionaryResponse extraData) {
+                if(extraData != null && extraData.getStatuscode() == 200) {
+                    mInteractorOutput.getRelationshipDictionary(extraData.getRelationshiptype());
+                }
+            }
+
+            @Override
+            public void onResponseError(String tag, String message) {
+
+            }
+        }, String.format("Bearer %s", mDataStore.getToken()));
+    }
+
+    @Override
+    public void initRelationship() {
+        List<FamilyMembersResponse.RelationshipEntity> relationshipEntities = mDataStore.getFamilyMember(mDataStore.getUser());
+        if(relationshipEntities != null && relationshipEntities.size() > 0) {
+            mInteractorOutput.initRelationship(mDataStore.getUser(), relationshipEntities);
+        }
+    }
+
+    @Override
+    public void getFamily() {
+        mInteractorOutput.getFamilyOutput(mDataStore.getFamily(mDataStore.getUser()));
     }
 
     @Override
@@ -117,8 +151,8 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
 
     @Override
     public void updateFamilyMembers(final Dialog dialog, int relationshipTypeId, String name, String phone, String sbcName, String scName) {
-        String username = mDataStore.getUser();
-        FamilyMembersRequest familyMembersRequest = new FamilyMembersRequest();
+        final String username = mDataStore.getUser();
+        final FamilyMembersRequest familyMembersRequest = new FamilyMembersRequest();
         familyMembersRequest.setUsername(username);
         familyMembersRequest.setRelationshipTypeId(relationshipTypeId);
         familyMembersRequest.setRelationshipName(name);
@@ -129,8 +163,9 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
         mDataStore.updateFamilyMembers(new OnResponse<String, FamilyMembersResponse>() {
             @Override
             public void onResponseSuccess(String tag, String rs, FamilyMembersResponse extraData) {
-                if(extraData != null && extraData.getStatuscode() == 2) {
-                    mInteractorOutput.updateFamilyMembersSuccess(dialog, extraData.getMessage());
+                if(extraData != null && extraData.getStatuscode() == 200) {
+                    mDataStore.updateFamilyMembersToDB(username, extraData.getRelationship());
+                    mInteractorOutput.updateFamilyMembersSuccess(dialog, extraData.getMessage(), familyMembersRequest);
                 } else {
                     mInteractorOutput.updateFamilyMembersFailed(dialog, extraData.getMessage());
                 }
@@ -145,18 +180,20 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
 
     @Override
     public void updateFamily(boolean isFamily, String nameVC, String phoneVC, int numberOfSon) {
-        String username = mDataStore.getUser();
+        final String username = mDataStore.getUser();
         FamilyRequest familyRequest = new FamilyRequest();
         familyRequest.setUsername(username);
-        familyRequest.setMerriageStatus(isFamily?1:0);
+        familyRequest.setMarriageStatus(isFamily?1:-1);
         familyRequest.setFamilyName(nameVC);
         familyRequest.setFamilyPhone(phoneVC);
         familyRequest.setChildrenNumber(numberOfSon);
+        familyRequest.setMarriageRegistrationId(mDataStore.getImageID(username, getType(1, "")));
 
         mDataStore.updateFamily(new OnResponse<String, FamilyResponse>() {
             @Override
             public void onResponseSuccess(String tag, String rs, FamilyResponse extraData) {
-                if(extraData != null && extraData.getStatuscode() == 2) {
+                if(extraData != null && extraData.getStatuscode() == 200) {
+                    mDataStore.updateFamilyToDB(username, extraData.getFamily());
                     mInteractorOutput.updateFamilySuccess(extraData.getMessage());
                 } else {
                     mInteractorOutput.updateFamilyFailed(extraData.getMessage());

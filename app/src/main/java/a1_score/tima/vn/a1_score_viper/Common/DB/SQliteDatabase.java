@@ -11,11 +11,14 @@ import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.Entity.FacebookResponse;
 
 public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "onescore";
@@ -97,6 +100,32 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static  final String KEY_COLLEAGUE_NAME = "ColleagueName";
     private static  final String KEY_COLLEAGUE_PHONE = "ColleaguePhone";
 
+    //create table family members
+    private static  final String TABLE_NAME_FAMILY_MEMBERS = "familyMembers";
+    private static  final String KEY_FAMILY_MEMBERS_USERNAME = "username";
+    private static  final String KEY_FAMILY_MEMBERS_BIRTH_CERTIFICATE_ID = "birthCertificateId";
+    private static  final String KEY_FAMILY_MEMBERS_STUDENT_CARD_ID = "studentCardId";
+    private static  final String KEY_FAMILY_MEMBERS_RELATIONSHIP_PHONE = "RelationshipPhone";
+    private static  final String KEY_FAMILY_MEMBERS_RELATIONSHIP_NAME = "RelationshipName";
+    private static  final String KEY_FAMILY_MEMBERS_RELATIONSHIP_TYPEID = "RelationshipTypeId";
+
+    //create table family
+    private static  final String TABLE_NAME_FAMILY = "family";
+    private static  final String KEY_FAMILY_USERNAME = "username";
+    private static  final String KEY_FAMILY_MERRIAGE_STATUS = "MerriageStatus";
+    private static  final String KEY_FAMILY_NAME = "FamilyName";
+    private static  final String KEY_FAMILY_PHONE = "FamilyPhone";
+    private static  final String KEY_FAMILY_MERRIAGE_REGISTRATION_ID = "MarriageRegistrationId";
+    private static  final String KEY_FAMILY_CHILDREN_NUMBER = "ChildrenNumber";
+
+    //create table facebook
+    private static  final String TABLE_NAME_FACEBOOK = "facebook";
+    private static  final String KEY_FACEBOOK_USERNAME = "username";
+    private static  final String KEY_FACEBOOK_ID = "id";
+    private static  final String KEY_FACEBOOK_NAME = "name";
+    private static  final String KEY_FACEBOOK_ADDRESS = "address";
+    private static  final String KEY_FACEBOOK_EMAIL = "email";
+
     public static SQliteDatabase mInstance;
 
     public static SQliteDatabase getInstance(Context context) {
@@ -145,6 +174,29 @@ public class SQliteDatabase extends SQLiteOpenHelper {
                 KEY_COLLEAGUE_USERNAME,
                 KEY_COLLEAGUE_NAME,
                 KEY_COLLEAGUE_PHONE);
+        String create_family_members_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s INTEGER, %s TEXT)",
+                TABLE_NAME_FAMILY_MEMBERS,
+                KEY_FAMILY_MEMBERS_BIRTH_CERTIFICATE_ID,
+                KEY_FAMILY_MEMBERS_STUDENT_CARD_ID,
+                KEY_FAMILY_MEMBERS_RELATIONSHIP_PHONE,
+                KEY_FAMILY_MEMBERS_RELATIONSHIP_NAME,
+                KEY_FAMILY_MEMBERS_RELATIONSHIP_TYPEID,
+                KEY_FAMILY_MEMBERS_USERNAME);
+        String create_family_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT, %s INTEGER, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER)",
+                TABLE_NAME_FAMILY,
+                KEY_FAMILY_USERNAME,
+                KEY_FAMILY_MERRIAGE_STATUS,
+                KEY_FAMILY_NAME,
+                KEY_FAMILY_PHONE,
+                KEY_FAMILY_MERRIAGE_REGISTRATION_ID,
+                KEY_FAMILY_CHILDREN_NUMBER);
+        String create_facebook_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
+                TABLE_NAME_FACEBOOK,
+                KEY_FACEBOOK_USERNAME,
+                KEY_FACEBOOK_ID,
+                KEY_FACEBOOK_NAME,
+                KEY_FACEBOOK_ADDRESS,
+                KEY_FACEBOOK_EMAIL);
 
         db.execSQL(create_images_table);
         db.execSQL(create_profile_table);
@@ -154,6 +206,9 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.execSQL(create_salaries_dic_table);
         db.execSQL(create_job_table);
         db.execSQL(create_colleague_table);
+        db.execSQL(create_family_members_table);
+        db.execSQL(create_family_table);
+        db.execSQL(create_facebook_table);
     }
 
     @Override
@@ -166,6 +221,9 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         String drop_salaries_dic_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_SALARIES_DIC);
         String drop_job_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_JOB);
         String drop_colleague_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_COLLEAGUE);
+        String drop_family_members_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_FAMILY_MEMBERS);
+        String drop_family_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_FAMILY);
+        String drop_facebook_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_FACEBOOK);
 
         db.execSQL(drop_images_table);
         db.execSQL(drop_profile_table);
@@ -175,6 +233,9 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.execSQL(drop_salaries_dic_table);
         db.execSQL(drop_job_table);
         db.execSQL(drop_colleague_table);
+        db.execSQL(drop_family_members_table);
+        db.execSQL(drop_family_table);
+        db.execSQL(drop_facebook_table);
 
         onCreate(db);
     }
@@ -562,6 +623,126 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         }
         cursor.close();
         return colleagueEntities;
+    }
+
+    //------------------Family members---------------
+    public long addFamilyMembers(String username, FamilyMembersResponse.RelationshipEntity relationshipEntity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_FAMILY_MEMBERS_USERNAME, username);
+        values.put(KEY_FAMILY_MEMBERS_BIRTH_CERTIFICATE_ID, relationshipEntity.getBirthcertificateid());
+        values.put(KEY_FAMILY_MEMBERS_RELATIONSHIP_NAME, relationshipEntity.getRelationshipname());
+        values.put(KEY_FAMILY_MEMBERS_RELATIONSHIP_PHONE, relationshipEntity.getRelationshipphone());
+        values.put(KEY_FAMILY_MEMBERS_RELATIONSHIP_TYPEID, relationshipEntity.getRelationshiptypeid());
+        values.put(KEY_FAMILY_MEMBERS_STUDENT_CARD_ID, relationshipEntity.getStudentcardid());
+
+        long result = db.insert(TABLE_NAME_FAMILY_MEMBERS, null, values);
+        db.close();
+        return result;
+    }
+
+    public void deleteFamilyMenbersByUsername(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_FAMILY_MEMBERS, String.format("%s = ?", KEY_FAMILY_MEMBERS_USERNAME), new String[]{username});
+        db.close();
+    }
+
+    public List<FamilyMembersResponse.RelationshipEntity> getFamilyMember(String username) {
+        List<FamilyMembersResponse.RelationshipEntity> relationshipEntities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME_FAMILY_MEMBERS, KEY_FAMILY_MEMBERS_USERNAME, username);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                FamilyMembersResponse.RelationshipEntity relationshipEntity = new FamilyMembersResponse.RelationshipEntity();
+                relationshipEntity.setBirthcertificateid(cursor.getInt(cursor.getColumnIndex(KEY_FAMILY_MEMBERS_BIRTH_CERTIFICATE_ID)));
+                relationshipEntity.setRelationshipname(cursor.getString(cursor.getColumnIndex(KEY_FAMILY_MEMBERS_RELATIONSHIP_NAME)));
+                relationshipEntity.setRelationshipphone(cursor.getString(cursor.getColumnIndex(KEY_FAMILY_MEMBERS_RELATIONSHIP_PHONE)));
+                relationshipEntity.setRelationshiptypeid(cursor.getInt(cursor.getColumnIndex(KEY_FAMILY_MEMBERS_RELATIONSHIP_TYPEID)));
+                relationshipEntity.setStudentcardid(cursor.getInt(cursor.getColumnIndex(KEY_FAMILY_MEMBERS_STUDENT_CARD_ID)));
+                relationshipEntities.add(relationshipEntity);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return relationshipEntities;
+    }
+
+    //------------------Family---------------
+    public long addFamily(String username, FamilyResponse.FamilyEntity familyEntity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_FAMILY_USERNAME, username);
+        values.put(KEY_FAMILY_MERRIAGE_STATUS, familyEntity.getMarriagestatus());
+        values.put(KEY_FAMILY_NAME, familyEntity.getFamilyname());
+        values.put(KEY_FAMILY_PHONE, familyEntity.getFamilyphone());
+        values.put(KEY_FAMILY_MERRIAGE_REGISTRATION_ID, familyEntity.getMarriageregistrationid());
+        values.put(KEY_FAMILY_CHILDREN_NUMBER, familyEntity.getChildrennumber());
+
+        long result = db.insert(TABLE_NAME_FAMILY, null, values);
+        db.close();
+        return result;
+    }
+
+    public void deleteFamilyByUsername(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_FAMILY, String.format("%s = ?", KEY_FAMILY_USERNAME), new String[]{username});
+        db.close();
+    }
+
+    public FamilyResponse.FamilyEntity getFamily(String username) {
+        FamilyResponse.FamilyEntity familyEntity = new FamilyResponse.FamilyEntity();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME_FAMILY, KEY_FAMILY_USERNAME, username);
+//        String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_FAMILY);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            familyEntity.setMarriageregistrationid(cursor.getInt(cursor.getColumnIndex(KEY_FAMILY_MERRIAGE_REGISTRATION_ID)));
+            familyEntity.setFamilyname(cursor.getString(cursor.getColumnIndex(KEY_FAMILY_NAME)));
+            familyEntity.setFamilyphone(cursor.getString(cursor.getColumnIndex(KEY_FAMILY_PHONE)));
+            familyEntity.setMarriagestatus(cursor.getInt(cursor.getColumnIndex(KEY_FAMILY_MERRIAGE_STATUS)));
+            familyEntity.setChildrennumber(cursor.getInt(cursor.getColumnIndex(KEY_FAMILY_CHILDREN_NUMBER)));
+        }
+        cursor.close();
+        return familyEntity;
+    }
+
+    //------------------Family---------------
+    public long addFacebook(String username, FacebookResponse.FacebookprofileEntity facebookprofileEntity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_FACEBOOK_USERNAME, username);
+        values.put(KEY_FACEBOOK_ID, facebookprofileEntity.getFacebookid());
+        values.put(KEY_FACEBOOK_NAME, facebookprofileEntity.getFacebookname());
+        values.put(KEY_FACEBOOK_ADDRESS, facebookprofileEntity.getFacebookaddress());
+        values.put(KEY_FACEBOOK_EMAIL, facebookprofileEntity.getFacebookemail());
+
+        long result = db.insert(TABLE_NAME_FACEBOOK, null, values);
+        db.close();
+        return result;
+    }
+
+    public void deleteFacebookByUsername(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_FACEBOOK, String.format("%s = ?", KEY_FACEBOOK_USERNAME), new String[]{username});
+        db.close();
+    }
+
+    public FacebookResponse.FacebookprofileEntity getFacebook(String username) {
+        FacebookResponse.FacebookprofileEntity facebookprofileEntity = new FacebookResponse.FacebookprofileEntity();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME_FACEBOOK, KEY_FACEBOOK_USERNAME, username);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            facebookprofileEntity.setFacebookid(cursor.getString(cursor.getColumnIndex(KEY_FACEBOOK_ID)));
+            facebookprofileEntity.setFacebookname(cursor.getString(cursor.getColumnIndex(KEY_FACEBOOK_NAME)));
+            facebookprofileEntity.setFacebookaddress(cursor.getString(cursor.getColumnIndex(KEY_FACEBOOK_ADDRESS)));
+            facebookprofileEntity.setFacebookemail(cursor.getString(cursor.getColumnIndex(KEY_FACEBOOK_EMAIL)));
+        }
+        cursor.close();
+        return facebookprofileEntity;
     }
 
 }

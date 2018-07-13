@@ -11,12 +11,14 @@ import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueRequest
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.Entity.FacebookRequest;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by hoangngoc on 8/15/16.
@@ -40,6 +42,10 @@ public interface ApiService {
     String API_UPDATE_COLLEAGUE = "colleague";
     String API_UPDATE_FAMILY_MEMBERS = "relationship";
     String API_UPDATE_FAMILY = "family";
+    String API_GET_RELATIONSHIP_DICTIONARY = "relationship/dictionary";
+    String API_GET_RELATIONSHIP = "relationship/";
+
+    String API_UPDATE_USER_FACEBOOK = "facebook";
 
     @POST(API_LOGIN)
     Call<ResponseBody> callLogin(@Body LoginRequest loginRequest);
@@ -82,5 +88,14 @@ public interface ApiService {
 
     @POST(API_UPDATE_FAMILY)
     Call<ResponseBody> updateFamily(@Header("Authorization") String token, @Body FamilyRequest familyRequest);
+
+    @GET(API_GET_RELATIONSHIP_DICTIONARY)
+    Call<ResponseBody> getRelationshipDictionary(@Header("Authorization") String token);
+
+    @GET(API_GET_RELATIONSHIP)
+    Call<ResponseBody> getRelationship(@Header("Authorization") String token, @Query("username") String username);
+
+    @POST(API_UPDATE_USER_FACEBOOK)
+    Call<ResponseBody> updateUserFacebook(@Header("Authorization") String token, @Body FacebookRequest facebookRequest);
 
 }

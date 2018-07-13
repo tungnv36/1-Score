@@ -6,7 +6,11 @@ import android.graphics.Bitmap;
 
 import java.util.List;
 
-import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.RelationshipDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.RelationshipResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interactor.UpdateFamilyInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Interface.UpdateFamilyInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Wireframe.UpdateFamilyWireframe;
@@ -26,6 +30,21 @@ public class UpdateFamilyPresenter implements UpdateFamilyInterface.Presenter, U
     @Override
     public void initImage(int type, String name) {
         mInteractorInput.initImage(type, name);
+    }
+
+    @Override
+    public void getRelationshipDictionary() {
+        mInteractorInput.getRelationshipDictionary();
+    }
+
+    @Override
+    public void initRelationship() {
+        mInteractorInput.initRelationship();
+    }
+
+    @Override
+    public void getFamily() {
+        mInteractorInput.getFamily();
     }
 
     @Override
@@ -66,6 +85,21 @@ public class UpdateFamilyPresenter implements UpdateFamilyInterface.Presenter, U
     }
 
     @Override
+    public void getRelationshipDictionary(List<RelationshipDictionaryResponse.RelationshipTypeEntity> relationshipTypeEntities) {
+        mView.initRelationshipDictionary(relationshipTypeEntities);
+    }
+
+    @Override
+    public void initRelationship(String username, List<FamilyMembersResponse.RelationshipEntity> relationshipEntities) {
+        mView.initRelationship(username, relationshipEntities);
+    }
+
+    @Override
+    public void getFamilyOutput(FamilyResponse.FamilyEntity familyEntity) {
+        mView.initFamily(familyEntity);
+    }
+
+    @Override
     public void updateImageOutput(int type, int imageType, Bitmap img) {
         mView.updateImage(imageType, img);
     }
@@ -86,8 +120,8 @@ public class UpdateFamilyPresenter implements UpdateFamilyInterface.Presenter, U
     }
 
     @Override
-    public void updateFamilyMembersSuccess(Dialog dialog, String msg) {
-        mView.updateFamilyMembersSuccess(dialog, msg);
+    public void updateFamilyMembersSuccess(Dialog dialog, String msg, FamilyMembersRequest familyMembersRequest) {
+        mView.updateFamilyMembersSuccess(dialog, msg, familyMembersRequest);
     }
 
     @Override

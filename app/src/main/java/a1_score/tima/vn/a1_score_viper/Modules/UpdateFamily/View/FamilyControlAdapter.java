@@ -27,15 +27,17 @@ public class FamilyControlAdapter extends RecyclerView.Adapter<FamilyControlAdap
     private List<FamilyMembersRequest> mFamilyList;
     private List<Bitmap> mBirthCertificateList;
     private List<Bitmap> mStudyCardList;
+    private List<String> mRelationshipType;
     private Context mContext;
     private UpdateFamilyInterface.Presenter mPresenter;
 
-    public FamilyControlAdapter(Context context, UpdateFamilyInterface.Presenter presenter, List<FamilyMembersRequest> familyList, List<Bitmap> birthCertificateList, List<Bitmap> studyCardList) {
+    public FamilyControlAdapter(Context context, UpdateFamilyInterface.Presenter presenter, List<FamilyMembersRequest> familyList, List<Bitmap> birthCertificateList, List<Bitmap> studyCardList, List<String> relationshipType) {
         mFamilyList = familyList;
         mContext = context;
         mPresenter = presenter;
         mBirthCertificateList = birthCertificateList;
         mStudyCardList = studyCardList;
+        mRelationshipType = relationshipType;
     }
 
     @NonNull
@@ -48,6 +50,12 @@ public class FamilyControlAdapter extends RecyclerView.Adapter<FamilyControlAdap
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, final int position) {
         final FamilyMembersRequest familyMembersRequest = mFamilyList.get(position);
+
+        holder.tvName.setText(familyMembersRequest.getRelationshipName());
+        holder.tvPhone.setText(familyMembersRequest.getRelationshipPhone());
+        holder.tvRelationship.setText(mRelationshipType.get(position));
+        holder.ivBirthCertificate.setImageBitmap(mBirthCertificateList.get(position));
+        holder.ivStudyCard.setImageBitmap(mStudyCardList.get(position));
 
 //        mPresenter.initImage(2, "_sbc" + (position + 1));
 //        mPresenter.initImage(3, "_sc" + (position + 1));

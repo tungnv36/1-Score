@@ -120,7 +120,7 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
         mSelectedPosition = position;
         boolean result = Commons.checkPermission2(UpdatePapersView.this);
         if(result) {
-            mPresenter.takePhoto(mPapersList.get(position).getType());
+            mPresenter.takePhoto(mPapersList.get(position).getCropType());
         }
     }
 
@@ -128,7 +128,7 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case Commons.MY_CAMERA_REQUEST_CODE:
-                mPresenter.takePhoto(mPapersList.get(mSelectedPosition).getType());
+                mPresenter.takePhoto(mPapersList.get(mSelectedPosition).getCropType());
                 break;
         }
     }
@@ -138,8 +138,12 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
             if(data != null) {
-                String filePath = data.getStringExtra("result");
-                mPresenter.updateList(mPapersList.get(mSelectedPosition).getType(), mSelectedPosition, filePath);
+//                String filePath = data.getStringExtra("result");
+//                mPresenter.updateList(mPapersList.get(mSelectedPosition).getType(), mSelectedPosition, filePath);
+
+                String filePath = data.getStringExtra(getString(R.string.result));
+                int cropType = data.getIntExtra(getString(R.string.type), 0);//type = 1: Vẽ khung ảnh chụp CMND, type = 2: Chụp ảnh thường (hợp đồng, hoá đơn, ...)
+                mPresenter.updateImage(cropType, mSelectedPosition, mPapersList.get(mSelectedPosition).getId(), filePath);
             }
         }
     }

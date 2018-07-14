@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Presenter.LoanRequestPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
@@ -89,6 +91,7 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
         super.onResume();
         mPresenter.initAnimationLogo(ivLogo);
         mPresenter.setupAnimationProgress(pbLevel, mStartScore, mScoreOfLevel);
+        mPresenter.getLoanCreditPackage();
     }
 
     private void initData() {
@@ -154,6 +157,16 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.main_dark_blue));
         }
+    }
+
+    @Override
+    public void getLoanCreditPackageSuccess(LoanResponse loanResponse) {
+
+    }
+
+    @Override
+    public void getLoanCreditPackageFail(String err) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interactor.LoanRequestInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Wireframe.LoanRequestWireframe;
@@ -26,8 +27,13 @@ public class LoanRequestPresenter implements LoanRequestInterface.Presenter, Loa
 
     public LoanRequestPresenter(LoanRequestInterface.View view) {
         mView = view;
-        this.mInteractorInput = new LoanRequestInteractor(this);
+        mInteractorInput = new LoanRequestInteractor(view, this);
         mWireframe = new LoanRequestWireframe();
+    }
+
+    @Override
+    public void getLoanCreditPackage() {
+        mInteractorInput.getLoanCreditPackage();
     }
 
     @Override
@@ -67,6 +73,16 @@ public class LoanRequestPresenter implements LoanRequestInterface.Presenter, Loa
         mView.onDestroy();
         mView = null;
         mWireframe = null;
+    }
+
+    @Override
+    public void getLoanCreditPackageSuccess(LoanResponse loanResponse) {
+        mView.getLoanCreditPackageSuccess(loanResponse);
+    }
+
+    @Override
+    public void getLoanCreditPackageFail(String err) {
+        mView.getLoanCreditPackageFail(err);
     }
 
     @Override

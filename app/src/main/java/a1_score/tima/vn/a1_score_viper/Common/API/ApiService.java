@@ -44,6 +44,7 @@ public interface ApiService {
     String API_UPDATE_FAMILY = "family";
     String API_GET_RELATIONSHIP_DICTIONARY = "relationship/dictionary";
     String API_GET_RELATIONSHIP = "relationship/";
+    String API_GET_LOAN_CREDIT_PACKAGE = "loan-credit-package";
 
     String API_UPDATE_USER_FACEBOOK = "facebook";
 
@@ -97,5 +98,8 @@ public interface ApiService {
 
     @POST(API_UPDATE_USER_FACEBOOK)
     Call<ResponseBody> updateUserFacebook(@Header("Authorization") String token, @Body FacebookRequest facebookRequest);
+
+    @GET(API_GET_LOAN_CREDIT_PACKAGE)
+    Call<ResponseBody> getLoanCreditPackage(@Header("Authorization") String token);
 
 }

@@ -19,7 +19,7 @@ public class UpdatePapersPresenter implements UpdatePapersInterface.Presenter, U
 
     public UpdatePapersPresenter(UpdatePapersInterface.View view) {
         mView = view;
-        mInteractorInput = new UpdatePapersInteractor(this);
+        mInteractorInput = new UpdatePapersInteractor(view, this);
         mWireframe = new UpdatePapersWireframe();
     }
 
@@ -29,8 +29,8 @@ public class UpdatePapersPresenter implements UpdatePapersInterface.Presenter, U
     }
 
     @Override
-    public void updateList(int type, int position, String filePath) {
-        mInteractorInput.updateList(type, position, filePath);
+    public void updateImage(int type, int position, int imageType, String filePath) {
+        mInteractorInput.updateImage(type, position, imageType, filePath);
     }
 
     @Override
@@ -46,19 +46,13 @@ public class UpdatePapersPresenter implements UpdatePapersInterface.Presenter, U
     }
 
     @Override
-    public void updateListOutput(int type, int position, Bitmap img) {
-        Bitmap bmp = Commons.rotateImage(img, 90);
-        List<Integer> lstCameraSize = Commons.getCropSize((Activity)mView, type, bmp);
-        if(lstCameraSize != null) {
-            Bitmap cropBmp = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
-            mView.updateList(position, cropBmp);
-        } else {
-            mView.updateList(position, bmp);
-        }
+    public void updateImageOutput(int type, int position, int imageType, Bitmap img) {
+        mView.updateList(position, img);
     }
 
     @Override
-    public void updateListFailed(String err) {
+    public void updateImageFailed(String err) {
         mView.updateListFailed(err);
     }
+
 }

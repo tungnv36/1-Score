@@ -207,7 +207,7 @@ public class Commons {
                 x = 50;
                 y = bmp.getHeight() / 7;
                 w = bmp.getWidth() - 50;
-                h = bmp.getHeight() / 7 + bmp.getWidth() - 50;
+                h = w;//bmp.getHeight() / 7 + bmp.getWidth() - 50;
                 lstCameraType.add(x);
                 lstCameraType.add(y);
                 lstCameraType.add(w);

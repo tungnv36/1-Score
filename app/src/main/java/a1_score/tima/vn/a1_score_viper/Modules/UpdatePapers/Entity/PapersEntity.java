@@ -7,14 +7,14 @@ public class PapersEntity {
     private boolean isShow;
     private Bitmap image;
     private String title;
-    private int type;//1: ô chụp hình chữ nhật (CMND, Bằng lái, ...) 2: ô chụp hợp đồng
+    private int cropType;//1: ô chụp hình chữ nhật (CMND, Bằng lái, ...) 2: ô chụp hợp đồng
 
-    public PapersEntity(int id, boolean isShow, Bitmap image, String title, int type) {
+    public PapersEntity(int id, boolean isShow, Bitmap image, String title, int cropType) {
         this.id = id;
         this.isShow = isShow;
         this.image = image;
         this.title = title;
-        this.type = type;
+        this.cropType = cropType;
     }
 
     public int getId() {
@@ -49,11 +49,11 @@ public class PapersEntity {
         this.title = title;
     }
 
-    public int getType() {
-        return type;
+    public int getCropType() {
+        return cropType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setCropType(int cropType) {
+        this.cropType = cropType;
     }
 }

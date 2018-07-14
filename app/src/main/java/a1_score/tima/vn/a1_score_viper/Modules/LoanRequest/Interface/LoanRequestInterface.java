@@ -8,16 +8,24 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.RelationshipResponse;
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public interface LoanRequestInterface {
     //View
     interface View {
+        void getLoanCreditPackageSuccess(LoanResponse loanResponse);
+        void getLoanCreditPackageFail(String err);
+
         void openOrCloseInfo(RelativeLayout view, Button button, boolean isOpen, int position);
         void onDestroy();
     }
     //Presenter
     interface Presenter {
+        void getLoanCreditPackage();
+
         void goToLoanRegistration();
         void initAnimationLogo(ImageView view);
         void setupAnimationProgress(ProgressBar progress, int start, int end);
@@ -28,6 +36,8 @@ public interface LoanRequestInterface {
     }
     //Interactor
     interface InteractorInput {
+        void getLoanCreditPackage();
+
         void goToLoanRegistration();
         void initAnimationLogo(ImageView view);
         void setupAnimationProgress(ProgressBar progress, int start, int end);
@@ -38,6 +48,9 @@ public interface LoanRequestInterface {
     }
 
     interface InteractorOutput {
+        void getLoanCreditPackageSuccess(LoanResponse loanResponse);
+        void getLoanCreditPackageFail(String err);
+
         void goToLoanRegistrationOutput();
         void runAnimationLogo(ImageView view);
         void runAnimationProgress(ProgressBar progress, int start, int end);
@@ -48,5 +61,13 @@ public interface LoanRequestInterface {
     //Wireframe
     interface Wireframe {
         void goToLoanRegistration(Activity activity);
+    }
+    //DataStore
+    interface DataStore {
+        String getUser();
+        String getFullName();
+        public String getToken();
+
+        void getLoanCreditPackage(final OnResponse<String, LoanResponse> m_Response, String token);
     }
 }

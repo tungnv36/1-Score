@@ -7,14 +7,40 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.DataStore.LoanRequestDataStore;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
 
 public class LoanRequestInteractor implements LoanRequestInterface.InteractorInput {
 
+    private LoanRequestInterface.View mView;
     private LoanRequestInterface.InteractorOutput mPresenter;
+    private LoanRequestInterface.DataStore mDataStore;
 
-    public LoanRequestInteractor(LoanRequestInterface.InteractorOutput presenter) {
-        this.mPresenter = presenter;
+    public LoanRequestInteractor(LoanRequestInterface.View view, LoanRequestInterface.InteractorOutput presenter) {
+        mView = view;
+        mPresenter = presenter;
+        mDataStore = LoanRequestDataStore.getInstance(view);
+    }
+
+    @Override
+    public void getLoanCreditPackage() {
+        mDataStore.getLoanCreditPackage(new OnResponse<String, LoanResponse>() {
+            @Override
+            public void onResponseSuccess(String tag, String rs, LoanResponse extraData) {
+                if(extraData != null) {
+                    mPresenter.getLoanCreditPackageSuccess(extraData);
+                } else {
+                    mPresenter.getLoanCreditPackageFail("");
+                }
+            }
+
+            @Override
+            public void onResponseError(String tag, String message) {
+                mPresenter.getLoanCreditPackageFail(message);
+            }
+        }, String.format("Bearer %s", mDataStore.getToken()));
     }
 
     @Override

@@ -18,11 +18,12 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Interface.LoanRegistrationInterface;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoanRegistrationView extends AppCompatActivity {
+public class LoanRegistrationView extends AppCompatActivity implements LoanRegistrationInterface.View {
 
 
     @BindView(R.id.spFormOfLoans)

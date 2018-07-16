@@ -35,7 +35,7 @@ public class PhotoAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return mPaperList.get(position).getId();
+        return 0;
     }
 
     @Override
@@ -51,18 +51,18 @@ public class PhotoAdapter extends BaseAdapter {
         LinearLayout llImage = (LinearLayout) convertView.findViewById(R.id.llImage);
         TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
 
-        tvTitle.setText(papersEntity.getTitle());
-
-        if(papersEntity.isShow()) {
-            ivImage.setVisibility(View.VISIBLE);
-            llImage.setVisibility(View.GONE);
-            if(papersEntity.getImage() != null) {
-                ivImage.setImageBitmap(papersEntity.getImage());
-            }
-        } else {
-            ivImage.setVisibility(View.GONE);
-            llImage.setVisibility(View.VISIBLE);
-        }
+//        tvTitle.setText(papersEntity.getTitle());
+//
+//        if(papersEntity.isShow()) {
+//            ivImage.setVisibility(View.VISIBLE);
+//            llImage.setVisibility(View.GONE);
+//            if(papersEntity.getImage() != null) {
+//                ivImage.setImageBitmap(papersEntity.getImage());
+//            }
+//        } else {
+//            ivImage.setVisibility(View.GONE);
+//            llImage.setVisibility(View.VISIBLE);
+//        }
 
         return convertView;
     }

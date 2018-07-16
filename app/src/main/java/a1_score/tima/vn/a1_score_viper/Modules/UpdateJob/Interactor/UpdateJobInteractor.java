@@ -109,7 +109,11 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
 //            if(lstCameraSize != null) {
 //                final Bitmap bmpCrop = Bitmap.createBitmap(bitmap, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
 
-                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(mDataStore.getUser(), Commons.convertBitmapToBase64(bmp), "");
+                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(
+                        mDataStore.getUser(),
+                        0,
+                        Commons.convertBitmapToBase64(bmp),
+                        "");
                 mDataStore.uploadImage(new OnResponse<String, ImageProfileResponse>() {
                     @Override
                     public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {

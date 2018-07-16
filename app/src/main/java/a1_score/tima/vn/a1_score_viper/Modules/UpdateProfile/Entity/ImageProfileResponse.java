@@ -4,13 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ImageProfileResponse {
-    @Expose
     @SerializedName("Image")
     private ImageEntity image;
-    @Expose
     @SerializedName("Message")
     private String message;
-    @Expose
     @SerializedName("StatusCode")
     private int statuscode;
 
@@ -39,38 +36,65 @@ public class ImageProfileResponse {
     }
 
     public static class ImageEntity {
-        @Expose
-        @SerializedName("ImageType")
-        private String imagetype;
-        @Expose
-        @SerializedName("Url")
-        private String url;
-        @Expose
+        @SerializedName("Username")
+        private String Username;
+        @SerializedName("TypeId")
+        private String TypeId;
         @SerializedName("Id")
-        private int id;
+        private int Id;
+        @SerializedName("Description")
+        private String Description;
+        @SerializedName("ImageType")
+        private String ImageType;
+        @SerializedName("Url")
+        private String Url;
 
-        public String getImagetype() {
-            return imagetype;
+        public String getUsername() {
+            return Username;
         }
 
-        public void setImagetype(String imagetype) {
-            this.imagetype = imagetype;
+        public void setUsername(String username) {
+            Username = username;
         }
 
-        public String getUrl() {
-            return url;
+        public String getTypeId() {
+            return TypeId;
         }
 
-        public void setUrl(String url) {
-            this.url = url;
+        public void setTypeId(String typeId) {
+            TypeId = typeId;
         }
 
         public int getId() {
-            return id;
+            return Id;
         }
 
         public void setId(int id) {
-            this.id = id;
+            Id = id;
+        }
+
+        public String getDescription() {
+            return Description;
+        }
+
+        public void setDescription(String description) {
+            Description = description;
+        }
+
+        public String getImageType() {
+            return ImageType;
+        }
+
+        public void setImageType(String imageType) {
+            ImageType = imageType;
+        }
+
+        public String getUrl() {
+            return Url;
+        }
+
+        public void setUrl(String url) {
+            Url = url;
         }
     }
 }

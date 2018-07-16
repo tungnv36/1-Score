@@ -102,7 +102,11 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
                 if(lstCameraSize != null) {
                     final Bitmap bmpCrop = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));//Crop ảnh theo khung
 
-                    ImageProfileRequest imageProfileRequest = new ImageProfileRequest(mDataStore.getUser(), Commons.convertBitmapToBase64(bmpCrop), "");
+                    ImageProfileRequest imageProfileRequest = new ImageProfileRequest(
+                            mDataStore.getUser(),
+                            0,
+                            Commons.convertBitmapToBase64(bmpCrop),
+                            "");
                     mDataStore.uploadImage(new OnResponse<String, ImageProfileResponse>() {
                         @Override
                         public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {
@@ -125,7 +129,11 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
                 }
             } else {
                 final Bitmap bmp = Commons.rotateImage(bitmap, 90);
-                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(mDataStore.getUser(), Commons.convertBitmapToBase64(bmp), "");
+                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(
+                        mDataStore.getUser(),
+                        0,
+                        Commons.convertBitmapToBase64(bmp),
+                        "");
                 mDataStore.uploadImage(new OnResponse<String, ImageProfileResponse>() {
                     @Override
                     public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/cbDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="12dp" />
+
+    <TextView
+        android:id="@+id/tvTakePhotoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▸"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="textEnd"
+        android:textColor="#DDD"
+        android:textSize="26sp"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/cbDone"
+        android:layout_toLeftOf="@+id/tvTakePhotoTitle"
+        android:layout_marginRight="8dp"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/devide"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

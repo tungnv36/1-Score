@@ -71,7 +71,11 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
             if(lstCameraSize != null) {
                 final Bitmap bmpCrop = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));//Crop ảnh theo khung
 
-                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(dataStore.getUser(), Commons.convertBitmapToBase64(bmpCrop), "");
+                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(
+                        dataStore.getUser(),
+                        0,
+                        Commons.convertBitmapToBase64(bmpCrop),
+                        "");
                 dataStore.uploadImage(new OnResponse<String, ImageProfileResponse>() {
                     @Override
                     public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {

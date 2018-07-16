@@ -1,5 +1,6 @@
 package a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.View;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -9,7 +10,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -24,14 +28,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.ImagesEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Interface.UpdatePapersInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Presenter.UpdatePapersPresenter;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UpdatePapersView extends AppCompatActivity implements AdapterView.OnItemClickListener, UpdatePapersInterface.View {
+public class UpdatePapersView extends AppCompatActivity implements View.OnClickListener, UpdatePapersInterface.View {
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
@@ -39,18 +47,23 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
     TextView tvJobScore;
     @BindView(R.id.rlTitleInfo)
     RelativeLayout rlTitleInfo;
-    @BindView(R.id.gvPhoto)
-    GridView gvPhoto;
+    @BindView(R.id.rvPhoto)
+    RecyclerView rvPhoto;
     @BindView(R.id.llContent1)
     LinearLayout llContent1;
-    @BindView(R.id.btUpdate)
-    Button btUpdate;
+    @BindView(R.id.btAddPaper)
+    Button btAddPaper;
 
-    private List<PapersEntity> mPapersList;
-    private PhotoAdapter mPhotoAdapter;
+    private List<PapersEntity> mPapersList = new ArrayList<>();
+    private ImageTypeAdapter mImageTypeAdapter;
+    private List<ImagesEntity> mImageEntities = new ArrayList<>();
+    private List<String> mTypeNames = new ArrayList<>();
+    private ImagesAdapter mImagesAdapter;
 
-    private int mSelectedPosition = -1;
+    public static int sSelectedPosition = -1;
     private UpdatePapersInterface.Presenter mPresenter;
+
+    private Dialog mDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,28 +73,17 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
         setupActionBar();
         changeStatusBarColor();
         styleView();
-        initPapers();
 
         mPresenter = new UpdatePapersPresenter(this);
+        mPresenter.getImageType();
+        mPresenter.getImages();
+
+        btAddPaper.setOnClickListener(this);
     }
 
-    private void initPapers() {
-        mPapersList = new ArrayList<>();
-        mPapersList.add(new PapersEntity(1, false, null, "Hộ khẩu", 2));
-        mPapersList.add(new PapersEntity(2, false, null, "Giấy tờ nhà đất", 2));
-        mPapersList.add(new PapersEntity(3, false, null, "Bảo hiểm y tế", 1));
-        mPapersList.add(new PapersEntity(4, false, null, "Hoá đơn điện nước", 2));
-        mPapersList.add(new PapersEntity(5, false, null, "Hoá đơn Internet", 2));
-        mPapersList.add(new PapersEntity(6, false, null, "Đăng ký ô tô (Mặt trước)", 1));
-        mPapersList.add(new PapersEntity(7, false, null, "Đăng ký ô tô (Mặt sau)", 1));
-        mPapersList.add(new PapersEntity(8, false, null, "Đăng ký xe máy (Mặt trước)", 1));
-        mPapersList.add(new PapersEntity(9, false, null, "Đăng ký xe máy (Mặt sau)", 1));
-
-        int height = (int) (Commons.getDisplayMetrics(this).heightPixels / 5);
-
-        mPhotoAdapter = new PhotoAdapter(mPapersList, height);
-        gvPhoto.setAdapter(mPhotoAdapter);
-        gvPhoto.setOnItemClickListener(this);
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -112,15 +114,35 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
     }
 
     private void styleView() {
-        btUpdate.setTypeface(Commons.setFont(this, getResources().getString(R.string.font_segoe)), Typeface.BOLD);
+        btAddPaper.setTypeface(Commons.setFont(this, getResources().getString(R.string.font_segoe)), Typeface.BOLD);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mSelectedPosition = position;
-        boolean result = Commons.checkPermission2(UpdatePapersView.this);
-        if(result) {
-            mPresenter.takePhoto(mPapersList.get(position).getCropType());
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        mSelectedPosition = position;
+//        boolean result = Commons.checkPermission2(UpdatePapersView.this);
+//        if(result) {
+//            mPresenter.takePhoto(mPapersList.get(position).getCropType());
+//        }
+//    }
+
+    private void showDialogAddPhotos() {
+        try {
+            mDialog = new Dialog(this);
+            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            mDialog.setContentView(R.layout.dialog_take_photo);
+            mDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+            RecyclerView rvImageType = (RecyclerView) mDialog.findViewById(R.id.rvImageType);
+
+            mImageTypeAdapter = new ImageTypeAdapter(this, mPresenter, mPapersList);
+            Commons.setVerticalRecyclerView(this, rvImageType);
+            rvImageType.setAdapter(mImageTypeAdapter);
+
+
+            mDialog.show();
+        } catch (Exception ex) {
+            DialogUtils.showAlertDialog(UpdatePapersView.this, getString(R.string.dialog_title), ex.getMessage());
         }
     }
 
@@ -128,7 +150,7 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case Commons.MY_CAMERA_REQUEST_CODE:
-                mPresenter.takePhoto(mPapersList.get(mSelectedPosition).getCropType());
+//                mPresenter.takePhoto(mPapersList.get(mSelectedPosition).getCropType());
                 break;
         }
     }
@@ -138,26 +160,59 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == Commons.TAKE_PHOTO_REQUEST_CODE) {
             if(data != null) {
-//                String filePath = data.getStringExtra("result");
-//                mPresenter.updateList(mPapersList.get(mSelectedPosition).getType(), mSelectedPosition, filePath);
-
                 String filePath = data.getStringExtra(getString(R.string.result));
                 int cropType = data.getIntExtra(getString(R.string.type), 0);//type = 1: Vẽ khung ảnh chụp CMND, type = 2: Chụp ảnh thường (hợp đồng, hoá đơn, ...)
-                mPresenter.updateImage(cropType, mSelectedPosition, mPapersList.get(mSelectedPosition).getId(), filePath);
+                mPresenter.updateImage(
+                        cropType,
+                        sSelectedPosition,
+                        filePath,
+                        mPapersList.get(sSelectedPosition).getTypeid());
             }
         }
     }
 
+    private String getTypeName(String typeId) {
+        for(PapersEntity papersEntity : mPapersList) {
+            if(typeId.equals(String.valueOf(papersEntity.getTypeid()))) {
+                return papersEntity.getTypename();
+            }
+        }
+        return "";
+    }
+
+    @Override
+    public void getImageTypeSuccess(List<PapersEntity> papersEntities) {
+        mPapersList = papersEntities;
+    }
+
+    @Override
+    public void getImageTypeFail(String err) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
+    }
+
+    @Override
+    public void getImagesSeccess(List<ImagesEntity> imageEntities) {
+        mTypeNames = new ArrayList<>();
+        mImageEntities = imageEntities;
+        for(ImagesEntity imagesEntity : imageEntities) {
+            mTypeNames.add(getTypeName(imagesEntity.getTypeId()));
+        }
+        mImagesAdapter = new ImagesAdapter(this, mPresenter, mImageEntities);
+        mImagesAdapter.setTypeName(mTypeNames);
+        Commons.setVerticalRecyclerView(this, rvPhoto);
+        rvPhoto.setAdapter(mImagesAdapter);
+    }
+
     @Override
     public void updateList(int position, Bitmap img) {
-        mPapersList.get(mSelectedPosition).setImage(img);
-        mPapersList.get(mSelectedPosition).setShow(true);
-        mPhotoAdapter.notifyDataSetChanged();
+        mPapersList.get(position).setDone(true);
+        mImageTypeAdapter.notifyDataSetChanged();
+        mPresenter.getImages();
     }
 
     @Override
     public void updateListFailed(String err) {
-        Toast.makeText(UpdatePapersView.this, err, Toast.LENGTH_LONG).show();
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 
     @Override
@@ -167,4 +222,12 @@ public class UpdatePapersView extends AppCompatActivity implements AdapterView.O
         mPresenter = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btAddPaper:
+                showDialogAddPhotos();
+                break;
+        }
+    }
 }

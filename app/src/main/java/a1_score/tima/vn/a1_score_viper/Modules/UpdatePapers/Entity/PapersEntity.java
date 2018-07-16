@@ -2,58 +2,57 @@ package a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity;
 
 import android.graphics.Bitmap;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PapersEntity {
-    private int id;
-    private boolean isShow;
-    private Bitmap image;
-    private String title;
-    private int cropType;//1: ô chụp hình chữ nhật (CMND, Bằng lái, ...) 2: ô chụp hợp đồng
+    @SerializedName("Username")
+    private String username;
+    @SerializedName("ImageSize")
+    private int imagesize;
+    @SerializedName("TypeName")
+    private String typename;
+    @SerializedName("TypeId")
+    private int typeid;
+    @SerializedName("Done")
+    private boolean done;
 
-    public PapersEntity(int id, boolean isShow, Bitmap image, String title, int cropType) {
-        this.id = id;
-        this.isShow = isShow;
-        this.image = image;
-        this.title = title;
-        this.cropType = cropType;
+    public String getUsername() {
+        return username;
     }
 
-    public int getId() {
-        return id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getImagesize() {
+        return imagesize;
     }
 
-    public boolean isShow() {
-        return isShow;
+    public void setImagesize(int imagesize) {
+        this.imagesize = imagesize;
     }
 
-    public void setShow(boolean show) {
-        isShow = show;
+    public String getTypename() {
+        return typename;
     }
 
-    public Bitmap getImage() {
-        return image;
+    public void setTypename(String typename) {
+        this.typename = typename;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public int getTypeid() {
+        return typeid;
     }
 
-    public String getTitle() {
-        return title;
+    public void setTypeid(int typeid) {
+        this.typeid = typeid;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public boolean isDone() {
+        return done;
     }
 
-    public int getCropType() {
-        return cropType;
-    }
-
-    public void setCropType(int cropType) {
-        this.cropType = cropType;
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

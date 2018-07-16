@@ -5,15 +5,18 @@ import com.google.gson.annotations.SerializedName;
 public class ImageProfileRequest {
     @SerializedName("username")
     private String username;
-    @SerializedName("type")
-    private String type;
+    @SerializedName("type_id")
+    private int type_id;
     @SerializedName("base64_image")
     private String base64_image;
+    @SerializedName("description")
+    private String description;
 
-    public ImageProfileRequest(String username, String base64_image, String type) {
+    public ImageProfileRequest(String username, int type_id, String base64_image, String description) {
         this.username = username;
+        this.type_id = type_id;
         this.base64_image = base64_image;
-        this.type = type;
+        this.description = description;
     }
 
     public String getUsername() {
@@ -24,12 +27,12 @@ public class ImageProfileRequest {
         this.username = username;
     }
 
-    public String getType() {
-        return type;
+    public int getType_id() {
+        return type_id;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType_id(int type_id) {
+        this.type_id = type_id;
     }
 
     public String getBase64_image() {
@@ -38,5 +41,13 @@ public class ImageProfileRequest {
 
     public void setBase64_image(String base64_image) {
         this.base64_image = base64_image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
@@ -20,6 +21,9 @@ import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.DataStore.UpdateJobDataStore;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Interface.UpdateJobInterface;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.ImagesEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Interface.UpdatePapersInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
@@ -72,6 +76,62 @@ public class UpdatePapersDataStore extends ApiRequest implements UpdatePapersInt
     }
 
     @Override
+    public void getImageType(final OnResponse<String, PapersResponse> m_Response, String token) {
+        m_Response.onStart();
+        Call<ResponseBody> call = m_Service.getImageTypes(token);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        try {
+                            final GsonBuilder gsonBuilder = new GsonBuilder();
+                            final Gson gson = gsonBuilder.create();
+                            PapersResponse papersResponse = gson.fromJson(jsonObject.toString(), PapersResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), papersResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
+                        }
+                    } else {
+                        m_Response.onResponseError(TAG, String.valueOf(response.message()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                m_Response.onFinish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                m_Response.onResponseError(TAG, t.getMessage());
+                m_Response.onFinish();
+            }
+        });
+    }
+
+    @Override
+    public void deleteAllImageType() {
+        sQliteDatabase.deleteAllImageTypes();
+    }
+
+    @Override
+    public void updateImageTypeToDB(PapersResponse.ImageTypesEntity imageTypesEntity, String username, boolean done) {
+        sQliteDatabase.addImageType(imageTypesEntity, username, done);
+    }
+
+    @Override
+    public List<PapersEntity> getImageType() {
+        return sQliteDatabase.getImageType();
+    }
+
+    @Override
+    public List<ImagesEntity> getImages(String username) {
+        return sQliteDatabase.getImages(username);
+    }
+
+    @Override
     public void saveImageToLocal(String fineName, Bitmap bmp) {
         FileOutputStream out = null;
         try {
@@ -93,8 +153,13 @@ public class UpdatePapersDataStore extends ApiRequest implements UpdatePapersInt
     }
 
     @Override
-    public void saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type) {
-        sQliteDatabase.addImage(imageProfileResponse, imageName, username, type);
+    public long saveImageToDB(ImageProfileResponse imageProfileResponse, String imageName, String username, String type) {
+        return sQliteDatabase.addImageLong(imageProfileResponse, imageName, username, type);
+    }
+
+    @Override
+    public void updateImageTypeState(String username, int typeId, boolean done) {
+        sQliteDatabase.updateImageType(username, typeId, done);
     }
 
     @Override

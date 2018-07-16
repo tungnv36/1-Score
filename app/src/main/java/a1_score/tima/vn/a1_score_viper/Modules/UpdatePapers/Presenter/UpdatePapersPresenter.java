@@ -6,10 +6,13 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.ImagesEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Interactor.UpdatePapersInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Interface.UpdatePapersInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.View.UpdatePapersView;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Wireframe.UpdatePapersWireframe;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 
 public class UpdatePapersPresenter implements UpdatePapersInterface.Presenter, UpdatePapersInterface.InteractorOutput {
 
@@ -24,13 +27,23 @@ public class UpdatePapersPresenter implements UpdatePapersInterface.Presenter, U
     }
 
     @Override
+    public void getImageType() {
+        mInteractorInput.getImageType();
+    }
+
+    @Override
+    public void getImages() {
+        mInteractorInput.getImages();
+    }
+
+    @Override
     public void takePhoto(int type) {
         mInteractorInput.takePhoto(type);
     }
 
     @Override
-    public void updateImage(int type, int position, int imageType, String filePath) {
-        mInteractorInput.updateImage(type, position, imageType, filePath);
+    public void updateImage(int type, int position, String filePath, int typeId) {
+        mInteractorInput.updateImage(type, position, filePath, typeId);
     }
 
     @Override
@@ -38,6 +51,21 @@ public class UpdatePapersPresenter implements UpdatePapersInterface.Presenter, U
         mView = null;
         mInteractorInput = null;
         mWireframe = null;
+    }
+
+    @Override
+    public void getImagesSeccess(List<ImagesEntity> imageEntities) {
+        mView.getImagesSeccess(imageEntities);
+    }
+
+    @Override
+    public void getImageTypeSuccess(List<PapersEntity> papersEntities) {
+        mView.getImageTypeSuccess(papersEntities);
+    }
+
+    @Override
+    public void getImageTypeFail(String err) {
+        mView.getImageTypeFail(err);
     }
 
     @Override

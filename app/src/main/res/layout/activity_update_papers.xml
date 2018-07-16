@@ -51,30 +51,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/rlTitleInfo"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:orientation="vertical">
 
-                <GridView
-                    android:id="@+id/gvPhoto"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPhoto"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:numColumns="3"
-                    android:verticalSpacing="10dp"
-                    android:horizontalSpacing="10dp"
-                    android:stretchMode="columnWidth"/>
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <!--<GridView-->
+                    <!--android:id="@+id/gvPhoto"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:numColumns="3"-->
+                    <!--android:verticalSpacing="10dp"-->
+                    <!--android:horizontalSpacing="10dp"-->
+                    <!--android:stretchMode="columnWidth"/>-->
 
             </LinearLayout>
         </RelativeLayout>
     </com.loopeer.shadow.ShadowView>
 
     <Button
-        android:id="@+id/btUpdate"
+        android:id="@+id/btAddPaper"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_margin="10dp"
         android:layout_weight="0"
         android:background="@drawable/style_button_main"
-        android:text="@string/update"
+        android:text="@string/add_paper"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/button_text_style" />

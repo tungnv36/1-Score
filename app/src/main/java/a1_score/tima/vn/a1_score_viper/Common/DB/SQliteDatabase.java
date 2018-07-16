@@ -16,6 +16,9 @@ import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyRespons
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.ColleagueResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.ImagesEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersEntity;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdatePapers.Entity.PapersResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.Entity.FacebookResponse;
@@ -32,6 +35,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String KEY_IMAGES_NAME = "Image_Name";
     private static final String KEY_IMAGES_USER = "User";
     private static final String KEY_IMAGES_TYPE = "Image_Type";
+    private static final String KEY_IMAGES_TYPE_ID = "Type_Id";
 
     //Create table profile
     private static final String TABLE_NAME_PROFILE = "profile";
@@ -126,6 +130,14 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static  final String KEY_FACEBOOK_ADDRESS = "address";
     private static  final String KEY_FACEBOOK_EMAIL = "email";
 
+    //create table image type
+    private static  final String TABLE_NAME_IMAGE_TYPE = "imagetype";
+    private static  final String KEY_IMAGE_TYPE_USERNAME = "Username";
+    private static  final String KEY_IMAGE_TYPE_ID = "TypeId";
+    private static  final String KEY_IMAGE_TYPE_NAME = "TypeName";
+    private static  final String KEY_IMAGE_TYPE_IMAGE_SIZE = "ImageSize";
+    private static  final String KEY_IMAGE_TYPE_DONE = "Done";
+
     public static SQliteDatabase mInstance;
 
     public static SQliteDatabase getInstance(Context context) {
@@ -141,23 +153,59 @@ public class SQliteDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String create_images_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
-                TABLE_NAME_IMAGES, KEY_IMAGES_ID, KEY_IMAGES_URL, KEY_IMAGES_TYPE, KEY_IMAGES_NAME, KEY_IMAGES_USER, KEY_IMAGES_FORMAT);
-        db.execSQL(create_images_table);
+        String create_images_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)",
+                TABLE_NAME_IMAGES,
+                KEY_IMAGES_ID,
+                KEY_IMAGES_URL,
+                KEY_IMAGES_TYPE,
+                KEY_IMAGES_NAME,
+                KEY_IMAGES_USER,
+                KEY_IMAGES_FORMAT,
+                KEY_IMAGES_TYPE_ID);
         String create_profile_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)",
-                TABLE_NAME_PROFILE, KEY_PROFILE_ID, KEY_PROFILE_USERNAME, KEY_PROFILE_FULLNAME, KEY_PROFILE_DATE_OF_BIRTH, KEY_PROFILE_ADDRESS,
-                KEY_PROFILE_ID_NUMBER, KEY_PROFILE_ID_IMAGE_1, KEY_PROFILE_ID_IMAGE_2, KEY_PROFILE_BANK_ACC_NUMBER, KEY_PROFILE_CARD_TERM,
-                KEY_PROFILE_CARD_IMAGE, KEY_PROFILE_SEX);
+                TABLE_NAME_PROFILE,
+                KEY_PROFILE_ID,
+                KEY_PROFILE_USERNAME,
+                KEY_PROFILE_FULLNAME,
+                KEY_PROFILE_DATE_OF_BIRTH,
+                KEY_PROFILE_ADDRESS,
+                KEY_PROFILE_ID_NUMBER,
+                KEY_PROFILE_ID_IMAGE_1,
+                KEY_PROFILE_ID_IMAGE_2,
+                KEY_PROFILE_BANK_ACC_NUMBER,
+                KEY_PROFILE_CARD_TERM,
+                KEY_PROFILE_CARD_IMAGE,
+                KEY_PROFILE_SEX);
         String create_user_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)",
-                TABLE_NAME_USER, KEY_USER_ID, KEY_USER_NAME, KEY_USER_FULLNAME, KEY_USER_DATE_OF_BIRTH,
-                KEY_USER_ID_NUMBER, KEY_USER_ADDRESS, KEY_USER_ACC_NUMBER, KEY_USER_CARD_TERM, KEY_USER_SEX,
-                KEY_USER_SCORED, KEY_USER_LEVEL, KEY_USER_URL_IMAGE1, KEY_USER_URL_IMAGE2, KEY_USER_URL_CARD_IMAGE, KEY_USER_URL_AVATAR, KEY_USER_PROGRESS);
+                TABLE_NAME_USER,
+                KEY_USER_ID,
+                KEY_USER_NAME,
+                KEY_USER_FULLNAME,
+                KEY_USER_DATE_OF_BIRTH,
+                KEY_USER_ID_NUMBER,
+                KEY_USER_ADDRESS,
+                KEY_USER_ACC_NUMBER,
+                KEY_USER_CARD_TERM,
+                KEY_USER_SEX,
+                KEY_USER_SCORED,
+                KEY_USER_LEVEL,
+                KEY_USER_URL_IMAGE1,
+                KEY_USER_URL_IMAGE2,
+                KEY_USER_URL_CARD_IMAGE,
+                KEY_USER_URL_AVATAR,
+                KEY_USER_PROGRESS);
         String create_jobs_dic_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT)",
-                TABLE_NAME_JOBS_DIC, KEY_JOBS_DIC_ID, KEY_JOBS_DIC_JOB_TYPE);
+                TABLE_NAME_JOBS_DIC,
+                KEY_JOBS_DIC_ID,
+                KEY_JOBS_DIC_JOB_TYPE);
         String create_positions_dic_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT)",
-                TABLE_NAME_POSITIONS_DIC, KEY_POSITIONS_DIC_ID, KEY_POSITIONS_DIC_JOB_TYPE);
+                TABLE_NAME_POSITIONS_DIC,
+                KEY_POSITIONS_DIC_ID,
+                KEY_POSITIONS_DIC_JOB_TYPE);
         String create_salaries_dic_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT)",
-                TABLE_NAME_SALARIES_DIC, KEY_SALARIES_DIC_ID, KEY_SALARIES_DIC_POSITION);
+                TABLE_NAME_SALARIES_DIC,
+                KEY_SALARIES_DIC_ID,
+                KEY_SALARIES_DIC_POSITION);
         String create_job_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT, %s INTEGER, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER)",
                 TABLE_NAME_JOB,
                 KEY_JOB_USERNAME,
@@ -197,6 +245,13 @@ public class SQliteDatabase extends SQLiteOpenHelper {
                 KEY_FACEBOOK_NAME,
                 KEY_FACEBOOK_ADDRESS,
                 KEY_FACEBOOK_EMAIL);
+        String create_image_type_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT, %s INTEGER, %s TEXT, %s INTEGER, %s INTEGER)",
+                TABLE_NAME_IMAGE_TYPE,
+                KEY_IMAGE_TYPE_USERNAME,
+                KEY_IMAGE_TYPE_ID,
+                KEY_IMAGE_TYPE_NAME,
+                KEY_IMAGE_TYPE_IMAGE_SIZE,
+                KEY_IMAGE_TYPE_DONE);
 
         db.execSQL(create_images_table);
         db.execSQL(create_profile_table);
@@ -209,6 +264,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.execSQL(create_family_members_table);
         db.execSQL(create_family_table);
         db.execSQL(create_facebook_table);
+        db.execSQL(create_image_type_table);
     }
 
     @Override
@@ -224,6 +280,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         String drop_family_members_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_FAMILY_MEMBERS);
         String drop_family_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_FAMILY);
         String drop_facebook_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_FACEBOOK);
+        String drop_image_type_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_IMAGE_TYPE);
 
         db.execSQL(drop_images_table);
         db.execSQL(drop_profile_table);
@@ -236,6 +293,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.execSQL(drop_family_members_table);
         db.execSQL(drop_family_table);
         db.execSQL(drop_facebook_table);
+        db.execSQL(drop_image_type_table);
 
         onCreate(db);
     }
@@ -317,17 +375,41 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         values.put(KEY_IMAGES_ID, imageProfileResponse.getImage().getId());
         values.put(KEY_IMAGES_URL, imageProfileResponse.getImage().getUrl());
         values.put(KEY_IMAGES_TYPE, type);
+        values.put(KEY_IMAGES_TYPE_ID, imageProfileResponse.getImage().getTypeId());
         values.put(KEY_IMAGES_NAME, username + imageName);
         values.put(KEY_IMAGES_USER, username);
-        values.put(KEY_IMAGES_FORMAT, imageProfileResponse.getImage().getImagetype());
+        values.put(KEY_IMAGES_FORMAT, imageProfileResponse.getImage().getImageType());
 
-        db.insert(TABLE_NAME_IMAGES, null, values);
+        long result = db.insert(TABLE_NAME_IMAGES, null, values);
         db.close();
+    }
+
+    public long addImageLong(ImageProfileResponse imageProfileResponse, String imageName, String username, String type) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_IMAGES_ID, imageProfileResponse.getImage().getId());
+        values.put(KEY_IMAGES_URL, imageProfileResponse.getImage().getUrl());
+        values.put(KEY_IMAGES_TYPE, type);
+        values.put(KEY_IMAGES_TYPE_ID, imageProfileResponse.getImage().getTypeId());
+        values.put(KEY_IMAGES_NAME, imageName);
+        values.put(KEY_IMAGES_USER, username);
+        values.put(KEY_IMAGES_FORMAT, imageProfileResponse.getImage().getImageType());
+
+        long result = db.insert(TABLE_NAME_IMAGES, null, values);
+        db.close();
+        return result;
     }
 
     public void deleteImageBy(String username, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME_IMAGES, String.format("%s=? AND %s=?", KEY_IMAGES_USER, KEY_IMAGES_TYPE), new String[] { username, type });
+        db.close();
+    }
+
+    public void deleteImageByTypeId(String username, int typeId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_IMAGES, String.format("%s=? AND %s=?", KEY_IMAGES_USER, KEY_IMAGES_TYPE_ID), new String[] { username, String.format("%s", typeId) });
         db.close();
     }
 
@@ -341,6 +423,34 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         }
         cursor.close();
         return 0;
+    }
+
+    public int getImageIDByTypeId(String username, int typeId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT %s FROM %s WHERE %s = '%s' AND %s = '%s'", KEY_IMAGES_ID, TABLE_NAME_IMAGES, KEY_IMAGES_USER, username, KEY_IMAGES_TYPE_ID, typeId);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            int id = cursor.getInt(0);
+            return id;
+        }
+        cursor.close();
+        return 0;
+    }
+
+    public List<ImagesEntity> getImages(String username) {
+        List<ImagesEntity> imageEntities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME_IMAGES, KEY_IMAGES_USER, username);
+        Cursor c = db.rawQuery(query, null);
+        if(c.moveToFirst()) {
+            do {
+                ImagesEntity imageEntity = new ImagesEntity();
+                imageEntity.setTypeId(c.getString(c.getColumnIndex(KEY_IMAGES_TYPE_ID)));
+                imageEntity.setImageName(c.getString(c.getColumnIndex(KEY_IMAGES_NAME)));
+                imageEntities.add(imageEntity);
+            } while (c.moveToNext());
+        }
+        return imageEntities;
     }
 
     //---------------Profile---------------
@@ -743,6 +853,59 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         }
         cursor.close();
         return facebookprofileEntity;
+    }
+
+    //------------------Image types---------------
+    public long addImageType(PapersResponse.ImageTypesEntity imageTypesEntity, String username, boolean done) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_IMAGE_TYPE_USERNAME, username);
+        values.put(KEY_IMAGE_TYPE_ID, imageTypesEntity.getTypeid());
+        values.put(KEY_IMAGE_TYPE_NAME, imageTypesEntity.getTypename());
+        values.put(KEY_IMAGE_TYPE_IMAGE_SIZE, imageTypesEntity.getImagesize());
+        values.put(KEY_IMAGE_TYPE_DONE, done?1:0);
+
+        long result = db.insert(TABLE_NAME_IMAGE_TYPE, null, values);
+        db.close();
+        return result;
+    }
+
+    public long updateImageType(String username, int typeID, boolean done) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_IMAGE_TYPE_DONE, done?1:0);
+
+        long result = db.update(TABLE_NAME_IMAGE_TYPE, values, KEY_IMAGE_TYPE_USERNAME + " = '" + username + "' and " + KEY_IMAGE_TYPE_ID + " = '" + typeID + "'", null);
+        db.close();
+        return result;
+    }
+
+    public void deleteAllImageTypes() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_IMAGE_TYPE, null, null);
+        db.close();
+    }
+
+    public List<PapersEntity> getImageType() {
+        List<PapersEntity> papersEntities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_IMAGE_TYPE);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                PapersEntity papersEntity = new PapersEntity();
+                papersEntity.setUsername(cursor.getString(cursor.getColumnIndex(KEY_IMAGE_TYPE_USERNAME)));
+                papersEntity.setTypeid(cursor.getInt(cursor.getColumnIndex(KEY_IMAGE_TYPE_ID)));
+                papersEntity.setTypename(cursor.getString(cursor.getColumnIndex(KEY_IMAGE_TYPE_NAME)));
+                papersEntity.setImagesize(cursor.getInt(cursor.getColumnIndex(KEY_IMAGE_TYPE_IMAGE_SIZE)));
+                papersEntity.setDone(cursor.getInt(cursor.getColumnIndex(KEY_IMAGE_TYPE_DONE))==1?true:false);
+                papersEntities.add(papersEntity);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return papersEntities;
     }
 
 }

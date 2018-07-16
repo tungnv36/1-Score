@@ -74,7 +74,11 @@ public class HomePageInteractor implements HomePageInterface.InteractorInput {
             if(lstCameraSize != null) {
                 final Bitmap bmpCrop = Bitmap.createBitmap(bmp, lstCameraSize.get(0), lstCameraSize.get(1), lstCameraSize.get(2), lstCameraSize.get(3));
 
-                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(mDataStore.getUserName(), Commons.convertBitmapToBase64(bmpCrop), "avatar");
+                ImageProfileRequest imageProfileRequest = new ImageProfileRequest(
+                        mDataStore.getUserName(),
+                        1,
+                        Commons.convertBitmapToBase64(bmpCrop),
+                        "avatar");
                 mDataStore.uploadImage(new OnResponse<String, ImageProfileResponse>() {
                     @Override
                     public void onResponseSuccess(String tag, String rs, ImageProfileResponse extraData) {

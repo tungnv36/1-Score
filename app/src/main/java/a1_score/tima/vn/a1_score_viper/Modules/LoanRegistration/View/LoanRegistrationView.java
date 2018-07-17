@@ -26,8 +26,8 @@ import butterknife.ButterKnife;
 public class LoanRegistrationView extends AppCompatActivity implements LoanRegistrationInterface.View {
 
 
-    @BindView(R.id.spFormOfLoans)
-    Spinner spFormOfLoans;
+    @BindView(R.id.tvFormOfLoans)
+    TextView tvFormOfLoans;
     @BindView(R.id.llFormOfLoans)
     LinearLayout llFormOfLoans;
     @BindView(R.id.spPaymentMethods)

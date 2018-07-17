@@ -3,6 +3,7 @@ package a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Presenter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -13,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import java.util.List;
+
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interactor.LoanRequestInteractor;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
@@ -29,6 +33,16 @@ public class LoanRequestPresenter implements LoanRequestInterface.Presenter, Loa
         mView = view;
         mInteractorInput = new LoanRequestInteractor(view, this);
         mWireframe = new LoanRequestWireframe();
+    }
+
+    @Override
+    public void initAvatar() {
+        mInteractorInput.initAvatar();
+    }
+
+    @Override
+    public void initData() {
+        mInteractorInput.initData();
     }
 
     @Override
@@ -76,8 +90,18 @@ public class LoanRequestPresenter implements LoanRequestInterface.Presenter, Loa
     }
 
     @Override
-    public void getLoanCreditPackageSuccess(LoanResponse loanResponse) {
-        mView.getLoanCreditPackageSuccess(loanResponse);
+    public void initAvatarOutput(Bitmap bmp) {
+        mView.initAvatar(bmp);
+    }
+
+    @Override
+    public void initDataOutput(String fullName, int level, long score) {
+        mView.initData(fullName, level, score);
+    }
+
+    @Override
+    public void getLoanCreditPackageSuccess(List<LoanResponse.LoanCreditPackagesEntity> loanCreditPackagesEntities) {
+        mView.getLoanCreditPackageSuccess(loanCreditPackagesEntities);
     }
 
     @Override

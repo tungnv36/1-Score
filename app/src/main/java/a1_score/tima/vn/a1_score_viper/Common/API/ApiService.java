@@ -46,6 +46,7 @@ public interface ApiService {
     String API_GET_RELATIONSHIP = "relationship/";
     String API_GET_LOAN_CREDIT_PACKAGE = "loan-credit-package";
     String API_GET_IMAGE_TYPE = "image/dictionary";
+    String API_GET_LOAN_DICTIONARY = "loan-credit/dictionary";
 
     String API_UPDATE_USER_FACEBOOK = "facebook";
 
@@ -105,5 +106,8 @@ public interface ApiService {
 
     @GET(API_GET_IMAGE_TYPE)
     Call<ResponseBody> getImageTypes(@Header("Authorization") String token);
+
+    @GET(API_GET_LOAN_DICTIONARY)
+    Call<ResponseBody> getLoanDictionary(@Header("Authorization") String token);
 
 }

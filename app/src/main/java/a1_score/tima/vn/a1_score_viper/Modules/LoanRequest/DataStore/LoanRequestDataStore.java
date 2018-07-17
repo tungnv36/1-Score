@@ -53,6 +53,18 @@ public class LoanRequestDataStore extends ApiRequest implements LoanRequestInter
     }
 
     @Override
+    public long getScore() {
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
+        return pref.getLong("score", 0);
+    }
+
+    @Override
+    public int getLevel() {
+        SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
+        return pref.getInt("level", 0);
+    }
+
+    @Override
     public String getToken() {
         SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("token", "");

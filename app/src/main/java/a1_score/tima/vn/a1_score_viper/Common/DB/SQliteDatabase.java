@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
@@ -85,6 +86,16 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String TABLE_NAME_SALARIES_DIC = "salaryDictionary";
     private static final String KEY_SALARIES_DIC_ID = "Id";
     private static final String KEY_SALARIES_DIC_POSITION = "Salary";
+
+    //create table purpose dic
+    private static final String TABLE_NAME_PURPOSE_DIC = "purposeDictionary";
+    private static final String KEY_PURPOSE_DIC_ID = "Id";
+    private static final String KEY_PURPOSE_DIC_VALUE = "Purpose";
+
+    //create table purpose dic
+    private static final String TABLE_NAME_PAYMENT_METHOD_DIC = "purposeDictionary";
+    private static final String KEY_PAYMENT_METHOD_DIC_ID = "Id";
+    private static final String KEY_PAYMENT_METHOD_DIC_VALUE = "Method";
 
     //create table job
     private static final String TABLE_NAME_JOB = "job";
@@ -252,6 +263,14 @@ public class SQliteDatabase extends SQLiteOpenHelper {
                 KEY_IMAGE_TYPE_NAME,
                 KEY_IMAGE_TYPE_IMAGE_SIZE,
                 KEY_IMAGE_TYPE_DONE);
+        String create_purpose_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT)",
+                TABLE_NAME_PURPOSE_DIC,
+                KEY_PURPOSE_DIC_ID,
+                KEY_PURPOSE_DIC_VALUE);
+        String create_payment_method_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s INTEGER, %s TEXT)",
+                TABLE_NAME_PAYMENT_METHOD_DIC,
+                KEY_PAYMENT_METHOD_DIC_ID,
+                KEY_PAYMENT_METHOD_DIC_VALUE);
 
         db.execSQL(create_images_table);
         db.execSQL(create_profile_table);
@@ -265,6 +284,8 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.execSQL(create_family_table);
         db.execSQL(create_facebook_table);
         db.execSQL(create_image_type_table);
+        db.execSQL(create_purpose_table);
+        db.execSQL(create_payment_method_table);
     }
 
     @Override
@@ -281,6 +302,8 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         String drop_family_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_FAMILY);
         String drop_facebook_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_FACEBOOK);
         String drop_image_type_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_IMAGE_TYPE);
+        String drop_purpose_dic_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_PURPOSE_DIC);
+        String drop_payment_method_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_PAYMENT_METHOD_DIC);
 
         db.execSQL(drop_images_table);
         db.execSQL(drop_profile_table);
@@ -294,6 +317,8 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.execSQL(drop_family_table);
         db.execSQL(drop_facebook_table);
         db.execSQL(drop_image_type_table);
+        db.execSQL(drop_purpose_dic_table);
+        db.execSQL(drop_payment_method_table);
 
         onCreate(db);
     }
@@ -571,16 +596,17 @@ public class SQliteDatabase extends SQLiteOpenHelper {
 
     public List<JobDictionaryResponse.PositionsEntity> getPositionsDic() {
         List<JobDictionaryResponse.PositionsEntity> positionsEntities = new ArrayList<>();
-        JobDictionaryResponse.PositionsEntity positionsEntity = new JobDictionaryResponse.PositionsEntity();
+
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_POSITIONS_DIC);
         Cursor cursor = db.rawQuery(countQuery, null);
         if(cursor.moveToFirst()) {
             do {
+                JobDictionaryResponse.PositionsEntity positionsEntity = new JobDictionaryResponse.PositionsEntity();
                 positionsEntity.setId(cursor.getInt(cursor.getColumnIndex(KEY_POSITIONS_DIC_ID)));
                 positionsEntity.setPosition(cursor.getString(cursor.getColumnIndex(KEY_POSITIONS_DIC_JOB_TYPE)));
+                positionsEntities.add(positionsEntity);
             } while (cursor.moveToNext());
-            positionsEntities.add(positionsEntity);
         }
         cursor.close();
         return positionsEntities;
@@ -619,16 +645,17 @@ public class SQliteDatabase extends SQLiteOpenHelper {
 
     public List<JobDictionaryResponse.SalaryLevelsEntity> getSalariesDic() {
         List<JobDictionaryResponse.SalaryLevelsEntity> salaryLevelsEntities = new ArrayList<>();
-        JobDictionaryResponse.SalaryLevelsEntity salaryLevelsEntity = new JobDictionaryResponse.SalaryLevelsEntity();
+
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_SALARIES_DIC);
         Cursor cursor = db.rawQuery(countQuery, null);
         if(cursor.moveToFirst()) {
             do {
+                JobDictionaryResponse.SalaryLevelsEntity salaryLevelsEntity = new JobDictionaryResponse.SalaryLevelsEntity();
                 salaryLevelsEntity.setId(cursor.getInt(cursor.getColumnIndex(KEY_SALARIES_DIC_ID)));
                 salaryLevelsEntity.setSalary(cursor.getString(cursor.getColumnIndex(KEY_SALARIES_DIC_POSITION)));
+                salaryLevelsEntities.add(salaryLevelsEntity);
             } while (cursor.moveToNext());
-            salaryLevelsEntities.add(salaryLevelsEntity);
         }
         cursor.close();
         return salaryLevelsEntities;
@@ -649,6 +676,102 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     public void deleteAllSalariesDic() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME_SALARIES_DIC, null, null);
+        db.close();
+    }
+
+    //------------------purpose dictionary----------------
+    public long addPurposeDic(LoanDictionaryResponse.PurposeEntity purposeEntity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PURPOSE_DIC_ID, purposeEntity.getId());
+        values.put(KEY_PURPOSE_DIC_VALUE, purposeEntity.getPurpose());
+
+        long result = db.insert(TABLE_NAME_PURPOSE_DIC, null, values);
+        db.close();
+        return result;
+    }
+
+    public List<LoanDictionaryResponse.PurposeEntity> getPurposeDic() {
+        List<LoanDictionaryResponse.PurposeEntity> purposeEntities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_PURPOSE_DIC);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                LoanDictionaryResponse.PurposeEntity purposeEntity = new LoanDictionaryResponse.PurposeEntity();
+                purposeEntity.setId(cursor.getInt(cursor.getColumnIndex(KEY_PURPOSE_DIC_ID)));
+                purposeEntity.setPurpose(cursor.getString(cursor.getColumnIndex(KEY_PURPOSE_DIC_VALUE)));
+                purposeEntities.add(purposeEntity);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return purposeEntities;
+    }
+
+    public int checkPurposeDicExist() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT COUNT(*) FROM %s", TABLE_NAME_PURPOSE_DIC);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            int id = cursor.getInt(0);
+            return id;
+        }
+        cursor.close();
+        return 0;
+    }
+
+    public void deleteAllPurposeDic() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_PURPOSE_DIC, null, null);
+        db.close();
+    }
+
+    //------------------payment method dictionary----------------
+    public long addPaymentMethodDic(LoanDictionaryResponse.PaymentMethodEntity paymentMethodEntity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_PAYMENT_METHOD_DIC_ID, paymentMethodEntity.getId());
+        values.put(KEY_PAYMENT_METHOD_DIC_VALUE, paymentMethodEntity.getMethod());
+
+        long result = db.insert(TABLE_NAME_PAYMENT_METHOD_DIC, null, values);
+        db.close();
+        return result;
+    }
+
+    public List<LoanDictionaryResponse.PaymentMethodEntity> getPaymentMethodDic() {
+        List<LoanDictionaryResponse.PaymentMethodEntity> paymentMethodEntities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_PAYMENT_METHOD_DIC);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                LoanDictionaryResponse.PaymentMethodEntity paymentMethodEntity = new LoanDictionaryResponse.PaymentMethodEntity();
+                paymentMethodEntity.setId(cursor.getInt(cursor.getColumnIndex(KEY_PAYMENT_METHOD_DIC_ID)));
+                paymentMethodEntity.setMethod(cursor.getString(cursor.getColumnIndex(KEY_PAYMENT_METHOD_DIC_VALUE)));
+                paymentMethodEntities.add(paymentMethodEntity);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return paymentMethodEntities;
+    }
+
+    public int checkPaymentMethodDicExist() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT COUNT(*) FROM %s", TABLE_NAME_PAYMENT_METHOD_DIC);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            int id = cursor.getInt(0);
+            return id;
+        }
+        cursor.close();
+        return 0;
+    }
+
+    public void deleteAllPaymentMethodDic() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME_PAYMENT_METHOD_DIC, null, null);
         db.close();
     }
 

@@ -32,6 +32,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -279,6 +280,17 @@ public class Commons {
         }
     }
 
+    public static Bitmap getBitmapFromURL2(String params) {
+        Bitmap bitmap = null;
+        try {
+            URL url = new URL(params);
+            bitmap = BitmapFactory.decodeStream((InputStream)url.getContent());
+        } catch (IOException e) {
+            return null;
+        }
+        return bitmap;
+    }
+
     public static String getImageType(ImageType imageType) {
         switch (imageType) {
             case CMND_FRONT:
@@ -328,6 +340,25 @@ public class Commons {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static String formatMoney(long money) {
+        try {
+            DecimalFormat numberFormat = new DecimalFormat("###,###,###,###");
+            return numberFormat.format(money);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static long roundMoney(long money, long threshold) {
+        try {
+            return ((money + (threshold / 2) - 1) / threshold) * threshold;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return money;
     }
 
 }

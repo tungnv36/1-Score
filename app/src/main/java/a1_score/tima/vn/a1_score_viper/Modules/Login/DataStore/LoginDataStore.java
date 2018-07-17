@@ -90,6 +90,8 @@ public class LoginDataStore extends ApiRequest implements LoginInterface.DataSto
         editor.putString("token", user.getToken());
         editor.putString("username", Commons.changePhone0(user.getUser().getUsername()));
         editor.putString("fullname", user.getUser().getFullname());
+        editor.putLong("score", user.getUser().getScored());
+        editor.putInt("level", user.getUser().getLevel());
         editor.apply();
     }
 

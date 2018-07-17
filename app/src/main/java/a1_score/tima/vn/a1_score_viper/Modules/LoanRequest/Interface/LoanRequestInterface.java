@@ -2,11 +2,14 @@ package a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+
+import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
@@ -16,7 +19,9 @@ import me.tankery.lib.circularseekbar.CircularSeekBar;
 public interface LoanRequestInterface {
     //View
     interface View {
-        void getLoanCreditPackageSuccess(LoanResponse loanResponse);
+        void initAvatar(Bitmap bmp);
+        void initData(String fullName, int level, long score);
+        void getLoanCreditPackageSuccess(List<LoanResponse.LoanCreditPackagesEntity> loanCreditPackagesEntities);
         void getLoanCreditPackageFail(String err);
 
         void openOrCloseInfo(RelativeLayout view, Button button, boolean isOpen, int position);
@@ -24,6 +29,8 @@ public interface LoanRequestInterface {
     }
     //Presenter
     interface Presenter {
+        void initAvatar();
+        void initData();
         void getLoanCreditPackage();
 
         void goToLoanRegistration();
@@ -36,6 +43,8 @@ public interface LoanRequestInterface {
     }
     //Interactor
     interface InteractorInput {
+        void initAvatar();
+        void initData();
         void getLoanCreditPackage();
 
         void goToLoanRegistration();
@@ -48,7 +57,9 @@ public interface LoanRequestInterface {
     }
 
     interface InteractorOutput {
-        void getLoanCreditPackageSuccess(LoanResponse loanResponse);
+        void initAvatarOutput(Bitmap bmp);
+        void initDataOutput(String fullName, int level, long score);
+        void getLoanCreditPackageSuccess(List<LoanResponse.LoanCreditPackagesEntity> loanCreditPackagesEntities);
         void getLoanCreditPackageFail(String err);
 
         void goToLoanRegistrationOutput();
@@ -66,7 +77,9 @@ public interface LoanRequestInterface {
     interface DataStore {
         String getUser();
         String getFullName();
-        public String getToken();
+        long getScore();
+        int getLevel();
+        String getToken();
 
         void getLoanCreditPackage(final OnResponse<String, LoanResponse> m_Response, String token);
     }

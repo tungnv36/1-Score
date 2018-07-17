@@ -71,7 +71,7 @@ public class LoginResponse {
         private int level;
         @Expose
         @SerializedName("Scored")
-        private int scored;
+        private long scored;
         @Expose
         @SerializedName("Sex")
         private int sex;
@@ -148,11 +148,11 @@ public class LoginResponse {
             this.level = level;
         }
 
-        public int getScored() {
+        public long getScored() {
             return scored;
         }
 
-        public void setScored(int scored) {
+        public void setScored(long scored) {
             this.scored = scored;
         }
 

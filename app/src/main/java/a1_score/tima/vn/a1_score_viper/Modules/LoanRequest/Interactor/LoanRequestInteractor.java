@@ -1,13 +1,19 @@
 package a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interactor;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import java.io.File;
+
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.DataStore.LoanRequestDataStore;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
@@ -25,12 +31,26 @@ public class LoanRequestInteractor implements LoanRequestInterface.InteractorInp
     }
 
     @Override
+    public void initAvatar() {
+        String filePath = Environment.getExternalStorageDirectory()
+                + File.separator + Constant.ROOT_FOLDER + File.separator
+                + Constant.PHOTO_FOLDER + File.separator + mDataStore.getUser() + "_avatar.jpg";
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+        mPresenter.initAvatarOutput(bitmap);
+    }
+
+    @Override
+    public void initData() {
+        mPresenter.initDataOutput(mDataStore.getFullName(), mDataStore.getLevel(), mDataStore.getScore());
+    }
+
+    @Override
     public void getLoanCreditPackage() {
         mDataStore.getLoanCreditPackage(new OnResponse<String, LoanResponse>() {
             @Override
             public void onResponseSuccess(String tag, String rs, LoanResponse extraData) {
                 if(extraData != null) {
-                    mPresenter.getLoanCreditPackageSuccess(extraData);
+                    mPresenter.getLoanCreditPackageSuccess(extraData.getLoancreditpackages());
                 } else {
                     mPresenter.getLoanCreditPackageFail("");
                 }

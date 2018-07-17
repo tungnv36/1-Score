@@ -34,10 +34,18 @@
                     android:text="@string/title_form_of_loans"
                     android:textColor="@color/hind_text" />
 
-                <Spinner
-                    android:id="@+id/spFormOfLoans"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvFormOfLoans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_form_of_loans"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/cardview_dark_background" />
+                <!--<Spinner-->
+                    <!--android:id="@+id/spFormOfLoans"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
             </LinearLayout>
 
             <LinearLayout

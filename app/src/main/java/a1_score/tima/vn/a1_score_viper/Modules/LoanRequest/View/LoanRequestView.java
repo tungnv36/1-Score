@@ -1,5 +1,6 @@
 package a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.View;
 
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
@@ -66,7 +68,10 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
     private int mScoreOfLevel = 80;
     private int mStartScore = 0;
 
-    private List<LoanRequest> mLoanList;
+    public static int sLevel = 1;
+
+    private List<LoanResponse.LoanCreditPackagesEntity> mLoanList = new ArrayList<>();
+    private List<LoanEntity> mLoanEntities = new ArrayList<>();
     private LoanRequestAdapter mLoanRequestAdapter;
 
     @Override
@@ -81,58 +86,24 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
 
         mPresenter = new LoanRequestPresenter(this);
 
-        initData();
-
         ibMenu.setOnClickListener(this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                avi.show();
+                mPresenter.initAvatar();
+            }
+        }).start();
+        mPresenter.initData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.initAnimationLogo(ivLogo);
-        mPresenter.setupAnimationProgress(pbLevel, mStartScore, mScoreOfLevel);
+//        mPresenter.initAnimationLogo(ivLogo);
+//        mPresenter.setupAnimationProgress(pbLevel, mStartScore, mScoreOfLevel);
         mPresenter.getLoanCreditPackage();
-    }
-
-    private void initData() {
-        mLoanList = new ArrayList<>();
-        mLoanList.add(new LoanRequest(
-                R.mipmap.ic_micro_loan,
-                "Micro loan",
-                "3.000.000 VNĐ",
-                "300.000 VNĐ",
-                "80.000 VNĐ",
-                10,
-                10,
-                "Level 5",
-                false
-        ));
-        mLoanList.add(new LoanRequest(
-                R.mipmap.ic_medium_loan,
-                "Micro loan",
-                "5.000.000 VNĐ",
-                "500.000 VNĐ",
-                "120.000 VNĐ",
-                8,
-                10,
-                "Level 15",
-                false
-        ));
-        mLoanList.add(new LoanRequest(
-                R.mipmap.ic_big_loan,
-                "Micro loan",
-                "10.000.000 VNĐ",
-                "800.000 VNĐ",
-                "200.000 VNĐ",
-                2,
-                12,
-                "Level 20",
-                false
-        ));
-
-        mLoanRequestAdapter = new LoanRequestAdapter(this, mPresenter, mLoanList);
-        Commons.setVerticalRecyclerView(this, rvLoanList);
-        rvLoanList.setAdapter(mLoanRequestAdapter);
     }
 
     private void styleView() {
@@ -160,8 +131,45 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
     }
 
     @Override
-    public void getLoanCreditPackageSuccess(LoanResponse loanResponse) {
+    public void initAvatar(final Bitmap bmp) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ivLogo.setImageBitmap(bmp);
+            }
+        });
+    }
 
+    @Override
+    public void initData(String fullName, int level, long score) {
+        sLevel = level;
+        tvName.setText(fullName);
+        tvScore.setText(String.valueOf(score));
+        tvLevel.setText(String.valueOf(level));
+    }
+
+    @Override
+    public void getLoanCreditPackageSuccess(List<LoanResponse.LoanCreditPackagesEntity> loanCreditPackagesEntities) {
+        mLoanEntities = new ArrayList<>();
+        for (LoanResponse.LoanCreditPackagesEntity loanCreditPackagesEntity : loanCreditPackagesEntities) {
+            LoanEntity loanEntity = new LoanEntity();
+            loanEntity.setFee(loanCreditPackagesEntity.getFee());
+            loanEntity.setId(loanCreditPackagesEntity.getId());
+            loanEntity.setOpen(false);
+            loanEntity.setLevelrequiment(loanCreditPackagesEntity.getLevelrequiment());
+            loanEntity.setMaxduration(loanCreditPackagesEntity.getMaxduration());
+            loanEntity.setMaxvalue(loanCreditPackagesEntity.getMaxvalue());
+            loanEntity.setMinduration(loanCreditPackagesEntity.getMinduration());
+            loanEntity.setMinvalue(loanCreditPackagesEntity.getMinvalue());
+            loanEntity.setName(loanCreditPackagesEntity.getName());
+            loanEntity.setProfit(loanCreditPackagesEntity.getProfit());
+            loanEntity.setIconUrl(loanCreditPackagesEntity.getIconUrl());
+            mLoanEntities.add(loanEntity);
+        }
+        mLoanList = loanCreditPackagesEntities;
+        mLoanRequestAdapter = new LoanRequestAdapter(this, mPresenter, mLoanEntities);
+        Commons.setVerticalRecyclerView(this, rvLoanList);
+        rvLoanList.setAdapter(mLoanRequestAdapter);
     }
 
     @Override
@@ -171,7 +179,7 @@ public class LoanRequestView extends AppCompatActivity implements LoanRequestInt
 
     @Override
     public void openOrCloseInfo(RelativeLayout view, Button button, boolean isOpen, int position) {
-        mLoanList.get(position).setOpen(!mLoanList.get(position).isOpen());
+        mLoanEntities.get(position).setOpen(!mLoanEntities.get(position).isOpen());
         mLoanRequestAdapter.notifyDataSetChanged();
     }
 

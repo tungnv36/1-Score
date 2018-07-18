@@ -93,7 +93,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String KEY_PURPOSE_DIC_VALUE = "Purpose";
 
     //create table purpose dic
-    private static final String TABLE_NAME_PAYMENT_METHOD_DIC = "purposeDictionary";
+    private static final String TABLE_NAME_PAYMENT_METHOD_DIC = "paymentMethodDictionary";
     private static final String KEY_PAYMENT_METHOD_DIC_ID = "Id";
     private static final String KEY_PAYMENT_METHOD_DIC_VALUE = "Method";
 

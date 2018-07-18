@@ -105,7 +105,7 @@ public class LoanRequestAdapter extends RecyclerView.Adapter<LoanRequestAdapter.
         holder.btLoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.goToLoanRegistration();
+                mPresenter.goToLoanRegistration(loanEntity);
             }
         });
     }

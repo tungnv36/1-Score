@@ -151,6 +151,7 @@
     <string name="register_success">Đăng ký thành công</string>
     <string name="tablet_info">Xin lỗi!\nỨng dụng của chúng tôi không hỗ trợ máy tính bảng, xin vui lòng cài đặt trên điện thoại.\nXin cảm ơn!</string>
     <string name="q_logout">Bạn có chắc chắn muốn thoát ứng dụng?</string>
+    <string name="video_des">Đọc số xác thực, và gửi video cho chúng tôi.</string>
 
     <string name="font_segoe">fonts/Segoe UI.ttf</string>
 

@@ -15,6 +15,7 @@ import java.io.File;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.DataStore.LoanRequestDataStore;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanEntity;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
 
@@ -64,8 +65,8 @@ public class LoanRequestInteractor implements LoanRequestInterface.InteractorInp
     }
 
     @Override
-    public void goToLoanRegistration() {
-        mPresenter.goToLoanRegistrationOutput();
+    public void goToLoanRegistration(LoanEntity loanEntity) {
+        mPresenter.goToLoanRegistrationOutput(loanEntity);
     }
 
     @Override

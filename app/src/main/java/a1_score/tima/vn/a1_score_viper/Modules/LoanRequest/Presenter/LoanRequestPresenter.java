@@ -51,8 +51,8 @@ public class LoanRequestPresenter implements LoanRequestInterface.Presenter, Loa
     }
 
     @Override
-    public void goToLoanRegistration() {
-        mInteractorInput.goToLoanRegistration();
+    public void goToLoanRegistration(LoanEntity loanEntity) {
+        mInteractorInput.goToLoanRegistration(loanEntity);
     }
 
     @Override
@@ -110,8 +110,8 @@ public class LoanRequestPresenter implements LoanRequestInterface.Presenter, Loa
     }
 
     @Override
-    public void goToLoanRegistrationOutput() {
-        mWireframe.goToLoanRegistration((Activity)mView);
+    public void goToLoanRegistrationOutput(LoanEntity loanEntity) {
+        mWireframe.goToLoanRegistration((Activity)mView, loanEntity);
     }
 
     @Override

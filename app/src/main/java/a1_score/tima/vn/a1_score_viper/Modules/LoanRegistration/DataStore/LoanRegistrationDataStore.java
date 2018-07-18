@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
@@ -17,6 +19,7 @@ import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Interface.LoanRe
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.DataStore.LoanRequestDataStore;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.Interface.LoanRequestInterface;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobDictionaryResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +61,40 @@ public class LoanRegistrationDataStore extends ApiRequest implements LoanRegistr
     public String getToken() {
         SharedPreferences pref = ((Context)mView).getSharedPreferences(Constant.PREFS_NAME, ((Context)mView).MODE_PRIVATE);
         return pref.getString("token", "");
+    }
+
+    @Override
+    public boolean checkLoanDicExist() {
+        if(sQliteDatabase.checkPurposeDicExist() > 0 && sQliteDatabase.checkPaymentMethodDicExist() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<LoanDictionaryResponse.PurposeEntity> getPurposeDic() {
+        return sQliteDatabase.getPurposeDic();
+    }
+
+    @Override
+    public List<LoanDictionaryResponse.PaymentMethodEntity> getPaymentMethodDic() {
+        return sQliteDatabase.getPaymentMethodDic();
+    }
+
+    @Override
+    public long updateLoanDicToDB(LoanDictionaryResponse loanDictionaryResponse) {
+        long result = 0;
+        List<LoanDictionaryResponse.PurposeEntity> purposeEntities = loanDictionaryResponse.getPurpose();
+        List<LoanDictionaryResponse.PaymentMethodEntity> paymentMethodEntities = loanDictionaryResponse.getPaymentmethod();
+
+        for (LoanDictionaryResponse.PurposeEntity purposeEntity : purposeEntities) {
+            result += sQliteDatabase.addPurposeDic(purposeEntity);
+        }
+        for (LoanDictionaryResponse.PaymentMethodEntity paymentMethodEntity : paymentMethodEntities) {
+            result += sQliteDatabase.addPaymentMethodDic(paymentMethodEntity);
+        }
+
+        return result;
     }
 
     @Override

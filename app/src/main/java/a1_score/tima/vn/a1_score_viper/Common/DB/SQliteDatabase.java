@@ -11,6 +11,7 @@ import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanDictionaryResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyMembersResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateFamily.Entity.FamilyResponse;
@@ -29,7 +30,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     //Create table images
-    private static final String TABLE_NAME_IMAGES = "images";
+    private static final String TABLE_NAME_IMAGES = "tblImages";
     private static final String KEY_IMAGES_ID = "Id";
     private static final String KEY_IMAGES_URL = "Url";
     private static final String KEY_IMAGES_FORMAT = "Format";
@@ -39,7 +40,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String KEY_IMAGES_TYPE_ID = "Type_Id";
 
     //Create table profile
-    private static final String TABLE_NAME_PROFILE = "profile";
+    private static final String TABLE_NAME_PROFILE = "tblProfile";
     private static final String KEY_PROFILE_ID = "Id";
     private static final String KEY_PROFILE_USERNAME = "username";
     private static final String KEY_PROFILE_FULLNAME = "fullname";
@@ -54,7 +55,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String KEY_PROFILE_SEX = "sex";
 
     //Create table user
-    private static final String TABLE_NAME_USER = "user";
+    private static final String TABLE_NAME_USER = "tblUser";
     private static final String KEY_USER_ID = "UserId";
     private static final String KEY_USER_NAME = "Username";
     private static final String KEY_USER_FULLNAME = "Fullname";
@@ -73,32 +74,32 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String KEY_USER_PROGRESS = "Progress";
 
     //create table jobs dic
-    private static final String TABLE_NAME_JOBS_DIC = "jobDictionary";
+    private static final String TABLE_NAME_JOBS_DIC = "tblJobDictionary";
     private static final String KEY_JOBS_DIC_ID = "Id";
     private static final String KEY_JOBS_DIC_JOB_TYPE = "JobType";
 
     //create table positions dic
-    private static final String TABLE_NAME_POSITIONS_DIC = "positionDictionary";
+    private static final String TABLE_NAME_POSITIONS_DIC = "tblPositionDictionary";
     private static final String KEY_POSITIONS_DIC_ID = "Id";
     private static final String KEY_POSITIONS_DIC_JOB_TYPE = "Position";
 
     //create table salaries dic
-    private static final String TABLE_NAME_SALARIES_DIC = "salaryDictionary";
+    private static final String TABLE_NAME_SALARIES_DIC = "tblSalaryDictionary";
     private static final String KEY_SALARIES_DIC_ID = "Id";
     private static final String KEY_SALARIES_DIC_POSITION = "Salary";
 
     //create table purpose dic
-    private static final String TABLE_NAME_PURPOSE_DIC = "purposeDictionary";
+    private static final String TABLE_NAME_PURPOSE_DIC = "tblPurposeDictionary";
     private static final String KEY_PURPOSE_DIC_ID = "Id";
     private static final String KEY_PURPOSE_DIC_VALUE = "Purpose";
 
     //create table purpose dic
-    private static final String TABLE_NAME_PAYMENT_METHOD_DIC = "paymentMethodDictionary";
+    private static final String TABLE_NAME_PAYMENT_METHOD_DIC = "tblPaymentMethodDictionary";
     private static final String KEY_PAYMENT_METHOD_DIC_ID = "Id";
     private static final String KEY_PAYMENT_METHOD_DIC_VALUE = "Method";
 
     //create table job
-    private static final String TABLE_NAME_JOB = "job";
+    private static final String TABLE_NAME_JOB = "tblJob";
     private static final String KEY_JOB_USERNAME = "Username";
     private static final String KEY_JOB_JOB_ID = "JobId";
     private static final String KEY_JOB_COMPANY_NAME = "CompanyName";
@@ -110,13 +111,13 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static final String KEY_JOB_SALARY_BOARD_ID = "SalaryBoardId";
 
     //create table colleague
-    private static  final String TABLE_NAME_COLLEAGUE = "colleague";
+    private static  final String TABLE_NAME_COLLEAGUE = "tblColleague";
     private static  final String KEY_COLLEAGUE_USERNAME = "username";
     private static  final String KEY_COLLEAGUE_NAME = "ColleagueName";
     private static  final String KEY_COLLEAGUE_PHONE = "ColleaguePhone";
 
     //create table family members
-    private static  final String TABLE_NAME_FAMILY_MEMBERS = "familyMembers";
+    private static  final String TABLE_NAME_FAMILY_MEMBERS = "tblFamilyMembers";
     private static  final String KEY_FAMILY_MEMBERS_USERNAME = "username";
     private static  final String KEY_FAMILY_MEMBERS_BIRTH_CERTIFICATE_ID = "birthCertificateId";
     private static  final String KEY_FAMILY_MEMBERS_STUDENT_CARD_ID = "studentCardId";
@@ -125,7 +126,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static  final String KEY_FAMILY_MEMBERS_RELATIONSHIP_TYPEID = "RelationshipTypeId";
 
     //create table family
-    private static  final String TABLE_NAME_FAMILY = "family";
+    private static  final String TABLE_NAME_FAMILY = "tblFamily";
     private static  final String KEY_FAMILY_USERNAME = "username";
     private static  final String KEY_FAMILY_MERRIAGE_STATUS = "MerriageStatus";
     private static  final String KEY_FAMILY_NAME = "FamilyName";
@@ -134,7 +135,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static  final String KEY_FAMILY_CHILDREN_NUMBER = "ChildrenNumber";
 
     //create table facebook
-    private static  final String TABLE_NAME_FACEBOOK = "facebook";
+    private static  final String TABLE_NAME_FACEBOOK = "tblFacebook";
     private static  final String KEY_FACEBOOK_USERNAME = "username";
     private static  final String KEY_FACEBOOK_ID = "id";
     private static  final String KEY_FACEBOOK_NAME = "name";
@@ -142,12 +143,26 @@ public class SQliteDatabase extends SQLiteOpenHelper {
     private static  final String KEY_FACEBOOK_EMAIL = "email";
 
     //create table image type
-    private static  final String TABLE_NAME_IMAGE_TYPE = "imagetype";
+    private static  final String TABLE_NAME_IMAGE_TYPE = "tblImageType";
     private static  final String KEY_IMAGE_TYPE_USERNAME = "Username";
     private static  final String KEY_IMAGE_TYPE_ID = "TypeId";
     private static  final String KEY_IMAGE_TYPE_NAME = "TypeName";
     private static  final String KEY_IMAGE_TYPE_IMAGE_SIZE = "ImageSize";
     private static  final String KEY_IMAGE_TYPE_DONE = "Done";
+
+    //create table image type
+    private static  final String TABLE_NAME_LOAN_REGISTRATION = "tblLoanRegistration";
+    private static  final String KEY_LOAN_REGISTRATION_USERNAME = "Username";
+    private static  final String KEY_LOAN_REGISTRATION_PACKAGE_ID = "PackageId";
+    private static  final String KEY_LOAN_REGISTRATION_DURATION = "Duration";
+    private static  final String KEY_LOAN_REGISTRATION_VALUE = "Value";
+    private static  final String KEY_LOAN_REGISTRATION_FORMALITY_ID = "FormalityId";
+    private static  final String KEY_LOAN_REGISTRATION_PURPOSE_ID = "PurposeId";
+    private static  final String KEY_LOAN_REGISTRATION_PAYMENT_METHOD_ID = "PaymentMethodId";
+    private static  final String KEY_LOAN_REGISTRATION_FEE = "Fee";
+    private static  final String KEY_LOAN_REGISTRATION_CONSULTANTFEE = "ConsultantFee";
+    private static  final String KEY_LOAN_REGISTRATION_PROFIT = "Profit";
+    private static  final String KEY_LOAN_REGISTRATION_REQUEST_TIME = "RequestTime";
 
     public static SQliteDatabase mInstance;
 
@@ -271,6 +286,19 @@ public class SQliteDatabase extends SQLiteOpenHelper {
                 TABLE_NAME_PAYMENT_METHOD_DIC,
                 KEY_PAYMENT_METHOD_DIC_ID,
                 KEY_PAYMENT_METHOD_DIC_VALUE);
+        String create_loan_registration_table = String.format("CREATE TABLE IF NOT EXISTS %s(%s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s TEXT)",
+                TABLE_NAME_LOAN_REGISTRATION,
+                KEY_LOAN_REGISTRATION_USERNAME,
+                KEY_LOAN_REGISTRATION_PACKAGE_ID,
+                KEY_LOAN_REGISTRATION_DURATION,
+                KEY_LOAN_REGISTRATION_VALUE,
+                KEY_LOAN_REGISTRATION_FORMALITY_ID,
+                KEY_LOAN_REGISTRATION_PURPOSE_ID,
+                KEY_LOAN_REGISTRATION_PAYMENT_METHOD_ID,
+                KEY_LOAN_REGISTRATION_FEE,
+                KEY_LOAN_REGISTRATION_CONSULTANTFEE,
+                KEY_LOAN_REGISTRATION_PROFIT,
+                KEY_LOAN_REGISTRATION_REQUEST_TIME);
 
         db.execSQL(create_images_table);
         db.execSQL(create_profile_table);
@@ -286,6 +314,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.execSQL(create_image_type_table);
         db.execSQL(create_purpose_table);
         db.execSQL(create_payment_method_table);
+        db.execSQL(create_loan_registration_table);
     }
 
     @Override
@@ -304,6 +333,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         String drop_image_type_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_IMAGE_TYPE);
         String drop_purpose_dic_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_PURPOSE_DIC);
         String drop_payment_method_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_PAYMENT_METHOD_DIC);
+        String drop_loan_registration_table = String.format("DROP TABLE IF EXISTS %s", TABLE_NAME_LOAN_REGISTRATION);
 
         db.execSQL(drop_images_table);
         db.execSQL(drop_profile_table);
@@ -319,6 +349,7 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         db.execSQL(drop_image_type_table);
         db.execSQL(drop_purpose_dic_table);
         db.execSQL(drop_payment_method_table);
+        db.execSQL(drop_loan_registration_table);
 
         onCreate(db);
     }
@@ -1031,4 +1062,51 @@ public class SQliteDatabase extends SQLiteOpenHelper {
         return papersEntities;
     }
 
+    //------------------Loan registration-----------------
+    public long addLoanRegistration(LoanResponse.LoancreditEntity loancreditEntity, String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        
+        values.put(KEY_LOAN_REGISTRATION_USERNAME, username);
+        values.put(KEY_LOAN_REGISTRATION_PACKAGE_ID, loancreditEntity.getPackageid());
+        values.put(KEY_LOAN_REGISTRATION_DURATION, loancreditEntity.getDuration());
+        values.put(KEY_LOAN_REGISTRATION_VALUE, loancreditEntity.getValue());
+        values.put(KEY_LOAN_REGISTRATION_FORMALITY_ID, loancreditEntity.getFormalityId());
+        values.put(KEY_LOAN_REGISTRATION_PURPOSE_ID, loancreditEntity.getPurposeid());
+        values.put(KEY_LOAN_REGISTRATION_PAYMENT_METHOD_ID, loancreditEntity.getPaymentmethodid());
+        values.put(KEY_LOAN_REGISTRATION_FEE, loancreditEntity.getFee());
+        values.put(KEY_LOAN_REGISTRATION_CONSULTANTFEE, loancreditEntity.getConsultantfee());
+        values.put(KEY_LOAN_REGISTRATION_PROFIT, loancreditEntity.getProfit());
+        values.put(KEY_LOAN_REGISTRATION_REQUEST_TIME, loancreditEntity.getRequesttime());
+
+        long result = db.insert(TABLE_NAME_LOAN_REGISTRATION, null, values);
+        db.close();
+        return result;
+    }
+
+    public List<LoanResponse.LoancreditEntity> getLoanCreditRegister(String username) {
+        List<LoanResponse.LoancreditEntity> loancreditEntities = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String countQuery = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME_LOAN_REGISTRATION, KEY_LOAN_REGISTRATION_USERNAME, username);
+        Cursor cursor = db.rawQuery(countQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                LoanResponse.LoancreditEntity loancreditEntity = new LoanResponse.LoancreditEntity();
+                loancreditEntity.setConsultantfee(cursor.getLong(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_CONSULTANTFEE)));
+                loancreditEntity.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_DURATION)));
+                loancreditEntity.setFee(cursor.getLong(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_FEE)));
+                loancreditEntity.setFormalityId(cursor.getInt(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_FORMALITY_ID)));
+                loancreditEntity.setPackageid(cursor.getInt(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_PACKAGE_ID)));
+                loancreditEntity.setPaymentmethodid(cursor.getInt(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_PAYMENT_METHOD_ID)));
+                loancreditEntity.setProfit(cursor.getLong(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_PROFIT)));
+                loancreditEntity.setPurposeid(cursor.getInt(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_PURPOSE_ID)));
+                loancreditEntity.setRequesttime(cursor.getString(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_REQUEST_TIME)));
+                loancreditEntity.setValue(cursor.getLong(cursor.getColumnIndex(KEY_LOAN_REGISTRATION_VALUE)));
+                loancreditEntities.add(loancreditEntity);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return loancreditEntities;
+    }
 }

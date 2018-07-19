@@ -15,43 +15,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3760df1-c83c-4178-8fad-3fd72fda60aa" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/ic_record-web.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/ic_reload-web.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/ic_stop-web.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/ic_video_cancel-web.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Media/CameraHelper.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Media/MediaCodecWrapper.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/Camera/View/CameraPreview.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/DataStore/LoanAuthDataStore.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interactor/LoanAuthInteractor.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interface/LoanAuthInterface.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Presenter/LoanAuthPresenter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/View/LoanAuthView.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Wireframe/LoanAuthWireframe.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanRequest.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanResponse.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_clear_black_24dp.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_record.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_reload.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_stop.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_video_cancel.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_record.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_reload.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_stop.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_video_cancel.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_record.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_reload.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_stop.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_video_cancel.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_record.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_reload.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_stop.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_video_cancel.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_record.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_reload.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_stop.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_video_cancel.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/ic_done-web.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Entity/LoanAuthRequest.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Entity/LoanAuthResponse.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_done.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_done.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_done.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_done.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_done.png" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
@@ -62,21 +33,33 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/ic_record-web.png" afterPath="$PROJECT_DIR$/app/src/main/ic_record-web.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/ic_stop-web.png" afterPath="$PROJECT_DIR$/app/src/main/ic_stop-web.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/API/ApiService.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/API/ApiService.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Constant.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Constant.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/DB/SQliteDatabase.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/DB/SQliteDatabase.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/DataStore/LoanRegistrationDataStore.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/DataStore/LoanRegistrationDataStore.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interactor/LoanRegistrationInteractor.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interactor/LoanRegistrationInteractor.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interface/LoanRegistrationInterface.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interface/LoanRegistrationInterface.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Presenter/LoanRegistrationPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Presenter/LoanRegistrationPresenter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Media/CameraHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Media/CameraHelper.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/DataStore/LoanAuthDataStore.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/DataStore/LoanAuthDataStore.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interactor/LoanAuthInteractor.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interactor/LoanAuthInteractor.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interface/LoanAuthInterface.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interface/LoanAuthInterface.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Presenter/LoanAuthPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Presenter/LoanAuthPresenter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/View/LoanAuthView.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/View/LoanAuthView.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanResponse.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanResponse.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/View/LoanRegistrationView.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/View/LoanRegistrationView.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Wireframe/LoanRegistrationWireframe.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Wireframe/LoanRegistrationWireframe.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Interactor/LoanRequestInteractor.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Interactor/LoanRequestInteractor.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Interface/LoanRequestInterface.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Interface/LoanRequestInterface.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Presenter/LoanRequestPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Presenter/LoanRequestPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/View/LoanRequestAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/View/LoanRequestAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Wireframe/LoanRequestWireframe.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Wireframe/LoanRequestWireframe.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_loan_registration.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_loan_registration.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateProfile/View/UpdateProfileView.java" afterPath="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateProfile/View/UpdateProfileView.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_loan_request.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_loan_request.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_update_profile.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_update_profile.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_record.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_record.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_stop.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_stop.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_record.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_record.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_stop.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_stop.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_record.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_record.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_stop.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_stop.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_record.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_record.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_stop.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_stop.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_record.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_record.png" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_stop.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_stop.png" />
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -103,144 +86,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LoanAuthInteractor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interactor/LoanAuthInteractor.java">
+      <file leaf-file-name="UpdateProfileView.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateProfile/View/UpdateProfileView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="5" lean-forward="false" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="165">
+              <caret line="337" column="9" lean-forward="true" selection-start-line="337" selection-start-column="9" selection-end-line="337" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoanAuthView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/View/LoanAuthView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="55" column="42" lean-forward="false" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3586#3587#0" expanded="true" />
-                <element signature="e#3632#3633#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_video.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="40" lean-forward="false" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-              <folding>
-                <marker date="1531909580000" expanded="false" signature="4710:4729" ph="&quot;Đọc số xác thực, và gửi video cho chúng tôi.&quot;" />
-              </folding>
-            </state>
-          </provider>
+      <file leaf-file-name="activity_update_profile.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_update_profile.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CameraActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/Camera/View/CameraActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="184" column="19" lean-forward="false" selection-start-line="184" selection-start-column="19" selection-end-line="184" selection-end-column="19" />
-              <folding>
-                <element signature="e#2800#2994#0" expanded="true" />
-                <element signature="e#2993#2994#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoanRegistrationWireframe.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Wireframe/LoanRegistrationWireframe.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="18" column="65" lean-forward="false" selection-start-line="18" selection-start-column="65" selection-end-line="18" selection-end-column="65" />
+            <state relative-caret-position="150">
+              <caret line="309" column="53" lean-forward="false" selection-start-line="309" selection-start-column="53" selection-end-line="309" selection-end-column="53" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SQliteDatabase.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/DB/SQliteDatabase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="301" column="95" lean-forward="false" selection-start-line="301" selection-start-column="95" selection-end-line="301" selection-end-column="95" />
-              <folding>
-                <element signature="method#addUser#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#updateUser#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteUser#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getUser#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addImage#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addImageLong#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteImageBy#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteImageByTypeId#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getImageID#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getImageIDByTypeId#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getImages#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addProfile#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#updateFullName#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getProfileByPhone#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addJobDic#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getJobsDic#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteAllJobsDic#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addPositionDic#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#checkPositionsDicExist#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteAllPositionsDic#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addJob#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteJobByUsername#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getJob#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addColleague#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteColleagueByUsername#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getColleague#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addFamilyMembers#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteFamilyMenbersByUsername#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getFamilyMember#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addFamily#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteFamilyByUsername#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getFamily#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#addFacebook#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#deleteFacebookByUsername#0;class#SQliteDatabase#0" expanded="false" />
-                <element signature="method#getFacebook#0;class#SQliteDatabase#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoanRegistrationView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/View/LoanRegistrationView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="106" column="37" lean-forward="false" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoanAuthInterface.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interface/LoanAuthInterface.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoanRegistrationInteractor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interactor/LoanRegistrationInteractor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="32" column="103" lean-forward="false" selection-start-line="32" selection-start-column="103" selection-end-line="32" selection-end-column="103" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -272,7 +136,6 @@
       <find>tvLabelCost</find>
       <find>getBitmapFromURL</find>
       <find>scored</find>
-      <find>ivLogo</find>
       <find>bg_avatar</find>
       <find>FormOfLoans</find>
       <find>goTo</find>
@@ -281,9 +144,20 @@
       <find>capture</find>
       <find>captrureListener</find>
       <find>mediaRecorder</find>
+      <find>isRecording</find>
+      <find>getDefaultBackFacingCameraInstance</find>
+      <find>Camera.open</find>
+      <find>getDefaultCameraInstance</find>
+      <find>refreshCamera</find>
+      <find>=</find>
+      <find>,</find>
+      <find>ivLogo</find>
+      <find>getImageTypes</find>
     </findStrings>
     <replaceStrings>
       <replace>TABLE_NAME_FACEBOOK</replace>
+      <replace>, loancreditEntity.</replace>
+      <replace>);</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -2321,12 +2195,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/divider.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/row_image_type.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdatePapers/View/ImageTypeAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdatePapers/Entity/ImagesEntity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdatePapers/DataStore/UpdatePapersDataStore.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdatePapers/Interface/UpdatePapersInterface.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdatePapers/Presenter/UpdatePapersPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_update_papers.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdatePapers/View/ImagesAdapter.java" />
@@ -2341,11 +2209,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/Login/DataStore/LoginDataStore.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/DataStore/LoanRequestDataStore.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home_page.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_loan_request.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/View/LoanRequestView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanDictionaryResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/API/ApiService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/DB/SQliteDatabase.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/View/LoanRequestAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Interactor/LoanRequestInteractor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Presenter/LoanRequestPresenter.java" />
@@ -2353,29 +2218,38 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_loan_registration.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Wireframe/LoanRequestWireframe.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanRequest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/DataStore/LoanRegistrationDataStore.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/DataStore/LoanAuthDataStore.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interface/LoanAuthInterface.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Presenter/LoanAuthPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Wireframe/LoanAuthWireframe.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interactor/LoanAuthInteractor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interface/LoanRegistrationInterface.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Presenter/LoanRegistrationPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interactor/LoanRegistrationInteractor.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Wireframe/LoanRegistrationWireframe.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/View/LoanRegistrationView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/Camera/View/CameraPreview.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/Camera/View/CameraActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/DataStore/LoanRegistrationDataStore.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Entity/LoanAuthRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Entity/LoanAuthResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Presenter/LoanAuthPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Constant.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Media/CameraHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/View/LoanAuthView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/API/ApiService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/View/LoanRegistrationView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interface/LoanAuthInterface.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/DataStore/LoanAuthDataStore.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interactor/LoanAuthInteractor.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/DB/SQliteDatabase.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/HomePage/View/HomePageView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_loan_request.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_update_profile.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateProfile/View/UpdateProfileView.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1441" />
     <option name="y" value="23" />
     <option name="width" value="1919" />
@@ -2399,21 +2273,16 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
               <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
             </path>
             <path>
               <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
@@ -2432,6 +2301,14 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="Common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="Common" type="462c0819:PsiDirectoryNode" />
+              <item name="API" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
@@ -2471,7 +2348,7 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
-              <item name="LoanAuthentication" type="462c0819:PsiDirectoryNode" />
+              <item name="HomePage" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
@@ -2479,7 +2356,7 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
-              <item name="LoanAuthentication" type="462c0819:PsiDirectoryNode" />
+              <item name="HomePage" type="462c0819:PsiDirectoryNode" />
               <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2533,15 +2410,6 @@
               <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
               <item name="LoanRegistration" type="462c0819:PsiDirectoryNode" />
-              <item name="Presenter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Modules" type="462c0819:PsiDirectoryNode" />
-              <item name="LoanRegistration" type="462c0819:PsiDirectoryNode" />
               <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2568,7 +2436,7 @@
               <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
               <item name="LoanRequest" type="462c0819:PsiDirectoryNode" />
-              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+              <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
@@ -2576,8 +2444,16 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="Modules" type="462c0819:PsiDirectoryNode" />
-              <item name="LoanRequest" type="462c0819:PsiDirectoryNode" />
-              <item name="Wireframe" type="462c0819:PsiDirectoryNode" />
+              <item name="UpdateProfile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="a1_score_viper" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="Modules" type="462c0819:PsiDirectoryNode" />
+              <item name="UpdateProfile" type="462c0819:PsiDirectoryNode" />
+              <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="1-Score-Android" type="1abcf292:AndroidViewProjectNode" />
@@ -2596,8 +2472,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="device.picker.selection" value="520045ce4a864555" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="device.picker.selection" value="Nexus_5X_API_28" />
     <property name="oudtdated.runtime.suppressed.plugin.version" value="1.2.30-release-Studio3.1-1" />
   </component>
   <component name="RecentsManager">
@@ -2773,7 +2649,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1441" y="23" width="1919" height="1009" extended-state="0" />
+    <frame x="1441" y="23" width="1919" height="1055" extended-state="6" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2782,21 +2658,22 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24453916" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24986681" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30525163" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3045738" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17581247" sideWeight="0.49382716" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11925602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16839917" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2833698" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28333333" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24248926" sideWeight="0.50617284" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2805,7 +2682,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299712" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -2813,284 +2689,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="113" />
+      <option name="time" value="123" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/HomePage/Interactor/HomePageInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="43" column="13" lean-forward="true" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home_page.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="188" column="33" lean-forward="true" selection-start-line="188" selection-start-column="33" selection-end-line="188" selection-end-column="33" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_loan_request.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="52" column="46" lean-forward="true" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/HomePage/View/GridMenuAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/Login/DataStore/LoginDataStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="53" column="52" lean-forward="false" selection-start-line="53" selection-start-column="52" selection-end-line="53" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateProfile/Interface/UpdateProfileInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="18" column="43" lean-forward="true" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanDictionaryResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#529#530#0" expanded="false" />
-            <element signature="e#565#566#0" expanded="false" />
-            <element signature="e#739#740#0" expanded="false" />
-            <element signature="e#769#770#0" expanded="false" />
-            <element signature="e#828#829#0" expanded="false" />
-            <element signature="e#866#867#0" expanded="false" />
-            <element signature="e#900#901#0" expanded="false" />
-            <element signature="e#930#931#0" expanded="false" />
-            <element signature="e#976#977#0" expanded="false" />
-            <element signature="e#1014#1015#0" expanded="false" />
-            <element signature="e#1048#1049#0" expanded="false" />
-            <element signature="e#1081#1082#0" expanded="false" />
-            <element signature="e#1130#1131#0" expanded="false" />
-            <element signature="e#1174#1175#0" expanded="false" />
-            <element signature="e#1377#1378#0" expanded="false" />
-            <element signature="e#1414#1415#0" expanded="false" />
-            <element signature="e#1462#1463#0" expanded="false" />
-            <element signature="e#1506#1507#0" expanded="false" />
-            <element signature="e#1536#1537#0" expanded="false" />
-            <element signature="e#1569#1570#0" expanded="false" />
-            <element signature="e#1606#1607#0" expanded="false" />
-            <element signature="e#1642#1643#0" expanded="false" />
-            <element signature="e#1848#1849#0" expanded="false" />
-            <element signature="e#1886#1887#0" expanded="false" />
-            <element signature="e#1936#1937#0" expanded="false" />
-            <element signature="e#1982#1983#0" expanded="false" />
-            <element signature="e#2012#2013#0" expanded="false" />
-            <element signature="e#2045#2046#0" expanded="false" />
-            <element signature="e#2082#2083#0" expanded="false" />
-            <element signature="e#2118#2119#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateJob/Entity/JobResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateJob/Entity/JobDictionaryResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-511">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/DataStore/LoanRequestDataStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="105" column="11" lean-forward="true" selection-start-line="74" selection-start-column="8" selection-end-line="105" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/API/ApiService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="110" column="40" lean-forward="false" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateJob/Interface/UpdateJobInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="82" column="26" lean-forward="true" selection-start-line="80" selection-start-column="8" selection-end-line="82" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateJob/Interactor/UpdateJobInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="44" column="75" lean-forward="true" selection-start-line="44" selection-start-column="75" selection-end-line="44" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateJob/DataStore/UpdateJobDataStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="271" column="5" lean-forward="true" selection-start-line="253" selection-start-column="4" selection-end-line="271" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateJob/View/UpdateJobView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="210" column="55" lean-forward="false" selection-start-line="210" selection-start-column="55" selection-end-line="210" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/View/LoanRequestView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="109" column="92" lean-forward="false" selection-start-line="109" selection-start-column="92" selection-end-line="109" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Entity/LoanEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Interactor/LoanRequestInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="21" column="76" lean-forward="false" selection-start-line="21" selection-start-column="76" selection-end-line="21" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Presenter/LoanRequestPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="113" column="46" lean-forward="false" selection-start-line="113" selection-start-column="46" selection-end-line="113" selection-end-column="46" />
-          <folding>
-            <element signature="e#1702#1703#0" expanded="false" />
-            <element signature="e#1745#1746#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/Interface/LoanRequestInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="74" column="74" lean-forward="false" selection-start-line="74" selection-start-column="74" selection-end-line="74" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="897">
-          <caret line="88" column="33" lean-forward="true" selection-start-line="88" selection-start-column="33" selection-end-line="88" selection-end-column="33" />
-          <folding>
-            <element signature="e#396#397#0" expanded="false" />
-            <element signature="e#429#430#0" expanded="false" />
-            <element signature="e#491#492#0" expanded="false" />
-            <element signature="e#535#536#0" expanded="false" />
-            <element signature="e#569#570#0" expanded="false" />
-            <element signature="e#599#600#0" expanded="false" />
-            <element signature="e#645#646#0" expanded="false" />
-            <element signature="e#683#684#0" expanded="false" />
-            <element signature="e#717#718#0" expanded="false" />
-            <element signature="e#750#751#0" expanded="false" />
-            <element signature="e#799#800#0" expanded="false" />
-            <element signature="e#843#844#0" expanded="false" />
-            <element signature="e#1592#1593#0" expanded="false" />
-            <element signature="e#1631#1632#0" expanded="false" />
-            <element signature="e#1680#1681#0" expanded="false" />
-            <element signature="e#1728#1729#0" expanded="false" />
-            <element signature="e#1765#1766#0" expanded="false" />
-            <element signature="e#1805#1806#0" expanded="false" />
-            <element signature="e#1856#1857#0" expanded="false" />
-            <element signature="e#1906#1907#0" expanded="false" />
-            <element signature="e#1949#1950#0" expanded="false" />
-            <element signature="e#1995#1996#0" expanded="false" />
-            <element signature="e#2155#2156#0" expanded="false" />
-            <element signature="e#2192#2193#0" expanded="false" />
-            <element signature="e#2238#2239#0" expanded="false" />
-            <element signature="e#2282#2283#0" expanded="false" />
-            <element signature="e#2324#2325#0" expanded="false" />
-            <element signature="e#2368#2369#0" expanded="false" />
-            <element signature="e#2428#2429#0" expanded="false" />
-            <element signature="e#2486#2487#0" expanded="false" />
-            <element signature="e#2518#2519#0" expanded="false" />
-            <element signature="e#2552#2553#0" expanded="false" />
-            <element signature="e#2592#2593#0" expanded="false" />
-            <element signature="e#2630#2631#0" expanded="false" />
-            <element signature="e#2664#2665#0" expanded="false" />
-            <element signature="e#2700#2701#0" expanded="false" />
-            <element signature="e#2744#2745#0" expanded="false" />
-            <element signature="e#2786#2787#0" expanded="false" />
-            <element signature="e#2828#2829#0" expanded="false" />
-            <element signature="e#2870#2871#0" expanded="false" />
-            <element signature="e#2928#2929#0" expanded="false" />
-            <element signature="e#2982#2983#0" expanded="false" />
-            <element signature="e#3019#3020#0" expanded="false" />
-            <element signature="e#3059#3060#0" expanded="false" />
-            <element signature="e#3110#3111#0" expanded="false" />
-            <element signature="e#3160#3161#0" expanded="false" />
-            <element signature="e#3190#3191#0" expanded="false" />
-            <element signature="e#3223#3224#0" expanded="false" />
-            <element signature="e#3260#3261#0" expanded="false" />
-            <element signature="e#3296#3297#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/DataStore/LoanAuthDataStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Wireframe/LoanAuthWireframe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Presenter/LoanAuthPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3098,15 +2705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
           <caret line="27" column="33" lean-forward="false" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/DataStore/LoanRegistrationDataStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3114,7 +2712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="119" column="25" lean-forward="true" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3122,7 +2719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3130,147 +2726,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="16" column="54" lean-forward="true" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Presenter/LoanRegistrationPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="37" column="21" lean-forward="true" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1212#1213#0" expanded="false" />
-            <element signature="e#1264#1265#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_camera_1.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="14" lean-forward="false" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-          <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="153" column="27" lean-forward="false" selection-start-line="153" selection-start-column="18" selection-end-line="153" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_loan_registration.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="367" column="65" lean-forward="true" selection-start-line="367" selection-start-column="65" selection-end-line="367" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interface/LoanRegistrationInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="34" column="47" lean-forward="false" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interactor/LoanAuthInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="5" lean-forward="false" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Wireframe/LoanRegistrationWireframe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="18" column="65" lean-forward="false" selection-start-line="18" selection-start-column="65" selection-end-line="18" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interface/LoanAuthInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="5" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interactor/LoanRegistrationInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="32" column="103" lean-forward="false" selection-start-line="32" selection-start-column="103" selection-end-line="32" selection-end-column="103" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/DB/SQliteDatabase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="301" column="95" lean-forward="false" selection-start-line="301" selection-start-column="95" selection-end-line="301" selection-end-column="95" />
-          <folding>
-            <element signature="method#addUser#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#updateUser#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteUser#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getUser#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addImage#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addImageLong#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteImageBy#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteImageByTypeId#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getImageID#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getImageIDByTypeId#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getImages#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addProfile#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#updateFullName#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getProfileByPhone#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addJobDic#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getJobsDic#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteAllJobsDic#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addPositionDic#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#checkPositionsDicExist#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteAllPositionsDic#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addJob#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteJobByUsername#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getJob#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addColleague#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteColleagueByUsername#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getColleague#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addFamilyMembers#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteFamilyMenbersByUsername#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getFamilyMember#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addFamily#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteFamilyByUsername#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getFamily#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#addFacebook#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#deleteFacebookByUsername#0;class#SQliteDatabase#0" expanded="false" />
-            <element signature="method#getFacebook#0;class#SQliteDatabase#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="358">
+          <caret line="367" column="65" lean-forward="true" selection-start-line="367" selection-start-column="65" selection-end-line="367" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -3278,7 +2760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="804">
           <caret line="148" column="48" lean-forward="true" selection-start-line="148" selection-start-column="48" selection-end-line="148" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3286,9 +2767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="48" column="42" lean-forward="true" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3307,86 +2785,461 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/View/LoanRegistrationView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="106" column="37" lean-forward="false" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_camera.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Media/CameraHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="181" column="44" lean-forward="true" selection-start-line="181" selection-start-column="44" selection-end-line="181" selection-end-column="44" />
+        <state relative-caret-position="165">
+          <caret line="11" column="31" lean-forward="false" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_record.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_stop.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_done.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="74" column="33" lean-forward="true" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="41" />
+          <folding>
+            <element signature="e#896#915#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.2.0/c6e2cb305d0da8820c335f20db73bfc69b2156ed/okhttp-3.2.0-sources.jar!/okhttp3/ResponseBody.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.2.0/c6e2cb305d0da8820c335f20db73bfc69b2156ed/okhttp-3.2.0-sources.jar!/okhttp3/MediaType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="49" column="42" lean-forward="false" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Entity/LoanAuthResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-551">
+          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+          <folding>
+            <element signature="e#372#373#0" expanded="false" />
+            <element signature="e#399#400#0" expanded="false" />
+            <element signature="e#443#444#0" expanded="false" />
+            <element signature="e#475#476#0" expanded="false" />
+            <element signature="e#509#510#0" expanded="false" />
+            <element signature="e#539#540#0" expanded="false" />
+            <element signature="e#585#586#0" expanded="false" />
+            <element signature="e#623#624#0" expanded="false" />
+            <element signature="e#657#658#0" expanded="false" />
+            <element signature="e#690#691#0" expanded="false" />
+            <element signature="e#739#740#0" expanded="false" />
+            <element signature="e#783#784#0" expanded="false" />
+            <element signature="e#1128#1129#0" expanded="false" />
+            <element signature="e#1170#1171#0" expanded="false" />
+            <element signature="e#1228#1229#0" expanded="false" />
+            <element signature="e#1282#1283#0" expanded="false" />
+            <element signature="e#1321#1322#0" expanded="false" />
+            <element signature="e#1360#1361#0" expanded="false" />
+            <element signature="e#1412#1413#0" expanded="false" />
+            <element signature="e#1460#1461#0" expanded="false" />
+            <element signature="e#1498#1499#0" expanded="false" />
+            <element signature="e#1536#1537#0" expanded="false" />
+            <element signature="e#1586#1587#0" expanded="false" />
+            <element signature="e#1632#1633#0" expanded="false" />
+            <element signature="e#1662#1663#0" expanded="false" />
+            <element signature="e#1695#1696#0" expanded="false" />
+            <element signature="e#1732#1733#0" expanded="false" />
+            <element signature="e#1768#1769#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/DialogUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="20" column="23" lean-forward="false" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/DataStore/LoanRegistrationDataStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="133" column="5" lean-forward="true" selection-start-line="101" selection-start-column="8" selection-end-line="133" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Presenter/LoanRegistrationPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Presenter/LoanAuthPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="e#852#853#0" expanded="false" />
+            <element signature="e#901#902#0" expanded="false" />
+            <element signature="e#1228#1229#0" expanded="false" />
+            <element signature="e#1273#1274#0" expanded="false" />
+            <element signature="e#1334#1335#0" expanded="false" />
+            <element signature="e#1376#1377#0" expanded="false" />
+            <element signature="e#1447#1448#0" expanded="false" />
+            <element signature="e#1499#1500#0" expanded="false" />
+            <element signature="e#1567#1568#0" expanded="false" />
+            <element signature="e#1616#1617#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/appcompat-v7/27.1.1/21d073509c5f8d25a1bf274067fa729a1fba8d75/appcompat-v7-27.1.1-sources.jar!/android/support/v7/app/AppCompatViewInflater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="381" column="0" lean-forward="true" selection-start-line="381" selection-start-column="0" selection-end-line="381" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Entity/LoanAuthRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="18" lean-forward="false" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding>
+            <element signature="e#319#320#0" expanded="false" />
+            <element signature="e#350#351#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.2.0/c6e2cb305d0da8820c335f20db73bfc69b2156ed/okhttp-3.2.0-sources.jar!/okhttp3/RequestBody.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="45" column="67" lean-forward="true" selection-start-line="45" selection-start-column="67" selection-end-line="45" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Constant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="30" column="51" lean-forward="false" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-27/android/hardware/Camera.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="248" column="29" lean-forward="false" selection-start-line="248" selection-start-column="29" selection-end-line="248" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Media/MediaCodecWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="233">
+          <caret line="342" column="45" lean-forward="true" selection-start-line="342" selection-start-column="45" selection-end-line="342" selection-end-column="45" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/Media/CameraHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="104" column="37" lean-forward="false" selection-start-line="104" selection-start-column="37" selection-end-line="104" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interactor/LoanRegistrationInteractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="30" column="55" lean-forward="false" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Wireframe/LoanRegistrationWireframe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="15" column="8" lean-forward="false" selection-start-line="15" selection-start-column="8" selection-end-line="20" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/API/ApiService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Entity/LoanResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-86">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding>
+            <element signature="e#1613#1614#0" expanded="false" />
+            <element signature="e#1655#1656#0" expanded="false" />
+            <element signature="e#1710#1711#0" expanded="false" />
+            <element signature="e#1759#1760#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interface/LoanAuthInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="49" column="13" lean-forward="false" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Common/DB/SQliteDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="1078" column="35" lean-forward="true" selection-start-line="1078" selection-start-column="35" selection-end-line="1078" selection-end-column="35" />
+          <folding>
+            <element signature="method#getInstance#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#SQliteDatabase#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#onCreate#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#onUpgrade#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addUser#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#updateUser#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteUser#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getUser#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addImage#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addImageLong#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteImageBy#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteImageByTypeId#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getImageID#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getImageIDByTypeId#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getImages#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addProfile#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#updateFullName#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getProfileByPhone#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addJobDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getJobsDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#checkJobsDicExist#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteAllJobsDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addPositionDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getPositionsDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#checkPositionsDicExist#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteAllPositionsDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addSalaryDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getSalariesDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#checkSalariesDicExist#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteAllSalariesDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addPurposeDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getPurposeDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#checkPurposeDicExist#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteAllPurposeDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addPaymentMethodDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getPaymentMethodDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#checkPaymentMethodDicExist#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteAllPaymentMethodDic#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addJob#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteJobByUsername#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getJob#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addColleague#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteColleagueByUsername#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getColleague#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addFamilyMembers#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteFamilyMenbersByUsername#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getFamilyMember#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addFamily#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteFamilyByUsername#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getFamily#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addFacebook#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteFacebookByUsername#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#getFacebook#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#addImageType#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#updateImageType#0;class#SQliteDatabase#0" expanded="false" />
+            <element signature="method#deleteAllImageTypes#0;class#SQliteDatabase#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/DataStore/LoanAuthDataStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="143" column="40" lean-forward="true" selection-start-line="143" selection-start-column="40" selection-end-line="143" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/Camera/View/CameraActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="184" column="19" lean-forward="false" selection-start-line="184" selection-start-column="19" selection-end-line="184" selection-end-column="19" />
-          <folding>
-            <element signature="e#2800#2994#0" expanded="true" />
-            <element signature="e#2993#2994#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="339">
+          <caret line="214" column="26" lean-forward="false" selection-start-line="214" selection-start-column="26" selection-end-line="214" selection-end-column="26" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/View/LoanAuthView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="55" column="42" lean-forward="false" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
+        <state relative-caret-position="468">
+          <caret line="100" column="18" lean-forward="false" selection-start-line="100" selection-start-column="18" selection-end-line="100" selection-end-column="18" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3586#3587#0" expanded="true" />
-            <element signature="e#3632#3633#0" expanded="true" />
+            <element signature="e#8723#8755#0" expanded="false" />
+            <element signature="e#8882#8914#0" expanded="false" />
+            <element signature="e#9020#9021#0" expanded="false" />
+            <element signature="e#9078#9079#0" expanded="false" />
+            <element signature="e#9145#9146#0" expanded="false" />
+            <element signature="e#9203#9204#0" expanded="false" />
+            <element signature="e#9333#9365#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_video.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanAuthentication/Interactor/LoanAuthInteractor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="40" lean-forward="false" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+        <state relative-caret-position="359">
+          <caret line="65" column="49" lean-forward="false" selection-start-line="65" selection-start-column="49" selection-end-line="65" selection-end-column="49" />
           <folding>
-            <marker date="1531909580000" expanded="false" signature="4710:4729" ph="&quot;Đọc số xác thực, và gửi video cho chúng tôi.&quot;" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bg_avatar.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="12" lean-forward="true" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home_page.xml">
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="202" column="27" lean-forward="false" selection-start-line="202" selection-start-column="27" selection-end-line="202" selection-end-column="27" />
+          <folding>
+            <element signature="e#1270#1295#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/HomePage/View/HomePageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="98" column="46" lean-forward="false" selection-start-line="98" selection-start-column="46" selection-end-line="98" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_loan_request.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="52" column="37" lean-forward="true" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+          <folding>
+            <element signature="e#1198#1220#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/View/LoanRegistrationView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1630">
+          <caret line="249" column="45" lean-forward="false" selection-start-line="249" selection-start-column="45" selection-end-line="249" selection-end-column="45" />
+          <folding>
+            <element signature="e#7359#7402#0" expanded="false" />
+            <element signature="e#10496#10528#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRegistration/Interface/LoanRegistrationInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="21" column="25" lean-forward="false" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/LoanRequest/View/LoanRequestView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="79" column="45" lean-forward="false" selection-start-line="79" selection-start-column="45" selection-end-line="79" selection-end-column="45" />
+          <folding>
+            <element signature="e#3579#3624#0" expanded="false" />
+            <element signature="e#4494#4632#0" expanded="false" />
+            <element signature="e#4631#4632#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_update_profile.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="309" column="53" lean-forward="false" selection-start-line="309" selection-start-column="53" selection-end-line="309" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/a1_score/tima/vn/a1_score_viper/Modules/UpdateProfile/View/UpdateProfileView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="337" column="9" lean-forward="true" selection-start-line="337" selection-start-column="9" selection-end-line="337" selection-end-column="9" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

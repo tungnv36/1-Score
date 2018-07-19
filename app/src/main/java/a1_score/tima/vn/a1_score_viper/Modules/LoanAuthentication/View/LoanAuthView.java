@@ -18,9 +18,12 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Common.Media.CameraHelper;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanAuthentication.Interface.LoanAuthInterface;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanAuthentication.Presenter.LoanAuthPresenter;
 import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,13 +45,13 @@ public class LoanAuthView extends AppCompatActivity implements LoanAuthInterface
     private LoanAuthInterface.Presenter mPresenter;
 
     private Camera mCamera;
-    //    private TextureView mPreview;
     private MediaRecorder mMediaRecorder;
     private File mOutputFile;
 
     private boolean isRecording = false;
+    private int recording = 0;
     private static final String TAG = "Recorder";
-//    private Button captureButton;
+    private int numberAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,47 +60,60 @@ public class LoanAuthView extends AppCompatActivity implements LoanAuthInterface
         ButterKnife.bind(this);
 
         getSupportActionBar().hide();
+
+        mPresenter = new LoanAuthPresenter(this);
+
+        Random random = new Random();
+        numberAuth = random.nextInt(999999 - 100000) + 100000;
+        tvNumberAuth.setText(String.valueOf(numberAuth));
     }
 
-    /**
-     * The capture button controls all user interaction. When recording, the button click
-     * stops recording, releases {@link MediaRecorder} and {@link Camera}. When not recording,
-     * it prepares the {@link MediaRecorder} and starts recording.
-     *
-     * @param view the view generating the event.
-     */
+    public void onCancelRecord(View view) {
+        this.finish();
+    }
+
+
     public void onCaptureClick(View view) {
-        if (isRecording) {
+        if (recording == 1) {//isRecording
             // BEGIN_INCLUDE(stop_release_media_recorder)
 
             // stop recording and release camera
             try {
                 mMediaRecorder.stop();  // stop the recording
             } catch (RuntimeException e) {
-                // RuntimeException is thrown when stop() is called immediately after start().
-                // In this case the output file is not properly constructed ans should be deleted.
-                Log.d(TAG, "RuntimeException: stop() is called immediately after start()");
-                //noinspection ResultOfMethodCallIgnored
                 mOutputFile.delete();
             }
             releaseMediaRecorder(); // release the MediaRecorder object
             mCamera.lock();         // take camera access back from MediaRecorder
 
             // inform the user that recording has stopped
-            setCaptureButtonText(R.mipmap.ic_record);//capture
-            isRecording = false;
+            setCaptureButtonText(R.mipmap.ic_done);
+//            isRecording = false;
+            recording = 2;
             releaseCamera();
             // END_INCLUDE(stop_release_media_recorder)
 
-        } else {
-
-            // BEGIN_INCLUDE(prepare_start_media_recorder)
-
+        } else if (recording == 0) {
             new MediaPrepareTask().execute(null, null, null);
-
-            // END_INCLUDE(prepare_start_media_recorder)
-
+        } else {
+            setCaptureButtonText(R.mipmap.ic_record);
+            recording = 0;
+            mPresenter.uploadVideo(String.valueOf(numberAuth));
         }
+    }
+
+    public void onReload(View view) {
+        try {
+            mMediaRecorder.stop();
+        } catch (RuntimeException e) {
+            mOutputFile.delete();
+        }
+        releaseMediaRecorder();
+        mCamera.lock();
+
+        recording = 0;
+        setCaptureButtonText(R.mipmap.ic_record);
+        releaseCamera();
     }
 
     private void setCaptureButtonText(int res) {
@@ -137,7 +153,7 @@ public class LoanAuthView extends AppCompatActivity implements LoanAuthInterface
     private boolean prepareVideoRecorder() {
 
         // BEGIN_INCLUDE (configure_preview)
-        mCamera = CameraHelper.getDefaultCameraInstance();
+        mCamera = CameraHelper.getDefaultCameraInstance(Camera.CameraInfo.CAMERA_FACING_FRONT);
 
         // We need to make sure that our preview and recording video size are supported by the
         // camera. Query camera to find all the sizes and choose the optimal size given the
@@ -209,6 +225,42 @@ public class LoanAuthView extends AppCompatActivity implements LoanAuthInterface
         return true;
     }
 
+    @Override
+    public void uploadVideoSuccess(String msg) {
+        String username = getIntent().getStringExtra("Username");
+        long value = getIntent().getLongExtra("Value", 0);
+        int duration = getIntent().getIntExtra("Duration", 0);
+        int packageId = getIntent().getIntExtra("PackageId", 0);
+        int paymentMethodId = getIntent().getIntExtra("PaymentMethodId", 0);
+        int purposeId = getIntent().getIntExtra("PurposeId", 0);
+        mPresenter.registerLoanCredit(username, value, duration, packageId, paymentMethodId, purposeId);
+    }
+
+    @Override
+    public void uploadVideoFail(String err) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
+    }
+
+    @Override
+    public void registerLoanCreditSuccess(String msg) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), msg, new DialogUtils.OnClickListener() {
+            @Override
+            public void onClickSuccess() {
+                LoanAuthView.this.finish();
+            }
+
+            @Override
+            public void onClickSuccess2() {
+                LoanAuthView.this.finish();
+            }
+        });
+    }
+
+    @Override
+    public void registerLoanCreditFail(String err) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
+    }
+
     /**
      * Asynchronous task for preparing the {@link MediaRecorder} since it's a long blocking
      * operation.
@@ -223,7 +275,8 @@ public class LoanAuthView extends AppCompatActivity implements LoanAuthInterface
                 // now you can start recording
                 mMediaRecorder.start();
 
-                isRecording = true;
+//                isRecording = true;
+                recording = 1;
             } else {
                 // prepare didn't work, release the camera
                 releaseMediaRecorder();

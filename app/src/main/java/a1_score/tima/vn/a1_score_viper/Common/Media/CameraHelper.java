@@ -28,6 +28,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import a1_score.tima.vn.a1_score_viper.Common.Constant;
+
 /**
  * Camera related utilities.
  */
@@ -99,8 +101,8 @@ public class CameraHelper {
     /**
      * @return the default camera on the device. Return null if there is no camera on the device.
      */
-    public static Camera getDefaultCameraInstance() {
-        return Camera.open();
+    public static Camera getDefaultCameraInstance(int cameraType) {
+        return Camera.open(cameraType);
     }
 
 
@@ -179,7 +181,7 @@ public class CameraHelper {
                     "IMG_"+ timeStamp + ".jpg");
         } else if(type == MEDIA_TYPE_VIDEO) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "VID_1_SCORE" + ".mp4");
+                    Constant.VIDEO_AUTH_FILE_NAME);
         } else {
             return null;
         }

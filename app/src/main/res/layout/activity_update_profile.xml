@@ -151,6 +151,7 @@
                         android:layout_height="110dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="20dp"
+                        android:visibility="gone"
                         android:orientation="horizontal">
 
                         <RelativeLayout
@@ -281,6 +282,39 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
 
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:background="@drawable/edittext_bottom">
+
+                        <RadioButton
+                            android:id="@+id/rbCardNumber"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Số thẻ"
+                            android:checked="true"/>
+
+                        <RadioButton
+                            android:id="@+id/rbAccountNumber"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Số tài khoản" />
+
+                    </RadioGroup>
+
+                    <AutoCompleteTextView
+                        android:id="@+id/actBankName"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:hint="Nhập tên ngân hàng"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        android:background="@drawable/edittext_bottom"/>
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -302,7 +336,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:id="@+id/llCardTurm"

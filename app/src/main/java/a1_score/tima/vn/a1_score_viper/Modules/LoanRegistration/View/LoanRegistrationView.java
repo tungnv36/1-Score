@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
+import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Interface.LoanRegistrationInterface;
@@ -256,14 +257,18 @@ public class LoanRegistrationView extends AppCompatActivity implements LoanRegis
                 LoanRegistrationView.this.finish();
                 break;
             case R.id.btRegister:
-                LoanRequest loanRequest = new LoanRequest();
-                loanRequest.setUsername("");
-                loanRequest.setDuration(sbLoanTurm.getProgress());
-                loanRequest.setPackageId(getIntent().getIntExtra("Id", 0));
-                loanRequest.setPaymentMethodId(mPaymentMethodIdList.get(spPaymentMethods.getSelectedItemPosition()));
-                loanRequest.setPurposeId(mPurposeIdList.get(spLoanPurpose.getSelectedItemPosition()));
-                loanRequest.setValue(sbLoanMoney.getProgress() * mAddValue);
-                mPresenter.goToLoanAuth(loanRequest);
+                if(cbContact.isChecked()) {
+                    LoanRequest loanRequest = new LoanRequest();
+                    loanRequest.setUsername("");
+                    loanRequest.setDuration(sbLoanTurm.getProgress());
+                    loanRequest.setPackageId(getIntent().getIntExtra("Id", 0));
+                    loanRequest.setPaymentMethodId(mPaymentMethodIdList.get(spPaymentMethods.getSelectedItemPosition()));
+                    loanRequest.setPurposeId(mPurposeIdList.get(spLoanPurpose.getSelectedItemPosition()));
+                    loanRequest.setValue(sbLoanMoney.getProgress() * mAddValue);
+                    mPresenter.goToLoanAuth(loanRequest);
+                } else {
+                    DialogUtils.showAlertDialog(LoanRegistrationView.this, getString(R.string.dialog_title), "Vui lòng đọc các điều khoản hợp đồng trước khi đăng ký!");
+                }
                 break;
         }
     }

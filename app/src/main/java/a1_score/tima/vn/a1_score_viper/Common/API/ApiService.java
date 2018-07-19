@@ -2,6 +2,8 @@ package a1_score.tima.vn.a1_score_viper.Common.API;
 
 import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Entity.UserPhone;
 import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanAuthentication.Entity.LoanAuthRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Register.Entity.RegisterRequest;
@@ -12,12 +14,16 @@ import a1_score.tima.vn.a1_score_viper.Modules.UpdateJob.Entity.JobRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateSocialNetwork.Entity.FacebookRequest;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -47,6 +53,9 @@ public interface ApiService {
     String API_GET_LOAN_CREDIT_PACKAGE = "loan-credit-package";
     String API_GET_IMAGE_TYPE = "image/dictionary";
     String API_GET_LOAN_DICTIONARY = "loan-credit/dictionary";
+    String API_REGISTER_LOAN_CREDIT = "loan-credit";
+
+    String API_UPLOAD_VIDEO = "file";
 
     String API_UPDATE_USER_FACEBOOK = "facebook";
 
@@ -110,4 +119,10 @@ public interface ApiService {
     @GET(API_GET_LOAN_DICTIONARY)
     Call<ResponseBody> getLoanDictionary(@Header("Authorization") String token);
 
+    @Multipart
+    @POST(API_UPLOAD_VIDEO)
+    Call<ResponseBody> uploadVideo(@Header("Authorization") String token, @Part("username") RequestBody username, @Part("description") RequestBody description, @Part() MultipartBody.Part file);
+
+    @POST(API_REGISTER_LOAN_CREDIT)
+    Call<ResponseBody> registerLoanCredit(@Header("Authorization") String token, @Body LoanRequest loanRequest);
 }

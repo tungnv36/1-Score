@@ -54,8 +54,16 @@ public class LoanResponse {
         private String requesttime;
         @SerializedName("PackageId")
         private int packageid;
-        @SerializedName("Id")
-        private int id;
+        @SerializedName("FormalityId")
+        private int FormalityId;
+
+        public int getFormalityId() {
+            return FormalityId;
+        }
+
+        public void setFormalityId(int formalityId) {
+            FormalityId = formalityId;
+        }
 
         public int getDuration() {
             return duration;
@@ -129,12 +137,5 @@ public class LoanResponse {
             this.packageid = packageid;
         }
 
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
     }
 }

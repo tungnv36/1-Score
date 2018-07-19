@@ -3,10 +3,8 @@ package a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.View;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,18 +15,20 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -44,8 +44,7 @@ import a1_score.tima.vn.a1_score_viper.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UpdateProfileView extends AppCompatActivity implements View.OnClickListener, UpdateProfileInterface.View {
-
+public class UpdateProfileView extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, UpdateProfileInterface.View {
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
@@ -87,6 +86,12 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     TextView tvBankScore;
     @BindView(R.id.rlTitleBank)
     RelativeLayout rlTitleBank;
+    @BindView(R.id.rbCardNumber)
+    RadioButton rbCardNumber;
+    @BindView(R.id.rbAccountNumber)
+    RadioButton rbAccountNumber;
+    @BindView(R.id.actBankName)
+    AutoCompleteTextView actBankName;
     @BindView(R.id.etAccount)
     EditText etAccount;
     @BindView(R.id.tvCardTurm)
@@ -103,7 +108,6 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     LinearLayout llContent2;
     @BindView(R.id.btUpdate)
     Button btUpdate;
-
     private Calendar cal;
     private Date date;
     private String monthYearStr;
@@ -128,6 +132,8 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         rlBehindCMND.setOnClickListener(this);
         rlCard.setOnClickListener(this);
         btUpdate.setOnClickListener(this);
+        rbAccountNumber.setOnCheckedChangeListener(this);
+        rbCardNumber.setOnCheckedChangeListener(this);
 
         initDatePicker();
         setupDropdownSex();
@@ -183,7 +189,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.rlFrontCMND:
                 result = Commons.checkPermission2(UpdateProfileView.this);
-                if(result) {
+                if (result) {
                     fileName = "_front_cmnd";
                     presenter.takePhoto(1, 1);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
                 }
@@ -191,14 +197,14 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
             case R.id.rlBehindCMND:
                 fileName = "_back_cmnd";
                 result = Commons.checkPermission2(UpdateProfileView.this);
-                if(result) {
+                if (result) {
                     presenter.takePhoto(1, 2);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 2 => llBehindCMND
                 }
                 break;
             case R.id.rlCard:
                 fileName = "_card_cmnd";
                 result = Commons.checkPermission2(UpdateProfileView.this);
-                if(result) {
+                if (result) {
                     presenter.takePhoto(1, 3);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 3 => llCard
                 }
                 break;
@@ -257,7 +263,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         int thang = Integer.parseInt(Commons.getToday().split("/")[1].toString());
         int nam = Integer.parseInt(Commons.getToday().split("/")[2].toString());
         String sDay = tvBirthDay.getText().toString();
-        if(!sDay.isEmpty()) {
+        if (!sDay.isEmpty()) {
             String strArrtmp[] = sDay.split("/");
             ngay = Integer.parseInt(strArrtmp[0]);
             thang = Integer.parseInt(strArrtmp[1]) - 1;
@@ -303,7 +309,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
 
     @Override
     public void initDataSuccess(ProfileRequest profileRequest) {
-        if(profileRequest != null) {
+        if (profileRequest != null) {
             etName.setText(profileRequest.getFullname());
             tvBirthDay.setText(profileRequest.getDateOfBirth());
             spSex.setSelection(profileRequest.getSex() - 1);
@@ -348,4 +354,20 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         this.finish();
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.rbAccountNumber:
+                if(isChecked) {
+                    actBankName.setVisibility(View.VISIBLE);
+//                    etAccount.setHint("Nhập số tài khoản");
+                } else {
+                    actBankName.setVisibility(View.GONE);
+//                    etAccount.setHint("Nhập số thẻ");
+                }
+                break;
+            case R.id.rbCardNumber:
+                break;
+        }
+    }
 }

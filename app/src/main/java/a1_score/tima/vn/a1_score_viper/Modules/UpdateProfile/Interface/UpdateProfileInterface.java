@@ -32,7 +32,7 @@ public interface UpdateProfileInterface {
 
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-        void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex);
+        void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex, int bankAccountType, int bankId);
 
         void onDestroy();
     }
@@ -44,7 +44,7 @@ public interface UpdateProfileInterface {
 
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
-        void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex);
+        void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex, int bankAccountType, int bankId);
 
         void unRegister();
     }

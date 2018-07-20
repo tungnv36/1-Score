@@ -217,8 +217,16 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
                 }
                 break;
             case R.id.btUpdate:
-                mPresenter.updateProfile(etName.getText().toString(), tvBirthDay.getText().toString(), etCMND.getText().toString()
-                        , etAddress.getText().toString(), etAccount.getText().toString(), tvCardTurm.getText().toString(), spSex.getSelectedItemPosition() + 1);
+                String fullName = etName.getText().toString();
+                String birthDay = tvBirthDay.getText().toString();
+                String cmnd = etCMND.getText().toString();
+                String address = etAddress.getText().toString();
+                String account = etAccount.getText().toString();
+                String cardTurm = tvCardTurm.getText().toString();
+                int sex = spSex.getSelectedItemPosition() + 1;
+                int bankAccountType = rbAccountNumber.isChecked()?1:2;//1: Số thẻ, 2: Số tài khoản
+                int bankId = mBanksEntities.get(bankSelectedPosition).getId();
+                mPresenter.updateProfile(fullName, birthDay, cmnd, address, account, cardTurm, sex, bankAccountType, bankId);
                 break;
         }
     }

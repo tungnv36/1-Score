@@ -58,8 +58,8 @@ public class UpdateProfilePresenter implements UpdateProfileInterface.Presenter,
     }
 
     @Override
-    public void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex) {
-        mInteractorInput.updateProfile(fullname, date_of_birth, id_number, address, bank_acc_number, card_term, sex);
+    public void updateProfile(String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex, int bankAccountType, int bankId) {
+        mInteractorInput.updateProfile(fullname, date_of_birth, id_number, address, bank_acc_number, card_term, sex, bankAccountType, bankId);
     }
 
     @Override

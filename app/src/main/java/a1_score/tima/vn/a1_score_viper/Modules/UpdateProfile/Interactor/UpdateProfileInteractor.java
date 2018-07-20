@@ -133,7 +133,7 @@ public class UpdateProfileInteractor implements UpdateProfileInterface.Interacto
     }
 
     @Override
-    public void updateProfile(final String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex) {
+    public void updateProfile(final String fullname, String date_of_birth, String id_number, String address, String bank_acc_number, String card_term, int sex, int bankAccountType, int bankId) {
         if(fullname.isEmpty()) {
             mInteractorOutput.updateProfileFailed(((Context)mView).getString(R.string.err_fullname_empty));
             return;

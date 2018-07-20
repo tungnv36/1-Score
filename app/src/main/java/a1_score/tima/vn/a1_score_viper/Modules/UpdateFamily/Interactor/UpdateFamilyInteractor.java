@@ -165,8 +165,8 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
         familyMembersRequest.setRelationshipTypeId(relationshipTypeId);
         familyMembersRequest.setRelationshipName(name);
         familyMembersRequest.setRelationshipPhone(phone);
-        familyMembersRequest.setBirthCertificateId(mDataStore.getImageID(username, getType(2, sbcName)));
-        familyMembersRequest.setStudentCardId(mDataStore.getImageID(username, getType(3, scName)));
+        familyMembersRequest.setBirthCertificateId(0);//mDataStore.getImageID(username, getType(2, sbcName))
+        familyMembersRequest.setStudentCardId(0);//mDataStore.getImageID(username, getType(3, scName))
 
         mDataStore.updateFamilyMembers(new OnResponse<String, FamilyMembersResponse>() {
             @Override
@@ -195,7 +195,7 @@ public class UpdateFamilyInteractor implements UpdateFamilyInterface.InteractorI
         familyRequest.setFamilyName(nameVC);
         familyRequest.setFamilyPhone(phoneVC);
         familyRequest.setChildrenNumber(numberOfSon);
-        familyRequest.setMarriageRegistrationId(mDataStore.getImageID(username, getType(1, "")));
+        familyRequest.setMarriageRegistrationId(0);//mDataStore.getImageID(username, getType(1, ""))
 
         mDataStore.updateFamily(new OnResponse<String, FamilyResponse>() {
             @Override

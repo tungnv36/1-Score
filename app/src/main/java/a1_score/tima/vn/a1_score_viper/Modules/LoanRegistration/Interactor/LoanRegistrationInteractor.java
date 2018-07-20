@@ -2,6 +2,8 @@ package a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Interactor;
 
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.DataStore.LoanRegistrationDataStore;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.CalculatorProfitRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.CalculatorProfitResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Interface.LoanRegistrationInterface;
@@ -41,6 +43,30 @@ public class LoanRegistrationInteractor implements LoanRegistrationInterface.Int
                 }
             }, String.format("Bearer %s", mDataStore.getToken()));
         }
+    }
+
+    @Override
+    public void calculatorLoanCreditProfit(int packageId, int duration, long value) {
+        CalculatorProfitRequest calculatorProfitRequest = new CalculatorProfitRequest();
+        calculatorProfitRequest.setPackageId(packageId);
+        calculatorProfitRequest.setDuration(duration);
+        calculatorProfitRequest.setValue(value);
+
+        mDataStore.calculatorProfit(new OnResponse<String, CalculatorProfitResponse>() {
+            @Override
+            public void onResponseSuccess(String tag, String rs, CalculatorProfitResponse extraData) {
+                if(extraData != null && extraData.getStatuscode() == 200) {
+                    mInteractorOutput.calculatorLoanCreditProfitSuccess(extraData.getLoancreditprofit());
+                } else {
+                    mInteractorOutput.calculatorLoanCreditProfitFail(extraData.getMessage());
+                }
+            }
+
+            @Override
+            public void onResponseError(String tag, String message) {
+                mInteractorOutput.calculatorLoanCreditProfitFail(message);
+            }
+        }, String.format("Bearer %s", mDataStore.getToken()), calculatorProfitRequest);
     }
 
     @Override

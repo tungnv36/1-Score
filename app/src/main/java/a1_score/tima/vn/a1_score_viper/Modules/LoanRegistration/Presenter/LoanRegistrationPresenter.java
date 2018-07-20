@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import java.util.List;
 
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.CalculatorProfitResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Interactor.LoanRegistrationInteractor;
@@ -28,6 +29,11 @@ public class LoanRegistrationPresenter implements LoanRegistrationInterface.Pres
     }
 
     @Override
+    public void calculatorLoanCreditProfit(int packageId, int duration, long value) {
+        mInteractorInput.calculatorLoanCreditProfit(packageId, duration, value);
+    }
+
+    @Override
     public void goToLoanAuth(LoanRequest loanRequest) {
         mInteractorInput.goToLoanAuth(loanRequest);
     }
@@ -43,6 +49,16 @@ public class LoanRegistrationPresenter implements LoanRegistrationInterface.Pres
     @Override
     public void goToLoanAuthOutput(LoanRequest loanRequest) {
         mWireframe.goToLoanAuth((Activity)mView, loanRequest);
+    }
+
+    @Override
+    public void calculatorLoanCreditProfitSuccess(CalculatorProfitResponse.LoancreditprofitEntity loancreditprofitEntity) {
+        mView.calculatorLoanCreditProfitSuccess(loancreditprofitEntity);
+    }
+
+    @Override
+    public void calculatorLoanCreditProfitFail(String err) {
+        mView.calculatorLoanCreditProfitFail(err);
     }
 
     @Override

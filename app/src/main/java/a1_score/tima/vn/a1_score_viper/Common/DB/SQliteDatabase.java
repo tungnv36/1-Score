@@ -579,16 +579,16 @@ public class SQliteDatabase extends SQLiteOpenHelper {
 
     public List<JobDictionaryResponse.JobsEntity> getJobsDic() {
         List<JobDictionaryResponse.JobsEntity> jobsEntities = new ArrayList<>();
-        JobDictionaryResponse.JobsEntity jobsEntity = new JobDictionaryResponse.JobsEntity();
         SQLiteDatabase db = this.getReadableDatabase();
         String countQuery = String.format("SELECT * FROM %s", TABLE_NAME_JOBS_DIC);
         Cursor cursor = db.rawQuery(countQuery, null);
         if(cursor.moveToFirst()) {
             do {
+                JobDictionaryResponse.JobsEntity jobsEntity = new JobDictionaryResponse.JobsEntity();
                 jobsEntity.setId(cursor.getInt(cursor.getColumnIndex(KEY_JOBS_DIC_ID)));
                 jobsEntity.setJobtype(cursor.getString(cursor.getColumnIndex(KEY_JOBS_DIC_JOB_TYPE)));
+                jobsEntities.add(jobsEntity);
             } while (cursor.moveToNext());
-            jobsEntities.add(jobsEntity);
         }
         cursor.close();
         return jobsEntities;

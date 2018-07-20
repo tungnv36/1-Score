@@ -167,9 +167,9 @@ public class UpdateJobInteractor implements UpdateJobInterface.InteractorInput {
         jobRequest.setPositionId(positionID);
         jobRequest.setSalaryId(salaryID);
         jobRequest.setUsername(username);
-        jobRequest.setCvId(mDataStore.getImageID(username, getType(1)));
-        jobRequest.setContractId(mDataStore.getImageID(username, getType(2)));
-        jobRequest.setSalaryBoardId(mDataStore.getImageID(username, getType(3)));
+        jobRequest.setCvId(0);//mDataStore.getImageID(username, getType(1))
+        jobRequest.setContractId(0);//mDataStore.getImageID(username, getType(2))
+        jobRequest.setSalaryBoardId(0);//mDataStore.getImageID(username, getType(3))
 
         mDataStore.updateJob(new OnResponse<String, JobResponse>() {
             @Override

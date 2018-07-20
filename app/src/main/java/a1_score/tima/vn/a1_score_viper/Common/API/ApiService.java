@@ -3,6 +3,7 @@ package a1_score.tima.vn.a1_score_viper.Common.API;
 import a1_score.tima.vn.a1_score_viper.Modules.ChangePhone.Entity.UserPhone;
 import a1_score.tima.vn.a1_score_viper.Modules.ForgotPassword.Entity.ForgotPasswordRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanAuthentication.Entity.LoanAuthRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.CalculatorProfitRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Login.Entity.LoginRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.Otp.Entity.OtpRequest;
@@ -23,6 +24,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 
@@ -54,6 +56,7 @@ public interface ApiService {
     String API_GET_IMAGE_TYPE = "image/dictionary";
     String API_GET_LOAN_DICTIONARY = "loan-credit/dictionary";
     String API_REGISTER_LOAN_CREDIT = "loan-credit";
+    String API_GET_PROFILE_DICTIONARY = "profile/dictionary";
 
     String API_UPLOAD_VIDEO = "file";
 
@@ -125,4 +128,10 @@ public interface ApiService {
 
     @POST(API_REGISTER_LOAN_CREDIT)
     Call<ResponseBody> registerLoanCredit(@Header("Authorization") String token, @Body LoanRequest loanRequest);
+
+    @GET(API_GET_PROFILE_DICTIONARY)
+    Call<ResponseBody> getProfileDictionary(@Header("Authorization") String token);
+
+    @PUT(API_REGISTER_LOAN_CREDIT)
+    Call<ResponseBody> calculatorLoanCreditProfit(@Header("Authorization") String token, @Body CalculatorProfitRequest calculatorProfitRequest);
 }

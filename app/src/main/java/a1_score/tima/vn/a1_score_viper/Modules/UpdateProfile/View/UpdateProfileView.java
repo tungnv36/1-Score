@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -29,14 +30,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
 import a1_score.tima.vn.a1_score_viper.Common.MYPickerDialog;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileDictionatyResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface.UpdateProfileInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Presenter.UpdateProfilePresenter;
@@ -112,8 +116,11 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
     private Date date;
     private String monthYearStr;
 
-    private UpdateProfileInterface.Presenter presenter;
-    private String fileName = "";
+    private UpdateProfileInterface.Presenter mPresenter;
+    private String mFileName = "";
+    private int bankSelectedPosition = -1;
+
+    private List<ProfileDictionatyResponse.BanksEntity> mBanksEntities = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,7 +131,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         changeStatusBarColor();
         styleView();
 
-        presenter = new UpdateProfilePresenter(this);
+        mPresenter = new UpdateProfilePresenter(this);
 
         llBirthDay.setOnClickListener(this);
         llCardTurm.setOnClickListener(this);
@@ -137,6 +144,7 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
 
         initDatePicker();
         setupDropdownSex();
+        initBanks();
     }
 
     @Override
@@ -190,26 +198,26 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
             case R.id.rlFrontCMND:
                 result = Commons.checkPermission2(UpdateProfileView.this);
                 if (result) {
-                    fileName = "_front_cmnd";
-                    presenter.takePhoto(1, 1);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
+                    mFileName = "_front_cmnd";
+                    mPresenter.takePhoto(1, 1);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 1 => llFontCMND
                 }
                 break;
             case R.id.rlBehindCMND:
-                fileName = "_back_cmnd";
+                mFileName = "_back_cmnd";
                 result = Commons.checkPermission2(UpdateProfileView.this);
                 if (result) {
-                    presenter.takePhoto(1, 2);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 2 => llBehindCMND
+                    mPresenter.takePhoto(1, 2);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 2 => llBehindCMND
                 }
                 break;
             case R.id.rlCard:
-                fileName = "_card_cmnd";
+                mFileName = "_card_cmnd";
                 result = Commons.checkPermission2(UpdateProfileView.this);
                 if (result) {
-                    presenter.takePhoto(1, 3);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 3 => llCard
+                    mPresenter.takePhoto(1, 3);//type = 1: Vẽ khung ảnh chụp CMND //imageType = 3 => llCard
                 }
                 break;
             case R.id.btUpdate:
-                presenter.updateProfile(etName.getText().toString(), tvBirthDay.getText().toString(), etCMND.getText().toString()
+                mPresenter.updateProfile(etName.getText().toString(), tvBirthDay.getText().toString(), etCMND.getText().toString()
                         , etAddress.getText().toString(), etAccount.getText().toString(), tvCardTurm.getText().toString(), spSex.getSelectedItemPosition() + 1);
                 break;
         }
@@ -223,16 +231,16 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
                 String filePath = data.getStringExtra(getString(R.string.result));
                 int type = data.getIntExtra(getString(R.string.type), 0);//type = 1: Vẽ khung ảnh chụp CMND, type = 2: Chụp ảnh thường (hợp đồng, hoá đơn, ...)
                 int imageType = data.getIntExtra(getString(R.string.image_type), 0);//imageType = 1: _front_cmnd //imageType = 2 => _back_cmnd
-                presenter.updateImage(type, imageType, filePath, fileName);
+                mPresenter.updateImage(type, imageType, filePath, mFileName);
             }
         }
     }
 
     private void initData() {
-        presenter.initImage(1, "_front_cmnd");
-        presenter.initImage(2, "_back_cmnd");
-        presenter.initImage(3, "_card_cmnd");
-        presenter.initData();
+//        mPresenter.initImage(1, "_front_cmnd");
+//        mPresenter.initImage(2, "_back_cmnd");
+//        mPresenter.initImage(3, "_card_cmnd");
+        mPresenter.initData();
     }
 
     private void setupDropdownSex() {
@@ -246,6 +254,10 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String strDate = sdf.format(cal.getTime());
         tvBirthDay.setText(strDate);
+    }
+
+    private void initBanks() {
+        mPresenter.getDictionary();
     }
 
     //setup dialog chọn ngày/tháng/năm
@@ -318,6 +330,27 @@ public class UpdateProfileView extends AppCompatActivity implements View.OnClick
             etAccount.setText(profileRequest.getBankAccNumber());
             tvCardTurm.setText(profileRequest.getCardTerm());
         }
+    }
+
+    @Override
+    public void initBank(List<ProfileDictionatyResponse.BanksEntity> banksEntities) {
+        List<String> banks = new ArrayList<>();
+        mBanksEntities = banksEntities;
+        for (ProfileDictionatyResponse.BanksEntity banksEntity : banksEntities) {
+            banks.add(banksEntity.getName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, banks);
+        actBankName.setThreshold(1);//will start working from first character
+        actBankName.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+        actBankName.setTextColor(Color.parseColor("#F7682C"));
+
+        actBankName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                bankSelectedPosition = position;
+            }
+        });
     }
 
     @Override

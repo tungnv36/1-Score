@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -158,7 +159,7 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
     }
 
     private void initData() {
-        mPresenter.initImage(1, "_mr");
+//        mPresenter.initImage(1, "_mr");
         mPresenter.getFamily();
 //        mPresenter.getRelationshipDictionary();
 //        mPresenter.initRelationship();
@@ -236,8 +237,9 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
         try {
             mDialog = new Dialog(this);
             mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            mDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             mDialog.setContentView(R.layout.dialog_add_family_members);
+            mDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            mDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
             final Spinner spRelationship = (Spinner) mDialog.findViewById(R.id.spRelationship);
             final EditText etName = (EditText) mDialog.findViewById(R.id.etName);
@@ -383,8 +385,8 @@ public class UpdateFamilyView extends AppCompatActivity implements View.OnClickL
             familyMembersRequest.setRelationshipTypeId(relationshipsEntity.getRelationshiptypeid());
             mFamilyList.add(familyMembersRequest);
             mRelationshipType.add(getRelationshipTypeById(relationshipsEntity.getRelationshiptypeid()));
-            mPresenter.initImage(2, "_bc" + mFamilyList.size());
-            mPresenter.initImage(3, "_sc" + mFamilyList.size());
+//            mPresenter.initImage(2, "_bc" + mFamilyList.size());
+//            mPresenter.initImage(3, "_sc" + mFamilyList.size());
         }
         mFamilyControlAdapter.notifyDataSetChanged();
     }

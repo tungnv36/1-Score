@@ -3,7 +3,10 @@ package a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Interface;
 import android.app.Activity;
 import android.graphics.Bitmap;
 
+import java.util.List;
+
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileDictionatyResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
@@ -14,6 +17,7 @@ public interface UpdateProfileInterface {
     interface View {
         void initImage(int type, Bitmap bitmap);//type = 1: cmnd truoc, type = 2: cmnd sau, type = 3: card
         void initDataSuccess(ProfileRequest profileRequest);
+        void initBank(List<ProfileDictionatyResponse.BanksEntity> banksEntities);
 
         void updateImage(int imageType, Bitmap img);
         void updateImageFailed(String err);
@@ -24,6 +28,7 @@ public interface UpdateProfileInterface {
     interface Presenter {
         void initImage(int type, String name);
         void initData();
+        void getDictionary();
 
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
@@ -35,6 +40,7 @@ public interface UpdateProfileInterface {
     interface InteractorInput {
         void initImage(int type, String name);
         void initData();
+        void getDictionary();
 
         void takePhoto(int type, int imageType);
         void updateImage(int type, int imageType, String filePath, String fileName);
@@ -46,6 +52,7 @@ public interface UpdateProfileInterface {
     interface InteractorOutput {
         void initImageOutput(int type, Bitmap bitmap);
         void initDataOutput(ProfileRequest profileRequest);
+        void getBankOutput(List<ProfileDictionatyResponse.BanksEntity> banksEntities);
 
         void takePhotoOutput(int type, int imageType);
         void updateImageOutput(int type, int imageType, Bitmap img);
@@ -71,5 +78,6 @@ public interface UpdateProfileInterface {
         void saveProfileToDB(ProfileRequest profileRequest);
         void uploadImage(final OnResponse<String, ImageProfileResponse> m_Response, String token, ImageProfileRequest imageProfileRequest);
         void updateProfile(final OnResponse<String, ProfileResponse> m_Response, String token, ProfileRequest profileRequest);
+        void getDictionary(final OnResponse<String, ProfileDictionatyResponse> m_Response, String token);
     }
 }

@@ -18,6 +18,7 @@ import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
+import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileDictionatyResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ProfileResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.UpdateProfile.Entity.ImageProfileRequest;
@@ -166,6 +167,42 @@ public class UpdateProfileDataStore extends ApiRequest implements UpdateProfileI
                             final Gson gson = gsonBuilder.create();
                             ProfileResponse profileResponse = gson.fromJson(jsonObject.toString(), ProfileResponse.class);
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), profileResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
+                        }
+                    } else {
+                        m_Response.onResponseError(TAG, String.valueOf(response.code()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                m_Response.onFinish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                m_Response.onResponseError(TAG, t.getMessage());
+                m_Response.onFinish();
+            }
+        });
+    }
+
+    @Override
+    public void getDictionary(final OnResponse<String, ProfileDictionatyResponse> m_Response, String token) {
+        m_Response.onStart();
+        Call<ResponseBody> call = m_Service.getProfileDictionary(token);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        try {
+                            final GsonBuilder gsonBuilder = new GsonBuilder();
+                            final Gson gson = gsonBuilder.create();
+                            ProfileDictionatyResponse profileDictionatyResponse = gson.fromJson(jsonObject.toString(), ProfileDictionatyResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), profileDictionatyResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);

@@ -26,6 +26,7 @@ import java.util.List;
 
 import a1_score.tima.vn.a1_score_viper.Common.Commons;
 import a1_score.tima.vn.a1_score_viper.Common.DialogUtils;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.CalculatorProfitResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanRequest;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Interface.LoanRegistrationInterface;
@@ -142,8 +143,8 @@ public class LoanRegistrationView extends AppCompatActivity implements LoanRegis
 
     private void initData() {
         tvFormOfLoans.setText(getIntent().getStringExtra("Name"));
-        tvStartLoanMoney.setText(Commons.formatMoney(getIntent().getLongExtra("MinValue", 0)) + " triệu");
-        tvEndLoanMoney.setText(Commons.formatMoney(getIntent().getLongExtra("MaxValue", 0)) + " triệu");
+        tvStartLoanMoney.setText(Commons.formatMoney(getIntent().getLongExtra("MinValue", 0)) + " VNĐ");
+        tvEndLoanMoney.setText(Commons.formatMoney(getIntent().getLongExtra("MaxValue", 0)) + " VNĐ");
         tvStartLoanTurm.setText(getIntent().getIntExtra("MinDuration", 0) + " ngày");
         tvEndLoanTurm.setText(getIntent().getIntExtra("MaxDuration", 0) + " ngày");
 
@@ -166,12 +167,12 @@ public class LoanRegistrationView extends AppCompatActivity implements LoanRegis
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                loadingLoanCredit();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                calculatorLoanCredit();
             }
         });
 
@@ -180,7 +181,7 @@ public class LoanRegistrationView extends AppCompatActivity implements LoanRegis
         final int loanMoneyStep = 1;
         sbLoanMoney.setMax(maxValue - mMinValue);
         sbLoanMoney.setProgress(maxValue - mMinValue);
-        tvLoanMoneySelectedValue.setText(Commons.formatMoney(maxValue * mAddValue) + " triệu");
+        tvLoanMoneySelectedValue.setText(Commons.formatMoney(maxValue * mAddValue) + " VNĐ");
 
         sbLoanMoney.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -189,19 +190,35 @@ public class LoanRegistrationView extends AppCompatActivity implements LoanRegis
                 progress = progress / loanMoneyStep;
                 progress = progress * loanMoneyStep;
                 sbLoanMoney.setProgress(progress);
-                tvLoanMoneySelectedValue.setText(Commons.formatMoney((long)((progress + mMinValue) * mAddValue)) + " triệu");
+                tvLoanMoneySelectedValue.setText(Commons.formatMoney((long)((progress + mMinValue) * mAddValue)) + " VNĐ");
+                tvMoneyLoan.setText(Commons.formatMoney((long)((progress + mMinValue) * mAddValue)) + " VNĐ");
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                loadingLoanCredit();
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Log.i("PROGRESS: ", "" + seekBar.getProgress());
+                calculatorLoanCredit();
             }
         });
+
+        calculatorLoanCredit();
+    }
+
+    private void calculatorLoanCredit() {
+        int packageId = getIntent().getIntExtra("Id", 0);
+        int duration = sbLoanTurm.getProgress() + mMinDuration;
+        long value = (sbLoanMoney.getProgress() + mMinValue) * mAddValue;
+        mPresenter.calculatorLoanCreditProfit(packageId, duration, value);
+    }
+
+    private void loadingLoanCredit() {
+        tvCostOfLoan.setText("Loading...");
+        tvInterest.setText("Loading...");
+        tvTotalMoney.setText("Loading...");
     }
 
 
@@ -248,6 +265,18 @@ public class LoanRegistrationView extends AppCompatActivity implements LoanRegis
         ArrayAdapter<String> adapterJob = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, paymentMethods);
         adapterJob.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
         spPaymentMethods.setAdapter(adapterJob);
+    }
+
+    @Override
+    public void calculatorLoanCreditProfitSuccess(CalculatorProfitResponse.LoancreditprofitEntity loancreditprofitEntity) {
+        tvCostOfLoan.setText(String.format("%s VNĐ", Commons.formatMoney(loancreditprofitEntity.getFee())));
+        tvInterest.setText(String.format("%s VNĐ", Commons.formatMoney(loancreditprofitEntity.getProfit())));
+        tvTotalMoney.setText(String.format("%s VNĐ", Commons.formatMoney(loancreditprofitEntity.getTotalprofit())));
+    }
+
+    @Override
+    public void calculatorLoanCreditProfitFail(String err) {
+        DialogUtils.showAlertDialog(this, getString(R.string.dialog_title), err);
     }
 
     @Override

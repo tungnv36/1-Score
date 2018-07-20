@@ -54,38 +54,9 @@ public class FamilyControlAdapter extends RecyclerView.Adapter<FamilyControlAdap
         holder.tvName.setText(familyMembersRequest.getRelationshipName());
         holder.tvPhone.setText(familyMembersRequest.getRelationshipPhone());
         holder.tvRelationship.setText(mRelationshipType.get(position));
-        holder.ivBirthCertificate.setImageBitmap(mBirthCertificateList.get(position));
-        holder.ivStudyCard.setImageBitmap(mStudyCardList.get(position));
-
-//        mPresenter.initImage(2, "_sbc" + (position + 1));
-//        mPresenter.initImage(3, "_sc" + (position + 1));
-
 //        holder.ivBirthCertificate.setImageBitmap(mBirthCertificateList.get(position));
 //        holder.ivStudyCard.setImageBitmap(mStudyCardList.get(position));
-//
-//        holder.llBirthCertificate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean result = Commons.checkPermission2(mContext);
-//                if (result) {
-//                    UpdateFamilyView.sFileName = "_sbc" + (position + 1);//SonBirthCertificate
-//                    UpdateFamilyView.sPositionFamilySelected = position;
-//                    mPresenter.takePhoto(2, 2);
-//                }
-//            }
-//        });
-//
-//        holder.llStudyCard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean result = Commons.checkPermission2(mContext);
-//                if (result) {
-//                    UpdateFamilyView.sFileName = "_sc" + (position + 1);//SonBirthCertificate
-//                    UpdateFamilyView.sPositionFamilySelected = position;
-//                    mPresenter.takePhoto(1, 3);
-//                }
-//            }
-//        });
+
     }
 
     @Override

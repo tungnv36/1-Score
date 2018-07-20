@@ -14,6 +14,8 @@ import a1_score.tima.vn.a1_score_viper.Common.API.ApiRequest;
 import a1_score.tima.vn.a1_score_viper.Common.API.OnResponse;
 import a1_score.tima.vn.a1_score_viper.Common.Constant;
 import a1_score.tima.vn.a1_score_viper.Common.DB.SQliteDatabase;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.CalculatorProfitRequest;
+import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.CalculatorProfitResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Entity.LoanDictionaryResponse;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRegistration.Interface.LoanRegistrationInterface;
 import a1_score.tima.vn.a1_score_viper.Modules.LoanRequest.DataStore.LoanRequestDataStore;
@@ -112,6 +114,42 @@ public class LoanRegistrationDataStore extends ApiRequest implements LoanRegistr
                             final Gson gson = gsonBuilder.create();
                             LoanDictionaryResponse loanDictionaryResponse = gson.fromJson(jsonObject.toString(), LoanDictionaryResponse.class);
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), loanDictionaryResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
+                        }
+                    } else {
+                        m_Response.onResponseError(TAG, String.valueOf(response.message()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                m_Response.onFinish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                m_Response.onResponseError(TAG, t.getMessage());
+                m_Response.onFinish();
+            }
+        });
+    }
+
+    @Override
+    public void calculatorProfit(final OnResponse<String, CalculatorProfitResponse> m_Response, String token, CalculatorProfitRequest calculatorProfitRequest) {
+        m_Response.onStart();
+        Call<ResponseBody> call = m_Service.calculatorLoanCreditProfit(token, calculatorProfitRequest);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.code() == 200) {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        try {
+                            final GsonBuilder gsonBuilder = new GsonBuilder();
+                            final Gson gson = gsonBuilder.create();
+                            CalculatorProfitResponse calculatorProfitResponse = gson.fromJson(jsonObject.toString(), CalculatorProfitResponse.class);
+                            m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), calculatorProfitResponse);
                         } catch (Exception e) {
                             e.printStackTrace();
                             m_Response.onResponseSuccess(TAG, jsonObject.get(Constant.TAG_MESSAGE).toString(), null);
